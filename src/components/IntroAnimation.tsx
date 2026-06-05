@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import gsap from 'gsap';
-import { Play, SkipForward, Volume2, VolumeX, ShieldCheck, Target, Globe, Activity, Award, FileText, Lightbulb, TrendingUp, Layout, Tag, Code, PenTool, Smartphone } from 'lucide-react';
+import { Play, SkipForward, Volume2, ShieldCheck, Target, Globe, Activity, Award, FileText, Lightbulb, TrendingUp, Layout, Tag, Code, PenTool, Smartphone } from 'lucide-react';
 import { portfolioData } from '../data/portfolio';
 
 interface IntroAnimationProps {
@@ -68,44 +68,8 @@ function VLogoStep({ onComplete }: VLogoStepProps) {
   const rightStemRef = useRef<SVGPathElement>(null);
   const glowRef = useRef<HTMLDivElement>(null);
   const [sparks, setSparks] = useState<{ id: number; tx: number; ty: number }[]>([]);
-  const [isMuted, setIsMuted] = useState(false);
-  const audioRef = useRef<HTMLAudioElement | null>(null);
 
   useEffect(() => {
-    // Play the Tudum sound effect at the start of the animation
-    const audio = new Audio('/tudum.mp3');
-    audio.volume = 0.55;
-    audioRef.current = audio;
-
-    let hasPlayed = false;
-    const playAudio = () => {
-      if (hasPlayed) return;
-      audio.play()
-        .then(() => {
-          hasPlayed = true;
-          setIsMuted(false);
-          cleanupInteractionListeners();
-        })
-        .catch((err) => {
-          console.warn("Audio play failed or blocked by browser autoplay policy:", err);
-          setIsMuted(true);
-        });
-    };
-
-    const cleanupInteractionListeners = () => {
-      window.removeEventListener('click', playAudio);
-      window.removeEventListener('touchstart', playAudio);
-      window.removeEventListener('keydown', playAudio);
-    };
-
-    // Attempt autoplay immediately
-    playAudio();
-
-    // Add fallback listeners for user interaction to trigger audio play
-    window.addEventListener('click', playAudio);
-    window.addEventListener('touchstart', playAudio);
-    window.addEventListener('keydown', playAudio);
-
     const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
     const durationMultiplier = isMobile ? 0.65 : 1.0;
 
@@ -163,11 +127,7 @@ function VLogoStep({ onComplete }: VLogoStepProps) {
     );
 
     return () => {
-      // Clean up the audio and kill animation timeline on unmount/skip
-      audio.pause();
-      audio.src = '';
       t.kill();
-      cleanupInteractionListeners();
     };
   }, [onComplete]);
 
@@ -245,7 +205,7 @@ function VLogoStep({ onComplete }: VLogoStepProps) {
               className="absolute w-1.5 h-1.5 rounded-full bg-[#E50914] will-change-transform"
               style={{
                 left: '50%',
-                top: 'calc(50% + 50px)', // Centered around the base vertex of the V
+                top: 'calc(50% + 50px)',
                 boxShadow: '0 0 6px #E50914, 0 0 12px #ff4d52',
               }}
               initial={{ x: 0, y: 0, opacity: 1, scale: 1 }}
@@ -255,33 +215,15 @@ function VLogoStep({ onComplete }: VLogoStepProps) {
           ))}
         </div>
       </div>
-
-      {/* Unmute/Sound Button (visible if autoplay is blocked) */}
-      {isMuted && (
-        <button
-          onClick={(e) => {
-            e.stopPropagation();
-            if (audioRef.current) {
-              audioRef.current.play()
-                .then(() => setIsMuted(false))
-                .catch((err) => console.warn("Audio play failed on click:", err));
-            }
-          }}
-          className="absolute bottom-8 z-30 flex items-center gap-2 px-5 py-2.5 border border-[#E50914]/40 hover:border-[#E50914] bg-neutral-950/90 text-white font-bold uppercase tracking-widest text-[10px] transition-all duration-300 shadow-2xl cursor-pointer rounded-md hover:scale-105 active:scale-95 animate-pulse hover:shadow-[0_0_20px_rgba(229,9,20,0.4)]"
-          style={{ pointerEvents: 'auto' }}
-        >
-          <Volume2 className="w-4 h-4 text-[#E50914]" />
-          Enable Intro Sound
-        </button>
-      )}
     </div>
   );
 }
 
 export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
-  const [step, setStep] = useState<'intro' | 'profile'>('intro');
+  const [step, setStep] = useState<'profile' | 'intro'>('profile');
   const [selectedProfileId, setSelectedProfileId] = useState('performance-marketing');
   const [hoveredProfileId, setHoveredProfileId] = useState<string | null>(null);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
 
   const playHoverChime = (id: string) => {
     try {
@@ -316,70 +258,27 @@ export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
     }
   };
 
-  const playTudum = () => {
-    try {
-      const AudioContext = window.AudioContext || (window as any).webkitAudioContext;
-      if (!AudioContext) return;
-      const ctx = new AudioContext();
-
-      const osc1 = ctx.createOscillator();
-      const gain1 = ctx.createGain();
-      osc1.type = 'sawtooth';
-      osc1.frequency.setValueAtTime(60, ctx.currentTime);
-      osc1.frequency.exponentialRampToValueAtTime(50, ctx.currentTime + 0.8);
-      gain1.gain.setValueAtTime(0.001, ctx.currentTime);
-      gain1.gain.linearRampToValueAtTime(0.6, ctx.currentTime + 0.1);
-      gain1.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 1.2);
-
-      const osc2 = ctx.createOscillator();
-      const gain2 = ctx.createGain();
-      osc2.type = 'triangle';
-      osc2.frequency.setValueAtTime(110, ctx.currentTime + 0.08);
-      osc2.frequency.exponentialRampToValueAtTime(80, ctx.currentTime + 0.8);
-      gain2.gain.setValueAtTime(0.001, ctx.currentTime + 0.08);
-      gain2.gain.linearRampToValueAtTime(0.5, ctx.currentTime + 0.15);
-      gain2.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 1.2);
-
-      const osc3 = ctx.createOscillator();
-      const gain3 = ctx.createGain();
-      const filter = ctx.createBiquadFilter();
-      osc3.type = 'square';
-      osc3.frequency.setValueAtTime(220, ctx.currentTime + 0.1);
-      osc3.frequency.exponentialRampToValueAtTime(440, ctx.currentTime + 0.4);
-      filter.type = 'bandpass';
-      filter.Q.value = 5;
-      filter.frequency.value = 800;
-      gain3.gain.setValueAtTime(0.001, ctx.currentTime + 0.1);
-      gain3.gain.linearRampToValueAtTime(0.12, ctx.currentTime + 0.18);
-      gain3.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.8);
-
-      osc1.connect(gain1); gain1.connect(ctx.destination);
-      osc2.connect(gain2); gain2.connect(ctx.destination);
-      osc3.connect(filter); filter.connect(gain3); gain3.connect(ctx.destination);
-
-      osc1.start(); osc2.start(); osc3.start();
-      osc1.stop(ctx.currentTime + 1.4); osc2.stop(ctx.currentTime + 1.4); osc3.stop(ctx.currentTime + 1.4);
-    } catch (e) {
-      console.warn("Tudum AudioContext synthesis blocked", e);
-    }
-  };
-
   const handleProfileSelect = (id: string) => {
     setSelectedProfileId(id);
-    playTudum();
     
-    // Quick premium fade out transition to homepage
-    setTimeout(() => {
-      onComplete(id);
-    }, 450);
+    // Play the official high-quality Netflix Tudum sound effect
+    const audio = new Audio('/tudum.mp3');
+    audio.volume = 0.55;
+    audioRef.current = audio;
+    audio.play().catch((err) => {
+      console.warn("Tudum play failed:", err);
+    });
+
+    // Show the logo drawing animation
+    setStep('intro');
   };
 
   const triggerSkip = () => {
-    if (step === 'intro') {
-      setStep('profile');
-    } else {
-      onComplete(selectedProfileId);
+    if (audioRef.current) {
+      audioRef.current.pause();
+      audioRef.current.src = '';
     }
+    onComplete(selectedProfileId);
   };
 
   return (
@@ -401,28 +300,7 @@ export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
 
       <AnimatePresence mode="wait">
         
-        {/* STEP 1: Cinematic V Draw Intro */}
-        {step === 'intro' && (
-          <motion.div
-            key="cinematic-intro"
-            initial={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="absolute inset-0 z-10 flex items-center justify-center bg-black"
-          >
-            <VLogoStep onComplete={() => setStep('profile')} />
-            
-            {/* Skip Preview Button (highly visible, well contrast, top-right) */}
-            <button
-              onClick={triggerSkip}
-              className="absolute top-6 right-6 z-30 flex items-center gap-1.5 px-4 py-2 border border-neutral-700 hover:border-white bg-black/60 hover:bg-white text-neutral-400 hover:text-black font-bold uppercase tracking-widest text-[10px] transition-all duration-300 shadow-xl cursor-pointer rounded-md hover:scale-105 active:scale-95"
-            >
-              Skip Preview
-              <SkipForward className="w-3.5 h-3.5" />
-            </button>
-          </motion.div>
-        )}
-
-        {/* STEP 2: Choose Your Vedant Selection */}
+        {/* STEP 1: Choose Your Vedant Selection (Who's Watching?) */}
         {step === 'profile' && (
           <motion.div
             key="profile-selection"
@@ -537,6 +415,27 @@ export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
                 "DIFFERENT ROLES. ONE MISSION — <span className="text-[#E50914]">DRIVING GROWTH</span>."
               </span>
             </div>
+          </motion.div>
+        )}
+
+        {/* STEP 2: Cinematic V Draw Intro (Runs after profile selection) */}
+        {step === 'intro' && (
+          <motion.div
+            key="cinematic-intro"
+            initial={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="absolute inset-0 z-10 flex items-center justify-center bg-black"
+          >
+            <VLogoStep onComplete={() => onComplete(selectedProfileId)} />
+            
+            {/* Skip Preview Button (highly visible, well contrast, top-right) */}
+            <button
+              onClick={triggerSkip}
+              className="absolute top-6 right-6 z-30 flex items-center gap-1.5 px-4 py-2 border border-neutral-700 hover:border-white bg-black/60 hover:bg-white text-neutral-400 hover:text-black font-bold uppercase tracking-widest text-[10px] transition-all duration-300 shadow-xl cursor-pointer rounded-md hover:scale-105 active:scale-95"
+            >
+              Skip Preview
+              <SkipForward className="w-3.5 h-3.5" />
+            </button>
           </motion.div>
         )}
 
