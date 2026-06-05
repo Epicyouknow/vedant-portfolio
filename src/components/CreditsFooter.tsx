@@ -108,10 +108,15 @@ export default function CreditsFooter() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-10 pb-16 border-b border-neutral-900">
           
           <div className="space-y-4">
-            <h3 className="text-xl font-bold text-white tracking-wider font-sans">
-              VEDANT TIWARI
-            </h3>
-            <p className="text-xs text-neutral-300 font-light leading-relaxed">
+            <div className="space-y-1">
+              <h3 className="text-xl font-black text-[#E50914] tracking-wider uppercase" style={{ fontFamily: 'var(--netflix-title-font)' }}>
+                VEDANTVERSE
+              </h3>
+              <p className="text-[9px] font-bold text-neutral-500 uppercase tracking-widest">
+                Strategy <span className="text-[#E50914]">•</span> Media <span className="text-[#E50914]">•</span> Performance
+              </p>
+            </div>
+            <p className="text-xs text-neutral-400 font-light leading-relaxed">
               Turning Data Into Growth. Mumbai-based growth marketer specializing in ROAS scaling, media plans, and technical tags.
             </p>
           </div>

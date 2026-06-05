@@ -176,7 +176,7 @@ function VLogoStep({ onComplete }: VLogoStepProps) {
 
       <div ref={containerRef} className="relative w-36 h-36 sm:w-48 sm:h-48 z-10 flex items-center justify-center overflow-visible will-change-transform">
         <svg
-          className="w-full h-full overflow-visible filter drop-shadow-[0_0_12px_rgba(229,9,20,0.65)]"
+          className="w-full h-full overflow-visible filter drop-shadow-[0_0_15px_rgba(229,9,20,0.75)]"
           viewBox="0 0 100 100"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
@@ -186,50 +186,66 @@ function VLogoStep({ onComplete }: VLogoStepProps) {
               <stop offset="0%" stopColor="#E50914" />
               <stop offset="100%" stopColor="#300103" />
             </linearGradient>
-            <linearGradient id="leftStemGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="#FF1E27" />
+            <linearGradient id="vFacet1-intro" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stopColor="#ff1e27" />
+              <stop offset="100%" stopColor="#b20710" />
+            </linearGradient>
+            <linearGradient id="vFacet2-intro" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor="#e50914" />
+              <stop offset="100%" stopColor="#600104" />
+            </linearGradient>
+            <linearGradient id="vFacet3-intro" x1="1" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor="#ff4148" />
               <stop offset="100%" stopColor="#800206" />
             </linearGradient>
-            <linearGradient id="rightStemGradient" x1="100%" y1="0%" x2="0%" y2="100%">
-              <stop offset="0%" stopColor="#B20710" />
-              <stop offset="100%" stopColor="#FF1E27" />
-            </linearGradient>
+            <mask id="vMask">
+              <rect x="0" y="0" width="100" height="100" fill="black" />
+              <line
+                ref={beamRef}
+                x1="50"
+                y1="15"
+                x2="50"
+                y2="85"
+                stroke="white"
+                strokeWidth="10"
+                strokeLinecap="round"
+                strokeDasharray="100"
+                strokeDashoffset="100"
+              />
+              <path
+                ref={leftStemRef}
+                d="M 22 15 L 50 85"
+                stroke="white"
+                strokeWidth="35"
+                strokeLinecap="square"
+                strokeDasharray="100"
+                strokeDashoffset="100"
+              />
+              <path
+                ref={rightStemRef}
+                d="M 50 85 L 78 15"
+                stroke="white"
+                strokeWidth="35"
+                strokeLinecap="square"
+                strokeDasharray="100"
+                strokeDashoffset="100"
+              />
+            </mask>
           </defs>
 
-          {/* Vertical central beam line */}
-          <line
-            ref={beamRef}
-            x1="50"
-            y1="15"
-            x2="50"
-            y2="85"
-            stroke="url(#vLightGradient)"
-            strokeWidth="4"
-            strokeLinecap="round"
-            strokeDasharray="100"
-            strokeDashoffset="100"
-            className="z-0"
-          />
-
-          {/* Left and right stems of the V */}
-          <path
-            ref={leftStemRef}
-            d="M 22 15 L 50 85"
-            stroke="url(#leftStemGradient)"
-            strokeWidth="15"
-            strokeLinecap="square"
-            strokeDasharray="100"
-            strokeDashoffset="100"
-          />
-          <path
-            ref={rightStemRef}
-            d="M 50 85 L 78 15"
-            stroke="url(#rightStemGradient)"
-            strokeWidth="15"
-            strokeLinecap="square"
-            strokeDasharray="100"
-            strokeDashoffset="100"
-          />
+          {/* Facets rendered with mask to enable the draw-in animation */}
+          <g mask="url(#vMask)">
+            <path d="M 20 15 L 42 15 L 50 85 L 35 85 Z" fill="url(#vFacet1-intro)" />
+            <path d="M 42 15 L 50 15 L 50 85 Z" fill="url(#vFacet2-intro)" opacity="0.9" />
+            <path d="M 50 85 L 50 15 L 58 15 L 80 15 L 65 85 Z" fill="url(#vFacet3-intro)" />
+            <path d="M 50 85 L 50 15 L 58 15 Z" fill="url(#vFacet2-intro)" opacity="0.6" />
+            
+            {/* Silhouette of a person standing at the bottom center of the V */}
+            <path 
+              d="M 49.5 70 C 49.9 70 50.2 69.7 50.2 69.3 C 50.2 68.9 49.9 68.6 49.5 68.6 C 49.1 68.6 48.8 68.9 48.8 69.3 C 48.8 69.7 49.1 70 49.5 70 Z M 48.5 71.5 C 47.9 71.5 47.5 72 47.5 72.8 L 47.8 77 L 47.3 84 L 48.7 84 L 49.3 79.5 L 49.7 79.5 L 50.3 84 L 51.7 84 L 51.2 77 L 51.5 72.8 C 51.5 72 51.1 71.5 50.5 71.5 Z" 
+              fill="#000000" 
+            />
+          </g>
         </svg>
 
         {/* GPU Accelerated Sparks burst absolute container */}
@@ -249,6 +265,16 @@ function VLogoStep({ onComplete }: VLogoStepProps) {
             />
           ))}
         </div>
+      </div>
+
+      {/* New Splash Details */}
+      <div className="absolute bottom-12 text-center space-y-2 select-none pointer-events-none z-20">
+        <h2 className="text-xl sm:text-2xl font-black text-white tracking-[0.25em] uppercase font-sans">
+          VEDANTVERSE
+        </h2>
+        <p className="text-[9px] sm:text-xs text-neutral-400 font-bold uppercase tracking-[0.3em]">
+          Strategy <span className="text-[#E50914]">•</span> Media <span className="text-[#E50914]">•</span> Performance
+        </p>
       </div>
     </div>
   );

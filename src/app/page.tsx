@@ -184,11 +184,30 @@ export default function Home() {
               <div className="flex items-center gap-8">
                 <button
                   onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-                  className="flex items-center gap-2 text-2xl font-extrabold text-[#E50914] focus:outline-none cursor-pointer"
+                  className="flex items-center gap-2.5 text-2xl font-extrabold text-[#E50914] focus:outline-none cursor-pointer group"
                   style={{ fontFamily: 'var(--netflix-title-font)' }}
                 >
-                  <span className="text-3xl text-[#E50914] glow-text">V</span>
-                  <span className="text-sm text-neutral-300 font-bold uppercase tracking-[0.25em] font-sans hidden sm:inline">
+                  <svg className="w-8 h-8 overflow-visible filter drop-shadow-[0_0_8px_rgba(229,9,20,0.6)] group-hover:scale-105 group-hover:drop-shadow-[0_0_12px_rgba(229,9,20,0.85)] transition-all duration-300" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                      <linearGradient id="vFacet1-nav" x1="0" y1="0" x2="1" y2="1">
+                        <stop offset="0%" stopColor="#ff1e27" />
+                        <stop offset="100%" stopColor="#b20710" />
+                      </linearGradient>
+                      <linearGradient id="vFacet2-nav" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stopColor="#e50914" />
+                        <stop offset="100%" stopColor="#600104" />
+                      </linearGradient>
+                      <linearGradient id="vFacet3-nav" x1="1" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stopColor="#ff4148" />
+                        <stop offset="100%" stopColor="#800206" />
+                      </linearGradient>
+                    </defs>
+                    <path d="M 20 15 L 42 15 L 50 85 L 35 85 Z" fill="url(#vFacet1-nav)" />
+                    <path d="M 42 15 L 50 15 L 50 85 Z" fill="url(#vFacet2-nav)" opacity="0.9" />
+                    <path d="M 50 85 L 50 15 L 58 15 L 80 15 L 65 85 Z" fill="url(#vFacet3-nav)" />
+                    <path d="M 50 85 L 50 15 L 58 15 Z" fill="url(#vFacet2-nav)" opacity="0.6" />
+                  </svg>
+                  <span className="text-sm text-neutral-300 font-bold uppercase tracking-[0.25em] font-sans hidden sm:inline group-hover:text-white transition-colors duration-300">
                     VEDANTVERSE
                   </span>
                 </button>
@@ -276,7 +295,31 @@ export default function Home() {
                   >
                     <div className="space-y-8">
                       <div className="flex items-center justify-between border-b border-neutral-900 pb-4">
-                        <span className="text-[#E50914] font-black text-xl tracking-tight">VEDANTVERSE</span>
+                        <div className="flex items-center gap-2">
+                          <svg className="w-6 h-6 filter drop-shadow-[0_0_6px_rgba(229,9,20,0.6)]" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <defs>
+                              <linearGradient id="vFacet1-mob" x1="0" y1="0" x2="1" y2="1">
+                                <stop offset="0%" stopColor="#ff1e27" />
+                                <stop offset="100%" stopColor="#b20710" />
+                              </linearGradient>
+                              <linearGradient id="vFacet2-mob" x1="0" y1="0" x2="0" y2="1">
+                                <stop offset="0%" stopColor="#e50914" />
+                                <stop offset="100%" stopColor="#600104" />
+                              </linearGradient>
+                              <linearGradient id="vFacet3-mob" x1="1" y1="0" x2="0" y2="1">
+                                <stop offset="0%" stopColor="#ff4148" />
+                                <stop offset="100%" stopColor="#800206" />
+                              </linearGradient>
+                            </defs>
+                            <path d="M 20 15 L 42 15 L 50 85 L 35 85 Z" fill="url(#vFacet1-mob)" />
+                            <path d="M 42 15 L 50 15 L 50 85 Z" fill="url(#vFacet2-mob)" opacity="0.9" />
+                            <path d="M 50 85 L 50 15 L 58 15 L 80 15 L 65 85 Z" fill="url(#vFacet3-mob)" />
+                            <path d="M 50 85 L 50 15 L 58 15 Z" fill="url(#vFacet2-mob)" opacity="0.6" />
+                          </svg>
+                          <span className="text-[#E50914] font-black text-lg tracking-tight" style={{ fontFamily: 'var(--netflix-title-font)' }}>
+                            VEDANTVERSE
+                          </span>
+                        </div>
                         <button
                           onClick={() => setMobileMenuOpen(false)}
                           className="text-neutral-500 hover:text-white cursor-pointer focus:outline-none"

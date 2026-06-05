@@ -14,8 +14,43 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Vedant Tiwari | Portfolio - Performance Marketing Executive & Brand Strategist",
-  description: "Netflix-inspired cinematic career portfolio of Vedant Tiwari, Performance Marketing Executive & Brand Strategist. Driving ad spend efficiency, conversion optimization, and brand scaling.",
+  title: "VedantVerse | Growth Through Strategy, Media & Performance",
+  description: "Performance Marketing Executive, Media Planner, Brand Strategist, and Growth Marketer. Explore VedantVerse — a cinematic portfolio showcasing campaigns, strategies, and digital growth journeys.",
+  metadataBase: new URL("https://vedantverse.in"),
+  icons: {
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/favicon.png", type: "image/png" },
+      { url: "/icon-16x16.png", sizes: "16x16", type: "image/png" },
+      { url: "/icon-32x32.png", sizes: "32x32", type: "image/png" },
+      { url: "/icon-96x96.png", sizes: "96x96", type: "image/png" },
+    ],
+    apple: [
+      { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
+    ],
+  },
+  openGraph: {
+    title: "VedantVerse | Growth Through Strategy, Media & Performance",
+    description: "Performance Marketing Executive, Media Planner, Brand Strategist, and Growth Marketer. Explore VedantVerse — a cinematic portfolio showcasing campaigns, strategies, and digital growth journeys.",
+    url: "https://vedantverse.in",
+    siteName: "VedantVerse",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "VedantVerse - Growth Through Strategy, Media & Performance",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "VedantVerse | Growth Through Strategy, Media & Performance",
+    description: "Performance Marketing Executive, Media Planner, Brand Strategist, and Growth Marketer. Explore VedantVerse — a cinematic portfolio showcasing campaigns, strategies, and digital growth journeys.",
+    images: ["/og-image.png"],
+  },
 };
 
 export default function RootLayout({

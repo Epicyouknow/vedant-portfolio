@@ -181,10 +181,27 @@ export default function Hero() {
           </div>
 
           {/* Giant glowing V logo */}
-          <div className="absolute top-[10%] right-[-10%] sm:right-[-15%] flex items-center justify-center pointer-events-none select-none z-0 overflow-visible">
-            <span className="text-[38rem] sm:text-[45rem] md:text-[55rem] font-black text-[#E50914] opacity-[0.03] select-none leading-none blur-[4px] font-sans">
-              V
-            </span>
+          <div className="absolute top-[5%] right-[-15%] sm:right-[-20%] flex items-center justify-center pointer-events-none select-none z-0 overflow-visible opacity-[0.03] blur-[2px]">
+            <svg className="w-[40rem] h-[40rem] sm:w-[50rem] sm:h-[50rem] md:w-[60rem] md:h-[60rem] overflow-visible" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="vFacet1-hero" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stopColor="#ff1e27" />
+                  <stop offset="100%" stopColor="#b20710" />
+                </linearGradient>
+                <linearGradient id="vFacet2-hero" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stopColor="#e50914" />
+                  <stop offset="100%" stopColor="#600104" />
+                </linearGradient>
+                <linearGradient id="vFacet3-hero" x1="1" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stopColor="#ff4148" />
+                  <stop offset="100%" stopColor="#800206" />
+                </linearGradient>
+              </defs>
+              <path d="M 20 15 L 42 15 L 50 85 L 35 85 Z" fill="url(#vFacet1-hero)" />
+              <path d="M 42 15 L 50 15 L 50 85 Z" fill="url(#vFacet2-hero)" />
+              <path d="M 50 85 L 50 15 L 58 15 L 80 15 L 65 85 Z" fill="url(#vFacet3-hero)" />
+              <path d="M 50 85 L 50 15 L 58 15 Z" fill="url(#vFacet2-hero)" />
+            </svg>
           </div>
 
           {/* Red radial glow directly behind the character for the premium red halo effect */}
