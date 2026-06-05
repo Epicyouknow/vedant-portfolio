@@ -239,6 +239,12 @@ function VLogoStep({ onComplete }: VLogoStepProps) {
             <path d="M 42 15 L 50 15 L 50 85 Z" fill="url(#vFacet2-intro)" opacity="0.9" />
             <path d="M 50 85 L 50 15 L 58 15 L 80 15 L 65 85 Z" fill="url(#vFacet3-intro)" />
             <path d="M 50 85 L 50 15 L 58 15 Z" fill="url(#vFacet2-intro)" opacity="0.6" />
+            
+            {/* Silhouette of a person standing at the bottom center of the V */}
+            <path 
+              d="M 49.5 70 C 49.9 70 50.2 69.7 50.2 69.3 C 50.2 68.9 49.9 68.6 49.5 68.6 C 49.1 68.6 48.8 68.9 48.8 69.3 C 48.8 69.7 49.1 70 49.5 70 Z M 48.5 71.5 C 47.9 71.5 47.5 72 47.5 72.8 L 47.8 77 L 47.3 84 L 48.7 84 L 49.3 79.5 L 49.7 79.5 L 50.3 84 L 51.7 84 L 51.2 77 L 51.5 72.8 C 51.5 72 51.1 71.5 50.5 71.5 Z" 
+              fill="#000000" 
+            />
           </g>
         </svg>
 
