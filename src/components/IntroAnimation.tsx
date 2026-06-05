@@ -68,11 +68,14 @@ function VLogoStep({ onComplete }: VLogoStepProps) {
   const rightStemRef = useRef<SVGPathElement>(null);
   const glowRef = useRef<HTMLDivElement>(null);
   const [sparks, setSparks] = useState<{ id: number; tx: number; ty: number }[]>([]);
+  const [isMuted, setIsMuted] = useState(false);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
 
   useEffect(() => {
     // Play the Tudum sound effect at the start of the animation
     const audio = new Audio('/tudum.mp3');
     audio.volume = 0.55;
+    audioRef.current = audio;
 
     let hasPlayed = false;
     const playAudio = () => {
@@ -80,10 +83,12 @@ function VLogoStep({ onComplete }: VLogoStepProps) {
       audio.play()
         .then(() => {
           hasPlayed = true;
+          setIsMuted(false);
           cleanupInteractionListeners();
         })
         .catch((err) => {
           console.warn("Audio play failed or blocked by browser autoplay policy:", err);
+          setIsMuted(true);
         });
     };
 
@@ -250,6 +255,25 @@ function VLogoStep({ onComplete }: VLogoStepProps) {
           ))}
         </div>
       </div>
+
+      {/* Unmute/Sound Button (visible if autoplay is blocked) */}
+      {isMuted && (
+        <button
+          onClick={(e) => {
+            e.stopPropagation();
+            if (audioRef.current) {
+              audioRef.current.play()
+                .then(() => setIsMuted(false))
+                .catch((err) => console.warn("Audio play failed on click:", err));
+            }
+          }}
+          className="absolute bottom-8 z-30 flex items-center gap-2 px-5 py-2.5 border border-[#E50914]/40 hover:border-[#E50914] bg-neutral-950/90 text-white font-bold uppercase tracking-widest text-[10px] transition-all duration-300 shadow-2xl cursor-pointer rounded-md hover:scale-105 active:scale-95 animate-pulse hover:shadow-[0_0_20px_rgba(229,9,20,0.4)]"
+          style={{ pointerEvents: 'auto' }}
+        >
+          <Volume2 className="w-4 h-4 text-[#E50914]" />
+          Enable Intro Sound
+        </button>
+      )}
     </div>
   );
 }
