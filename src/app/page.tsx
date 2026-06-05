@@ -24,6 +24,7 @@ export default function Home() {
 
   // Interactive View Modes
   const [viewMode, setViewMode] = useState<'standard' | 'recruiter' | 'client'>('standard');
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   // Easter Egg states
   const [showEasterEgg, setShowEasterEgg] = useState(false);
@@ -112,6 +113,20 @@ export default function Home() {
   const handleIntroComplete = (profileId: string) => {
     setWatchingProfileId(profileId);
     setShowIntro(false);
+
+    // Map profileId to project category to pre-filter portfolio content
+    let category = '';
+    if (profileId === 'performance-marketing') category = 'campaign';
+    if (profileId === 'media-planning') category = 'mediaplan';
+    if (profileId === 'branding-strategy') category = 'branding';
+    if (profileId === 'web-dev') category = 'development';
+
+    if (category) {
+      setTimeout(() => {
+        const event = new CustomEvent('filter-projects', { detail: category });
+        window.dispatchEvent(event);
+      }, 350);
+    }
   };
 
   const toggleRemindMe = (id: string) => {
@@ -211,8 +226,158 @@ export default function Home() {
                     {getProfileName(watchingProfileId).split(' ')[0]}
                   </span>
                 </div>
+
+                {/* Hamburger Menu Button */}
+                <button
+                  onClick={() => setMobileMenuOpen(true)}
+                  className="lg:hidden p-2 text-neutral-400 hover:text-white cursor-pointer focus:outline-none"
+                  aria-label="Open navigation menu"
+                >
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
+                  </svg>
+                </button>
               </div>
             </header>
+
+            {/* Mobile Menu Drawer */}
+            <AnimatePresence>
+              {mobileMenuOpen && (
+                <>
+                  {/* Backdrop */}
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="fixed inset-0 bg-black/60 backdrop-blur-xs z-40 lg:hidden"
+                  />
+                  {/* Sidebar Drawer */}
+                  <motion.div
+                    initial={{ x: '100%' }}
+                    animate={{ x: 0 }}
+                    exit={{ x: '100%' }}
+                    transition={{ type: 'spring', damping: 25, stiffness: 200 }}
+                    className="fixed inset-y-0 right-0 w-72 bg-[#0e0e0e]/95 border-l border-neutral-900 z-50 p-6 flex flex-col justify-between shadow-2xl backdrop-blur-md lg:hidden"
+                  >
+                    <div className="space-y-8">
+                      <div className="flex items-center justify-between border-b border-neutral-900 pb-4">
+                        <span className="text-[#E50914] font-black text-xl tracking-tight">VEDANTVERSE</span>
+                        <button
+                          onClick={() => setMobileMenuOpen(false)}
+                          className="text-neutral-500 hover:text-white cursor-pointer focus:outline-none"
+                        >
+                          <X className="w-5 h-5" />
+                        </button>
+                      </div>
+
+                      {/* Mobile Nav Links */}
+                      <div className="flex flex-col gap-4">
+                        <span className="text-[10px] text-neutral-600 uppercase tracking-widest font-bold font-mono">Navigation</span>
+                        <button
+                          onClick={() => {
+                            scrollSection('command-center');
+                            setMobileMenuOpen(false);
+                          }}
+                          className="text-neutral-300 hover:text-white text-left font-semibold text-xs uppercase cursor-pointer"
+                        >
+                          HUD (Command Center)
+                        </button>
+                        <button
+                          onClick={() => {
+                            scrollSection('career-universe');
+                            setMobileMenuOpen(false);
+                          }}
+                          className="text-neutral-300 hover:text-white text-left font-semibold text-xs uppercase cursor-pointer"
+                        >
+                          Universe
+                        </button>
+                        <button
+                          onClick={() => {
+                            scrollSection('career-map');
+                            setMobileMenuOpen(false);
+                          }}
+                          className="text-neutral-300 hover:text-white text-left font-semibold text-xs uppercase cursor-pointer"
+                        >
+                          Transit Map
+                        </button>
+                        <button
+                          onClick={() => {
+                            scrollSection('campaign-dashboards');
+                            setMobileMenuOpen(false);
+                          }}
+                          className="text-neutral-300 hover:text-white text-left font-semibold text-xs uppercase cursor-pointer"
+                        >
+                          Dashboards
+                        </button>
+                        <button
+                          onClick={() => {
+                            scrollSection('marketing-lab');
+                            setMobileMenuOpen(false);
+                          }}
+                          className="text-neutral-300 hover:text-white text-left font-semibold text-xs uppercase cursor-pointer"
+                        >
+                          Lab
+                        </button>
+                        <button
+                          onClick={() => {
+                            scrollSection('skills-galaxy');
+                            setMobileMenuOpen(false);
+                          }}
+                          className="text-neutral-300 hover:text-white text-left font-semibold text-xs uppercase cursor-pointer"
+                        >
+                          Galaxy
+                        </button>
+                      </div>
+
+                      {/* Mobile View Mode selectors */}
+                      <div className="flex flex-col gap-3">
+                        <span className="text-[10px] text-neutral-600 uppercase tracking-widest font-bold font-mono">Experience Mode</span>
+                        <div className="grid grid-cols-1 gap-2 bg-neutral-950/80 p-2 border border-neutral-900 rounded-md">
+                          <button
+                            onClick={() => {
+                              setViewMode('standard');
+                              setMobileMenuOpen(false);
+                            }}
+                            className={`py-2 text-[10px] uppercase font-mono rounded cursor-pointer transition-all ${
+                              viewMode === 'standard' ? 'bg-[#E50914] text-white' : 'text-neutral-500 hover:text-neutral-300'
+                            }`}
+                          >
+                            Standard
+                          </button>
+                          <button
+                            onClick={() => {
+                              setViewMode('recruiter');
+                              setMobileMenuOpen(false);
+                            }}
+                            className={`py-2 text-[10px] uppercase font-mono rounded cursor-pointer transition-all ${
+                              viewMode === 'recruiter' ? 'bg-[#E50914] text-white' : 'text-neutral-500 hover:text-neutral-300'
+                            }`}
+                          >
+                            Recruiter
+                          </button>
+                          <button
+                            onClick={() => {
+                              setViewMode('client');
+                              setMobileMenuOpen(false);
+                            }}
+                            className={`py-2 text-[10px] uppercase font-mono rounded cursor-pointer transition-all ${
+                              viewMode === 'client' ? 'bg-[#E50914] text-white' : 'text-neutral-500 hover:text-neutral-300'
+                            }`}
+                          >
+                            Client
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="border-t border-neutral-900 pt-4 text-center text-[9px] text-neutral-600 uppercase tracking-widest font-mono">
+                      SYSTEM_JARVIS_NAV_v2.0
+                    </div>
+                  </motion.div>
+                </>
+              )}
+            </AnimatePresence>
 
             {/* Main Section */}
             <main className="flex-1 w-full relative pt-16 md:pt-20">

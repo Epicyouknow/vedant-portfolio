@@ -10,8 +10,16 @@ export default function CreditsFooter() {
 
   // Global mouse coordinates tracker for the Custom Cursor
   useEffect(() => {
+    const isTouch = typeof window !== 'undefined' && window.matchMedia('(pointer: coarse)').matches;
     const dot = cursorDotRef.current;
     const glow = cursorGlowRef.current;
+
+    if (isTouch) {
+      if (dot) dot.style.display = 'none';
+      if (glow) glow.style.display = 'none';
+      return;
+    }
+
     if (!dot || !glow) return;
 
     let mouseX = 0;

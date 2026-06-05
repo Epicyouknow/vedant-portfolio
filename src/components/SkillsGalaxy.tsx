@@ -60,7 +60,7 @@ export default function SkillsGalaxy() {
           <div className="bg-[#0e0e0e]/30 border border-neutral-900 rounded-xl p-8 flex items-center justify-center relative min-h-[400px] shadow-2xl overflow-hidden">
             
             {/* Solar System Core Sun Node */}
-            <div className="relative w-80 h-80 flex items-center justify-center">
+            <div className="relative w-72 h-72 sm:w-80 sm:h-80 flex items-center justify-center">
               
               {/* Concentric SVG path rings */}
               <svg className="absolute inset-0 w-full h-full text-neutral-900 pointer-events-none" viewBox="0 0 100 100" fill="none">

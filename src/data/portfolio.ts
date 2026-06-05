@@ -8,6 +8,9 @@ export interface Profile {
   skills: string[];
   accentColor: string; // Dynamic CSS accent
   avatar: string; // Emoji avatar representation
+  image: string; // Path to cinematic portrait
+  tagline: string; // Immersive tagline
+  subPlatforms: { name: string; icon: string }[]; // Sub-technologies/specialties
 }
 
 export interface TimelineItem {
@@ -143,13 +146,20 @@ export const portfolioData: PortfolioData = {
   profiles: [
     {
       id: "performance-marketing",
-      title: "Performance Marketer Vedant",
+      title: "Growth Hacker Vedant",
       roleTitle: "Performance Marketing Specialist",
-      characterName: "The ROAS Alchemist",
-      accentColor: "#E50914", // Red
+      characterName: "THE GROWTH HACKER",
+      accentColor: "#E50914", // Netflix Red
       avatar: "🎯",
-      characterStyle: "Netflix Original Hero - A modern growth driver wearing a tactical hoodie and tracking jacket, flanked by glowing Meta & Google analytics dashboards.",
-      characterDesc: "An expert at optimizing digital channels, balancing budgets, and driving low-CPA acquisition campaigns with high ROAS.",
+      image: "/growth_hacker.png",
+      tagline: "Data-driven. Growth-obsessed. I turn clicks into customers.",
+      subPlatforms: [
+        { name: "Meta Ads", icon: "Meta" },
+        { name: "Google Ads", icon: "Google" },
+        { name: "YouTube Ads", icon: "Play" }
+      ],
+      characterStyle: "Red neon environment, floating Meta Ads dashboards, Google Ads holograms, ROAS charts, conversion metrics, data streams.",
+      characterDesc: "Analytical, Aggressive, Growth Focused, Results Driven. Elite strategist, master planner, and high-performance operator maximizing conversion efficiency.",
       skills: [
         "Meta Ads", "Google Ads", "YouTube Ads", "Amazon Ads",
         "DV360", "CM360", "Reddit Ads", "Quick Commerce Ads",
@@ -158,13 +168,20 @@ export const portfolioData: PortfolioData = {
     },
     {
       id: "media-planning",
-      title: "Media Planner Vedant",
+      title: "Commander Vedant",
       roleTitle: "Media Planner & Buyer",
-      characterName: "Digital Media Commander",
-      accentColor: "#3B82F6", // Blue
+      characterName: "THE COMMANDER",
+      accentColor: "#3B82F6", // Electric Blue
       avatar: "📊",
-      characterStyle: "Digital Commander - Standing in front of floating multi-screen dashboards, mapping target audiences, and running budget allocation holograms.",
-      characterDesc: "Masters cross-platform audience targeting, channel planning, and data-backed budget forecasting to capture maximum share of voice.",
+      image: "/commander.png",
+      tagline: "Strategic mind. Perfect planner. I place brands in front of the right eyes.",
+      subPlatforms: [
+        { name: "DV360", icon: "Target" },
+        { name: "Google Marketing", icon: "Globe" },
+        { name: "CM360", icon: "Activity" }
+      ],
+      characterStyle: "Blue command center, audience maps, media buying dashboards, campaign planning holograms, global targeting systems.",
+      characterDesc: "Strategic, Organized, Visionary, Precise. Military-style campaign architect mastering omnichannel platforms and forecasting budgets.",
       skills: [
         "Media Planning", "Audience Segmentation", "Budget Forecasting",
         "Media Buying", "Platform Selection", "Campaign Strategy",
@@ -173,13 +190,20 @@ export const portfolioData: PortfolioData = {
     },
     {
       id: "branding-strategy",
-      title: "Brand Strategist Vedant",
+      title: "Storyteller Vedant",
       roleTitle: "Creative Brand Strategist",
-      characterName: "The Narrative Architect",
+      characterName: "THE STORYTELLER",
       accentColor: "#F59E0B", // Gold
       avatar: "🚀",
-      characterStyle: "Creative Strategist - A modern brand designer visualising floating identity holograms, campaign storyboards, and interactive creative briefs.",
-      characterDesc: "Blends creative storytelling with consumer insights to craft unique brand identities, positioning maps, and content plans.",
+      image: "/storyteller.png",
+      tagline: "Creative thinker. Story builder. I build brands people remember.",
+      subPlatforms: [
+        { name: "Brand Strategy", icon: "Award" },
+        { name: "Content Strategy", icon: "FileText" },
+        { name: "Creative Direction", icon: "Lightbulb" }
+      ],
+      characterStyle: "Golden atmosphere, creative boards, brand identity walls, storytelling elements, marketing concepts floating around.",
+      characterDesc: "Creative, Persuasive, Innovative, Brand Driven. Visionary storyteller and master brand builder designing core narrative playbooks.",
       skills: [
         "Brand Positioning", "Brand Strategy", "Content Strategy",
         "Creative Briefing", "Social Media Marketing", "Campaign Communication"
@@ -187,13 +211,20 @@ export const portfolioData: PortfolioData = {
     },
     {
       id: "technical-skills",
-      title: "Marketing Technologist Vedant",
+      title: "Architect Vedant",
       roleTitle: "Marketing Technologist",
-      characterName: "The Data Pipeline Sage",
-      accentColor: "#10B981", // Green
+      characterName: "THE ARCHITECT",
+      accentColor: "#10B981", // Neon Green
       avatar: "⚙️",
-      characterStyle: "Futuristic Workstation Tech - Monitoring real-time server telemetry, custom GTM data layers, conversion APIs, and Looker Studio reports.",
-      characterDesc: "Orchestrates technical marketing setups, custom events scripting, attribution models, and interactive dashboarding.",
+      image: "/architect.png",
+      tagline: "Systems thinker. Automation lover. I build systems that scale growth.",
+      subPlatforms: [
+        { name: "GA4", icon: "TrendingUp" },
+        { name: "Looker Studio", icon: "Layout" },
+        { name: "Tag Manager", icon: "Tag" }
+      ],
+      characterStyle: "Green cyber environment, tracking systems, automation workflows, analytics dashboards, data networks.",
+      characterDesc: "Logical, Efficient, Systematic, Technical. Cyber tech architect engineering server-side tag pipelines and conversion flow frameworks.",
       skills: [
         "GA4", "GTM", "Meta Pixel", "Looker Studio",
         "Advanced Excel", "Dashboard Reporting", "Automation Systems"
@@ -201,13 +232,20 @@ export const portfolioData: PortfolioData = {
     },
     {
       id: "web-dev",
-      title: "Developer Vedant",
+      title: "Creator Vedant",
       roleTitle: "Creative Developer",
-      characterName: "The Future Builder",
+      characterName: "THE CREATOR",
       accentColor: "#8B5CF6", // Purple
       avatar: "💻",
-      characterStyle: "Full-Stack Engineer - Sitting in front of transparent displays of live IDE code, React architecture maps, and mobile viewport wireframes.",
-      characterDesc: "Integrates APIs and builds performant, high-converting landing pages, interactive utilities, and responsive web systems.",
+      image: "/creator.png",
+      tagline: "Builder at heart. Problem solver. I code ideas into reality.",
+      subPlatforms: [
+        { name: "Web Development", icon: "Code" },
+        { name: "UI/UX Design", icon: "PenTool" },
+        { name: "App Development", icon: "Smartphone" }
+      ],
+      characterStyle: "Purple digital universe, floating code, website mockups, mobile app prototypes, UI systems.",
+      characterDesc: "Builder, Problem Solver, Innovator, Creator. Future-focused application engineer building performant interfaces and functional API connections.",
       skills: [
         "Frontend Development", "Backend Development", "UI/UX",
         "Responsive Design", "Web Apps", "Mobile Apps", "API Integration"
