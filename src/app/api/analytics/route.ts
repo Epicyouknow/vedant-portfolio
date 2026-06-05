@@ -44,7 +44,7 @@ export async function POST(req: NextRequest) {
     }
 
     if (eventName === 'page_view') {
-      logVisit({
+      await logVisit({
         ip,
         country,
         city,
@@ -56,7 +56,7 @@ export async function POST(req: NextRequest) {
         path: path || '/',
       });
     } else {
-      logEvent({
+      await logEvent({
         ip,
         eventName,
         metadata,
@@ -79,7 +79,7 @@ export async function GET(req: NextRequest) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const stats = getAnalyticsStats();
+    const stats = await getAnalyticsStats();
     return NextResponse.json(stats);
   } catch (error) {
     console.error('Error fetching analytics stats:', error);

@@ -29,8 +29,30 @@ export interface AnalyticsData {
 
 const dbPath = path.join(process.cwd(), 'analytics.json');
 
-// Ensure database file exists
-function initDb(): AnalyticsData {
+// Ensure database file exists (async)
+async function loadDbAsync(): Promise<AnalyticsData> {
+  const kvUrl = process.env.KV_REST_API_URL;
+  const kvToken = process.env.KV_REST_API_TOKEN;
+
+  if (kvUrl && kvToken) {
+    try {
+      const res = await fetch(`${kvUrl}/get/vedantverse_analytics`, {
+        headers: {
+          Authorization: `Bearer ${kvToken}`
+        },
+        cache: 'no-store'
+      });
+      if (res.ok) {
+        const json = await res.json();
+        if (json && json.result) {
+          return JSON.parse(json.result) as AnalyticsData;
+        }
+      }
+    } catch (err) {
+      console.error('Vercel KV fetch failed, falling back to local JSON:', err);
+    }
+  }
+
   try {
     if (!fs.existsSync(dbPath)) {
       const initial: AnalyticsData = { visits: [], events: [] };
@@ -45,8 +67,30 @@ function initDb(): AnalyticsData {
   }
 }
 
-// Write database data
-function writeDb(data: AnalyticsData) {
+// Write database data (async)
+async function saveDbAsync(data: AnalyticsData): Promise<void> {
+  const kvUrl = process.env.KV_REST_API_URL;
+  const kvToken = process.env.KV_REST_API_TOKEN;
+
+  if (kvUrl && kvToken) {
+    try {
+      const res = await fetch(kvUrl, {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${kvToken}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(['SET', 'vedantverse_analytics', JSON.stringify(data)])
+      });
+      if (res.ok) {
+        return;
+      }
+      console.error('Vercel KV write failed, status:', res.status);
+    } catch (err) {
+      console.error('Error writing to Vercel KV database:', err);
+    }
+  }
+
   try {
     fs.writeFileSync(dbPath, JSON.stringify(data, null, 2), 'utf-8');
   } catch (err) {
@@ -98,30 +142,30 @@ export function parseReferrer(ref: string): string {
 }
 
 // Log a page view (visit)
-export function logVisit(record: Omit<VisitRecord, 'timestamp'>) {
-  const db = initDb();
+export async function logVisit(record: Omit<VisitRecord, 'timestamp'>) {
+  const db = await loadDbAsync();
   const newVisit: VisitRecord = {
     ...record,
     timestamp: new Date().toISOString(),
   };
   db.visits.push(newVisit);
-  writeDb(db);
+  await saveDbAsync(db);
 }
 
 // Log a custom action event
-export function logEvent(record: Omit<EventRecord, 'timestamp'>) {
-  const db = initDb();
+export async function logEvent(record: Omit<EventRecord, 'timestamp'>) {
+  const db = await loadDbAsync();
   const newEvent: EventRecord = {
     ...record,
     timestamp: new Date().toISOString(),
   };
   db.events.push(newEvent);
-  writeDb(db);
+  await saveDbAsync(db);
 }
 
 // Retrieve aggregated stats for the dashboard
-export function getAnalyticsStats() {
-  const db = initDb();
+export async function getAnalyticsStats() {
+  const db = await loadDbAsync();
   const now = new Date();
   
   const oneDay = 24 * 60 * 60 * 1000;
