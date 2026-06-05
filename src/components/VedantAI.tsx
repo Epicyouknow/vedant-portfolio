@@ -4,6 +4,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { MessageSquare, Send, X, Bot, Sparkles, User, RefreshCw } from 'lucide-react';
 import { portfolioData } from '../data/portfolio';
+import { useAnalytics } from '../hooks/useAnalytics';
 
 interface Message {
   sender: 'user' | 'ai';
@@ -12,6 +13,7 @@ interface Message {
 }
 
 export default function VedantAI() {
+  const { trackEvent } = useAnalytics();
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
     {
@@ -40,6 +42,8 @@ export default function VedantAI() {
   // Upgraded smart keyword parser for Vedant GPT
   const handleQuery = (query: string) => {
     if (!query.trim()) return;
+
+    trackEvent('ai_query', { query });
 
     const timestamp = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
     const userMsg: Message = { sender: 'user', text: query, timestamp };

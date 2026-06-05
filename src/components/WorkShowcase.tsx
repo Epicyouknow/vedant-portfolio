@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Search, X, TrendingUp, DollarSign, Layers, CheckCircle } from 'lucide-react';
+import { useAnalytics } from '../hooks/useAnalytics';
 
 interface IndustryCard {
   id: string;
@@ -162,11 +163,17 @@ function IndustryArtwork({ type }: { type: 'logistics' | 'jewellery' | 'd2c' | '
 }
 
 export default function WorkShowcase() {
+  const { trackEvent } = useAnalytics();
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [activeIndustry, setActiveIndustry] = useState<IndustryCard | null>(null);
   const searchInputRef = useRef<HTMLInputElement>(null);
+
+  const handleIndustrySelect = (ind: IndustryCard) => {
+    setActiveIndustry(ind);
+    trackEvent('project_view', { project: ind.title });
+  };
 
   useEffect(() => {
     const handleFilterEvent = (event: Event) => {
@@ -287,7 +294,7 @@ export default function WorkShowcase() {
                   y: -10,
                   boxShadow: '0 20px 40px rgba(0,0,0,0.8), 0 0 25px rgba(229, 9, 20, 0.25)'
                 }}
-                onClick={() => setActiveIndustry(ind)}
+                onClick={() => handleIndustrySelect(ind)}
                 className="group cursor-pointer rounded-xl bg-gradient-to-b from-[#181818] to-[#0f0f0f] overflow-hidden border border-neutral-800/60 relative w-[200px] min-h-[420px] shrink-0 flex flex-col justify-end transition-all duration-300 ease-out hover:border-[#E50914]"
               >
                 {/* SVG Visual Graphic Banner */}

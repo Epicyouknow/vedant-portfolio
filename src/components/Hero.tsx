@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Play, Info, Download, Award } from 'lucide-react';
 import { portfolioData } from '../data/portfolio';
+import { useAnalytics } from '../hooks/useAnalytics';
 
 // Dynamic Counter Component
 function AnimatedCounter({ value, duration = 1.5 }: { value: string; duration?: number }) {
@@ -39,6 +40,7 @@ function AnimatedCounter({ value, duration = 1.5 }: { value: string; duration?: 
 }
 
 export default function Hero() {
+  const { trackEvent } = useAnalytics();
   const [scrollProgress, setScrollProgress] = useState(0);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
 
@@ -153,6 +155,7 @@ export default function Hero() {
               href={portfolioData.personal.resumeUrl}
               target="_blank"
               rel="noreferrer"
+              onClick={() => trackEvent('resume_download')}
               className="flex items-center gap-2 bg-transparent text-[#E50914] border border-[#E50914]/50 hover:border-[#E50914] hover:bg-[#E50914]/5 font-semibold px-6 md:px-8 py-3.5 rounded active:scale-95 transition-all duration-200 cursor-pointer text-center"
             >
               <Download className="w-5 h-5" />

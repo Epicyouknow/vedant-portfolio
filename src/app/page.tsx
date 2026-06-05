@@ -17,8 +17,10 @@ import DashboardReplicas from '../components/DashboardReplicas'; // Ads manager 
 import VedantAI from '../components/VedantAI'; // Vedant GPT
 import CreditsFooter from '../components/CreditsFooter';
 import { portfolioData } from '../data/portfolio';
+import { useAnalytics } from '../hooks/useAnalytics';
 
 export default function Home() {
+  const { trackPageView, trackEvent } = useAnalytics();
   const [showIntro, setShowIntro] = useState(true);
   const [watchingProfileId, setWatchingProfileId] = useState('performance-marketing');
 
@@ -107,12 +109,17 @@ export default function Home() {
 
   const triggerAchievement = (text: string) => {
     setUnlockedAchievement(text);
+    trackEvent('achievement_unlock', { achievement: text });
     setTimeout(() => setUnlockedAchievement(null), 4000);
   };
 
   const handleIntroComplete = (profileId: string) => {
     setWatchingProfileId(profileId);
     setShowIntro(false);
+    
+    // Track page load and profile choice
+    trackPageView('/');
+    trackEvent('profile_select', { profileId });
 
     // Map profileId to project category to pre-filter portfolio content
     let category = '';
@@ -135,13 +142,20 @@ export default function Home() {
     );
     if (!remindMeList.includes(id)) {
       triggerAchievement('🔔 Notification Set: Season 2 Launch alert updated!');
+      trackEvent('coming_soon_reminder', { goalId: id });
     }
+  };
+
+  const handleViewModeChange = (mode: 'standard' | 'recruiter' | 'client') => {
+    setViewMode(mode);
+    trackEvent('change_view_mode', { mode });
   };
 
   const scrollSection = (id: string) => {
     const el = document.getElementById(id);
     if (el) {
       el.scrollIntoView({ behavior: 'smooth' });
+      trackEvent('section_view', { section: id });
     }
   };
 
@@ -194,7 +208,7 @@ export default function Home() {
               <div className="flex items-center gap-4">
                 <div className="hidden sm:flex items-center gap-1 bg-neutral-950/80 border border-neutral-900 px-2 py-1 rounded">
                   <button
-                    onClick={() => setViewMode('standard')}
+                    onClick={() => handleViewModeChange('standard')}
                     className={`px-3 py-1 text-[10px] uppercase font-mono rounded cursor-pointer transition-all ${
                       viewMode === 'standard' ? 'bg-[#E50914] text-white' : 'text-neutral-500 hover:text-neutral-300'
                     }`}
@@ -202,7 +216,7 @@ export default function Home() {
                     Standard
                   </button>
                   <button
-                    onClick={() => setViewMode('recruiter')}
+                    onClick={() => handleViewModeChange('recruiter')}
                     className={`px-3 py-1 text-[10px] uppercase font-mono rounded cursor-pointer transition-all ${
                       viewMode === 'recruiter' ? 'bg-[#E50914] text-white' : 'text-neutral-500 hover:text-neutral-300'
                     }`}
@@ -210,7 +224,7 @@ export default function Home() {
                     Recruiter
                   </button>
                   <button
-                    onClick={() => setViewMode('client')}
+                    onClick={() => handleViewModeChange('client')}
                     className={`px-3 py-1 text-[10px] uppercase font-mono rounded cursor-pointer transition-all ${
                       viewMode === 'client' ? 'bg-[#E50914] text-white' : 'text-neutral-500 hover:text-neutral-300'
                     }`}
@@ -336,7 +350,7 @@ export default function Home() {
                         <div className="grid grid-cols-1 gap-2 bg-neutral-950/80 p-2 border border-neutral-900 rounded-md">
                           <button
                             onClick={() => {
-                              setViewMode('standard');
+                              handleViewModeChange('standard');
                               setMobileMenuOpen(false);
                             }}
                             className={`py-2 text-[10px] uppercase font-mono rounded cursor-pointer transition-all ${
@@ -347,7 +361,7 @@ export default function Home() {
                           </button>
                           <button
                             onClick={() => {
-                              setViewMode('recruiter');
+                              handleViewModeChange('recruiter');
                               setMobileMenuOpen(false);
                             }}
                             className={`py-2 text-[10px] uppercase font-mono rounded cursor-pointer transition-all ${
@@ -358,7 +372,7 @@ export default function Home() {
                           </button>
                           <button
                             onClick={() => {
-                              setViewMode('client');
+                              handleViewModeChange('client');
                               setMobileMenuOpen(false);
                             }}
                             className={`py-2 text-[10px] uppercase font-mono rounded cursor-pointer transition-all ${
