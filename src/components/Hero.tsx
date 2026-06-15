@@ -10,10 +10,11 @@ import { useAnalytics } from '../hooks/useAnalytics';
 function AnimatedCounter({ value, duration = 1.5 }: { value: string; duration?: number }) {
   const [current, setCurrent] = useState(0);
   
-  // Extract number from string, e.g., "1.5+" -> 1.5, "15L+" -> 15, "50+" -> 50
-  const match = value.match(/[\d.]+/);
-  const target = match ? parseFloat(match[0]) : 0;
-  const suffix = value.replace(/[\d.]+/, '');
+  // Extract prefix, target, and suffix correctly (e.g. "₹15L+" -> prefix: "₹", target: 15, suffix: "L+")
+  const match = value.match(/^([^\d.]*)([\d.]+)([^\d.]*)$/);
+  const prefix = match ? match[1] : '';
+  const target = match ? parseFloat(match[2]) : 0;
+  const suffix = match ? match[3] : value;
 
   useEffect(() => {
     let startTimestamp: number | null = null;
@@ -33,6 +34,7 @@ function AnimatedCounter({ value, duration = 1.5 }: { value: string; duration?: 
 
   return (
     <span>
+      {prefix}
       {current}
       {suffix}
     </span>
@@ -362,34 +364,34 @@ export default function Hero() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1.0, delay: 0.6 }}
-        className="w-full grid grid-cols-2 md:grid-cols-4 gap-6 py-8 border-t border-b border-neutral-900/80 relative z-10 bg-black/40 backdrop-blur-sm px-4 rounded-lg"
+        className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 py-8 border-t border-b border-neutral-900/80 relative z-10 bg-black/40 backdrop-blur-sm px-4 rounded-lg"
       >
-        <div className="flex flex-col items-center justify-center text-center">
-          <span className="text-3xl md:text-4xl font-extrabold text-[#E50914] glow-text-red">
+        <div className="flex flex-col items-center justify-center text-center py-4 md:py-0">
+          <span className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-[#E50914] glow-text-red">
             <AnimatedCounter value={portfolioData.stats.experience} />
           </span>
-          <span className="text-neutral-500 text-xs uppercase tracking-widest mt-2 font-medium">Experience</span>
+          <span className="text-neutral-500 text-[10px] sm:text-xs uppercase tracking-widest mt-2 font-medium">Experience</span>
         </div>
 
-        <div className="flex flex-col items-center justify-center text-center border-l border-neutral-900">
-          <span className="text-3xl md:text-4xl font-extrabold text-white">
+        <div className="flex flex-col items-center justify-center text-center py-4 md:py-0 border-t sm:border-t-0 sm:border-l border-neutral-900">
+          <span className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white">
             <AnimatedCounter value={portfolioData.stats.adSpend} />
           </span>
-          <span className="text-neutral-500 text-xs uppercase tracking-widest mt-2 font-medium">Ad Budget Managed</span>
+          <span className="text-neutral-500 text-[10px] sm:text-xs uppercase tracking-widest mt-2 font-medium">Ad Budget Managed</span>
         </div>
 
-        <div className="flex flex-col items-center justify-center text-center border-l border-neutral-900">
-          <span className="text-3xl md:text-4xl font-extrabold text-[#E50914] glow-text-red">
+        <div className="flex flex-col items-center justify-center text-center py-4 md:py-0 border-t sm:border-t md:border-t-0 md:border-l border-neutral-900">
+          <span className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-[#E50914] glow-text-red">
             <AnimatedCounter value={portfolioData.stats.platforms} />
           </span>
-          <span className="text-neutral-500 text-xs uppercase tracking-widest mt-2 font-medium">Ad Networks</span>
+          <span className="text-neutral-500 text-[10px] sm:text-xs uppercase tracking-widest mt-2 font-medium">Ad Networks</span>
         </div>
 
-        <div className="flex flex-col items-center justify-center text-center border-l border-neutral-900">
-          <span className="text-3xl md:text-4xl font-extrabold text-white">
+        <div className="flex flex-col items-center justify-center text-center py-4 md:py-0 border-t sm:border-t sm:border-l md:border-t-0 md:border-l border-neutral-900">
+          <span className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white">
             <AnimatedCounter value={portfolioData.stats.campaigns} />
           </span>
-          <span className="text-neutral-500 text-xs uppercase tracking-widest mt-2 font-medium">Campaigns Executed</span>
+          <span className="text-neutral-500 text-[10px] sm:text-xs uppercase tracking-widest mt-2 font-medium">Campaigns Executed</span>
         </div>
       </motion.div>
 
