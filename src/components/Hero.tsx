@@ -89,7 +89,7 @@ export default function Hero() {
       <div className="relative z-10 w-full max-w-7xl mx-auto flex flex-col md:flex-row md:items-stretch justify-between gap-10 mt-6 md:mt-16 pb-12">
         
         {/* Left Side: Content Column */}
-        <div className="w-full md:w-[55%] flex flex-col justify-center text-left order-2 md:order-1">
+        <div className="w-full md:w-[55%] flex flex-col justify-center text-left order-1 md:order-1">
           {/* Brand Tagline Header */}
           <motion.div
             initial={{ opacity: 0, y: -20 }}
@@ -170,7 +170,7 @@ export default function Hero() {
         <div 
           onMouseMove={handleMouseMove}
           onMouseLeave={handleMouseLeave}
-          className="w-full md:w-[48%] relative flex items-end justify-center select-none order-1 md:order-2 self-stretch min-h-[500px] md:min-h-none py-8 md:py-0 px-4 sm:px-8 overflow-visible"
+          className="w-full md:w-[48%] relative flex items-end justify-center select-none order-2 md:order-2 self-stretch min-h-[500px] md:min-h-none pt-8 pb-0 md:py-0 px-4 sm:px-8 overflow-visible"
         >
           {/* Target/Radar backdrop */}
           <div 
@@ -225,8 +225,8 @@ export default function Hero() {
               className="h-full w-auto object-contain object-bottom pointer-events-none filter drop-shadow-[0_0_20px_rgba(229,9,20,0.25)] scale-100 md:scale-105 transition-transform duration-700"
             />
 
-            {/* Subtle bottom fade gradient to blend his shirt into the dark background */}
-            <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-[#000000] via-[#000000]/90 to-transparent z-20 pointer-events-none" />
+            {/* Smooth bottom fade gradient to blend his shirt into the dark background */}
+            <div className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-black via-black/80 to-transparent z-20 pointer-events-none" />
           </motion.div>
 
           {/* Floating HUD Cards */}
