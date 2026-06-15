@@ -86,7 +86,7 @@ export default function Hero() {
       <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] pointer-events-none" />
 
       {/* Split-screen Layout */}
-      <div className="relative z-10 w-full max-w-7xl mx-auto flex flex-col md:flex-row md:items-stretch justify-between gap-10 mt-6 md:mt-16 pb-12">
+      <div className="relative z-10 w-full max-w-7xl mx-auto flex flex-col md:flex-row md:items-stretch justify-between gap-10 mt-6 md:mt-16 pb-0 md:pb-12">
         
         {/* Left Side: Content Column */}
         <div className="w-full md:w-[55%] flex flex-col justify-center text-left order-1 md:order-1">
