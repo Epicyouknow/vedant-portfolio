@@ -21,7 +21,7 @@ import { useAnalytics } from '../hooks/useAnalytics';
 
 export default function Home() {
   const { trackPageView, trackEvent } = useAnalytics();
-  const [showIntro, setShowIntro] = useState(true);
+  const [showIntro, setShowIntro] = useState(false);
   const [watchingProfileId, setWatchingProfileId] = useState('performance-marketing');
 
   // Interactive View Modes
@@ -57,6 +57,27 @@ export default function Home() {
     root.style.setProperty('--accent-color', targetColor.hex);
     root.style.setProperty('--accent-color-rgb', targetColor.rgb);
   }, [watchingProfileId, showIntro]);
+
+  // Trigger tracking on mount if intro is disabled
+  useEffect(() => {
+    if (!showIntro) {
+      trackPageView('/');
+      trackEvent('profile_select', { profileId: watchingProfileId });
+      
+      let category = '';
+      if (watchingProfileId === 'performance-marketing') category = 'campaign';
+      if (watchingProfileId === 'media-planning') category = 'mediaplan';
+      if (watchingProfileId === 'branding-strategy') category = 'branding';
+      if (watchingProfileId === 'web-dev') category = 'development';
+
+      if (category) {
+        setTimeout(() => {
+          const event = new CustomEvent('filter-projects', { detail: category });
+          window.dispatchEvent(event);
+        }, 350);
+      }
+    }
+  }, [showIntro, watchingProfileId, trackPageView, trackEvent]);
 
   // Keyboard listener for typing 'vedant' to unlock easter egg Behind The Scenes
   useEffect(() => {
