@@ -22,6 +22,7 @@ import { useAnalytics } from '../hooks/useAnalytics';
 
 export default function Home() {
   const { trackPageView, trackEvent } = useAnalytics();
+  // Show cinematic intro on first load
   const [showIntro, setShowIntro] = useState(true);
   const [watchingProfileId, setWatchingProfileId] = useState('performance-marketing');
 
