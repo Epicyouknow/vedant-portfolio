@@ -42,6 +42,40 @@ export default function AdminAnalytics() {
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState<AnalyticsData | null>(null);
   const [isRefreshing, setIsRefreshing] = useState(false);
+  const [inquiries, setInquiries] = useState<any[]>([]);
+  const [loadingInquiries, setLoadingInquiries] = useState(false);
+
+  const fetchInquiries = async (activePin: string) => {
+    setLoadingInquiries(true);
+    try {
+      const res = await fetch(`/api/inquiries?pin=${activePin}`);
+      if (res.ok) {
+        const list = await res.json();
+        setInquiries(list);
+      }
+    } catch (err) {
+      console.error('Failed to load inquiries:', err);
+    } finally {
+      setLoadingInquiries(false);
+    }
+  };
+
+  const handleDeleteInquiry = async (index: number) => {
+    const activePin = pin || sessionStorage.getItem('admin_pin') || '';
+    if (!confirm('Are you sure you want to delete this inquiry?')) return;
+    try {
+      const res = await fetch(`/api/inquiries?pin=${activePin}&index=${index}`, {
+        method: 'DELETE'
+      });
+      if (res.ok) {
+        fetchInquiries(activePin);
+      } else {
+        alert('Failed to delete inquiry');
+      }
+    } catch (err) {
+      console.error('Error deleting inquiry:', err);
+    }
+  };
 
   // Authenticate PIN
   const handlePinSubmit = async (enteredPin: string) => {
@@ -55,6 +89,7 @@ export default function AdminAnalytics() {
         setIsAuthenticated(true);
         // Save PIN in session storage for quick reloads
         sessionStorage.setItem('admin_pin', enteredPin);
+        fetchInquiries(enteredPin);
       } else {
         setError('Incorrect Profile PIN. Access Denied.');
         setPin('');
@@ -85,6 +120,7 @@ export default function AdminAnalytics() {
         const stats = await res.json();
         setData(stats);
       }
+      await fetchInquiries(activePin);
     } catch (err) {
       console.error('Failed to refresh stats:', err);
     } finally {
@@ -97,6 +133,7 @@ export default function AdminAnalytics() {
     sessionStorage.removeItem('admin_pin');
     setIsAuthenticated(false);
     setData(null);
+    setInquiries([]);
     setPin('');
     setError('');
   };
@@ -398,6 +435,75 @@ export default function AdminAnalytics() {
               <span className="text-xs text-neutral-600 italic block py-4">No chatbot interactions logged.</span>
             )}
           </div>
+        </section>
+
+        {/* Contact & Inquiries List Section */}
+        <section className="bg-neutral-950/60 border border-neutral-900 rounded-xl p-6 space-y-6">
+          <div className="flex items-center gap-2 border-b border-neutral-900 pb-3 justify-between">
+            <div className="flex items-center gap-2">
+              <MessageSquare className="w-5 h-5 text-[#E50914]" />
+              <h2 className="text-sm font-black uppercase tracking-wider">Incoming Campaign Enquiries ({inquiries.length})</h2>
+            </div>
+          </div>
+
+          {loadingInquiries ? (
+            <div className="text-center py-6 text-neutral-500 text-xs font-mono">Loading enquiries...</div>
+          ) : inquiries.length > 0 ? (
+            <div className="overflow-x-auto">
+              <table className="w-full text-left border-collapse text-xs">
+                <thead>
+                  <tr className="border-b border-neutral-900 text-neutral-500 uppercase text-[10px] font-mono">
+                    <th className="py-3 px-4">Date</th>
+                    <th className="py-3 px-4">Name</th>
+                    <th className="py-3 px-4">Email</th>
+                    <th className="py-3 px-4">Budget</th>
+                    <th className="py-3 px-4">Message</th>
+                    <th className="py-3 px-4 text-right">Actions</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-neutral-900/60">
+                  {inquiries.map((inq, idx) => (
+                    <tr key={idx} className="hover:bg-neutral-900/30 transition-colors">
+                      <td className="py-3.5 px-4 text-neutral-400 font-mono shrink-0 whitespace-nowrap">
+                        {new Date(inq.timestamp).toLocaleDateString(undefined, {
+                          month: 'short',
+                          day: 'numeric',
+                          hour: '2-digit',
+                          minute: '2-digit'
+                        })}
+                      </td>
+                      <td className="py-3.5 px-4 font-bold text-white whitespace-nowrap">{inq.name}</td>
+                      <td className="py-3.5 px-4 whitespace-nowrap">
+                        <a href={`mailto:${inq.email}`} className="text-[#3B82F6] hover:underline font-mono">
+                          {inq.email}
+                        </a>
+                      </td>
+                      <td className="py-3.5 px-4 whitespace-nowrap">
+                        <span className="px-2.5 py-1 rounded bg-[#E50914]/10 text-[#E50914] font-extrabold uppercase text-[10px] border border-[#E50914]/15">
+                          {inq.budget}
+                        </span>
+                      </td>
+                      <td className="py-3.5 px-4 text-neutral-300 font-light leading-relaxed min-w-[280px] max-w-sm break-words">
+                        {inq.message}
+                      </td>
+                      <td className="py-3.5 px-4 text-right whitespace-nowrap">
+                        <button
+                          onClick={() => handleDeleteInquiry(idx)}
+                          className="px-2.5 py-1 bg-red-950/20 hover:bg-red-900/30 text-red-500 border border-red-900/30 hover:border-red-600 rounded text-[10px] font-bold uppercase transition-all active:scale-95 cursor-pointer"
+                        >
+                          Delete
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          ) : (
+            <div className="text-center py-12 border border-dashed border-neutral-900 rounded-lg text-xs text-neutral-500 italic">
+              No inquiries received yet.
+            </div>
+          )}
         </section>
 
         {/* System & Telemetry Breakdown */}

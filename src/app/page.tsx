@@ -16,6 +16,7 @@ import MarketingLab from '../components/MarketingLab'; // Simulation sandbox
 import DashboardReplicas from '../components/DashboardReplicas'; // Ads manager mockups
 import VedantAI from '../components/VedantAI'; // Vedant GPT
 import CreditsFooter from '../components/CreditsFooter';
+import ContactForm from '../components/ContactForm';
 import { portfolioData } from '../data/portfolio';
 import { useAnalytics } from '../hooks/useAnalytics';
 
@@ -221,6 +222,7 @@ export default function Home() {
                   <button onClick={() => scrollSection('campaign-dashboards')} className="hover:text-white cursor-pointer uppercase">Dashboards</button>
                   <button onClick={() => scrollSection('marketing-lab')} className="hover:text-white cursor-pointer uppercase">Lab</button>
                   <button onClick={() => scrollSection('skills-galaxy')} className="hover:text-white cursor-pointer uppercase">Galaxy</button>
+                  <button onClick={() => scrollSection('contact')} className="text-[#E50914] hover:text-white font-extrabold cursor-pointer uppercase">Contact Me</button>
                 </nav>
               </div>
 
@@ -386,6 +388,15 @@ export default function Home() {
                         >
                           Galaxy
                         </button>
+                        <button
+                          onClick={() => {
+                            scrollSection('contact');
+                            setMobileMenuOpen(false);
+                          }}
+                          className="text-[#E50914] hover:text-white text-left font-bold text-xs uppercase cursor-pointer"
+                        >
+                          Contact Me
+                        </button>
                       </div>
 
                       {/* Mobile View Mode selectors */}
@@ -517,6 +528,8 @@ export default function Home() {
                   </div>
                 </div>
               </section>
+
+              <ContactForm />
 
             </main>
 
