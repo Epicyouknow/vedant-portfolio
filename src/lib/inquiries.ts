@@ -13,8 +13,8 @@ const dbPath = path.join(process.cwd(), 'inquiries.json');
 
 // Load inquiries from Vercel KV or local fallback
 export async function loadInquiries(): Promise<Inquiry[]> {
-  const kvUrl = process.env.KV_REST_API_URL;
-  const kvToken = process.env.KV_REST_API_TOKEN;
+  const kvUrl = process.env.KV_REST_API_URL || process.env.UPSTASH_REDIS_REST_URL;
+  const kvToken = process.env.KV_REST_API_TOKEN || process.env.UPSTASH_REDIS_REST_TOKEN;
 
   if (kvUrl && kvToken) {
     try {
@@ -51,8 +51,8 @@ export async function loadInquiries(): Promise<Inquiry[]> {
 
 // Write inquiries to Vercel KV or local fallback
 export async function saveInquiries(data: Inquiry[]): Promise<void> {
-  const kvUrl = process.env.KV_REST_API_URL;
-  const kvToken = process.env.KV_REST_API_TOKEN;
+  const kvUrl = process.env.KV_REST_API_URL || process.env.UPSTASH_REDIS_REST_URL;
+  const kvToken = process.env.KV_REST_API_TOKEN || process.env.UPSTASH_REDIS_REST_TOKEN;
 
   if (kvUrl && kvToken) {
     try {

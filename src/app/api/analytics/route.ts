@@ -80,7 +80,10 @@ export async function GET(req: NextRequest) {
     }
 
     const stats = await getAnalyticsStats();
-    const kvConnected = !!(process.env.KV_REST_API_URL && process.env.KV_REST_API_TOKEN);
+    const kvConnected = !!(
+      (process.env.KV_REST_API_URL && process.env.KV_REST_API_TOKEN) ||
+      (process.env.UPSTASH_REDIS_REST_URL && process.env.UPSTASH_REDIS_REST_TOKEN)
+    );
     return NextResponse.json({ ...stats, kvConnected });
   } catch (error) {
     console.error('Error fetching analytics stats:', error);
