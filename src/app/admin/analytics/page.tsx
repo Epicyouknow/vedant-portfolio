@@ -33,6 +33,7 @@ interface AnalyticsData {
   topProjects: { name: string; count: number }[];
   topSections: { name: string; count: number }[];
   recentQueries: string[];
+  kvConnected?: boolean;
 }
 
 export default function AdminAnalytics() {
@@ -277,6 +278,18 @@ export default function AdminAnalytics() {
             </button>
           </div>
         </header>
+
+        {data.kvConnected === false && (
+          <div className="bg-amber-950/20 border border-amber-500/30 text-amber-400 p-4 rounded-xl flex items-start gap-3">
+            <ShieldAlert className="w-5 h-5 shrink-0 mt-0.5" />
+            <div className="space-y-1 text-xs leading-relaxed">
+              <p className="font-extrabold uppercase tracking-wider">⚠️ Vercel KV Database Not Linked</p>
+              <p className="text-neutral-400">
+                Your live portfolio is currently using an ephemeral local filesystem fallback. Because Vercel serverless containers are stateless, visitor stats and form submissions will reset and get lost. To enable persistent analytics and contact form leads, you must connect **Vercel KV** in your Vercel Project Dashboard.
+              </p>
+            </div>
+          </div>
+        )}
 
         {/* KPI Cards Grid */}
         <section className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6">

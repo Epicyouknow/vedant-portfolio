@@ -80,7 +80,8 @@ export async function GET(req: NextRequest) {
     }
 
     const stats = await getAnalyticsStats();
-    return NextResponse.json(stats);
+    const kvConnected = !!(process.env.KV_REST_API_URL && process.env.KV_REST_API_TOKEN);
+    return NextResponse.json({ ...stats, kvConnected });
   } catch (error) {
     console.error('Error fetching analytics stats:', error);
     return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
