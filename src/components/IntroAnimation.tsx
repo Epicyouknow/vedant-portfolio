@@ -377,11 +377,7 @@ export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
   };
 
   const triggerSkip = () => {
-    if (step === 'intro') {
-      setStep('profile');
-    } else {
-      onComplete(selectedProfileId);
-    }
+    onComplete(selectedProfileId);
   };
 
   return (
@@ -411,7 +407,7 @@ export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
             exit={{ opacity: 0 }}
             className="absolute inset-0 z-10 flex items-center justify-center bg-black"
           >
-            <VLogoStep onComplete={() => setStep('profile')} />
+            <VLogoStep onComplete={() => onComplete(selectedProfileId)} />
             
             {/* Skip Preview Button (highly visible, well contrast, top-right) */}
             <button
