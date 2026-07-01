@@ -2,6 +2,7 @@
 
 import React, { useEffect, useRef } from 'react';
 import { Mail, Phone, MapPin, ChevronUp, Heart } from 'lucide-react';
+import Link from 'next/link';
 import { portfolioData } from '../data/portfolio';
 import { useAnalytics } from '../hooks/useAnalytics';
 
@@ -226,9 +227,9 @@ export default function CreditsFooter() {
           </div>
 
           <div className="flex gap-4">
-            <span className="hover:text-neutral-400 transition-colors">Privacy Policy</span>
-            <span className="hover:text-neutral-400 transition-colors">Terms of Service</span>
-            <span className="hover:text-neutral-400 transition-colors">Contact Support</span>
+            <Link href="/privacy" className="hover:text-white transition-colors cursor-pointer">Privacy Policy</Link>
+            <Link href="/terms" className="hover:text-white transition-colors cursor-pointer">Terms of Service</Link>
+            <Link href="/support" className="hover:text-white transition-colors cursor-pointer">Contact Support</Link>
           </div>
         </div>
 
