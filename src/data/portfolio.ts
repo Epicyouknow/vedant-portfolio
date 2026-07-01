@@ -138,10 +138,10 @@ export const portfolioData: PortfolioData = {
     about: "I am a high-impact Performance Marketing Executive and Media Planner based in Mumbai. I specialize in designing and executing cross-channel media strategies, managing significant budgets, and engineering data pipelines that turn clicks into measurable growth."
   },
   stats: {
-    experience: "1.5+ Years",
-    adSpend: "₹15L+",
+    experience: "2+ Years",
+    adSpend: "₹18L+",
     platforms: "7+ Platforms",
-    campaigns: "50+ Campaigns"
+    campaigns: "75+ Campaigns"
   },
   profiles: [
     {
@@ -488,7 +488,7 @@ export const portfolioData: PortfolioData = {
     },
     {
       questionKeywords: [["ad spend", "budget"], ["spend", "money", "managed"]],
-      answer: "Vedant has managed over ₹15L+ in advertising spends across Meta Ads, Google PMax/Search, Amazon, and Display channels, delivering consistent increases in return on ad spend (ROAS) and reducing overall CPA."
+      answer: "Vedant has managed over ₹18L+ in advertising spends across Meta Ads, Google PMax/Search, Amazon, and Display channels, delivering consistent increases in return on ad spend (ROAS) and reducing overall CPA."
     },
     {
       questionKeywords: [["certifications", "certified", "google ads"]],
