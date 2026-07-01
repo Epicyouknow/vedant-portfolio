@@ -89,7 +89,7 @@ export default function Hero() {
       <div className="relative z-10 w-full max-w-7xl mx-auto flex flex-col md:flex-row md:items-stretch justify-between gap-10 mt-6 md:mt-16 pb-0 md:pb-12">
         
         {/* Left Side: Content Column */}
-        <div className="w-full md:w-[55%] flex flex-col justify-center text-left order-1 md:order-1">
+        <div className="w-full md:w-[50%] flex flex-col justify-center text-left order-1 md:order-1 relative z-20">
           {/* Brand Tagline Header */}
           <motion.div
             initial={{ opacity: 0, y: -20 }}
@@ -97,12 +97,9 @@ export default function Hero() {
             transition={{ duration: 0.6 }}
             className="flex items-center gap-2 mb-6"
           >
-            <span className="text-[#E50914] text-xs font-bold tracking-[0.3em] uppercase bg-red-950/40 px-3 py-1.5 border border-red-800/40 rounded-full flex items-center gap-1.5">
-              <Award className="w-3.5 h-3.5 animate-pulse" />
-              Vedant Tiwari Original
-            </span>
-            <span className="text-neutral-500 text-xs tracking-wider uppercase hidden sm:inline">
-              • Interactive Portfolio
+            <span className="text-[#E50914] text-[10px] font-mono font-black uppercase tracking-[0.25em] bg-red-950/20 px-3.5 py-2 border border-red-900/30 rounded-md flex items-center gap-2 shadow-[0_0_15px_rgba(229,9,20,0.1)]">
+              <span className="w-2 h-2 bg-[#E50914] rounded-full animate-pulse" />
+              VEDANT TIWARI ORIGINAL
             </span>
           </motion.div>
 
@@ -111,12 +108,15 @@ export default function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.1 }}
-            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-white mb-6 leading-[1.05]"
-            style={{ fontFamily: 'var(--netflix-font)' }}
+            className="text-4xl sm:text-5xl md:text-[3.25rem] lg:text-[4.25rem] font-black tracking-tight text-white mb-6 leading-[1.1] uppercase"
           >
-            Marketing Growth Through
-            <span className="block text-transparent bg-clip-text bg-gradient-to-r from-[#E50914] via-[#F54F57] to-[#B20710] glow-text-red">
-              Strategy, Media & Performance.
+            Marketing Growth
+            <span className="block mt-1">Through</span>
+            <span className="block text-[#E50914] glow-text-red mt-1">
+              Strategy, Media &
+            </span>
+            <span className="block text-[#E50914] glow-text-red mt-1">
+              Performance.
             </span>
           </motion.h1>
 
@@ -125,9 +125,9 @@ export default function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.25 }}
-            className="text-neutral-400 text-base md:text-lg font-light leading-relaxed max-w-xl mb-10"
+            className="text-neutral-400 text-sm md:text-base font-light leading-relaxed max-w-lg mb-8"
           >
-            {portfolioData.personal.tagline} I build campaigns that scale brands, optimize performance and deliver measurable business growth.
+            Turning Data Into Growth. I build campaigns that scale brands, optimize performance and deliver measurable business growth.
           </motion.p>
 
           {/* Netflix Styled Action Buttons */}
@@ -135,21 +135,21 @@ export default function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
-            className="flex flex-wrap gap-4"
+            className="flex flex-wrap items-center gap-4"
           >
             <button
               onClick={() => scrollSection('career-universe')}
-              className="flex items-center gap-2 bg-white text-black font-semibold px-6 md:px-8 py-3.5 rounded hover:bg-neutral-200 active:scale-95 transition-all duration-200 cursor-pointer shadow-lg shadow-white/5"
+              className="flex items-center gap-2.5 bg-[#E50914] text-white font-bold text-xs uppercase tracking-wider px-7 py-4 rounded hover:bg-[#b20710] active:scale-95 transition-all duration-200 cursor-pointer shadow-[0_4px_15px_rgba(229,9,20,0.3)]"
             >
-              <Play className="w-5 h-5 fill-black stroke-none" />
+              <Play className="w-4 h-4 fill-white stroke-none" />
               Explore My Journey
             </button>
 
             <button
               onClick={() => scrollSection('work-showcase')}
-              className="flex items-center gap-2 bg-neutral-800/80 text-white border border-neutral-700/60 font-semibold px-6 md:px-8 py-3.5 rounded hover:bg-neutral-700/80 active:scale-95 transition-all duration-200 cursor-pointer"
+              className="flex items-center gap-2.5 bg-[#181818]/90 text-white border border-neutral-800 font-bold text-xs uppercase tracking-wider px-7 py-4 rounded hover:bg-neutral-800/80 hover:border-neutral-700 active:scale-95 transition-all duration-200 cursor-pointer"
             >
-              <Info className="w-5 h-5" />
+              <Info className="w-4 h-4" />
               View My Work
             </button>
 
@@ -158,9 +158,9 @@ export default function Hero() {
               target="_blank"
               rel="noreferrer"
               onClick={() => trackEvent('resume_download')}
-              className="flex items-center gap-2 bg-transparent text-[#E50914] border border-[#E50914]/50 hover:border-[#E50914] hover:bg-[#E50914]/5 font-semibold px-6 md:px-8 py-3.5 rounded active:scale-95 transition-all duration-200 cursor-pointer text-center"
+              className="flex items-center gap-2.5 bg-transparent text-[#E50914] border border-[#E50914]/40 hover:border-[#E50914] hover:bg-[#E50914]/5 font-bold text-xs uppercase tracking-wider px-7 py-4 rounded active:scale-95 transition-all duration-200 cursor-pointer text-center"
             >
-              <Download className="w-5 h-5" />
+              <Download className="w-4 h-4" />
               Download Resume
             </a>
           </motion.div>
@@ -170,29 +170,19 @@ export default function Hero() {
         <div 
           onMouseMove={handleMouseMove}
           onMouseLeave={handleMouseLeave}
-          className="w-full md:w-[48%] relative flex items-end justify-center select-none order-2 md:order-2 self-stretch min-h-[500px] md:min-h-none pt-8 pb-0 md:py-0 px-4 sm:px-8 overflow-visible"
+          className="w-full md:w-[45%] relative flex items-end justify-center select-none order-2 md:order-2 self-stretch min-h-[500px] md:min-h-none pt-8 pb-0 md:py-0 px-4 sm:px-8 overflow-visible"
         >
-          {/* Target/Radar backdrop */}
-          <div 
-            className="absolute w-[350px] md:w-[500px] h-[350px] md:h-[500px] border border-red-600/10 rounded-full flex items-center justify-center opacity-70 z-0 pointer-events-none top-[15%] right-[-5%] sm:right-[-10%]"
-            style={{ animation: 'spin 40s linear infinite' }}
-          >
-            <div className="w-[85%] h-[85%] border border-dashed border-red-600/10 rounded-full" />
-            <div className="w-[60%] h-[60%] border border-red-600/10 rounded-full" />
-            <div className="w-[30%] h-[30%] border border-red-600/20 rounded-full" />
-          </div>
-
-          {/* Giant glowing V logo */}
-          <div className="absolute top-[5%] right-[-15%] sm:right-[-20%] flex items-center justify-center pointer-events-none select-none z-0 overflow-visible opacity-[0.03] blur-[2px]">
-            <svg className="w-[40rem] h-[40rem] sm:w-[50rem] sm:h-[50rem] md:w-[60rem] md:h-[60rem] overflow-visible" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+          {/* Giant glowing V logo directly behind subject */}
+          <div className="absolute top-[2%] left-1/2 -translate-x-1/2 flex items-center justify-center pointer-events-none select-none z-0 overflow-visible opacity-[0.15] blur-[1px]">
+            <svg className="w-[32rem] h-[32rem] sm:w-[40rem] sm:h-[40rem] md:w-[48rem] md:h-[48rem] overflow-visible" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
               <defs>
                 <linearGradient id="vFacet1-hero" x1="0" y1="0" x2="1" y2="1">
-                  <stop offset="0%" stopColor="#ff1e27" />
-                  <stop offset="100%" stopColor="#b20710" />
+                  <stop offset="0%" stopColor="#e50914" />
+                  <stop offset="100%" stopColor="#800206" />
                 </linearGradient>
                 <linearGradient id="vFacet2-hero" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stopColor="#e50914" />
-                  <stop offset="100%" stopColor="#600104" />
+                  <stop offset="0%" stopColor="#e50914" stopOpacity="0.8" />
+                  <stop offset="100%" stopColor="#1a0001" stopOpacity="0.2" />
                 </linearGradient>
                 <linearGradient id="vFacet3-hero" x1="1" y1="0" x2="0" y2="1">
                   <stop offset="0%" stopColor="#ff4148" />
@@ -207,26 +197,20 @@ export default function Hero() {
           </div>
 
           {/* Red radial glow directly behind the character for the premium red halo effect */}
-          <div className="absolute w-[400px] md:w-[600px] h-[400px] md:h-[600px] rounded-full bg-[radial-gradient(circle,rgba(229,9,20,0.3)_0%,transparent_70%)] z-0 blur-3xl pointer-events-none top-[10%] right-[-10%]" />
+          <div className="absolute w-[450px] md:w-[650px] h-[450px] md:h-[650px] rounded-full bg-[radial-gradient(circle,rgba(229,9,20,0.35)_0%,transparent_70%)] z-0 blur-3xl pointer-events-none top-[15%] left-1/2 -translate-x-1/2" />
 
           {/* Portrait Image Wrapper - NO card border, NO card container, bleeding off viewport */}
           <motion.div 
-            animate={{ y: [0, -6, 0] }}
-            transition={{
-              duration: 6,
-              repeat: Infinity,
-              ease: "easeInOut"
-            }}
-            className="absolute bottom-0 right-[-15%] sm:right-[-10%] md:right-[-5%] w-auto h-[90%] md:h-[110%] z-10 flex items-end justify-center overflow-visible"
+            className="absolute bottom-0 left-1/2 -translate-x-1/2 w-full h-[95%] md:h-[112%] z-10 flex items-end justify-center overflow-visible"
           >
             <img 
               src="/vedant_portrait.png" 
               alt="Vedant Tiwari" 
-              className="h-full w-auto object-contain object-bottom pointer-events-none filter drop-shadow-[0_0_20px_rgba(229,9,20,0.25)] scale-100 md:scale-105 transition-transform duration-700"
+              className="h-full w-auto object-contain object-bottom pointer-events-none filter drop-shadow-[0_0_35px_rgba(229,9,20,0.3)] scale-100 md:scale-[1.08] transition-transform duration-700"
             />
 
             {/* Smooth bottom fade gradient to blend his shirt into the dark background */}
-            <div className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-black via-black/80 to-transparent z-20 pointer-events-none" />
+            <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-[#000000] via-[#000000]/80 to-transparent z-20 pointer-events-none" />
           </motion.div>
 
           {/* Floating HUD Cards */}
@@ -236,16 +220,12 @@ export default function Hero() {
               x: mousePos.x * -12,
               y: mousePos.y * -12,
             }}
-            animate={{ y: [0, -3, 0] }}
-            transition={{
-              y: { duration: 3.2, repeat: Infinity, ease: "easeInOut" }
-            }}
-            className="absolute top-[8%] left-2 md:left-[-4%] z-20 bg-black/60 border border-red-500/15 backdrop-blur-md rounded p-3 shadow-2xl flex flex-col gap-0.5 w-[120px] select-none pointer-events-none border-l-2 border-l-[#E50914]"
+            className="absolute top-[8%] left-[-4%] md:left-[-12%] z-20 bg-[#070707]/70 border border-red-500/20 backdrop-blur-md rounded-lg p-3.5 shadow-2xl flex flex-col gap-0.5 w-[130px] select-none pointer-events-none transition-all duration-200 hover:border-red-500/40"
           >
-            <span className="text-[8px] uppercase tracking-wider text-red-500 font-bold">ROAS</span>
-            <span className="text-sm font-black text-white tracking-tight">8.45x</span>
-            <span className="text-[7.5px] text-green-500 font-bold flex items-center gap-0.5">↑ 28% Growth</span>
-            <svg className="w-full h-5 text-red-500 mt-1" viewBox="0 0 50 20">
+            <span className="text-[8px] uppercase tracking-wider text-red-500 font-mono font-bold">ROAS</span>
+            <span className="text-base font-black text-white tracking-tight">8.45x</span>
+            <span className="text-[8px] text-green-500 font-mono font-bold">↑ 28% Growth</span>
+            <svg className="w-full h-5 text-red-600 mt-1" viewBox="0 0 50 20">
               <path d="M0 18 Q10 14 20 12 T40 6 T50 2" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
             </svg>
           </motion.div>
@@ -256,18 +236,17 @@ export default function Hero() {
               x: mousePos.x * -20,
               y: mousePos.y * -20,
             }}
-            animate={{ y: [0, -5, 0] }}
-            transition={{
-              y: { duration: 4.0, repeat: Infinity, ease: "easeInOut", delay: 0.2 }
-            }}
-            className="absolute top-[40%] left-0 md:left-[-12%] z-20 bg-black/60 border border-red-500/15 backdrop-blur-md rounded p-3 shadow-2xl flex flex-col gap-0.5 w-[120px] select-none pointer-events-none border-l-2 border-l-[#E50914]"
+            className="absolute top-[38%] left-[-10%] md:left-[-22%] z-20 bg-[#070707]/70 border border-red-500/20 backdrop-blur-md rounded-lg p-3.5 shadow-2xl flex flex-col gap-0.5 w-[130px] select-none pointer-events-none transition-all duration-200 hover:border-red-500/40"
           >
-            <span className="text-[8px] uppercase tracking-wider text-red-500 font-bold">Conversions</span>
-            <span className="text-sm font-black text-white tracking-tight">23,456</span>
-            <span className="text-[7.5px] text-green-500 font-bold flex items-center gap-0.5">↑ 32% YoY</span>
-            <svg className="w-full h-5 text-red-500 mt-1" viewBox="0 0 50 20">
-              <path d="M0 18 L10 15 L20 16 L30 9 L40 11 L50 2" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-            </svg>
+            <span className="text-[8px] uppercase tracking-wider text-red-500 font-mono font-bold">Conversions</span>
+            <span className="text-base font-black text-white tracking-tight">23,456</span>
+            <span className="text-[8px] text-green-500 font-mono font-bold">↑ 32% YoY</span>
+            <div className="flex items-end gap-1.5 h-6 mt-1.5">
+              <div className="w-1.5 h-2 bg-red-950/80 rounded-t" />
+              <div className="w-2.5 h-3.5 bg-red-900/80 rounded-t" />
+              <div className="w-2.5 h-4.5 bg-red-800/80 rounded-t" />
+              <div className="w-2.5 h-6 bg-[#E50914] rounded-t animate-pulse" />
+            </div>
           </motion.div>
 
           {/* 3. Ad Spend (Bottom-Left) */}
@@ -276,20 +255,16 @@ export default function Hero() {
               x: mousePos.x * -8,
               y: mousePos.y * -8,
             }}
-            animate={{ y: [0, -4, 0] }}
-            transition={{
-              y: { duration: 3.5, repeat: Infinity, ease: "easeInOut", delay: 0.5 }
-            }}
-            className="absolute bottom-[8%] left-2 md:left-[-4%] z-20 bg-black/60 border border-red-500/15 backdrop-blur-md rounded p-3 shadow-2xl flex flex-col gap-0.5 w-[120px] select-none pointer-events-none border-l-2 border-l-[#E50914]"
+            className="absolute bottom-[10%] left-[-2%] md:left-[-10%] z-20 bg-[#070707]/70 border border-red-500/20 backdrop-blur-md rounded-lg p-3.5 shadow-2xl flex flex-col gap-0.5 w-[130px] select-none pointer-events-none transition-all duration-200 hover:border-red-500/40"
           >
-            <span className="text-[8px] uppercase tracking-wider text-red-500 font-bold">Ad Spend</span>
-            <span className="text-sm font-black text-white tracking-tight">₹15.4L</span>
-            <span className="text-[7.5px] text-green-500 font-bold flex items-center gap-0.5">↑ 28% Managed</span>
-            <div className="flex items-end gap-1.5 h-5 mt-1">
+            <span className="text-[8px] uppercase tracking-wider text-red-500 font-mono font-bold">Ad Spend</span>
+            <span className="text-base font-black text-white tracking-tight">₹15.4L</span>
+            <span className="text-[8px] text-green-500 font-mono font-bold">↑ 28% Managed</span>
+            <div className="flex items-end gap-1.5 h-6 mt-1.5">
               <div className="w-1.5 h-1.5 bg-red-950/80 rounded-t" />
               <div className="w-2 h-2.5 bg-red-900/80 rounded-t" />
-              <div className="w-2 h-4 bg-red-800/80 rounded-t" />
-              <div className="w-2.5 h-6 bg-red-500 rounded-t" />
+              <div className="w-2.5 h-4 bg-red-800/80 rounded-t" />
+              <div className="w-2.5 h-6 bg-[#E50914] rounded-t" />
             </div>
           </motion.div>
 
@@ -299,16 +274,12 @@ export default function Hero() {
               x: mousePos.x * 12,
               y: mousePos.y * 12,
             }}
-            animate={{ y: [0, -3.5, 0] }}
-            transition={{
-              y: { duration: 3.4, repeat: Infinity, ease: "easeInOut", delay: 0.1 }
-            }}
-            className="absolute top-[8%] right-2 md:right-[0%] z-20 bg-black/60 border border-red-500/15 backdrop-blur-md rounded p-3 shadow-2xl flex flex-col gap-0.5 w-[120px] select-none pointer-events-none border-r-2 border-r-[#E50914] text-right items-end"
+            className="absolute top-[8%] right-[-4%] md:right-[-12%] z-20 bg-[#070707]/70 border border-red-500/20 backdrop-blur-md rounded-lg p-3.5 shadow-2xl flex flex-col gap-0.5 w-[130px] select-none pointer-events-none border-r border-r-[#E50914]/20 transition-all duration-200 hover:border-red-500/40"
           >
-            <span className="text-[8px] uppercase tracking-wider text-red-500 font-bold">CTR</span>
-            <span className="text-sm font-black text-white tracking-tight">2.45%</span>
-            <span className="text-[7.5px] text-green-500 font-bold">↑ 18% Avg</span>
-            <svg className="w-full h-5 text-red-500 mt-1" viewBox="0 0 50 20">
+            <span className="text-[8px] uppercase tracking-wider text-red-500 font-mono font-bold">CTR</span>
+            <span className="text-base font-black text-white tracking-tight">2.45%</span>
+            <span className="text-[8px] text-green-500 font-mono font-bold">↑ 18% Avg</span>
+            <svg className="w-full h-5 text-red-600 mt-1" viewBox="0 0 50 20">
               <path d="M0 15 Q15 17 30 9 T50 3" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
             </svg>
           </motion.div>
@@ -319,16 +290,12 @@ export default function Hero() {
               x: mousePos.x * 20,
               y: mousePos.y * 20,
             }}
-            animate={{ y: [0, -4.5, 0] }}
-            transition={{
-              y: { duration: 3.8, repeat: Infinity, ease: "easeInOut", delay: 0.4 }
-            }}
-            className="absolute top-[40%] right-0 md:right-[-8%] z-20 bg-black/60 border border-red-500/15 backdrop-blur-md rounded p-3 shadow-2xl flex flex-col gap-0.5 w-[120px] select-none pointer-events-none border-r-2 border-r-[#E50914] text-right items-end"
+            className="absolute top-[38%] right-[-10%] md:right-[-22%] z-20 bg-[#070707]/70 border border-red-500/20 backdrop-blur-md rounded-lg p-3.5 shadow-2xl flex flex-col gap-0.5 w-[130px] select-none pointer-events-none transition-all duration-200 hover:border-red-500/40"
           >
-            <span className="text-[8px] uppercase tracking-wider text-red-500 font-bold">CPC</span>
-            <span className="text-sm font-black text-white tracking-tight">₹11.23</span>
-            <span className="text-[7.5px] text-red-500 font-bold">↓ 12% Cost</span>
-            <svg className="w-full h-5 text-red-500 mt-1" viewBox="0 0 50 20">
+            <span className="text-[8px] uppercase tracking-wider text-red-500 font-mono font-bold">CPC</span>
+            <span className="text-base font-black text-white tracking-tight">₹11.23</span>
+            <span className="text-[8px] text-red-500 font-mono font-bold">↓ 12% Cost</span>
+            <svg className="w-full h-5 text-red-600 mt-1" viewBox="0 0 50 20">
               <path d="M0 3 Q15 6 30 11 T50 17" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
             </svg>
           </motion.div>
@@ -339,20 +306,16 @@ export default function Hero() {
               x: mousePos.x * 8,
               y: mousePos.y * 8,
             }}
-            animate={{ y: [0, -4, 0] }}
-            transition={{
-              y: { duration: 3.6, repeat: Infinity, ease: "easeInOut", delay: 0.7 }
-            }}
-            className="absolute bottom-[8%] right-2 md:right-[0%] z-20 bg-black/60 border border-red-500/15 backdrop-blur-md rounded p-3 shadow-2xl flex items-center justify-between gap-2.5 w-[120px] select-none pointer-events-none border-r-2 border-r-[#E50914]"
+            className="absolute bottom-[10%] right-[-2%] md:right-[-10%] z-20 bg-[#070707]/70 border border-red-500/20 backdrop-blur-md rounded-lg p-3.5 shadow-2xl flex items-center justify-between gap-2.5 w-[130px] select-none pointer-events-none transition-all duration-200 hover:border-red-500/40"
           >
             <div className="flex flex-col gap-0.5">
-              <span className="text-[8px] uppercase tracking-wider text-red-500 font-bold">Impressions</span>
-              <span className="text-sm font-black text-white tracking-tight">2.8M</span>
-              <span className="text-[7.5px] text-green-500 font-bold">↑ 21%</span>
+              <span className="text-[8px] uppercase tracking-wider text-red-500 font-mono font-bold">Impressions</span>
+              <span className="text-base font-black text-white tracking-tight">2.8M</span>
+              <span className="text-[8px] text-green-500 font-mono font-bold">↑ 21%</span>
             </div>
-            <svg className="w-7 h-7 text-red-500 shrink-0" viewBox="0 0 36 36">
-              <path className="text-neutral-900" strokeWidth="3" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
-              <path className="text-[#E50914]" strokeWidth="3" strokeDasharray="78, 100" strokeLinecap="round" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+            <svg className="w-7 h-7 text-[#E50914] shrink-0" viewBox="0 0 36 36">
+              <path className="text-neutral-900" strokeWidth="3.5" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+              <path className="text-[#E50914]" strokeWidth="3.5" strokeDasharray="78, 100" strokeLinecap="round" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
             </svg>
           </motion.div>
         </div>
