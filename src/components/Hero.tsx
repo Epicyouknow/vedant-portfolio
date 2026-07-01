@@ -108,7 +108,7 @@ export default function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.1 }}
-            className="text-4xl sm:text-5xl md:text-[3.25rem] lg:text-[4.25rem] font-black tracking-tight text-white mb-6 leading-[1.1] uppercase"
+            className="text-4xl sm:text-5xl md:text-[3.25rem] lg:text-[4.25rem] font-black tracking-tight text-white mb-6 leading-[1.1]"
           >
             Marketing Growth
             <span className="block mt-1">Through</span>
@@ -139,7 +139,7 @@ export default function Hero() {
           >
             <button
               onClick={() => scrollSection('career-universe')}
-              className="flex items-center gap-2.5 bg-[#E50914] text-white font-bold text-xs uppercase tracking-wider px-7 py-4 rounded hover:bg-[#b20710] active:scale-95 transition-all duration-200 cursor-pointer shadow-[0_4px_15px_rgba(229,9,20,0.3)]"
+              className="flex items-center gap-2.5 bg-[#E50914] text-white font-bold text-xs px-7 py-4 rounded hover:bg-[#b20710] active:scale-95 transition-all duration-200 cursor-pointer shadow-[0_4px_15px_rgba(229,9,20,0.3)]"
             >
               <Play className="w-4 h-4 fill-white stroke-none" />
               Explore My Journey
@@ -147,7 +147,7 @@ export default function Hero() {
 
             <button
               onClick={() => scrollSection('work-showcase')}
-              className="flex items-center gap-2.5 bg-[#181818]/90 text-white border border-neutral-800 font-bold text-xs uppercase tracking-wider px-7 py-4 rounded hover:bg-neutral-800/80 hover:border-neutral-700 active:scale-95 transition-all duration-200 cursor-pointer"
+              className="flex items-center gap-2.5 bg-[#181818]/90 text-white border border-neutral-800 font-bold text-xs px-7 py-4 rounded hover:bg-neutral-800/80 hover:border-neutral-700 active:scale-95 transition-all duration-200 cursor-pointer"
             >
               <Info className="w-4 h-4" />
               View My Work
@@ -158,7 +158,7 @@ export default function Hero() {
               target="_blank"
               rel="noreferrer"
               onClick={() => trackEvent('resume_download')}
-              className="flex items-center gap-2.5 bg-transparent text-[#E50914] border border-[#E50914]/40 hover:border-[#E50914] hover:bg-[#E50914]/5 font-bold text-xs uppercase tracking-wider px-7 py-4 rounded active:scale-95 transition-all duration-200 cursor-pointer text-center"
+              className="flex items-center gap-2.5 bg-transparent text-[#E50914] border border-[#E50914]/40 hover:border-[#E50914] hover:bg-[#E50914]/5 font-bold text-xs px-7 py-4 rounded active:scale-95 transition-all duration-200 cursor-pointer text-center"
             >
               <Download className="w-4 h-4" />
               Download Resume
@@ -206,7 +206,10 @@ export default function Hero() {
             <img 
               src="/vedant_portrait.png" 
               alt="Vedant Tiwari" 
-              className="h-full w-auto object-contain object-bottom pointer-events-none filter drop-shadow-[0_0_35px_rgba(229,9,20,0.3)] scale-100 md:scale-[1.08] transition-transform duration-700"
+              className="h-full w-auto object-contain object-bottom pointer-events-none scale-100 md:scale-[1.08] transition-transform duration-700"
+              style={{
+                filter: 'drop-shadow(0 0 12px rgba(229, 9, 20, 0.95)) drop-shadow(0 0 30px rgba(229, 9, 20, 0.6)) drop-shadow(0 0 65px rgba(229, 9, 20, 0.35))'
+              }}
             />
 
             {/* Smooth bottom fade gradient to blend his shirt into the dark background */}
