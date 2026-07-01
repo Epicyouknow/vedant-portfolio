@@ -139,8 +139,8 @@ export default function PrivacyPolicy() {
               </p>
               <div className="flex items-center gap-2.5 p-4 rounded-lg bg-neutral-950 border border-neutral-900 w-fit">
                 <Mail className="w-4 h-4 text-[#E50914]" />
-                <a href="mailto:hello@vedantverse.in" className="text-xs text-neutral-300 hover:text-white font-mono hover:underline">
-                  hello@vedantverse.in
+                <a href="mailto:tiwarivedant705@gmail.com" className="text-xs text-neutral-300 hover:text-white font-mono hover:underline">
+                  tiwarivedant705@gmail.com
                 </a>
               </div>
             </section>
