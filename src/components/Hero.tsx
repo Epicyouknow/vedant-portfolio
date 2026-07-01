@@ -364,34 +364,34 @@ export default function Hero() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1.0, delay: 0.6 }}
-        className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 py-8 border-t border-b border-neutral-900/80 relative z-10 bg-black/40 backdrop-blur-sm px-4 rounded-lg"
+        className="w-full grid grid-cols-2 lg:grid-cols-4 gap-6 py-6 md:py-8 border-t border-b border-neutral-900/80 relative z-10 bg-black/40 backdrop-blur-sm px-4 rounded-lg"
       >
-        <div className="flex flex-col items-center justify-center text-center py-4 md:py-0">
-          <span className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-[#E50914] glow-text-red">
+        <div className="flex flex-col items-center justify-center text-center py-4">
+          <span className="text-xl sm:text-2xl lg:text-3xl xl:text-4xl font-extrabold text-[#E50914] glow-text-red whitespace-nowrap">
             <AnimatedCounter value={portfolioData.stats.experience} />
           </span>
-          <span className="text-neutral-500 text-[10px] sm:text-xs uppercase tracking-widest mt-2 font-medium">Experience</span>
+          <span className="text-neutral-500 text-[9px] sm:text-xs uppercase tracking-widest mt-2 font-medium">Experience</span>
         </div>
 
-        <div className="flex flex-col items-center justify-center text-center py-4 md:py-0 border-t sm:border-t-0 sm:border-l border-neutral-900">
-          <span className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white">
+        <div className="flex flex-col items-center justify-center text-center py-4 border-l border-neutral-900">
+          <span className="text-xl sm:text-2xl lg:text-3xl xl:text-4xl font-extrabold text-white whitespace-nowrap">
             <AnimatedCounter value={portfolioData.stats.adSpend} />
           </span>
-          <span className="text-neutral-500 text-[10px] sm:text-xs uppercase tracking-widest mt-2 font-medium">Ad Budget Managed</span>
+          <span className="text-neutral-500 text-[9px] sm:text-xs uppercase tracking-widest mt-2 font-medium">Ad Budget Managed</span>
         </div>
 
-        <div className="flex flex-col items-center justify-center text-center py-4 md:py-0 border-t sm:border-t md:border-t-0 md:border-l border-neutral-900">
-          <span className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-[#E50914] glow-text-red">
+        <div className="flex flex-col items-center justify-center text-center py-4 border-t lg:border-t-0 lg:border-l border-neutral-900/80 lg:border-neutral-900">
+          <span className="text-xl sm:text-2xl lg:text-3xl xl:text-4xl font-extrabold text-[#E50914] glow-text-red whitespace-nowrap">
             <AnimatedCounter value={portfolioData.stats.platforms} />
           </span>
-          <span className="text-neutral-500 text-[10px] sm:text-xs uppercase tracking-widest mt-2 font-medium">Ad Networks</span>
+          <span className="text-neutral-500 text-[9px] sm:text-xs uppercase tracking-widest mt-2 font-medium">Ad Networks</span>
         </div>
 
-        <div className="flex flex-col items-center justify-center text-center py-4 md:py-0 border-t sm:border-t sm:border-l md:border-t-0 md:border-l border-neutral-900">
-          <span className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white">
+        <div className="flex flex-col items-center justify-center text-center py-4 border-t border-l lg:border-t-0 border-neutral-900/80 lg:border-neutral-900">
+          <span className="text-xl sm:text-2xl lg:text-3xl xl:text-4xl font-extrabold text-white whitespace-nowrap">
             <AnimatedCounter value={portfolioData.stats.campaigns} />
           </span>
-          <span className="text-neutral-500 text-[10px] sm:text-xs uppercase tracking-widest mt-2 font-medium">Campaigns Executed</span>
+          <span className="text-neutral-500 text-[9px] sm:text-xs uppercase tracking-widest mt-2 font-medium">Campaigns Executed</span>
         </div>
       </motion.div>
 
