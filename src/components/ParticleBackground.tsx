@@ -64,12 +64,12 @@ export default function ParticleBackground() {
 
     // Material
     const material = new THREE.PointsMaterial({
-      size: 0.8,
+      size: 0.4,
       map: createCircleTexture(),
       transparent: true,
       blending: THREE.AdditiveBlending,
       depthWrite: false,
-      opacity: 0.6
+      opacity: 0.3
     });
 
     // Points Mesh
@@ -151,8 +151,7 @@ export default function ParticleBackground() {
   return (
     <div 
       ref={containerRef} 
-      className="fixed inset-0 pointer-events-none z-0 overflow-hidden" 
-      style={{ background: 'radial-gradient(circle at center, #100505 0%, #000000 100%)' }}
+      className="fixed inset-0 pointer-events-none z-[2] overflow-hidden" 
     />
   );
 }

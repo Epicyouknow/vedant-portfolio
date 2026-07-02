@@ -77,38 +77,34 @@ export default function Hero() {
   };
 
   return (
-    <section className="relative min-h-screen flex flex-col justify-center px-6 md:px-16 pt-20 overflow-hidden">
-      {/* Dynamic Red Glow Ambient Light */}
-      <div className="ambient-light-red -top-20 -left-20" />
-      <div className="ambient-light-red bottom-10 right-10" style={{ opacity: 0.05 }} />
-
-      {/* Grid background overlay */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] pointer-events-none" />
+    <section className="relative md:h-screen md:min-h-[900px] flex flex-col justify-center px-6 md:px-16 pt-20 overflow-hidden z-[1] bg-[#050505]">
+      {/* Grid background overlay - Layer 2 */}
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.06)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.06)_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] pointer-events-none z-[1]" />
 
       {/* Split-screen Layout */}
       <div className="relative z-10 w-full max-w-7xl mx-auto flex flex-col md:flex-row md:items-stretch justify-between gap-10 mt-6 md:mt-16 pb-0 md:pb-12">
         
-        {/* Left Side: Content Column */}
-        <div className="w-full md:w-[50%] flex flex-col justify-center text-left order-1 md:order-1 relative z-20">
-          {/* Brand Tagline Header */}
+        {/* Left Side: Content Column - Layers 7 and 8 */}
+        <div className="w-full md:w-[41.6%] flex flex-col justify-center text-left order-2 md:order-1 relative z-[7] max-w-[560px]">
+          {/* Brand Tagline Header - Layer 7 */}
           <motion.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="flex items-center gap-2 mb-6"
+            className="flex items-center gap-2 mb-6 z-[7]"
           >
-            <span className="text-[#E50914] text-[10px] font-mono font-black uppercase tracking-[0.25em] bg-red-950/20 px-3.5 py-2 border border-red-900/30 rounded-md flex items-center gap-2 shadow-[0_0_15px_rgba(229,9,20,0.1)]">
+            <span className="text-[#E50914] text-[10px] font-mono font-black uppercase tracking-[0.25em] bg-red-950/20 px-3.5 py-2 border border-red-900/30 rounded-md flex items-center gap-2 shadow-[0_0_15px_rgba(229,9,20,0.1)] z-[7]">
               <span className="w-2 h-2 bg-[#E50914] rounded-full animate-pulse" />
               VEDANT TIWARI ORIGINAL
             </span>
           </motion.div>
 
-          {/* Cinematic Main Title */}
+          {/* Cinematic Main Title - Layer 7 */}
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.1 }}
-            className="text-4xl sm:text-5xl md:text-[3.25rem] lg:text-[4.25rem] font-black tracking-tight text-white mb-6 leading-[1.1]"
+            className="text-4xl sm:text-5xl md:text-[3.25rem] lg:text-[4.25rem] font-black tracking-tight text-white mb-6 leading-[1.1] z-[7]"
           >
             Marketing Growth
             <span className="block mt-1">Through</span>
@@ -120,22 +116,22 @@ export default function Hero() {
             </span>
           </motion.h1>
 
-          {/* Subtitle */}
+          {/* Subtitle - Layer 7 */}
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.25 }}
-            className="text-neutral-400 text-sm md:text-base font-light leading-relaxed max-w-lg mb-8"
+            className="text-neutral-400 text-sm md:text-base font-light leading-relaxed max-w-lg mb-8 z-[7]"
           >
             Turning Data Into Growth. I build campaigns that scale brands, optimize performance and deliver measurable business growth.
           </motion.p>
 
-          {/* Netflix Styled Action Buttons */}
+          {/* Netflix Styled Action Buttons - Layer 8 */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
-            className="flex flex-wrap items-center gap-4"
+            className="flex flex-wrap items-center gap-4 z-[8] relative"
           >
             <button
               onClick={() => scrollSection('career-universe')}
@@ -166,14 +162,14 @@ export default function Hero() {
           </motion.div>
         </div>
 
-        {/* Right Side: Cinematic Portrait & HUD Centerpiece */}
+        {/* Right Side: Cinematic Portrait & HUD Centerpiece - Layer 5 */}
         <div 
           onMouseMove={handleMouseMove}
           onMouseLeave={handleMouseLeave}
-          className="w-full md:w-[45%] relative flex items-end justify-center select-none order-2 md:order-2 self-stretch min-h-[500px] md:min-h-none pt-8 pb-0 md:py-0 px-4 sm:px-8 overflow-visible"
+          className="w-full md:w-[58.3%] relative flex items-end justify-center select-none order-1 md:order-2 self-stretch min-h-[500px] md:min-h-none pt-8 pb-0 md:py-0 px-4 sm:px-8 overflow-visible z-[5]"
         >
-          {/* Giant glowing V logo directly behind subject */}
-          <div className="absolute top-[2%] left-1/2 -translate-x-1/2 flex items-center justify-center pointer-events-none select-none z-0 overflow-visible opacity-[0.15] blur-[1px]">
+          {/* Giant glowing V logo directly behind subject - Layer 4 */}
+          <div className="absolute top-[2%] left-1/2 -translate-x-1/2 flex items-center justify-center pointer-events-none select-none z-[4] overflow-visible opacity-[0.07] mix-blend-screen blur-[1px]">
             <svg className="w-[32rem] h-[32rem] sm:w-[40rem] sm:h-[40rem] md:w-[48rem] md:h-[48rem] overflow-visible" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
               <defs>
                 <linearGradient id="vFacet1-hero" x1="0" y1="0" x2="1" y2="1">
@@ -196,34 +192,31 @@ export default function Hero() {
             </svg>
           </div>
 
-          {/* Red radial glow directly behind the character for the premium red halo effect */}
-          <div className="absolute w-[450px] md:w-[650px] h-[450px] md:h-[650px] rounded-full bg-[radial-gradient(circle,rgba(229,9,20,0.35)_0%,transparent_70%)] z-0 blur-3xl pointer-events-none top-[15%] left-1/2 -translate-x-1/2" />
+          {/* Red radial glow directly behind the character - Layer 4 */}
+          <div className="absolute w-[600px] h-[600px] rounded-full bg-[#E50914]/18 z-[4] blur-3xl pointer-events-none top-[15%] left-1/2 -translate-x-1/2 mix-blend-screen" />
 
-          {/* Portrait Image Wrapper - NO card border, NO card container, bleeding off viewport */}
+          {/* Portrait Image Wrapper - NO card border, NO card container, bleeding off viewport - Layer 5 */}
           <motion.div 
-            className="absolute bottom-0 left-1/2 -translate-x-1/2 w-full h-[95%] md:h-[112%] z-10 flex items-end justify-center overflow-visible"
+            className="absolute bottom-0 right-0 w-[80%] md:w-[42vw] h-[90%] md:h-[95%] z-[5] flex items-end justify-center overflow-visible"
           >
             <img 
               src="/vedant_portrait.png" 
               alt="Vedant Tiwari" 
-              className="h-full w-auto object-contain object-bottom pointer-events-none scale-100 md:scale-[1.08] transition-transform duration-700"
+              className="h-full w-auto object-contain object-bottom pointer-events-none scale-100 md:scale-[1.08] transition-transform duration-700 portrait-mask-blend"
               style={{
                 filter: 'drop-shadow(0 0 12px rgba(229, 9, 20, 0.95)) drop-shadow(0 0 30px rgba(229, 9, 20, 0.6)) drop-shadow(0 0 65px rgba(229, 9, 20, 0.35))'
               }}
             />
-
-            {/* Smooth bottom fade gradient to blend his shirt into the dark background */}
-            <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-[#000000] via-[#000000]/80 to-transparent z-20 pointer-events-none" />
           </motion.div>
 
-          {/* Floating HUD Cards */}
+          {/* Floating HUD Cards - Layer 6 */}
           {/* 1. ROAS (Top-Left) */}
           <motion.div
             style={{
               x: mousePos.x * -12,
               y: mousePos.y * -12,
             }}
-            className="absolute top-[8%] left-[-4%] md:left-[-12%] z-20 bg-[#070707]/70 border border-red-500/20 backdrop-blur-md rounded-lg p-3.5 shadow-2xl flex flex-col gap-0.5 w-[130px] select-none pointer-events-none transition-all duration-200 hover:border-red-500/40"
+            className="absolute top-[8%] left-[-4%] md:left-[-12%] z-[6] bg-[#070707]/70 border border-red-500/20 backdrop-blur-md rounded-lg p-3.5 shadow-2xl flex flex-col gap-0.5 w-[130px] select-none pointer-events-none transition-all duration-200 hover:border-red-500/40"
           >
             <span className="text-[8px] uppercase tracking-wider text-red-500 font-mono font-bold">ROAS</span>
             <span className="text-base font-black text-white tracking-tight">8.45x</span>
@@ -239,7 +232,7 @@ export default function Hero() {
               x: mousePos.x * -20,
               y: mousePos.y * -20,
             }}
-            className="absolute top-[38%] left-[-10%] md:left-[-22%] z-20 bg-[#070707]/70 border border-red-500/20 backdrop-blur-md rounded-lg p-3.5 shadow-2xl flex flex-col gap-0.5 w-[130px] select-none pointer-events-none transition-all duration-200 hover:border-red-500/40"
+            className="absolute top-[38%] left-[-10%] md:left-[-22%] z-[6] bg-[#070707]/70 border border-red-500/20 backdrop-blur-md rounded-lg p-3.5 shadow-2xl flex flex-col gap-0.5 w-[130px] select-none pointer-events-none transition-all duration-200 hover:border-red-500/40"
           >
             <span className="text-[8px] uppercase tracking-wider text-red-500 font-mono font-bold">Conversions</span>
             <span className="text-base font-black text-white tracking-tight">23,456</span>
@@ -258,7 +251,7 @@ export default function Hero() {
               x: mousePos.x * -8,
               y: mousePos.y * -8,
             }}
-            className="absolute bottom-[10%] left-[-2%] md:left-[-10%] z-20 bg-[#070707]/70 border border-red-500/20 backdrop-blur-md rounded-lg p-3.5 shadow-2xl flex flex-col gap-0.5 w-[130px] select-none pointer-events-none transition-all duration-200 hover:border-red-500/40"
+            className="absolute bottom-[10%] left-[-2%] md:left-[-10%] z-[6] bg-[#070707]/70 border border-red-500/20 backdrop-blur-md rounded-lg p-3.5 shadow-2xl flex flex-col gap-0.5 w-[130px] select-none pointer-events-none transition-all duration-200 hover:border-red-500/40"
           >
             <span className="text-[8px] uppercase tracking-wider text-red-500 font-mono font-bold">Ad Spend</span>
             <span className="text-base font-black text-white tracking-tight">₹15.4L</span>
@@ -277,7 +270,7 @@ export default function Hero() {
               x: mousePos.x * 12,
               y: mousePos.y * 12,
             }}
-            className="absolute top-[8%] right-[-4%] md:right-[-12%] z-20 bg-[#070707]/70 border border-red-500/20 backdrop-blur-md rounded-lg p-3.5 shadow-2xl flex flex-col gap-0.5 w-[130px] select-none pointer-events-none border-r border-r-[#E50914]/20 transition-all duration-200 hover:border-red-500/40"
+            className="absolute top-[8%] right-[-4%] md:right-[-12%] z-[6] bg-[#070707]/70 border border-red-500/20 backdrop-blur-md rounded-lg p-3.5 shadow-2xl flex flex-col gap-0.5 w-[130px] select-none pointer-events-none border-r border-r-[#E50914]/20 transition-all duration-200 hover:border-red-500/40"
           >
             <span className="text-[8px] uppercase tracking-wider text-red-500 font-mono font-bold">CTR</span>
             <span className="text-base font-black text-white tracking-tight">2.45%</span>
@@ -293,7 +286,7 @@ export default function Hero() {
               x: mousePos.x * 20,
               y: mousePos.y * 20,
             }}
-            className="absolute top-[38%] right-[-10%] md:right-[-22%] z-20 bg-[#070707]/70 border border-red-500/20 backdrop-blur-md rounded-lg p-3.5 shadow-2xl flex flex-col gap-0.5 w-[130px] select-none pointer-events-none transition-all duration-200 hover:border-red-500/40"
+            className="absolute top-[38%] right-[-10%] md:right-[-22%] z-[6] bg-[#070707]/70 border border-red-500/20 backdrop-blur-md rounded-lg p-3.5 shadow-2xl flex flex-col gap-0.5 w-[130px] select-none pointer-events-none transition-all duration-200 hover:border-red-500/40"
           >
             <span className="text-[8px] uppercase tracking-wider text-red-500 font-mono font-bold">CPC</span>
             <span className="text-base font-black text-white tracking-tight">₹11.23</span>
@@ -309,7 +302,7 @@ export default function Hero() {
               x: mousePos.x * 8,
               y: mousePos.y * 8,
             }}
-            className="absolute bottom-[10%] right-[-2%] md:right-[-10%] z-20 bg-[#070707]/70 border border-red-500/20 backdrop-blur-md rounded-lg p-3.5 shadow-2xl flex items-center justify-between gap-2.5 w-[130px] select-none pointer-events-none transition-all duration-200 hover:border-red-500/40"
+            className="absolute bottom-[10%] right-[-2%] md:right-[-10%] z-[6] bg-[#070707]/70 border border-red-500/20 backdrop-blur-md rounded-lg p-3.5 shadow-2xl flex items-center justify-between gap-2.5 w-[130px] select-none pointer-events-none transition-all duration-200 hover:border-red-500/40"
           >
             <div className="flex flex-col gap-0.5">
               <span className="text-[8px] uppercase tracking-wider text-red-500 font-mono font-bold">Impressions</span>
@@ -325,12 +318,12 @@ export default function Hero() {
 
       </div>
 
-      {/* Full Width Statistic Grid */}
+      {/* Full Width Statistic Grid - Layer 7 */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1.0, delay: 0.6 }}
-        className="w-full grid grid-cols-2 lg:grid-cols-4 gap-6 py-6 md:py-8 border-t border-b border-neutral-900/80 relative z-10 bg-black/40 backdrop-blur-sm px-4 rounded-lg"
+        className="w-full grid grid-cols-2 lg:grid-cols-4 gap-6 py-6 md:py-8 border-t border-b border-neutral-900/80 relative z-[7] bg-black/40 backdrop-blur-sm px-4 rounded-lg"
       >
         <div className="flex flex-col items-center justify-center text-center py-4">
           <span className="text-xl sm:text-2xl lg:text-3xl xl:text-4xl font-extrabold text-[#E50914] glow-text-red whitespace-nowrap">

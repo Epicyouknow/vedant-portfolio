@@ -173,7 +173,7 @@ export default function Home() {
   };
 
   return (
-    <div className="relative min-h-screen bg-[#000000] text-white overflow-hidden select-none font-sans">
+    <div className="relative min-h-screen bg-[#050505] text-white overflow-hidden select-none font-sans">
       <AnimatePresence mode="wait">
         {showIntro ? (
           <IntroAnimation onComplete={handleIntroComplete} />
@@ -181,6 +181,7 @@ export default function Home() {
           <div className="relative z-10 w-full min-h-screen flex flex-col">
             <ParticleBackground />
             <div className="vignette-overlay" />
+            <div className="noise-overlay" />
 
             {/* Netflix Header Navbar */}
             <header className="fixed top-0 left-0 right-0 h-16 md:h-20 bg-gradient-to-b from-black/95 via-black/50 to-transparent z-40 px-6 md:px-16 flex items-center justify-between backdrop-blur-[2px] border-b border-neutral-900/10">
