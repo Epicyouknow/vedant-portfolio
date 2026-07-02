@@ -77,7 +77,7 @@ export default function Hero() {
   };
 
   return (
-    <section className="relative min-h-screen lg:h-[105vh] lg:min-h-[950px] flex flex-col justify-between px-5 md:px-12 lg:px-24 pt-24 pb-12 overflow-hidden z-[1] bg-[#050505]">
+    <section className="relative min-h-screen lg:min-h-[105vh] lg:min-h-[950px] flex flex-col justify-between px-5 md:px-12 lg:px-24 pt-24 pb-12 z-[1] bg-[#050505]">
       {/* Grid background overlay - Layer 2 */}
       <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.06)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.06)_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] pointer-events-none z-[1]" />
 
@@ -88,7 +88,7 @@ export default function Hero() {
         <div 
           onMouseMove={handleMouseMove}
           onMouseLeave={handleMouseLeave}
-          className="w-full lg:col-span-1 relative flex items-end justify-center select-none order-1 lg:order-2 self-stretch min-h-[420px] sm:min-h-[550px] lg:min-h-[650px] overflow-visible z-[5] py-4"
+          className="w-full lg:col-span-1 relative flex items-start justify-center select-none order-1 lg:order-2 self-stretch min-h-[420px] sm:min-h-[550px] lg:min-h-[650px] overflow-visible z-[5] py-4"
         >
           {/* Giant glowing V logo directly behind subject - Layer 4 */}
           <div className="absolute top-[2%] left-1/2 -translate-x-1/2 flex items-center justify-center pointer-events-none select-none z-[4] overflow-visible opacity-[0.07] mix-blend-screen blur-[1px]">
@@ -119,12 +119,12 @@ export default function Hero() {
 
           {/* Portrait Image Wrapper - NO card border, NO card container, bleeding off viewport - Layer 5 */}
           <motion.div 
-            className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[90%] sm:w-[80%] lg:left-auto lg:translate-x-0 lg:right-[2%] lg:w-[75%] h-[90%] lg:h-[105%] z-[5] flex items-end justify-center overflow-visible"
+            className="absolute top-[6%] left-1/2 -translate-x-1/2 w-[90%] sm:w-[80%] lg:left-auto lg:translate-x-0 lg:right-[2%] lg:w-[88%] h-[85%] lg:h-[90%] z-[5] flex items-start justify-center overflow-visible"
           >
             <img 
               src="/vedant_portrait.png" 
               alt="Vedant Tiwari" 
-              className="h-[380px] sm:h-[480px] lg:h-full w-auto object-contain object-bottom pointer-events-none scale-100 lg:scale-[1.08] transition-transform duration-700 portrait-mask-blend"
+              className="h-full w-auto object-contain object-top pointer-events-none scale-100 lg:scale-[1.08] transition-transform duration-700 portrait-mask-blend"
               style={{
                 filter: 'drop-shadow(0 0 12px rgba(229, 9, 20, 0.95)) drop-shadow(0 0 30px rgba(229, 9, 20, 0.6)) drop-shadow(0 0 65px rgba(229, 9, 20, 0.35))'
               }}
