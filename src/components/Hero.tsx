@@ -77,15 +77,222 @@ export default function Hero() {
   };
 
   return (
-    <section className="relative md:h-screen md:min-h-[900px] flex flex-col justify-center px-6 md:px-16 pt-20 overflow-hidden z-[1] bg-[#050505]">
+    <section className="relative min-h-screen lg:h-screen lg:min-h-[900px] flex flex-col justify-between px-5 md:px-12 lg:px-24 pt-24 pb-12 overflow-hidden z-[1] bg-[#050505]">
       {/* Grid background overlay - Layer 2 */}
       <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.06)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.06)_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] pointer-events-none z-[1]" />
 
       {/* Split-screen Layout */}
-      <div className="relative z-10 w-full max-w-7xl mx-auto flex flex-col md:flex-row md:items-stretch justify-between gap-10 mt-6 md:mt-16 pb-0 md:pb-12">
+      <div className="relative z-10 w-full max-w-7xl mx-auto flex flex-col lg:grid lg:grid-cols-12 gap-8 lg:gap-12 items-center flex-1 my-auto">
         
-        {/* Left Side: Content Column - Layers 7 and 8 */}
-        <div className="w-full md:w-[41.6%] flex flex-col justify-center text-left order-2 md:order-1 relative z-[7] max-w-[560px]">
+        {/* MOBILE ONLY: Top Analytics Cards Grid - Layer 6 (Order-1 on Mobile) */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 w-full max-w-2xl mx-auto lg:hidden order-1 my-4 z-[6] relative">
+          {/* Card 1: ROAS */}
+          <div className="bg-[#070707]/70 border border-red-500/20 backdrop-blur-md rounded-lg p-3 shadow-lg flex flex-col gap-0.5 select-none pointer-events-none">
+            <span className="text-[8px] uppercase tracking-wider text-red-500 font-mono font-bold">ROAS</span>
+            <span className="text-sm font-black text-white tracking-tight">8.45x</span>
+            <span className="text-[8px] text-green-500 font-mono font-bold">↑ 28% Growth</span>
+          </div>
+
+          {/* Card 2: CTR */}
+          <div className="bg-[#070707]/70 border border-red-500/20 backdrop-blur-md rounded-lg p-3 shadow-lg flex flex-col gap-0.5 select-none pointer-events-none">
+            <span className="text-[8px] uppercase tracking-wider text-red-500 font-mono font-bold">CTR</span>
+            <span className="text-sm font-black text-white tracking-tight">2.45%</span>
+            <span className="text-[8px] text-green-500 font-mono font-bold">↑ 18% Avg</span>
+          </div>
+
+          {/* Card 3: Conversions */}
+          <div className="bg-[#070707]/70 border border-red-500/20 backdrop-blur-md rounded-lg p-3 shadow-lg flex flex-col gap-0.5 select-none pointer-events-none">
+            <span className="text-[8px] uppercase tracking-wider text-red-500 font-mono font-bold">Conversions</span>
+            <span className="text-sm font-black text-white tracking-tight">23,456</span>
+            <span className="text-[8px] text-green-500 font-mono font-bold">↑ 32% YoY</span>
+          </div>
+
+          {/* Card 4: CPC */}
+          <div className="bg-[#070707]/70 border border-red-500/20 backdrop-blur-md rounded-lg p-3 shadow-lg flex flex-col gap-0.5 select-none pointer-events-none">
+            <span className="text-[8px] uppercase tracking-wider text-red-500 font-mono font-bold">CPC</span>
+            <span className="text-sm font-black text-white tracking-tight">₹11.23</span>
+            <span className="text-[8px] text-red-500 font-mono font-bold">↓ 12% Cost</span>
+          </div>
+
+          {/* Card 5: Ad Spend */}
+          <div className="bg-[#070707]/70 border border-red-500/20 backdrop-blur-md rounded-lg p-3 shadow-lg flex flex-col gap-0.5 select-none pointer-events-none">
+            <span className="text-[8px] uppercase tracking-wider text-red-500 font-mono font-bold">Ad Spend</span>
+            <span className="text-sm font-black text-white tracking-tight">₹15.4L</span>
+            <span className="text-[8px] text-green-500 font-mono font-bold">↑ 28% Managed</span>
+          </div>
+
+          {/* Card 6: Impressions */}
+          <div className="bg-[#070707]/70 border border-red-500/20 backdrop-blur-md rounded-lg p-3 shadow-lg flex items-center justify-between gap-2 select-none pointer-events-none">
+            <div className="flex flex-col gap-0.5">
+              <span className="text-[8px] uppercase tracking-wider text-red-500 font-mono font-bold">Impressions</span>
+              <span className="text-sm font-black text-white tracking-tight">2.8M</span>
+              <span className="text-[8px] text-green-500 font-mono font-bold">↑ 21%</span>
+            </div>
+            <svg className="w-6 h-6 text-[#E50914] shrink-0 animate-pulse" viewBox="0 0 36 36">
+              <path className="text-neutral-900" strokeWidth="3.5" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+              <path className="text-[#E50914]" strokeWidth="3.5" strokeDasharray="78, 100" strokeLinecap="round" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+            </svg>
+          </div>
+        </div>
+
+        {/* Right Side: Portrait Column - Layer 5 (Order-2 on Mobile, lg:col-span-7 on Desktop) */}
+        <div 
+          onMouseMove={handleMouseMove}
+          onMouseLeave={handleMouseLeave}
+          className="w-full lg:col-span-7 relative flex items-end justify-center select-none order-2 lg:order-2 self-stretch min-h-[380px] sm:min-h-[500px] lg:min-h-[600px] overflow-visible z-[5] py-4"
+        >
+          {/* Giant glowing V logo directly behind subject - Layer 4 */}
+          <div className="absolute top-[2%] left-1/2 -translate-x-1/2 flex items-center justify-center pointer-events-none select-none z-[4] overflow-visible opacity-[0.07] mix-blend-screen blur-[1px]">
+            <svg className="w-[32rem] h-[32rem] sm:w-[40rem] sm:h-[40rem] md:w-[48rem] md:h-[48rem] overflow-visible" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="vFacet1-hero" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stopColor="#e50914" />
+                  <stop offset="100%" stopColor="#800206" />
+                </linearGradient>
+                <linearGradient id="vFacet2-hero" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stopColor="#e50914" stopOpacity="0.8" />
+                  <stop offset="100%" stopColor="#1a0001" stopOpacity="0.2" />
+                </linearGradient>
+                <linearGradient id="vFacet3-hero" x1="1" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stopColor="#ff4148" />
+                  <stop offset="100%" stopColor="#800206" />
+                </linearGradient>
+              </defs>
+              <path d="M 20 15 L 42 15 L 50 85 L 35 85 Z" fill="url(#vFacet1-hero)" />
+              <path d="M 42 15 L 50 15 L 50 85 Z" fill="url(#vFacet2-hero)" />
+              <path d="M 50 85 L 50 15 L 58 15 L 80 15 L 65 85 Z" fill="url(#vFacet3-hero)" />
+              <path d="M 50 85 L 50 15 L 58 15 Z" fill="url(#vFacet2-hero)" />
+            </svg>
+          </div>
+
+          {/* Red radial glow directly behind the character - Layer 4 */}
+          <div className="absolute w-[500px] sm:w-[600px] h-[500px] sm:h-[600px] rounded-full bg-[#E50914]/18 z-[4] blur-3xl pointer-events-none top-[15%] left-1/2 -translate-x-1/2 mix-blend-screen" />
+
+          {/* Portrait Image Wrapper - NO card border, NO card container, bleeding off viewport - Layer 5 */}
+          <motion.div 
+            className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[85%] sm:w-[75%] lg:left-auto lg:translate-x-0 lg:right-0 lg:w-[50%] h-[90%] lg:h-[95%] z-[5] flex items-end justify-center overflow-visible"
+          >
+            <img 
+              src="/vedant_portrait.png" 
+              alt="Vedant Tiwari" 
+              className="h-[320px] sm:h-[420px] lg:h-full w-auto object-contain object-bottom pointer-events-none scale-100 lg:scale-[1.08] transition-transform duration-700 portrait-mask-blend"
+              style={{
+                filter: 'drop-shadow(0 0 12px rgba(229, 9, 20, 0.95)) drop-shadow(0 0 30px rgba(229, 9, 20, 0.6)) drop-shadow(0 0 65px rgba(229, 9, 20, 0.35))'
+              }}
+            />
+          </motion.div>
+
+          {/* DESKTOP ONLY: Orbiting HUD Cards - Layer 6 */}
+          <div className="hidden lg:block absolute inset-0 z-[6] pointer-events-none">
+            {/* 1. ROAS (Top-Left) */}
+            <motion.div
+              style={{
+                x: mousePos.x * -12,
+                y: mousePos.y * -12,
+              }}
+              className="absolute top-[5%] left-[8%] z-[6] bg-[#070707]/70 border border-red-500/20 backdrop-blur-md rounded-lg p-3.5 shadow-2xl flex flex-col gap-0.5 w-[130px] select-none pointer-events-none transition-all duration-200 hover:border-red-500/40"
+            >
+              <span className="text-[8px] uppercase tracking-wider text-red-500 font-mono font-bold">ROAS</span>
+              <span className="text-base font-black text-white tracking-tight">8.45x</span>
+              <span className="text-[8px] text-green-500 font-mono font-bold">↑ 28% Growth</span>
+              <svg className="w-full h-5 text-red-600 mt-1" viewBox="0 0 50 20">
+                <path d="M0 18 Q10 14 20 12 T40 6 T50 2" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+              </svg>
+            </motion.div>
+
+            {/* 2. Conversions (Mid-Left) */}
+            <motion.div
+              style={{
+                x: mousePos.x * -20,
+                y: mousePos.y * -20,
+              }}
+              className="absolute top-[35%] left-[0%] z-[6] bg-[#070707]/70 border border-red-500/20 backdrop-blur-md rounded-lg p-3.5 shadow-2xl flex flex-col gap-0.5 w-[130px] select-none pointer-events-none transition-all duration-200 hover:border-red-500/40"
+            >
+              <span className="text-[8px] uppercase tracking-wider text-red-500 font-mono font-bold">Conversions</span>
+              <span className="text-base font-black text-white tracking-tight">23,456</span>
+              <span className="text-[8px] text-green-500 font-mono font-bold">↑ 32% YoY</span>
+              <div className="flex items-end gap-1.5 h-6 mt-1.5">
+                <div className="w-1.5 h-2 bg-red-950/80 rounded-t" />
+                <div className="w-2.5 h-3.5 bg-red-900/80 rounded-t" />
+                <div className="w-2.5 h-4.5 bg-red-800/80 rounded-t" />
+                <div className="w-2.5 h-6 bg-[#E50914] rounded-t animate-pulse" />
+              </div>
+            </motion.div>
+
+            {/* 3. Ad Spend (Bottom-Left) */}
+            <motion.div
+              style={{
+                x: mousePos.x * -8,
+                y: mousePos.y * -8,
+              }}
+              className="absolute bottom-[10%] left-[8%] z-[6] bg-[#070707]/70 border border-red-500/20 backdrop-blur-md rounded-lg p-3.5 shadow-2xl flex flex-col gap-0.5 w-[130px] select-none pointer-events-none transition-all duration-200 hover:border-red-500/40"
+            >
+              <span className="text-[8px] uppercase tracking-wider text-red-500 font-mono font-bold">Ad Spend</span>
+              <span className="text-base font-black text-white tracking-tight">₹15.4L</span>
+              <span className="text-[8px] text-green-500 font-mono font-bold">↑ 28% Managed</span>
+              <div className="flex items-end gap-1.5 h-6 mt-1.5">
+                <div className="w-1.5 h-1.5 bg-red-950/80 rounded-t" />
+                <div className="w-2 h-2.5 bg-red-900/80 rounded-t" />
+                <div className="w-2.5 h-4 bg-red-800/80 rounded-t" />
+                <div className="w-2.5 h-6 bg-[#E50914] rounded-t" />
+              </div>
+            </motion.div>
+
+            {/* 4. CTR (Top-Right) */}
+            <motion.div
+              style={{
+                x: mousePos.x * 12,
+                y: mousePos.y * 12,
+              }}
+              className="absolute top-[5%] right-[8%] z-[6] bg-[#070707]/70 border border-red-500/20 backdrop-blur-md rounded-lg p-3.5 shadow-2xl flex flex-col gap-0.5 w-[130px] select-none pointer-events-none border-r border-r-[#E50914]/20 transition-all duration-200 hover:border-red-500/40"
+            >
+              <span className="text-[8px] uppercase tracking-wider text-red-500 font-mono font-bold">CTR</span>
+              <span className="text-base font-black text-white tracking-tight">2.45%</span>
+              <span className="text-[8px] text-green-500 font-mono font-bold">↑ 18% Avg</span>
+              <svg className="w-full h-5 text-red-600 mt-1" viewBox="0 0 50 20">
+                <path d="M0 15 Q15 17 30 9 T50 3" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+              </svg>
+            </motion.div>
+
+            {/* 5. CPC (Mid-Right) */}
+            <motion.div
+              style={{
+                x: mousePos.x * 20,
+                y: mousePos.y * 20,
+              }}
+              className="absolute top-[35%] right-[0%] z-[6] bg-[#070707]/70 border border-red-500/20 backdrop-blur-md rounded-lg p-3.5 shadow-2xl flex flex-col gap-0.5 w-[130px] select-none pointer-events-none transition-all duration-200 hover:border-red-500/40"
+            >
+              <span className="text-[8px] uppercase tracking-wider text-red-500 font-mono font-bold">CPC</span>
+              <span className="text-base font-black text-white tracking-tight">₹11.23</span>
+              <span className="text-[8px] text-red-500 font-mono font-bold">↓ 12% Cost</span>
+              <svg className="w-full h-5 text-red-600 mt-1" viewBox="0 0 50 20">
+                <path d="M0 3 Q15 6 30 11 T50 17" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+              </svg>
+            </motion.div>
+
+            {/* 6. Impressions (Bottom-Right) */}
+            <motion.div
+              style={{
+                x: mousePos.x * 8,
+                y: mousePos.y * 8,
+              }}
+              className="absolute bottom-[10%] right-[8%] z-[6] bg-[#070707]/70 border border-red-500/20 backdrop-blur-md rounded-lg p-3.5 shadow-2xl flex items-center justify-between gap-2.5 w-[130px] select-none pointer-events-none transition-all duration-200 hover:border-red-500/40"
+            >
+              <div className="flex flex-col gap-0.5">
+                <span className="text-[8px] uppercase tracking-wider text-red-500 font-mono font-bold">Impressions</span>
+                <span className="text-base font-black text-white tracking-tight">2.8M</span>
+                <span className="text-[8px] text-green-500 font-mono font-bold">↑ 21%</span>
+              </div>
+              <svg className="w-7 h-7 text-[#E50914] shrink-0" viewBox="0 0 36 36">
+                <path className="text-neutral-900" strokeWidth="3.5" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                <path className="text-[#E50914]" strokeWidth="3.5" strokeDasharray="78, 100" strokeLinecap="round" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+              </svg>
+            </motion.div>
+          </div>
+        </div>
+
+        {/* Left Side: Content Column - Layers 7 and 8 (Order-3 on Mobile, lg:col-span-5 on Desktop) */}
+        <div className="w-full lg:col-span-5 flex flex-col justify-center text-left order-3 lg:order-1 relative z-[7] max-w-[560px] lg:max-w-none pt-4 lg:pt-0">
           {/* Brand Tagline Header - Layer 7 */}
           <motion.div
             initial={{ opacity: 0, y: -20 }}
@@ -104,7 +311,8 @@ export default function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.1 }}
-            className="text-4xl sm:text-5xl md:text-[3.25rem] lg:text-[4.25rem] font-black tracking-tight text-white mb-6 leading-[1.1] z-[7]"
+            className="font-black tracking-tight text-white mb-6 leading-[1.1] z-[7]"
+            style={{ fontSize: 'clamp(2.25rem, 5vw, 4.25rem)' }}
           >
             Marketing Growth
             <span className="block mt-1">Through</span>
@@ -121,7 +329,8 @@ export default function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.25 }}
-            className="text-neutral-400 text-sm md:text-base font-light leading-relaxed max-w-lg mb-8 z-[7]"
+            className="text-neutral-400 font-light leading-relaxed max-w-lg mb-8 z-[7]"
+            style={{ fontSize: 'clamp(0.875rem, 1.5vw, 1.05rem)' }}
           >
             Turning Data Into Growth. I build campaigns that scale brands, optimize performance and deliver measurable business growth.
           </motion.p>
@@ -162,160 +371,6 @@ export default function Hero() {
           </motion.div>
         </div>
 
-        {/* Right Side: Cinematic Portrait & HUD Centerpiece - Layer 5 */}
-        <div 
-          onMouseMove={handleMouseMove}
-          onMouseLeave={handleMouseLeave}
-          className="w-full md:w-[58.3%] relative flex items-end justify-center select-none order-1 md:order-2 self-stretch min-h-[500px] md:min-h-none pt-8 pb-0 md:py-0 px-4 sm:px-8 overflow-visible z-[5]"
-        >
-          {/* Giant glowing V logo directly behind subject - Layer 4 */}
-          <div className="absolute top-[2%] left-1/2 -translate-x-1/2 flex items-center justify-center pointer-events-none select-none z-[4] overflow-visible opacity-[0.07] mix-blend-screen blur-[1px]">
-            <svg className="w-[32rem] h-[32rem] sm:w-[40rem] sm:h-[40rem] md:w-[48rem] md:h-[48rem] overflow-visible" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <defs>
-                <linearGradient id="vFacet1-hero" x1="0" y1="0" x2="1" y2="1">
-                  <stop offset="0%" stopColor="#e50914" />
-                  <stop offset="100%" stopColor="#800206" />
-                </linearGradient>
-                <linearGradient id="vFacet2-hero" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stopColor="#e50914" stopOpacity="0.8" />
-                  <stop offset="100%" stopColor="#1a0001" stopOpacity="0.2" />
-                </linearGradient>
-                <linearGradient id="vFacet3-hero" x1="1" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stopColor="#ff4148" />
-                  <stop offset="100%" stopColor="#800206" />
-                </linearGradient>
-              </defs>
-              <path d="M 20 15 L 42 15 L 50 85 L 35 85 Z" fill="url(#vFacet1-hero)" />
-              <path d="M 42 15 L 50 15 L 50 85 Z" fill="url(#vFacet2-hero)" />
-              <path d="M 50 85 L 50 15 L 58 15 L 80 15 L 65 85 Z" fill="url(#vFacet3-hero)" />
-              <path d="M 50 85 L 50 15 L 58 15 Z" fill="url(#vFacet2-hero)" />
-            </svg>
-          </div>
-
-          {/* Red radial glow directly behind the character - Layer 4 */}
-          <div className="absolute w-[600px] h-[600px] rounded-full bg-[#E50914]/18 z-[4] blur-3xl pointer-events-none top-[15%] left-1/2 -translate-x-1/2 mix-blend-screen" />
-
-          {/* Portrait Image Wrapper - NO card border, NO card container, bleeding off viewport - Layer 5 */}
-          <motion.div 
-            className="absolute bottom-0 right-0 w-[80%] md:w-[42vw] h-[90%] md:h-[95%] z-[5] flex items-end justify-center overflow-visible"
-          >
-            <img 
-              src="/vedant_portrait.png" 
-              alt="Vedant Tiwari" 
-              className="h-full w-auto object-contain object-bottom pointer-events-none scale-100 md:scale-[1.08] transition-transform duration-700 portrait-mask-blend"
-              style={{
-                filter: 'drop-shadow(0 0 12px rgba(229, 9, 20, 0.95)) drop-shadow(0 0 30px rgba(229, 9, 20, 0.6)) drop-shadow(0 0 65px rgba(229, 9, 20, 0.35))'
-              }}
-            />
-          </motion.div>
-
-          {/* Floating HUD Cards - Layer 6 */}
-          {/* 1. ROAS (Top-Left) */}
-          <motion.div
-            style={{
-              x: mousePos.x * -12,
-              y: mousePos.y * -12,
-            }}
-            className="absolute top-[8%] left-[-4%] md:left-[-12%] z-[6] bg-[#070707]/70 border border-red-500/20 backdrop-blur-md rounded-lg p-3.5 shadow-2xl flex flex-col gap-0.5 w-[130px] select-none pointer-events-none transition-all duration-200 hover:border-red-500/40"
-          >
-            <span className="text-[8px] uppercase tracking-wider text-red-500 font-mono font-bold">ROAS</span>
-            <span className="text-base font-black text-white tracking-tight">8.45x</span>
-            <span className="text-[8px] text-green-500 font-mono font-bold">↑ 28% Growth</span>
-            <svg className="w-full h-5 text-red-600 mt-1" viewBox="0 0 50 20">
-              <path d="M0 18 Q10 14 20 12 T40 6 T50 2" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-            </svg>
-          </motion.div>
-
-          {/* 2. Conversions (Mid-Left) */}
-          <motion.div
-            style={{
-              x: mousePos.x * -20,
-              y: mousePos.y * -20,
-            }}
-            className="absolute top-[38%] left-[-10%] md:left-[-22%] z-[6] bg-[#070707]/70 border border-red-500/20 backdrop-blur-md rounded-lg p-3.5 shadow-2xl flex flex-col gap-0.5 w-[130px] select-none pointer-events-none transition-all duration-200 hover:border-red-500/40"
-          >
-            <span className="text-[8px] uppercase tracking-wider text-red-500 font-mono font-bold">Conversions</span>
-            <span className="text-base font-black text-white tracking-tight">23,456</span>
-            <span className="text-[8px] text-green-500 font-mono font-bold">↑ 32% YoY</span>
-            <div className="flex items-end gap-1.5 h-6 mt-1.5">
-              <div className="w-1.5 h-2 bg-red-950/80 rounded-t" />
-              <div className="w-2.5 h-3.5 bg-red-900/80 rounded-t" />
-              <div className="w-2.5 h-4.5 bg-red-800/80 rounded-t" />
-              <div className="w-2.5 h-6 bg-[#E50914] rounded-t animate-pulse" />
-            </div>
-          </motion.div>
-
-          {/* 3. Ad Spend (Bottom-Left) */}
-          <motion.div
-            style={{
-              x: mousePos.x * -8,
-              y: mousePos.y * -8,
-            }}
-            className="absolute bottom-[10%] left-[-2%] md:left-[-10%] z-[6] bg-[#070707]/70 border border-red-500/20 backdrop-blur-md rounded-lg p-3.5 shadow-2xl flex flex-col gap-0.5 w-[130px] select-none pointer-events-none transition-all duration-200 hover:border-red-500/40"
-          >
-            <span className="text-[8px] uppercase tracking-wider text-red-500 font-mono font-bold">Ad Spend</span>
-            <span className="text-base font-black text-white tracking-tight">₹15.4L</span>
-            <span className="text-[8px] text-green-500 font-mono font-bold">↑ 28% Managed</span>
-            <div className="flex items-end gap-1.5 h-6 mt-1.5">
-              <div className="w-1.5 h-1.5 bg-red-950/80 rounded-t" />
-              <div className="w-2 h-2.5 bg-red-900/80 rounded-t" />
-              <div className="w-2.5 h-4 bg-red-800/80 rounded-t" />
-              <div className="w-2.5 h-6 bg-[#E50914] rounded-t" />
-            </div>
-          </motion.div>
-
-          {/* 4. CTR (Top-Right) */}
-          <motion.div
-            style={{
-              x: mousePos.x * 12,
-              y: mousePos.y * 12,
-            }}
-            className="absolute top-[8%] right-[-4%] md:right-[-12%] z-[6] bg-[#070707]/70 border border-red-500/20 backdrop-blur-md rounded-lg p-3.5 shadow-2xl flex flex-col gap-0.5 w-[130px] select-none pointer-events-none border-r border-r-[#E50914]/20 transition-all duration-200 hover:border-red-500/40"
-          >
-            <span className="text-[8px] uppercase tracking-wider text-red-500 font-mono font-bold">CTR</span>
-            <span className="text-base font-black text-white tracking-tight">2.45%</span>
-            <span className="text-[8px] text-green-500 font-mono font-bold">↑ 18% Avg</span>
-            <svg className="w-full h-5 text-red-600 mt-1" viewBox="0 0 50 20">
-              <path d="M0 15 Q15 17 30 9 T50 3" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-            </svg>
-          </motion.div>
-
-          {/* 5. CPC (Mid-Right) */}
-          <motion.div
-            style={{
-              x: mousePos.x * 20,
-              y: mousePos.y * 20,
-            }}
-            className="absolute top-[38%] right-[-10%] md:right-[-22%] z-[6] bg-[#070707]/70 border border-red-500/20 backdrop-blur-md rounded-lg p-3.5 shadow-2xl flex flex-col gap-0.5 w-[130px] select-none pointer-events-none transition-all duration-200 hover:border-red-500/40"
-          >
-            <span className="text-[8px] uppercase tracking-wider text-red-500 font-mono font-bold">CPC</span>
-            <span className="text-base font-black text-white tracking-tight">₹11.23</span>
-            <span className="text-[8px] text-red-500 font-mono font-bold">↓ 12% Cost</span>
-            <svg className="w-full h-5 text-red-600 mt-1" viewBox="0 0 50 20">
-              <path d="M0 3 Q15 6 30 11 T50 17" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-            </svg>
-          </motion.div>
-
-          {/* 6. Impressions (Bottom-Right) */}
-          <motion.div
-            style={{
-              x: mousePos.x * 8,
-              y: mousePos.y * 8,
-            }}
-            className="absolute bottom-[10%] right-[-2%] md:right-[-10%] z-[6] bg-[#070707]/70 border border-red-500/20 backdrop-blur-md rounded-lg p-3.5 shadow-2xl flex items-center justify-between gap-2.5 w-[130px] select-none pointer-events-none transition-all duration-200 hover:border-red-500/40"
-          >
-            <div className="flex flex-col gap-0.5">
-              <span className="text-[8px] uppercase tracking-wider text-red-500 font-mono font-bold">Impressions</span>
-              <span className="text-base font-black text-white tracking-tight">2.8M</span>
-              <span className="text-[8px] text-green-500 font-mono font-bold">↑ 21%</span>
-            </div>
-            <svg className="w-7 h-7 text-[#E50914] shrink-0" viewBox="0 0 36 36">
-              <path className="text-neutral-900" strokeWidth="3.5" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
-              <path className="text-[#E50914]" strokeWidth="3.5" strokeDasharray="78, 100" strokeLinecap="round" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
-            </svg>
-          </motion.div>
-        </div>
-
       </div>
 
       {/* Full Width Statistic Grid - Layer 7 */}
@@ -323,7 +378,7 @@ export default function Hero() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1.0, delay: 0.6 }}
-        className="w-full grid grid-cols-2 lg:grid-cols-4 gap-6 py-6 md:py-8 border-t border-b border-neutral-900/80 relative z-[7] bg-black/40 backdrop-blur-sm px-4 rounded-lg"
+        className="w-full max-w-7xl mx-auto grid grid-cols-2 lg:grid-cols-4 gap-6 py-6 md:py-8 border-t border-b border-neutral-900/80 relative z-[7] bg-black/40 backdrop-blur-sm px-4 rounded-lg mt-8 lg:mt-12"
       >
         <div className="flex flex-col items-center justify-center text-center py-4">
           <span className="text-xl sm:text-2xl lg:text-3xl xl:text-4xl font-extrabold text-[#E50914] glow-text-red whitespace-nowrap">
