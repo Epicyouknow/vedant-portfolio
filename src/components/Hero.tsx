@@ -77,69 +77,18 @@ export default function Hero() {
   };
 
   return (
-    <section className="relative min-h-screen lg:h-screen lg:min-h-[900px] flex flex-col justify-between px-5 md:px-12 lg:px-24 pt-24 pb-12 overflow-hidden z-[1] bg-[#050505]">
+    <section className="relative min-h-screen lg:h-[105vh] lg:min-h-[950px] flex flex-col justify-between px-5 md:px-12 lg:px-24 pt-24 pb-12 overflow-hidden z-[1] bg-[#050505]">
       {/* Grid background overlay - Layer 2 */}
       <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.06)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.06)_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] pointer-events-none z-[1]" />
 
       {/* Split-screen Layout */}
-      <div className="relative z-10 w-full max-w-7xl mx-auto flex flex-col lg:grid lg:grid-cols-12 gap-8 lg:gap-12 items-center flex-1 my-auto">
+      <div className="relative z-10 w-full max-w-7xl mx-auto flex flex-col lg:grid lg:grid-cols-[45%_55%] gap-8 lg:gap-12 items-center flex-1 my-auto">
         
-        {/* MOBILE ONLY: Top Analytics Cards Grid - Layer 6 (Order-1 on Mobile) */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 w-full max-w-2xl mx-auto lg:hidden order-1 my-4 z-[6] relative">
-          {/* Card 1: ROAS */}
-          <div className="bg-[#070707]/70 border border-red-500/20 backdrop-blur-md rounded-lg p-3 shadow-lg flex flex-col gap-0.5 select-none pointer-events-none">
-            <span className="text-[8px] uppercase tracking-wider text-red-500 font-mono font-bold">ROAS</span>
-            <span className="text-sm font-black text-white tracking-tight">8.45x</span>
-            <span className="text-[8px] text-green-500 font-mono font-bold">↑ 28% Growth</span>
-          </div>
-
-          {/* Card 2: CTR */}
-          <div className="bg-[#070707]/70 border border-red-500/20 backdrop-blur-md rounded-lg p-3 shadow-lg flex flex-col gap-0.5 select-none pointer-events-none">
-            <span className="text-[8px] uppercase tracking-wider text-red-500 font-mono font-bold">CTR</span>
-            <span className="text-sm font-black text-white tracking-tight">2.45%</span>
-            <span className="text-[8px] text-green-500 font-mono font-bold">↑ 18% Avg</span>
-          </div>
-
-          {/* Card 3: Conversions */}
-          <div className="bg-[#070707]/70 border border-red-500/20 backdrop-blur-md rounded-lg p-3 shadow-lg flex flex-col gap-0.5 select-none pointer-events-none">
-            <span className="text-[8px] uppercase tracking-wider text-red-500 font-mono font-bold">Conversions</span>
-            <span className="text-sm font-black text-white tracking-tight">23,456</span>
-            <span className="text-[8px] text-green-500 font-mono font-bold">↑ 32% YoY</span>
-          </div>
-
-          {/* Card 4: CPC */}
-          <div className="bg-[#070707]/70 border border-red-500/20 backdrop-blur-md rounded-lg p-3 shadow-lg flex flex-col gap-0.5 select-none pointer-events-none">
-            <span className="text-[8px] uppercase tracking-wider text-red-500 font-mono font-bold">CPC</span>
-            <span className="text-sm font-black text-white tracking-tight">₹11.23</span>
-            <span className="text-[8px] text-red-500 font-mono font-bold">↓ 12% Cost</span>
-          </div>
-
-          {/* Card 5: Ad Spend */}
-          <div className="bg-[#070707]/70 border border-red-500/20 backdrop-blur-md rounded-lg p-3 shadow-lg flex flex-col gap-0.5 select-none pointer-events-none">
-            <span className="text-[8px] uppercase tracking-wider text-red-500 font-mono font-bold">Ad Spend</span>
-            <span className="text-sm font-black text-white tracking-tight">₹15.4L</span>
-            <span className="text-[8px] text-green-500 font-mono font-bold">↑ 28% Managed</span>
-          </div>
-
-          {/* Card 6: Impressions */}
-          <div className="bg-[#070707]/70 border border-red-500/20 backdrop-blur-md rounded-lg p-3 shadow-lg flex items-center justify-between gap-2 select-none pointer-events-none">
-            <div className="flex flex-col gap-0.5">
-              <span className="text-[8px] uppercase tracking-wider text-red-500 font-mono font-bold">Impressions</span>
-              <span className="text-sm font-black text-white tracking-tight">2.8M</span>
-              <span className="text-[8px] text-green-500 font-mono font-bold">↑ 21%</span>
-            </div>
-            <svg className="w-6 h-6 text-[#E50914] shrink-0 animate-pulse" viewBox="0 0 36 36">
-              <path className="text-neutral-900" strokeWidth="3.5" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
-              <path className="text-[#E50914]" strokeWidth="3.5" strokeDasharray="78, 100" strokeLinecap="round" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
-            </svg>
-          </div>
-        </div>
-
-        {/* Right Side: Portrait Column - Layer 5 (Order-2 on Mobile, lg:col-span-7 on Desktop) */}
+        {/* Right Side: Portrait Column - Layer 5 (Order-1 on Mobile, lg:order-2 on Desktop) */}
         <div 
           onMouseMove={handleMouseMove}
           onMouseLeave={handleMouseLeave}
-          className="w-full lg:col-span-7 relative flex items-end justify-center select-none order-2 lg:order-2 self-stretch min-h-[380px] sm:min-h-[500px] lg:min-h-[600px] overflow-visible z-[5] py-4"
+          className="w-full lg:col-span-1 relative flex items-end justify-center select-none order-1 lg:order-2 self-stretch min-h-[420px] sm:min-h-[550px] lg:min-h-[650px] overflow-visible z-[5] py-4"
         >
           {/* Giant glowing V logo directly behind subject - Layer 4 */}
           <div className="absolute top-[2%] left-1/2 -translate-x-1/2 flex items-center justify-center pointer-events-none select-none z-[4] overflow-visible opacity-[0.07] mix-blend-screen blur-[1px]">
@@ -166,16 +115,16 @@ export default function Hero() {
           </div>
 
           {/* Red radial glow directly behind the character - Layer 4 */}
-          <div className="absolute w-[500px] sm:w-[600px] h-[500px] sm:h-[600px] rounded-full bg-[#E50914]/18 z-[4] blur-3xl pointer-events-none top-[15%] left-1/2 -translate-x-1/2 mix-blend-screen" />
+          <div className="absolute w-[600px] lg:w-[800px] h-[600px] lg:h-[800px] rounded-full bg-[#E50914]/12 z-[4] blur-3xl pointer-events-none top-[10%] left-1/2 -translate-x-1/2 lg:left-auto lg:right-[5%] lg:translate-x-0 mix-blend-screen" />
 
           {/* Portrait Image Wrapper - NO card border, NO card container, bleeding off viewport - Layer 5 */}
           <motion.div 
-            className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[85%] sm:w-[75%] lg:left-auto lg:translate-x-0 lg:right-0 lg:w-[50%] h-[90%] lg:h-[95%] z-[5] flex items-end justify-center overflow-visible"
+            className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[90%] sm:w-[80%] lg:left-auto lg:translate-x-0 lg:right-[2%] lg:w-[75%] h-[90%] lg:h-[105%] z-[5] flex items-end justify-center overflow-visible"
           >
             <img 
               src="/vedant_portrait.png" 
               alt="Vedant Tiwari" 
-              className="h-[320px] sm:h-[420px] lg:h-full w-auto object-contain object-bottom pointer-events-none scale-100 lg:scale-[1.08] transition-transform duration-700 portrait-mask-blend"
+              className="h-[380px] sm:h-[480px] lg:h-full w-auto object-contain object-bottom pointer-events-none scale-100 lg:scale-[1.08] transition-transform duration-700 portrait-mask-blend"
               style={{
                 filter: 'drop-shadow(0 0 12px rgba(229, 9, 20, 0.95)) drop-shadow(0 0 30px rgba(229, 9, 20, 0.6)) drop-shadow(0 0 65px rgba(229, 9, 20, 0.35))'
               }}
@@ -190,7 +139,7 @@ export default function Hero() {
                 x: mousePos.x * -12,
                 y: mousePos.y * -12,
               }}
-              className="absolute top-[5%] left-[8%] z-[6] bg-[#070707]/70 border border-red-500/20 backdrop-blur-md rounded-lg p-3.5 shadow-2xl flex flex-col gap-0.5 w-[130px] select-none pointer-events-none transition-all duration-200 hover:border-red-500/40"
+              className="absolute top-[6%] left-[12%] z-[6] bg-[#070707]/70 border border-red-500/20 backdrop-blur-md rounded-lg p-3.5 shadow-2xl flex flex-col gap-0.5 w-[130px] select-none pointer-events-none transition-all duration-200 hover:border-red-500/40"
             >
               <span className="text-[8px] uppercase tracking-wider text-red-500 font-mono font-bold">ROAS</span>
               <span className="text-base font-black text-white tracking-tight">8.45x</span>
@@ -206,7 +155,7 @@ export default function Hero() {
                 x: mousePos.x * -20,
                 y: mousePos.y * -20,
               }}
-              className="absolute top-[35%] left-[0%] z-[6] bg-[#070707]/70 border border-red-500/20 backdrop-blur-md rounded-lg p-3.5 shadow-2xl flex flex-col gap-0.5 w-[130px] select-none pointer-events-none transition-all duration-200 hover:border-red-500/40"
+              className="absolute top-[34%] left-[6%] z-[6] bg-[#070707]/70 border border-red-500/20 backdrop-blur-md rounded-lg p-3.5 shadow-2xl flex flex-col gap-0.5 w-[130px] select-none pointer-events-none transition-all duration-200 hover:border-red-500/40"
             >
               <span className="text-[8px] uppercase tracking-wider text-red-500 font-mono font-bold">Conversions</span>
               <span className="text-base font-black text-white tracking-tight">23,456</span>
@@ -225,7 +174,7 @@ export default function Hero() {
                 x: mousePos.x * -8,
                 y: mousePos.y * -8,
               }}
-              className="absolute bottom-[10%] left-[8%] z-[6] bg-[#070707]/70 border border-red-500/20 backdrop-blur-md rounded-lg p-3.5 shadow-2xl flex flex-col gap-0.5 w-[130px] select-none pointer-events-none transition-all duration-200 hover:border-red-500/40"
+              className="absolute bottom-[12%] left-[12%] z-[6] bg-[#070707]/70 border border-red-500/20 backdrop-blur-md rounded-lg p-3.5 shadow-2xl flex flex-col gap-0.5 w-[130px] select-none pointer-events-none transition-all duration-200 hover:border-red-500/40"
             >
               <span className="text-[8px] uppercase tracking-wider text-red-500 font-mono font-bold">Ad Spend</span>
               <span className="text-base font-black text-white tracking-tight">₹15.4L</span>
@@ -244,7 +193,7 @@ export default function Hero() {
                 x: mousePos.x * 12,
                 y: mousePos.y * 12,
               }}
-              className="absolute top-[5%] right-[8%] z-[6] bg-[#070707]/70 border border-red-500/20 backdrop-blur-md rounded-lg p-3.5 shadow-2xl flex flex-col gap-0.5 w-[130px] select-none pointer-events-none border-r border-r-[#E50914]/20 transition-all duration-200 hover:border-red-500/40"
+              className="absolute top-[6%] right-[12%] z-[6] bg-[#070707]/70 border border-red-500/20 backdrop-blur-md rounded-lg p-3.5 shadow-2xl flex flex-col gap-0.5 w-[130px] select-none pointer-events-none border-r border-r-[#E50914]/20 transition-all duration-200 hover:border-red-500/40"
             >
               <span className="text-[8px] uppercase tracking-wider text-red-500 font-mono font-bold">CTR</span>
               <span className="text-base font-black text-white tracking-tight">2.45%</span>
@@ -260,7 +209,7 @@ export default function Hero() {
                 x: mousePos.x * 20,
                 y: mousePos.y * 20,
               }}
-              className="absolute top-[35%] right-[0%] z-[6] bg-[#070707]/70 border border-red-500/20 backdrop-blur-md rounded-lg p-3.5 shadow-2xl flex flex-col gap-0.5 w-[130px] select-none pointer-events-none transition-all duration-200 hover:border-red-500/40"
+              className="absolute top-[34%] right-[6%] z-[6] bg-[#070707]/70 border border-red-500/20 backdrop-blur-md rounded-lg p-3.5 shadow-2xl flex flex-col gap-0.5 w-[130px] select-none pointer-events-none transition-all duration-200 hover:border-red-500/40"
             >
               <span className="text-[8px] uppercase tracking-wider text-red-500 font-mono font-bold">CPC</span>
               <span className="text-base font-black text-white tracking-tight">₹11.23</span>
@@ -276,7 +225,7 @@ export default function Hero() {
                 x: mousePos.x * 8,
                 y: mousePos.y * 8,
               }}
-              className="absolute bottom-[10%] right-[8%] z-[6] bg-[#070707]/70 border border-red-500/20 backdrop-blur-md rounded-lg p-3.5 shadow-2xl flex items-center justify-between gap-2.5 w-[130px] select-none pointer-events-none transition-all duration-200 hover:border-red-500/40"
+              className="absolute bottom-[12%] right-[12%] z-[6] bg-[#070707]/70 border border-red-500/20 backdrop-blur-md rounded-lg p-3.5 shadow-2xl flex items-center justify-between gap-2.5 w-[130px] select-none pointer-events-none transition-all duration-200 hover:border-red-500/40"
             >
               <div className="flex flex-col gap-0.5">
                 <span className="text-[8px] uppercase tracking-wider text-red-500 font-mono font-bold">Impressions</span>
@@ -291,8 +240,8 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* Left Side: Content Column - Layers 7 and 8 (Order-3 on Mobile, lg:col-span-5 on Desktop) */}
-        <div className="w-full lg:col-span-5 flex flex-col justify-center text-left order-3 lg:order-1 relative z-[7] max-w-[560px] lg:max-w-none pt-4 lg:pt-0">
+        {/* Left Side: Content Column - Layers 7 and 8 (Order-2 on Mobile, lg:order-1 on Desktop) */}
+        <div className="w-full lg:col-span-1 flex flex-col justify-center text-left order-2 lg:order-1 relative z-[7] max-w-[560px] lg:max-w-none pt-4 lg:pt-0">
           {/* Brand Tagline Header - Layer 7 */}
           <motion.div
             initial={{ opacity: 0, y: -20 }}
@@ -311,11 +260,21 @@ export default function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.1 }}
-            className="font-black tracking-tight text-white mb-6 leading-[1.1] z-[7]"
-            style={{ fontSize: 'clamp(2.25rem, 5vw, 4.25rem)' }}
+            className="font-black tracking-tight text-white mb-6 leading-[1.05] z-[7] uppercase max-w-[560px]"
+            style={{ fontSize: 'clamp(2.5rem, 5.5vw, 4.5rem)' }}
           >
-            Marketing Growth
-            <span className="block mt-1">Through</span>
+            {/* Desktop title wrap */}
+            <span className="hidden lg:block">
+              Marketing
+              <span className="block mt-1">Growth Through</span>
+            </span>
+            {/* Mobile/Tablet title wrap */}
+            <span className="block lg:hidden">
+              Marketing Growth
+              <span className="block mt-1">Through</span>
+            </span>
+            
+            {/* Common red accents */}
             <span className="block text-[#E50914] glow-text-red mt-1">
               Strategy, Media &
             </span>
@@ -340,7 +299,7 @@ export default function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
-            className="flex flex-wrap items-center gap-4 z-[8] relative"
+            className="flex flex-wrap items-center gap-4 z-[8] relative mb-4"
           >
             <button
               onClick={() => scrollSection('career-universe')}
@@ -369,6 +328,57 @@ export default function Hero() {
               Download Resume
             </a>
           </motion.div>
+
+          {/* MOBILE ONLY: Inline bottom Analytics Cards Grid - Layer 6 (Renders below CTA buttons) */}
+          <div className="grid grid-cols-2 gap-4 w-full max-w-md mx-auto lg:hidden mt-8 z-[6] relative px-1">
+            {/* Card 1: ROAS */}
+            <div className="bg-[#070707]/70 border border-red-500/20 backdrop-blur-md rounded-lg p-3.5 shadow-lg flex flex-col gap-0.5 select-none pointer-events-none text-left">
+              <span className="text-[8px] uppercase tracking-wider text-red-500 font-mono font-bold">ROAS</span>
+              <span className="text-base font-black text-white tracking-tight">8.45x</span>
+              <span className="text-[8px] text-green-500 font-mono font-bold">↑ 28% Growth</span>
+            </div>
+
+            {/* Card 2: CTR */}
+            <div className="bg-[#070707]/70 border border-red-500/20 backdrop-blur-md rounded-lg p-3.5 shadow-lg flex flex-col gap-0.5 select-none pointer-events-none text-left">
+              <span className="text-[8px] uppercase tracking-wider text-red-500 font-mono font-bold">CTR</span>
+              <span className="text-base font-black text-white tracking-tight">2.45%</span>
+              <span className="text-[8px] text-green-500 font-mono font-bold">↑ 18% Avg</span>
+            </div>
+
+            {/* Card 3: Conversions */}
+            <div className="bg-[#070707]/70 border border-red-500/20 backdrop-blur-md rounded-lg p-3.5 shadow-lg flex flex-col gap-0.5 select-none pointer-events-none text-left">
+              <span className="text-[8px] uppercase tracking-wider text-red-500 font-mono font-bold">Conversions</span>
+              <span className="text-base font-black text-white tracking-tight">23,456</span>
+              <span className="text-[8px] text-green-500 font-mono font-bold">↑ 32% YoY</span>
+            </div>
+
+            {/* Card 4: CPC */}
+            <div className="bg-[#070707]/70 border border-red-500/20 backdrop-blur-md rounded-lg p-3.5 shadow-lg flex flex-col gap-0.5 select-none pointer-events-none text-left">
+              <span className="text-[8px] uppercase tracking-wider text-red-500 font-mono font-bold">CPC</span>
+              <span className="text-base font-black text-white tracking-tight">₹11.23</span>
+              <span className="text-[8px] text-red-500 font-mono font-bold">↓ 12% Cost</span>
+            </div>
+
+            {/* Card 5: Ad Spend */}
+            <div className="bg-[#070707]/70 border border-red-500/20 backdrop-blur-md rounded-lg p-3.5 shadow-lg flex flex-col gap-0.5 select-none pointer-events-none text-left">
+              <span className="text-[8px] uppercase tracking-wider text-red-500 font-mono font-bold">Ad Spend</span>
+              <span className="text-base font-black text-white tracking-tight">₹15.4L</span>
+              <span className="text-[8px] text-green-500 font-mono font-bold">↑ 28% Managed</span>
+            </div>
+
+            {/* Card 6: Impressions */}
+            <div className="bg-[#070707]/70 border border-red-500/20 backdrop-blur-md rounded-lg p-3.5 shadow-lg flex items-center justify-between gap-2.5 select-none pointer-events-none text-left">
+              <div className="flex flex-col gap-0.5">
+                <span className="text-[8px] uppercase tracking-wider text-red-500 font-mono font-bold">Impressions</span>
+                <span className="text-base font-black text-white tracking-tight">2.8M</span>
+                <span className="text-[8px] text-green-500 font-mono font-bold">↑ 21%</span>
+              </div>
+              <svg className="w-7 h-7 text-[#E50914] shrink-0" viewBox="0 0 36 36">
+                <path className="text-neutral-900" strokeWidth="3.5" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                <path className="text-[#E50914]" strokeWidth="3.5" strokeDasharray="78, 100" strokeLinecap="round" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+              </svg>
+            </div>
+          </div>
         </div>
 
       </div>
@@ -378,7 +388,7 @@ export default function Hero() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1.0, delay: 0.6 }}
-        className="w-full max-w-7xl mx-auto grid grid-cols-2 lg:grid-cols-4 gap-6 py-6 md:py-8 border-t border-b border-neutral-900/80 relative z-[7] bg-black/40 backdrop-blur-sm px-4 rounded-lg mt-8 lg:mt-12"
+        className="w-full max-w-7xl mx-auto grid grid-cols-2 lg:grid-cols-4 gap-6 py-6 md:py-8 border-t border-b border-neutral-900/80 relative z-[7] bg-black/40 backdrop-blur-sm px-4 rounded-lg mt-12 lg:mt-16"
       >
         <div className="flex flex-col items-center justify-center text-center py-4">
           <span className="text-xl sm:text-2xl lg:text-3xl xl:text-4xl font-extrabold text-[#E50914] glow-text-red whitespace-nowrap">
