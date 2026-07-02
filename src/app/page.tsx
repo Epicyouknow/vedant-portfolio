@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import Link from 'next/link';
 import { AnimatePresence, motion } from 'framer-motion';
 import { ShieldAlert, Award, Play, Info, Eye, Briefcase, Zap, Bell, CheckCircle, RefreshCw, X } from 'lucide-react';
 import ParticleBackground from '../components/ParticleBackground';
@@ -216,13 +217,13 @@ export default function Home() {
                   </span>
                 </button>
 
-                {/* Primary Nav Links */}
                 <nav className="hidden lg:flex items-center gap-6 text-xs text-neutral-400 font-semibold tracking-wider">
                   <button onClick={() => scrollSection('command-center')} className="hover:text-white cursor-pointer uppercase">HUD</button>
                   <button onClick={() => scrollSection('career-universe')} className="hover:text-white cursor-pointer uppercase">Universe</button>
                   <button onClick={() => scrollSection('career-map')} className="hover:text-white cursor-pointer uppercase">Transit Map</button>
                   <button onClick={() => scrollSection('campaign-dashboards')} className="hover:text-white cursor-pointer uppercase">Dashboards</button>
                   <button onClick={() => scrollSection('marketing-lab')} className="hover:text-white cursor-pointer uppercase">Lab</button>
+                  <Link href="/blog" className="hover:text-white uppercase cursor-pointer">Blogs</Link>
                   <button onClick={() => scrollSection('skills-galaxy')} className="hover:text-white cursor-pointer uppercase">Galaxy</button>
                   <button onClick={() => scrollSection('contact')} className="text-[#E50914] hover:text-white font-extrabold cursor-pointer uppercase">Contact Me</button>
                 </nav>
@@ -381,6 +382,13 @@ export default function Home() {
                         >
                           Lab
                         </button>
+                        <Link
+                          href="/blog"
+                          onClick={() => setMobileMenuOpen(false)}
+                          className="text-neutral-300 hover:text-white text-left font-semibold text-xs uppercase cursor-pointer"
+                        >
+                          Blogs
+                        </Link>
                         <button
                           onClick={() => {
                             scrollSection('skills-galaxy');
