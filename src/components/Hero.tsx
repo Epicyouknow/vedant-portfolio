@@ -1,39 +1,89 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { Play, Info, Download, Award } from 'lucide-react';
 import { portfolioData } from '../data/portfolio';
 import { useAnalytics } from '../hooks/useAnalytics';
 
-// Dynamic Counter Component
+// Dynamic Counter Component - Animates once per session, on scroll into view, respecting reduced motion
 function AnimatedCounter({ value, duration = 1.5 }: { value: string; duration?: number }) {
-  const [current, setCurrent] = useState(0);
-  
   // Extract prefix, target, and suffix correctly (e.g. "₹15L+" -> prefix: "₹", target: 15, suffix: "L+")
   const match = value.match(/^([^\d.]*)([\d.]+)([^\d.]*)$/);
   const prefix = match ? match[1] : '';
   const target = match ? parseFloat(match[2]) : 0;
   const suffix = match ? match[3] : value;
 
-  useEffect(() => {
-    let startTimestamp: number | null = null;
-    const step = (timestamp: number) => {
-      if (!startTimestamp) startTimestamp = timestamp;
-      const progress = Math.min((timestamp - startTimestamp) / (duration * 1000), 1);
-      
-      const val = progress * target;
-      setCurrent(target % 1 === 0 ? Math.floor(val) : parseFloat(val.toFixed(1)));
+  const [current, setCurrent] = useState(() => {
+    if (typeof window !== 'undefined') {
+      const hasPlayed = sessionStorage.getItem('vedant_counter_played');
+      if (hasPlayed) return target;
+    }
+    return 0;
+  });
 
-      if (progress < 1) {
-        window.requestAnimationFrame(step);
-      }
+  const ref = useRef<HTMLSpanElement>(null);
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const hasPlayed = sessionStorage.getItem('vedant_counter_played');
+    if (hasPlayed) {
+      setCurrent(target);
+      return;
+    }
+
+    // Respect prefers-reduced-motion
+    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    if (mediaQuery.matches) {
+      setCurrent(target);
+      return;
+    }
+
+    let observer: IntersectionObserver | null = null;
+    let animated = false;
+
+    const startAnimation = () => {
+      if (animated) return;
+      animated = true;
+      sessionStorage.setItem('vedant_counter_played', 'true');
+      
+      let startTimestamp: number | null = null;
+      const step = (timestamp: number) => {
+        if (!startTimestamp) startTimestamp = timestamp;
+        const progress = Math.min((timestamp - startTimestamp) / (duration * 1000), 1);
+        
+        const val = progress * target;
+        setCurrent(target % 1 === 0 ? Math.floor(val) : parseFloat(val.toFixed(1)));
+
+        if (progress < 1) {
+          window.requestAnimationFrame(step);
+        }
+      };
+      window.requestAnimationFrame(step);
     };
-    window.requestAnimationFrame(step);
+
+    observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          startAnimation();
+          if (observer && ref.current) {
+            observer.unobserve(ref.current);
+          }
+        }
+      });
+    }, { threshold: 0.1 });
+
+    if (ref.current) {
+      observer.observe(ref.current);
+    }
+
+    return () => {
+      if (observer) observer.disconnect();
+    };
   }, [target, duration]);
 
   return (
-    <span>
+    <span ref={ref}>
       {prefix}
       {current}
       {suffix}
@@ -302,11 +352,11 @@ export default function Hero() {
             className="flex flex-wrap items-center gap-4 z-[8] relative mb-4"
           >
             <button
-              onClick={() => scrollSection('career-universe')}
+              onClick={() => scrollSection('contact')}
               className="flex items-center gap-2.5 bg-[#E50914] text-white font-bold text-xs px-7 py-4 rounded hover:bg-[#b20710] active:scale-95 transition-all duration-200 cursor-pointer shadow-[0_4px_15px_rgba(229,9,20,0.3)]"
             >
               <Play className="w-4 h-4 fill-white stroke-none" />
-              Explore My Journey
+              Get In Touch
             </button>
 
             <button
