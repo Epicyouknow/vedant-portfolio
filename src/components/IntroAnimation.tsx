@@ -66,8 +66,10 @@ function VLogoStep({ onComplete }: VLogoStepProps) {
   const beamRef = useRef<SVGLineElement>(null);
   const leftStemRef = useRef<SVGPathElement>(null);
   const rightStemRef = useRef<SVGPathElement>(null);
+  const chartLineRef = useRef<SVGPathElement>(null);
   const glowRef = useRef<HTMLDivElement>(null);
   const [sparks, setSparks] = useState<{ id: number; tx: number; ty: number }[]>([]);
+  const [microcopy, setMicrocopy] = useState('CAMPAIGN INTEL: ACTIVE');
 
   useEffect(() => {
     // Play the Tudum sound effect at the start of the animation
@@ -108,26 +110,37 @@ function VLogoStep({ onComplete }: VLogoStepProps) {
       onComplete: onComplete
     });
 
-    // Step 1: Red Light Beam appears in center
+    // Step 0: Draw performance line chart and rotate microcopy
+    t.fromTo(chartLineRef.current,
+      { strokeDashoffset: 250, opacity: 0 },
+      { strokeDashoffset: 0, opacity: 1, duration: 0.5 * durationMultiplier, ease: 'power1.inOut' }
+    );
+    t.add(() => setMicrocopy('LOADING CAMPAIGN METRICS...'), 0);
+    t.add(() => setMicrocopy('OPTIMIZING BID ENGINES...'), 0.22 * durationMultiplier);
+    t.add(() => setMicrocopy('SCALING CONVERSION SIGNAL...'), 0.4 * durationMultiplier);
+
+    // Step 1: Chart line dissolves as the V logo core beam draws in
+    t.to(chartLineRef.current, { opacity: 0, duration: 0.15 * durationMultiplier });
     t.fromTo(beamRef.current, 
       { strokeDashoffset: 100, opacity: 0 }, 
-      { strokeDashoffset: 0, opacity: 1, duration: 0.4 * durationMultiplier, ease: 'power1.out' }
+      { strokeDashoffset: 0, opacity: 1, duration: 0.3 * durationMultiplier, ease: 'power1.out' },
+      '-=0.08'
     );
 
-    // Step 2: Splits and forms the V
-    t.to(beamRef.current, { opacity: 0, duration: 0.2 * durationMultiplier }, 'split');
+    // Step 2: Splits and forms the V logo segments
+    t.to(beamRef.current, { opacity: 0, duration: 0.15 * durationMultiplier }, 'split');
     t.fromTo(leftStemRef.current, 
       { strokeDashoffset: 100 }, 
-      { strokeDashoffset: 0, duration: 0.6 * durationMultiplier, ease: 'power2.inOut' }, 
+      { strokeDashoffset: 0, duration: 0.45 * durationMultiplier, ease: 'power2.inOut' }, 
       'split'
     );
     t.fromTo(rightStemRef.current, 
       { strokeDashoffset: 100 }, 
-      { strokeDashoffset: 0, duration: 0.6 * durationMultiplier, ease: 'power2.inOut' }, 
-      'split+=0.1'
+      { strokeDashoffset: 0, duration: 0.45 * durationMultiplier, ease: 'power2.inOut' }, 
+      'split+=0.05'
     );
 
-    // Step 3 & 4: Energy Glow/Burst & pulsing background red ambient light
+    // Step 3 & 4: Ambient red halo glow, sparks burst, final status microcopy
     t.add(() => {
       const sparkCount = isMobile ? 8 : 12;
       const sparkList = Array.from({ length: sparkCount }).map((_, i) => {
@@ -140,25 +153,26 @@ function VLogoStep({ onComplete }: VLogoStepProps) {
         };
       });
       setSparks(sparkList);
-    }, 'split+=0.6');
+      setMicrocopy('SYSTEM ONLINE - VEDANTVERSE');
+    }, 'split+=0.45');
 
     t.to(glowRef.current, 
-      { opacity: 0.75, scale: 1.1, duration: 0.4 * durationMultiplier, ease: 'power2.out' }, 
-      'split+=0.6'
+      { opacity: 0.75, scale: 1.1, duration: 0.3 * durationMultiplier, ease: 'power2.out' }, 
+      'split+=0.45'
     );
 
-    // Step 5: Quick cinematic zoom through V
+    // Step 5: Quick cinematic scale-up through the logo
     t.to(containerRef.current, 
-      { scale: 22, opacity: 0, duration: 0.6 * durationMultiplier, ease: 'power3.in' }, 
-      'split+=1.1'
+      { scale: 22, opacity: 0, duration: 0.5 * durationMultiplier, ease: 'power3.in' }, 
+      'split+=0.95'
     );
     t.to(glowRef.current, 
-      { opacity: 0, scale: 2, duration: 0.5 * durationMultiplier, ease: 'power3.in' }, 
-      'split+=1.1'
+      { opacity: 0, scale: 2, duration: 0.4 * durationMultiplier, ease: 'power3.in' }, 
+      'split+=0.95'
     );
 
     return () => {
-      // Clean up the audio and kill animation timeline on unmount/skip
+      // Clean up audio and kill animation timeline
       audio.pause();
       audio.src = '';
       t.kill();
@@ -233,6 +247,20 @@ function VLogoStep({ onComplete }: VLogoStepProps) {
             </mask>
           </defs>
 
+          {/* Thin line chart drawing upward */}
+          <path
+            ref={chartLineRef}
+            d="M 10 80 Q 25 50 40 70 T 70 30 T 90 10"
+            stroke="#E50914"
+            strokeWidth="2"
+            fill="none"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeDasharray="250"
+            strokeDashoffset="250"
+            className="filter drop-shadow-[0_0_4px_rgba(229,9,20,0.8)]"
+          />
+
           {/* Facets rendered with mask to enable the draw-in animation */}
           <g mask="url(#vMask)">
             <path d="M 20 15 L 42 15 L 50 85 L 35 85 Z" fill="url(#vFacet1-intro)" />
@@ -272,8 +300,8 @@ function VLogoStep({ onComplete }: VLogoStepProps) {
         <h2 className="text-xl sm:text-2xl font-black text-white tracking-[0.25em] uppercase font-sans">
           VEDANTVERSE
         </h2>
-        <p className="text-[9px] sm:text-xs text-neutral-400 font-bold uppercase tracking-[0.3em]">
-          Strategy <span className="text-[#E50914]">•</span> Media <span className="text-[#E50914]">•</span> Performance
+        <p className="text-[10px] font-mono text-red-500 font-bold uppercase tracking-[0.2em] h-5 transition-all duration-300">
+          {microcopy}
         </p>
       </div>
     </div>
@@ -376,7 +404,19 @@ export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
     }, 450);
   };
 
+  // Skip loader instantly if prefers-reduced-motion is active
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    if (mediaQuery.matches) {
+      onComplete(selectedProfileId);
+    }
+  }, [onComplete, selectedProfileId]);
+
   const triggerSkip = () => {
+    if (typeof window !== 'undefined') {
+      sessionStorage.setItem('vedant_seen_intro', 'true');
+    }
     onComplete(selectedProfileId);
   };
 

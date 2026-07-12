@@ -24,7 +24,12 @@ import { useAnalytics } from '../hooks/useAnalytics';
 export default function Home() {
   const { trackPageView, trackEvent } = useAnalytics();
   // Show cinematic intro on first load
-  const [showIntro, setShowIntro] = useState(true);
+  const [showIntro, setShowIntro] = useState(() => {
+    if (typeof window !== 'undefined') {
+      return !sessionStorage.getItem('vedant_seen_intro');
+    }
+    return true;
+  });
   const [watchingProfileId, setWatchingProfileId] = useState('performance-marketing');
 
   // Interactive View Modes
@@ -173,6 +178,9 @@ export default function Home() {
   const handleIntroComplete = (profileId: string) => {
     setWatchingProfileId(profileId);
     setShowIntro(false);
+    if (typeof window !== 'undefined') {
+      sessionStorage.setItem('vedant_seen_intro', 'true');
+    }
     
     // Track page load and profile choice
     trackPageView('/');
