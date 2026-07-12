@@ -30,6 +30,8 @@ export default function Home() {
   // Interactive View Modes
   const [viewMode, setViewMode] = useState<'standard' | 'recruiter' | 'client'>('standard');
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [activeSection, setActiveSection] = useState('');
 
   // Easter Egg states
   const [showEasterEgg, setShowEasterEgg] = useState(false);
@@ -111,6 +113,57 @@ export default function Home() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, [showIntro, unlockedAchievementsCount]);
 
+  // Sticky Navbar state listener
+  useEffect(() => {
+    if (showIntro) return;
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [showIntro]);
+
+  // IntersectionObserver to trace active page section
+  useEffect(() => {
+    if (showIntro) return;
+
+    const sections = [
+      'command-center',
+      'career-universe',
+      'career-map',
+      'campaign-dashboards',
+      'marketing-lab',
+      'skills-galaxy',
+      'contact'
+    ];
+
+    const observerOptions = {
+      root: null,
+      rootMargin: '-20% 0px -50% 0px',
+      threshold: 0.1
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          setActiveSection(entry.target.id);
+        }
+      });
+    }, observerOptions);
+
+    sections.forEach((id) => {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    });
+
+    return () => {
+      sections.forEach((id) => {
+        const el = document.getElementById(id);
+        if (el) observer.unobserve(el);
+      });
+    };
+  }, [showIntro]);
+
   const triggerAchievement = (text: string) => {
     setUnlockedAchievement(text);
     trackEvent('achievement_unlock', { achievement: text });
@@ -185,7 +238,11 @@ export default function Home() {
             <div className="noise-overlay" />
 
             {/* Netflix Header Navbar */}
-            <header className="fixed top-0 left-0 right-0 h-16 md:h-20 bg-gradient-to-b from-black/95 via-black/50 to-transparent z-40 px-6 md:px-16 flex items-center justify-between backdrop-blur-[2px] border-b border-neutral-900/10">
+            <header className={`fixed top-0 left-0 right-0 h-16 md:h-20 z-40 px-6 md:px-16 flex items-center justify-between transition-all duration-300 border-b ${
+              isScrolled 
+                ? 'bg-black/95 backdrop-blur-md border-neutral-900 shadow-lg shadow-black/40' 
+                : 'bg-gradient-to-b from-black/95 via-black/50 to-transparent backdrop-blur-[2px] border-neutral-900/10'
+            }`}>
               <div className="flex items-center gap-8">
                 <button
                   onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
@@ -218,14 +275,37 @@ export default function Home() {
                 </button>
 
                 <nav className="hidden lg:flex items-center gap-6 text-xs text-neutral-400 font-semibold tracking-wider">
-                  <button onClick={() => scrollSection('command-center')} className="hover:text-white cursor-pointer uppercase">HUD</button>
-                  <button onClick={() => scrollSection('career-universe')} className="hover:text-white cursor-pointer uppercase">Universe</button>
-                  <button onClick={() => scrollSection('career-map')} className="hover:text-white cursor-pointer uppercase">Transit Map</button>
-                  <button onClick={() => scrollSection('campaign-dashboards')} className="hover:text-white cursor-pointer uppercase">Dashboards</button>
-                  <button onClick={() => scrollSection('marketing-lab')} className="hover:text-white cursor-pointer uppercase">Lab</button>
-                  <Link href="/blog" className="hover:text-white uppercase cursor-pointer">Blogs</Link>
-                  <button onClick={() => scrollSection('skills-galaxy')} className="hover:text-white cursor-pointer uppercase">Galaxy</button>
-                  <button onClick={() => scrollSection('contact')} className="text-[#E50914] hover:text-white font-extrabold cursor-pointer uppercase">Contact Me</button>
+                  <button onClick={() => scrollSection('command-center')} className={`hover:text-white cursor-pointer uppercase transition-colors relative ${activeSection === 'command-center' ? 'text-[#E50914] font-black' : ''}`}>
+                    HUD
+                    {activeSection === 'command-center' && <span className="absolute bottom-[-8px] left-1/2 -translate-x-1/2 w-1.5 h-1.5 bg-[#E50914] rounded-full" />}
+                  </button>
+                  <button onClick={() => scrollSection('career-universe')} className={`hover:text-white cursor-pointer uppercase transition-colors relative ${activeSection === 'career-universe' ? 'text-[#E50914] font-black' : ''}`}>
+                    Universe
+                    {activeSection === 'career-universe' && <span className="absolute bottom-[-8px] left-1/2 -translate-x-1/2 w-1.5 h-1.5 bg-[#E50914] rounded-full" />}
+                  </button>
+                  <button onClick={() => scrollSection('career-map')} className={`hover:text-white cursor-pointer uppercase transition-colors relative ${activeSection === 'career-map' ? 'text-[#E50914] font-black' : ''}`}>
+                    Transit Map
+                    {activeSection === 'career-map' && <span className="absolute bottom-[-8px] left-1/2 -translate-x-1/2 w-1.5 h-1.5 bg-[#E50914] rounded-full" />}
+                  </button>
+                  <button onClick={() => scrollSection('campaign-dashboards')} className={`hover:text-white cursor-pointer uppercase transition-colors relative ${activeSection === 'campaign-dashboards' ? 'text-[#E50914] font-black' : ''}`}>
+                    Dashboards
+                    {activeSection === 'campaign-dashboards' && <span className="absolute bottom-[-8px] left-1/2 -translate-x-1/2 w-1.5 h-1.5 bg-[#E50914] rounded-full" />}
+                  </button>
+                  <button onClick={() => scrollSection('marketing-lab')} className={`hover:text-white cursor-pointer uppercase transition-colors relative ${activeSection === 'marketing-lab' ? 'text-[#E50914] font-black' : ''}`}>
+                    Lab
+                    {activeSection === 'marketing-lab' && <span className="absolute bottom-[-8px] left-1/2 -translate-x-1/2 w-1.5 h-1.5 bg-[#E50914] rounded-full" />}
+                  </button>
+                  <Link href="/blog" className="hover:text-white uppercase cursor-pointer transition-colors relative">
+                    Blogs
+                  </Link>
+                  <button onClick={() => scrollSection('skills-galaxy')} className={`hover:text-white cursor-pointer uppercase transition-colors relative ${activeSection === 'skills-galaxy' ? 'text-[#E50914] font-black' : ''}`}>
+                    Galaxy
+                    {activeSection === 'skills-galaxy' && <span className="absolute bottom-[-8px] left-1/2 -translate-x-1/2 w-1.5 h-1.5 bg-[#E50914] rounded-full" />}
+                  </button>
+                  <button onClick={() => scrollSection('contact')} className={`hover:text-white uppercase transition-colors relative ${activeSection === 'contact' ? 'text-[#E50914] font-black' : 'text-[#E50914] font-extrabold'}`}>
+                    Contact Me
+                    {activeSection === 'contact' && <span className="absolute bottom-[-8px] left-1/2 -translate-x-1/2 w-1.5 h-1.5 bg-[#E50914] rounded-full" />}
+                  </button>
                 </nav>
               </div>
 
@@ -269,7 +349,7 @@ export default function Home() {
                 {/* Hamburger Menu Button */}
                 <button
                   onClick={() => setMobileMenuOpen(true)}
-                  className="lg:hidden p-2 text-neutral-400 hover:text-white cursor-pointer focus:outline-none"
+                  className="lg:hidden w-11 h-11 flex items-center justify-center text-neutral-400 hover:text-white cursor-pointer focus:outline-none"
                   aria-label="Open navigation menu"
                 >
                   <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -328,7 +408,8 @@ export default function Home() {
                         </div>
                         <button
                           onClick={() => setMobileMenuOpen(false)}
-                          className="text-neutral-500 hover:text-white cursor-pointer focus:outline-none"
+                          className="w-11 h-11 flex items-center justify-center text-neutral-500 hover:text-white cursor-pointer focus:outline-none"
+                          aria-label="Close navigation menu"
                         >
                           <X className="w-5 h-5" />
                         </button>
@@ -342,7 +423,9 @@ export default function Home() {
                             scrollSection('command-center');
                             setMobileMenuOpen(false);
                           }}
-                          className="text-neutral-300 hover:text-white text-left font-semibold text-xs uppercase cursor-pointer"
+                          className={`text-left font-semibold text-xs uppercase cursor-pointer transition-colors ${
+                            activeSection === 'command-center' ? 'text-[#E50914] font-black' : 'text-neutral-300 hover:text-white'
+                          }`}
                         >
                           HUD (Command Center)
                         </button>
@@ -351,7 +434,9 @@ export default function Home() {
                             scrollSection('career-universe');
                             setMobileMenuOpen(false);
                           }}
-                          className="text-neutral-300 hover:text-white text-left font-semibold text-xs uppercase cursor-pointer"
+                          className={`text-left font-semibold text-xs uppercase cursor-pointer transition-colors ${
+                            activeSection === 'career-universe' ? 'text-[#E50914] font-black' : 'text-neutral-300 hover:text-white'
+                          }`}
                         >
                           Universe
                         </button>
@@ -360,7 +445,9 @@ export default function Home() {
                             scrollSection('career-map');
                             setMobileMenuOpen(false);
                           }}
-                          className="text-neutral-300 hover:text-white text-left font-semibold text-xs uppercase cursor-pointer"
+                          className={`text-left font-semibold text-xs uppercase cursor-pointer transition-colors ${
+                            activeSection === 'career-map' ? 'text-[#E50914] font-black' : 'text-neutral-300 hover:text-white'
+                          }`}
                         >
                           Transit Map
                         </button>
@@ -369,7 +456,9 @@ export default function Home() {
                             scrollSection('campaign-dashboards');
                             setMobileMenuOpen(false);
                           }}
-                          className="text-neutral-300 hover:text-white text-left font-semibold text-xs uppercase cursor-pointer"
+                          className={`text-left font-semibold text-xs uppercase cursor-pointer transition-colors ${
+                            activeSection === 'campaign-dashboards' ? 'text-[#E50914] font-black' : 'text-neutral-300 hover:text-white'
+                          }`}
                         >
                           Dashboards
                         </button>
@@ -378,14 +467,16 @@ export default function Home() {
                             scrollSection('marketing-lab');
                             setMobileMenuOpen(false);
                           }}
-                          className="text-neutral-300 hover:text-white text-left font-semibold text-xs uppercase cursor-pointer"
+                          className={`text-left font-semibold text-xs uppercase cursor-pointer transition-colors ${
+                            activeSection === 'marketing-lab' ? 'text-[#E50914] font-black' : 'text-neutral-300 hover:text-white'
+                          }`}
                         >
                           Lab
                         </button>
                         <Link
                           href="/blog"
                           onClick={() => setMobileMenuOpen(false)}
-                          className="text-neutral-300 hover:text-white text-left font-semibold text-xs uppercase cursor-pointer"
+                          className="text-neutral-300 hover:text-white text-left font-semibold text-xs uppercase cursor-pointer transition-colors"
                         >
                           Blogs
                         </Link>
@@ -394,7 +485,9 @@ export default function Home() {
                             scrollSection('skills-galaxy');
                             setMobileMenuOpen(false);
                           }}
-                          className="text-neutral-300 hover:text-white text-left font-semibold text-xs uppercase cursor-pointer"
+                          className={`text-left font-semibold text-xs uppercase cursor-pointer transition-colors ${
+                            activeSection === 'skills-galaxy' ? 'text-[#E50914] font-black' : 'text-neutral-300 hover:text-white'
+                          }`}
                         >
                           Galaxy
                         </button>
@@ -403,7 +496,9 @@ export default function Home() {
                             scrollSection('contact');
                             setMobileMenuOpen(false);
                           }}
-                          className="text-[#E50914] hover:text-white text-left font-bold text-xs uppercase cursor-pointer"
+                          className={`text-left font-bold text-xs uppercase cursor-pointer transition-colors ${
+                            activeSection === 'contact' ? 'text-[#E50914] font-black' : 'text-[#E50914] hover:text-white'
+                          }`}
                         >
                           Contact Me
                         </button>
