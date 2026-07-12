@@ -242,3 +242,10 @@ body {
     linear-gradient(to bottom, transparent 0%, black 5%);
   -webkit-mask-composite: source-in;
 }
+
+/* Accessibility Focus-Visible outlines for keyboard-only navigation support */
+*:focus-visible {
+  outline: 2px solid var(--accent-color) !important;
+  outline-offset: 4px !important;
+  box-shadow: 0 0 0 4px rgba(var(--accent-color-rgb), 0.35) !important;
+}
