@@ -220,10 +220,10 @@ export default function CreditsFooter() {
 
         {/* Lower row: Footer bottom branding */}
         <div className="pt-8 border-t border-neutral-900 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-neutral-600">
-          <div className="flex items-center gap-1.5">
-            <span>Made with</span>
+          <div className="flex items-center gap-1.5 font-medium text-neutral-400">
+            <span>Crafted with</span>
             <Heart className="w-3.5 h-3.5 fill-[#E50914] stroke-none animate-pulse" />
-            <span>in Mumbai, India</span>
+            <span>by <strong className="text-white">Vedant Tiwari</strong></span>
           </div>
 
           <div className="flex gap-4">
