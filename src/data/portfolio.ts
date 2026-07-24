@@ -138,10 +138,10 @@ export const portfolioData: PortfolioData = {
     about: "I am a high-impact Performance Marketing Executive and Media Planner based in Mumbai. I specialize in designing and executing cross-channel media strategies, managing significant budgets, and engineering data pipelines that turn clicks into measurable growth."
   },
   stats: {
-    experience: "2+ Years",
+    experience: "2+",
     adSpend: "₹18L+",
-    platforms: "7+ Platforms",
-    campaigns: "75+ Campaigns"
+    platforms: "7+",
+    campaigns: "75+"
   },
   profiles: [
     {
