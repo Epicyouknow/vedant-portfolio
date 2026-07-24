@@ -6,72 +6,48 @@ import { Play, Info, Download, Award } from 'lucide-react';
 import { portfolioData } from '../data/portfolio';
 import { useAnalytics } from '../hooks/useAnalytics';
 
-// Dynamic Counter Component - Animates once per session, on scroll into view, respecting reduced motion
-function AnimatedCounter({ value, duration = 1.5 }: { value: string; duration?: number }) {
-  // Extract prefix, target, and suffix correctly (e.g. "₹15L+" -> prefix: "₹", target: 15, suffix: "L+")
+// Dynamic Counter Component - Animates every time user scrolls into view
+function AnimatedCounter({ value, duration = 1.8 }: { value: string; duration?: number }) {
   const match = value.match(/^([^\d.]*)([\d.]+)([^\d.]*)$/);
   const prefix = match ? match[1] : '';
   const target = match ? parseFloat(match[2]) : 0;
   const suffix = match ? match[3] : value;
 
-  const [current, setCurrent] = useState(() => {
-    if (typeof window !== 'undefined') {
-      const hasPlayed = sessionStorage.getItem('vedant_counter_played');
-      if (hasPlayed) return target;
-    }
-    return 0;
-  });
-
+  const [current, setCurrent] = useState(0);
   const ref = useRef<HTMLSpanElement>(null);
 
   useEffect(() => {
-    if (typeof window === 'undefined') return;
-    const hasPlayed = sessionStorage.getItem('vedant_counter_played');
-    if (hasPlayed) {
-      setCurrent(target);
-      return;
-    }
-
-    // Respect prefers-reduced-motion
-    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
-    if (mediaQuery.matches) {
-      setCurrent(target);
-      return;
-    }
-
     let observer: IntersectionObserver | null = null;
-    let animated = false;
+    let animId: number;
 
     const startAnimation = () => {
-      if (animated) return;
-      animated = true;
-      sessionStorage.setItem('vedant_counter_played', 'true');
-      
       let startTimestamp: number | null = null;
       const step = (timestamp: number) => {
         if (!startTimestamp) startTimestamp = timestamp;
         const progress = Math.min((timestamp - startTimestamp) / (duration * 1000), 1);
-        
-        const val = progress * target;
+        const easeProgress = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
+        const val = easeProgress * target;
         setCurrent(target % 1 === 0 ? Math.floor(val) : parseFloat(val.toFixed(1)));
 
         if (progress < 1) {
-          window.requestAnimationFrame(step);
+          animId = window.requestAnimationFrame(step);
         }
       };
-      window.requestAnimationFrame(step);
+      animId = window.requestAnimationFrame(step);
     };
 
-    observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          startAnimation();
-          if (observer && ref.current) {
-            observer.unobserve(ref.current);
+    observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            startAnimation();
+          } else {
+            setCurrent(0);
           }
-        }
-      });
-    }, { threshold: 0.1 });
+        });
+      },
+      { threshold: 0.15 }
+    );
 
     if (ref.current) {
       observer.observe(ref.current);
@@ -79,11 +55,12 @@ function AnimatedCounter({ value, duration = 1.5 }: { value: string; duration?: 
 
     return () => {
       if (observer) observer.disconnect();
+      if (animId) window.cancelAnimationFrame(animId);
     };
   }, [target, duration]);
 
   return (
-    <span ref={ref}>
+    <span ref={ref} className="font-mono inline-block tracking-tight">
       {prefix}
       {current}
       {suffix}
@@ -435,37 +412,46 @@ export default function Hero() {
 
       {/* Full Width Statistic Grid - Layer 7 */}
       <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1.0, delay: 0.6 }}
-        className="w-full max-w-7xl mx-auto grid grid-cols-2 lg:grid-cols-4 gap-6 py-6 md:py-8 border-t border-b border-neutral-900/80 relative z-[7] bg-black/40 backdrop-blur-sm px-4 rounded-lg mt-12 lg:mt-16"
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: false, margin: '-40px' }}
+        transition={{ duration: 0.8 }}
+        className="w-full max-w-7xl mx-auto grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6 py-6 relative z-[7] bg-neutral-950/70 border border-neutral-900/90 backdrop-blur-md px-3 sm:px-6 rounded-2xl mt-12 lg:mt-16 shadow-2xl"
       >
-        <div className="flex flex-col items-center justify-center text-center py-4">
-          <span className="text-xl sm:text-2xl lg:text-3xl xl:text-4xl font-extrabold text-[#E50914] glow-text-red whitespace-nowrap">
+        <div className="flex flex-col items-center justify-center text-center p-4 bg-neutral-900/40 rounded-xl border border-neutral-800/80 hover:border-[#E50914]/40 transition-all group">
+          <span className="text-3xl sm:text-4xl lg:text-5xl font-black text-[#E50914] glow-text-red tracking-tight">
             <AnimatedCounter value={portfolioData.stats.experience} />
           </span>
-          <span className="text-neutral-500 text-[9px] sm:text-xs uppercase tracking-widest mt-2 font-medium">Experience</span>
+          <span className="text-neutral-400 text-[10px] sm:text-xs font-bold uppercase tracking-widest mt-2 group-hover:text-white transition-colors">
+            Years Experience
+          </span>
         </div>
 
-        <div className="flex flex-col items-center justify-center text-center py-4 border-l border-neutral-900">
-          <span className="text-xl sm:text-2xl lg:text-3xl xl:text-4xl font-extrabold text-white whitespace-nowrap">
+        <div className="flex flex-col items-center justify-center text-center p-4 bg-neutral-900/40 rounded-xl border border-neutral-800/80 hover:border-white/40 transition-all group">
+          <span className="text-3xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight">
             <AnimatedCounter value={portfolioData.stats.adSpend} />
           </span>
-          <span className="text-neutral-500 text-[9px] sm:text-xs uppercase tracking-widest mt-2 font-medium">Ad Budget Managed</span>
+          <span className="text-neutral-400 text-[10px] sm:text-xs font-bold uppercase tracking-widest mt-2 group-hover:text-white transition-colors">
+            Ad Budget Managed
+          </span>
         </div>
 
-        <div className="flex flex-col items-center justify-center text-center py-4 border-t lg:border-t-0 lg:border-l border-neutral-900/80 lg:border-neutral-900">
-          <span className="text-xl sm:text-2xl lg:text-3xl xl:text-4xl font-extrabold text-[#E50914] glow-text-red whitespace-nowrap">
+        <div className="flex flex-col items-center justify-center text-center p-4 bg-neutral-900/40 rounded-xl border border-neutral-800/80 hover:border-[#E50914]/40 transition-all group">
+          <span className="text-3xl sm:text-4xl lg:text-5xl font-black text-[#E50914] glow-text-red tracking-tight">
             <AnimatedCounter value={portfolioData.stats.platforms} />
           </span>
-          <span className="text-neutral-500 text-[9px] sm:text-xs uppercase tracking-widest mt-2 font-medium">Ad Networks</span>
+          <span className="text-neutral-400 text-[10px] sm:text-xs font-bold uppercase tracking-widest mt-2 group-hover:text-white transition-colors">
+            Ad Platforms
+          </span>
         </div>
 
-        <div className="flex flex-col items-center justify-center text-center py-4 border-t border-l lg:border-t-0 border-neutral-900/80 lg:border-neutral-900">
-          <span className="text-xl sm:text-2xl lg:text-3xl xl:text-4xl font-extrabold text-white whitespace-nowrap">
+        <div className="flex flex-col items-center justify-center text-center p-4 bg-neutral-900/40 rounded-xl border border-neutral-800/80 hover:border-white/40 transition-all group">
+          <span className="text-3xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight">
             <AnimatedCounter value={portfolioData.stats.campaigns} />
           </span>
-          <span className="text-neutral-500 text-[9px] sm:text-xs uppercase tracking-widest mt-2 font-medium">Campaigns Executed</span>
+          <span className="text-neutral-400 text-[10px] sm:text-xs font-bold uppercase tracking-widest mt-2 group-hover:text-white transition-colors">
+            Campaigns Executed
+          </span>
         </div>
       </motion.div>
 
