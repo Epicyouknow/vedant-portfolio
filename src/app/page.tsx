@@ -18,6 +18,8 @@ import DashboardReplicas from '../components/DashboardReplicas'; // Ads manager 
 import VedantAI from '../components/VedantAI'; // Vedant GPT
 import CreditsFooter from '../components/CreditsFooter';
 import ContactForm from '../components/ContactForm';
+import SideScrollNavigator from '../components/SideScrollNavigator';
+import VelocityMarquee from '../components/VelocityMarquee';
 import { portfolioData } from '../data/portfolio';
 import { useAnalytics } from '../hooks/useAnalytics';
 
@@ -563,12 +565,14 @@ export default function Home() {
 
             {/* Main Section */}
             <main className="flex-1 w-full relative pt-16 md:pt-20">
+              <SideScrollNavigator />
               
               {/* Dynamic Content Rendering based on ViewMode Toggles */}
               {viewMode === 'standard' && (
                 <>
                   <Hero />
                   <JarvisCommandCenter />
+                  <VelocityMarquee />
                   <CareerUniverse />
                   <CareerMap />
                   <WorkShowcase />
