@@ -1,584 +1,220 @@
 'use client';
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import gsap from 'gsap';
-import { Play, SkipForward, Volume2, ShieldCheck, Target, Globe, Activity, Award, FileText, Lightbulb, TrendingUp, Layout, Tag, Code, PenTool, Smartphone } from 'lucide-react';
-import { portfolioData } from '../data/portfolio';
+import { SkipForward, ChevronDown } from 'lucide-react';
 
 interface IntroAnimationProps {
   onComplete: (profileId: string) => void;
 }
 
-function PlatformIcon({ name }: { name: string }) {
-  const className = "w-3.5 h-3.5 text-neutral-400 group-hover:text-white transition-colors";
-  if (name === "Meta Ads") {
-    return (
-      <svg className="w-3.5 h-3.5 text-[#3B82F6]" viewBox="0 0 24 24" fill="currentColor">
-        <path d="M16.5 6C15.12 6 13.9 6.88 13.5 8.12C12.92 6.8 11.53 6 10 6C7.51 6 5.5 8.01 5.5 10.5C5.5 12.99 7.51 15 10 15C11.53 15 12.92 14.2 13.5 12.88C13.9 14.12 15.12 15 16.5 15C18.99 15 21 12.99 21 10.5C21 8.01 18.99 6 16.5 6ZM10 13.5C8.34 13.5 7 12.16 7 10.5C7 8.84 8.34 7.5 10 7.5C11.66 7.5 13 8.84 13 10.5C13 12.16 11.66 13.5 10 13.5ZM16.5 13.5C14.84 13.5 13.5 12.16 13.5 10.5C13.5 8.84 14.84 7.5 16.5 7.5C18.16 7.5 19.5 8.84 19.5 10.5C19.5 12.16 18.16 13.5 16.5 13.5Z" />
-      </svg>
-    );
-  }
-  if (name === "Google Ads" || name === "Google Marketing") {
-    return (
-      <svg className="w-3.5 h-3.5 text-[#4285F4]" viewBox="0 0 24 24" fill="currentColor">
-        <path d="M12.24 10.285V13.4h6.887c-.275 1.565-1.88 4.604-6.887 4.604-4.33 0-7.859-3.578-7.859-8s3.53-8 7.859-8c2.46 0 4.105 1.025 5.047 1.926l2.427-2.334C17.955 2.192 15.34 1 12.24 1 7.16 1 3 5.16 3 10.25s4.16 9.25 9.24 9.25c5.3 0 8.827-3.725 8.827-8.988 0-.604-.066-1.066-.145-1.527H12.24z" />
-      </svg>
-    );
-  }
-  
-  switch (name) {
-    case "YouTube Ads":
-      return <Play className="w-3.5 h-3.5 text-[#FF0000]" />;
-    case "DV360":
-      return <Target className="w-3.5 h-3.5 text-[#34A853]" />;
-    case "CM360":
-      return <Activity className="w-3.5 h-3.5 text-[#FBBC05]" />;
-    case "Brand Strategy":
-      return <Award className="w-3.5 h-3.5 text-[#F59E0B]" />;
-    case "Content Strategy":
-      return <FileText className="w-3.5 h-3.5 text-[#F59E0B]" />;
-    case "Creative Direction":
-      return <Lightbulb className="w-3.5 h-3.5 text-[#F59E0B]" />;
-    case "GA4":
-      return <TrendingUp className="w-3.5 h-3.5 text-[#10B981]" />;
-    case "Looker Studio":
-      return <Layout className="w-3.5 h-3.5 text-[#10B981]" />;
-    case "Tag Manager":
-      return <Tag className="w-3.5 h-3.5 text-[#10B981]" />;
-    case "Web Development":
-      return <Code className="w-3.5 h-3.5 text-[#8B5CF6]" />;
-    case "UI/UX Design":
-      return <PenTool className="w-3.5 h-3.5 text-[#8B5CF6]" />;
-    case "App Development":
-      return <Smartphone className="w-3.5 h-3.5 text-[#8B5CF6]" />;
-    default:
-      return <Globe className={className} />;
-  }
-}
-
-interface VLogoStepProps {
-  onComplete: () => void;
-}
-
-function VLogoStep({ onComplete }: VLogoStepProps) {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const beamRef = useRef<SVGLineElement>(null);
-  const leftStemRef = useRef<SVGPathElement>(null);
-  const rightStemRef = useRef<SVGPathElement>(null);
-  const chartLineRef = useRef<SVGPathElement>(null);
-  const glowRef = useRef<HTMLDivElement>(null);
-  const [sparks, setSparks] = useState<{ id: number; tx: number; ty: number }[]>([]);
-  const [microcopy, setMicrocopy] = useState('CAMPAIGN INTEL: ACTIVE');
-
-  useEffect(() => {
-    // Play the Tudum sound effect at the start of the animation
-    const audio = new Audio('/tudum.mp3');
-    audio.volume = 0.55;
-
-    let hasPlayed = false;
-    const playAudio = () => {
-      if (hasPlayed) return;
-      audio.play()
-        .then(() => {
-          hasPlayed = true;
-          cleanupInteractionListeners();
-        })
-        .catch((err) => {
-          console.warn("Audio autoplay blocked by browser policy, waiting for user click:", err);
-        });
-    };
-
-    const cleanupInteractionListeners = () => {
-      window.removeEventListener('click', playAudio);
-      window.removeEventListener('touchstart', playAudio);
-      window.removeEventListener('keydown', playAudio);
-    };
-
-    // Attempt autoplay immediately
-    playAudio();
-
-    // Fallback: trigger audio play on the user's first interaction anywhere on the screen
-    window.addEventListener('click', playAudio);
-    window.addEventListener('touchstart', playAudio);
-    window.addEventListener('keydown', playAudio);
-
-    const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
-    const durationMultiplier = isMobile ? 0.65 : 1.0;
-
-    const t = gsap.timeline({
-      onComplete: onComplete
-    });
-
-    // Step 0: Draw performance line chart and rotate microcopy
-    t.fromTo(chartLineRef.current,
-      { strokeDashoffset: 250, opacity: 0 },
-      { strokeDashoffset: 0, opacity: 1, duration: 0.5 * durationMultiplier, ease: 'power1.inOut' }
-    );
-    t.add(() => setMicrocopy('LOADING CAMPAIGN METRICS...'), 0);
-    t.add(() => setMicrocopy('OPTIMIZING BID ENGINES...'), 0.22 * durationMultiplier);
-    t.add(() => setMicrocopy('SCALING CONVERSION SIGNAL...'), 0.4 * durationMultiplier);
-
-    // Step 1: Chart line dissolves as the V logo core beam draws in
-    t.to(chartLineRef.current, { opacity: 0, duration: 0.15 * durationMultiplier });
-    t.fromTo(beamRef.current, 
-      { strokeDashoffset: 100, opacity: 0 }, 
-      { strokeDashoffset: 0, opacity: 1, duration: 0.3 * durationMultiplier, ease: 'power1.out' },
-      '-=0.08'
-    );
-
-    // Step 2: Splits and forms the V logo segments
-    t.to(beamRef.current, { opacity: 0, duration: 0.15 * durationMultiplier }, 'split');
-    t.fromTo(leftStemRef.current, 
-      { strokeDashoffset: 100 }, 
-      { strokeDashoffset: 0, duration: 0.45 * durationMultiplier, ease: 'power2.inOut' }, 
-      'split'
-    );
-    t.fromTo(rightStemRef.current, 
-      { strokeDashoffset: 100 }, 
-      { strokeDashoffset: 0, duration: 0.45 * durationMultiplier, ease: 'power2.inOut' }, 
-      'split+=0.05'
-    );
-
-    // Step 3 & 4: Ambient red halo glow, sparks burst, final status microcopy
-    t.add(() => {
-      const sparkCount = isMobile ? 8 : 12;
-      const sparkList = Array.from({ length: sparkCount }).map((_, i) => {
-        const angle = (i / sparkCount) * Math.PI * 2 + (Math.random() - 0.5) * 0.4;
-        const dist = isMobile ? 40 + Math.random() * 40 : 60 + Math.random() * 80;
-        return {
-          id: i,
-          tx: Math.cos(angle) * dist,
-          ty: Math.sin(angle) * dist - 15
-        };
-      });
-      setSparks(sparkList);
-      setMicrocopy('SYSTEM ONLINE - VEDANTVERSE');
-    }, 'split+=0.45');
-
-    t.to(glowRef.current, 
-      { opacity: 0.75, scale: 1.1, duration: 0.3 * durationMultiplier, ease: 'power2.out' }, 
-      'split+=0.45'
-    );
-
-    // Step 5: Quick cinematic scale-up through the logo
-    t.to(containerRef.current, 
-      { scale: 22, opacity: 0, duration: 0.5 * durationMultiplier, ease: 'power3.in' }, 
-      'split+=0.95'
-    );
-    t.to(glowRef.current, 
-      { opacity: 0, scale: 2, duration: 0.4 * durationMultiplier, ease: 'power3.in' }, 
-      'split+=0.95'
-    );
-
-    return () => {
-      // Clean up audio and kill animation timeline
-      audio.pause();
-      audio.src = '';
-      t.kill();
-      cleanupInteractionListeners();
-    };
-  }, [onComplete]);
-
-  return (
-    <div className="relative w-full h-full flex items-center justify-center bg-black overflow-hidden select-none pointer-events-none">
-      {/* Red ambient halo glow behind logo */}
-      <div 
-        ref={glowRef} 
-        className="absolute w-[240px] h-[240px] sm:w-[320px] sm:h-[320px] rounded-full bg-red-600/20 blur-[60px] sm:blur-[80px] opacity-0 z-0" 
-      />
-
-      <div ref={containerRef} className="relative w-36 h-36 sm:w-48 sm:h-48 z-10 flex items-center justify-center overflow-visible will-change-transform">
-        <svg
-          className="w-full h-full overflow-visible filter drop-shadow-[0_0_15px_rgba(229,9,20,0.75)]"
-          viewBox="0 0 100 100"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <defs>
-            <linearGradient id="vLightGradient" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="#E50914" />
-              <stop offset="100%" stopColor="#300103" />
-            </linearGradient>
-            <linearGradient id="vFacet1-intro" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0%" stopColor="#ff1e27" />
-              <stop offset="100%" stopColor="#b20710" />
-            </linearGradient>
-            <linearGradient id="vFacet2-intro" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="#e50914" />
-              <stop offset="100%" stopColor="#600104" />
-            </linearGradient>
-            <linearGradient id="vFacet3-intro" x1="1" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="#ff4148" />
-              <stop offset="100%" stopColor="#800206" />
-            </linearGradient>
-            <mask id="vMask">
-              <rect x="0" y="0" width="100" height="100" fill="black" />
-              <line
-                ref={beamRef}
-                x1="50"
-                y1="15"
-                x2="50"
-                y2="85"
-                stroke="white"
-                strokeWidth="10"
-                strokeLinecap="round"
-                strokeDasharray="100"
-                strokeDashoffset="100"
-              />
-              <path
-                ref={leftStemRef}
-                d="M 22 15 L 50 85"
-                stroke="white"
-                strokeWidth="35"
-                strokeLinecap="square"
-                strokeDasharray="100"
-                strokeDashoffset="100"
-              />
-              <path
-                ref={rightStemRef}
-                d="M 50 85 L 78 15"
-                stroke="white"
-                strokeWidth="35"
-                strokeLinecap="square"
-                strokeDasharray="100"
-                strokeDashoffset="100"
-              />
-            </mask>
-          </defs>
-
-          {/* Thin line chart drawing upward */}
-          <path
-            ref={chartLineRef}
-            d="M 10 80 Q 25 50 40 70 T 70 30 T 90 10"
-            stroke="#E50914"
-            strokeWidth="2"
-            fill="none"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeDasharray="250"
-            strokeDashoffset="250"
-            className="filter drop-shadow-[0_0_4px_rgba(229,9,20,0.8)]"
-          />
-
-          {/* Facets rendered with mask to enable the draw-in animation */}
-          <g mask="url(#vMask)">
-            <path d="M 20 15 L 42 15 L 50 85 L 35 85 Z" fill="url(#vFacet1-intro)" />
-            <path d="M 42 15 L 50 15 L 50 85 Z" fill="url(#vFacet2-intro)" opacity="0.9" />
-            <path d="M 50 85 L 50 15 L 58 15 L 80 15 L 65 85 Z" fill="url(#vFacet3-intro)" />
-            <path d="M 50 85 L 50 15 L 58 15 Z" fill="url(#vFacet2-intro)" opacity="0.6" />
-            
-            {/* Silhouette of a person standing at the bottom center of the V */}
-            <path 
-              d="M 49.5 70 C 49.9 70 50.2 69.7 50.2 69.3 C 50.2 68.9 49.9 68.6 49.5 68.6 C 49.1 68.6 48.8 68.9 48.8 69.3 C 48.8 69.7 49.1 70 49.5 70 Z M 48.5 71.5 C 47.9 71.5 47.5 72 47.5 72.8 L 47.8 77 L 47.3 84 L 48.7 84 L 49.3 79.5 L 49.7 79.5 L 50.3 84 L 51.7 84 L 51.2 77 L 51.5 72.8 C 51.5 72 51.1 71.5 50.5 71.5 Z" 
-              fill="#000000" 
-            />
-          </g>
-        </svg>
-
-        {/* GPU Accelerated Sparks burst absolute container */}
-        <div className="absolute inset-0 z-20 flex items-center justify-center overflow-visible pointer-events-none">
-          {sparks.map((s) => (
-            <motion.div
-              key={s.id}
-              className="absolute w-1.5 h-1.5 rounded-full bg-[#E50914] will-change-transform"
-              style={{
-                left: '50%',
-                top: 'calc(50% + 50px)', // Centered around the base vertex of the V
-                boxShadow: '0 0 6px #E50914, 0 0 12px #ff4d52',
-              }}
-              initial={{ x: 0, y: 0, opacity: 1, scale: 1 }}
-              animate={{ x: s.tx, y: s.ty, opacity: 0, scale: 0.15 }}
-              transition={{ duration: 0.7, ease: 'easeOut' }}
-            />
-          ))}
-        </div>
-      </div>
-
-      {/* New Splash Details */}
-      <div className="absolute bottom-12 text-center space-y-2 select-none pointer-events-none z-20">
-        <h2 className="text-xl sm:text-2xl font-black text-white tracking-[0.25em] uppercase font-sans">
-          VEDANTVERSE
-        </h2>
-        <p className="text-[10px] font-mono text-red-500 font-bold uppercase tracking-[0.2em] h-5 transition-all duration-300">
-          {microcopy}
-        </p>
-      </div>
-    </div>
-  );
-}
-
 export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
-  const [step, setStep] = useState<'intro' | 'profile'>('intro');
-  const [selectedProfileId, setSelectedProfileId] = useState('performance-marketing');
-  const [hoveredProfileId, setHoveredProfileId] = useState<string | null>(null);
+  const [stage, setStage] = useState<'initial' | 'playing' | 'continue' | 'reduced'>('initial');
+  const [videoReady, setVideoReady] = useState(false);
+  const [isReducedMotion, setIsReducedMotion] = useState(false);
+  
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
 
-  const playHoverChime = (id: string) => {
-    try {
-      const AudioContext = window.AudioContext || (window as any).webkitAudioContext;
-      if (!AudioContext) return;
-      const ctx = new AudioContext();
-      const osc = ctx.createOscillator();
-      const gain = ctx.createGain();
-      
-      osc.type = 'sine';
-      
-      let freq = 220;
-      if (id === 'performance-marketing') freq = 180;
-      if (id === 'media-planning') freq = 260;
-      if (id === 'branding-strategy') freq = 330;
-      if (id === 'technical-skills') freq = 290;
-      if (id === 'web-dev') freq = 390;
-
-      osc.frequency.setValueAtTime(freq, ctx.currentTime);
-      
-      gain.gain.setValueAtTime(0.001, ctx.currentTime);
-      gain.gain.linearRampToValueAtTime(0.03, ctx.currentTime + 0.04);
-      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.2);
-      
-      osc.connect(gain);
-      gain.connect(ctx.destination);
-      
-      osc.start();
-      osc.stop(ctx.currentTime + 0.25);
-    } catch (e) {
-      // Ignored
-    }
-  };
-
-  const playTudum = () => {
-    try {
-      const AudioContext = window.AudioContext || (window as any).webkitAudioContext;
-      if (!AudioContext) return;
-      const ctx = new AudioContext();
-
-      const osc1 = ctx.createOscillator();
-      const gain1 = ctx.createGain();
-      osc1.type = 'sawtooth';
-      osc1.frequency.setValueAtTime(60, ctx.currentTime);
-      osc1.frequency.exponentialRampToValueAtTime(50, ctx.currentTime + 0.8);
-      gain1.gain.setValueAtTime(0.001, ctx.currentTime);
-      gain1.gain.linearRampToValueAtTime(0.6, ctx.currentTime + 0.1);
-      gain1.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 1.2);
-
-      const osc2 = ctx.createOscillator();
-      const gain2 = ctx.createGain();
-      osc2.type = 'triangle';
-      osc2.frequency.setValueAtTime(110, ctx.currentTime + 0.08);
-      osc2.frequency.exponentialRampToValueAtTime(80, ctx.currentTime + 0.8);
-      gain2.gain.setValueAtTime(0.001, ctx.currentTime + 0.08);
-      gain2.gain.linearRampToValueAtTime(0.5, ctx.currentTime + 0.15);
-      gain2.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 1.2);
-
-      const osc3 = ctx.createOscillator();
-      const gain3 = ctx.createGain();
-      const filter = ctx.createBiquadFilter();
-      osc3.type = 'square';
-      osc3.frequency.setValueAtTime(220, ctx.currentTime + 0.1);
-      osc3.frequency.exponentialRampToValueAtTime(440, ctx.currentTime + 0.4);
-      filter.type = 'bandpass';
-      filter.Q.value = 5;
-      filter.frequency.value = 800;
-      gain3.gain.setValueAtTime(0.001, ctx.currentTime + 0.1);
-      gain3.gain.linearRampToValueAtTime(0.12, ctx.currentTime + 0.18);
-      gain3.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.8);
-
-      osc1.connect(gain1); gain1.connect(ctx.destination);
-      osc2.connect(gain2); gain2.connect(ctx.destination);
-      osc3.connect(filter); filter.connect(gain3); gain3.connect(ctx.destination);
-
-      osc1.start(); osc2.start(); osc3.start();
-      osc1.stop(ctx.currentTime + 1.4); osc2.stop(ctx.currentTime + 1.4); osc3.stop(ctx.currentTime + 1.4);
-    } catch (e) {
-      console.warn("Tudum AudioContext synthesis blocked", e);
-    }
-  };
-
-  const handleProfileSelect = (id: string) => {
-    setSelectedProfileId(id);
-    playTudum();
-    
-    // Quick premium fade out transition to homepage
-    setTimeout(() => {
-      onComplete(id);
-    }, 450);
-  };
-
-  // Skip loader instantly if prefers-reduced-motion is active
+  // Check prefers-reduced-motion & sessionStorage on mount
   useEffect(() => {
     if (typeof window === 'undefined') return;
+
+    // Check if user prefers reduced motion
     const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
     if (mediaQuery.matches) {
-      onComplete(selectedProfileId);
+      setIsReducedMotion(true);
+      setStage('reduced');
+      return;
     }
-  }, [onComplete, selectedProfileId]);
 
-  const triggerSkip = () => {
+    // Check sessionStorage
+    const hasSeen = sessionStorage.getItem('vedant_seen_intro');
+    if (hasSeen === 'true') {
+      onComplete('performance-marketing');
+    }
+  }, [onComplete]);
+
+  // Complete intro and save to sessionStorage
+  const handleComplete = useCallback(() => {
     if (typeof window !== 'undefined') {
       sessionStorage.setItem('vedant_seen_intro', 'true');
     }
-    onComplete(selectedProfileId);
-  };
+    onComplete('performance-marketing');
+  }, [onComplete]);
+
+  // Trigger video playback on scroll or interaction
+  const triggerPlay = useCallback(() => {
+    if (stage !== 'initial') return;
+    setStage('playing');
+    if (videoRef.current) {
+      videoRef.current.play().catch((err) => {
+        console.warn('Video playback interrupted or blocked:', err);
+        // Fallback to continue state if video fails
+        setStage('continue');
+      });
+    }
+  }, [stage]);
+
+  // Listen for scroll, touch, or key events to trigger playback
+  useEffect(() => {
+    if (stage !== 'initial' && stage !== 'continue') return;
+
+    const handleScrollOrKey = (e: Event) => {
+      if (stage === 'initial') {
+        triggerPlay();
+      } else if (stage === 'continue') {
+        handleComplete();
+      }
+    };
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        handleComplete();
+      } else if (['ArrowDown', 'Space', 'Enter', 'PageDown'].includes(e.key)) {
+        handleScrollOrKey(e);
+      }
+    };
+
+    window.addEventListener('wheel', handleScrollOrKey, { passive: true });
+    window.addEventListener('touchmove', handleScrollOrKey, { passive: true });
+    window.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      window.removeEventListener('wheel', handleScrollOrKey);
+      window.removeEventListener('touchmove', handleScrollOrKey);
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [stage, triggerPlay, handleComplete]);
+
+  // IntersectionObserver to detect scroll gestures
+  useEffect(() => {
+    if (!containerRef.current) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting && stage === 'initial') {
+            triggerPlay();
+          }
+        });
+      },
+      { threshold: 0.8 }
+    );
+
+    observer.observe(containerRef.current);
+    return () => observer.disconnect();
+  }, [stage, triggerPlay]);
 
   return (
-    <div className="fixed inset-0 bg-black z-50 flex items-center justify-center overflow-hidden font-sans select-none">
-      {/* Dynamic Background React & Lighting */}
-      <div 
-        className="absolute inset-0 transition-all duration-700 ease-out pointer-events-none opacity-30 z-0"
-        style={{
-          background: hoveredProfileId 
-            ? `radial-gradient(circle 600px at center, ${
-                hoveredProfileId === 'performance-marketing' ? 'rgba(229,9,20,0.2)' :
-                hoveredProfileId === 'media-planning' ? 'rgba(59,130,246,0.2)' :
-                hoveredProfileId === 'branding-strategy' ? 'rgba(245,158,11,0.2)' :
-                hoveredProfileId === 'technical-skills' ? 'rgba(16,185,129,0.2)' : 'rgba(139,92,246,0.2)'
-              } 0%, transparent 80%)` 
-            : 'radial-gradient(circle 600px at center, rgba(30,30,30,0.1) 0%, transparent 80%)'
-        }}
-      />
+    <div
+      ref={containerRef}
+      className="fixed inset-0 z-50 bg-black text-white overflow-hidden font-sans select-none"
+    >
+      {/* Persistent Skip Intro Button */}
+      <button
+        onClick={handleComplete}
+        aria-label="Skip Intro"
+        className="fixed top-6 right-6 z-50 flex items-center gap-2 px-4 py-2 border border-neutral-700 hover:border-white bg-black/80 hover:bg-white text-neutral-300 hover:text-black font-mono font-bold uppercase tracking-widest text-[10px] sm:text-xs transition-all duration-300 shadow-2xl rounded-md cursor-pointer focus:outline-none focus:ring-2 focus:ring-red-500"
+      >
+        <span>Skip Intro</span>
+        <SkipForward className="w-3.5 h-3.5" />
+      </button>
 
-      <AnimatePresence mode="wait">
-        
-        {/* STEP 1: Cinematic V Draw Intro */}
-        {step === 'intro' && (
-          <motion.div
-            key="cinematic-intro"
-            initial={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="absolute inset-0 z-10 flex items-center justify-center bg-black"
-          >
-            <VLogoStep onComplete={() => onComplete(selectedProfileId)} />
-            
-            {/* Skip Preview Button (highly visible, well contrast, top-right) */}
-            <button
-              onClick={triggerSkip}
-              className="absolute top-6 right-6 z-30 flex items-center gap-1.5 px-4 py-2 border border-neutral-700 hover:border-white bg-black/60 hover:bg-white text-neutral-400 hover:text-black font-bold uppercase tracking-widest text-[10px] transition-all duration-300 shadow-xl cursor-pointer rounded-md hover:scale-105 active:scale-95"
-            >
-              Skip Preview
-              <SkipForward className="w-3.5 h-3.5" />
-            </button>
-          </motion.div>
-        )}
-
-        {/* STEP 2: Choose Your Vedant Selection */}
-        {step === 'profile' && (
-          <motion.div
-            key="profile-selection"
-            initial={{ opacity: 0, scale: 0.98 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 1.02 }}
-            transition={{ duration: 0.4 }}
-            className="text-center px-4 w-full max-w-7xl relative z-10 py-6 sm:py-12"
-          >
-            <span className="text-[10px] font-bold uppercase tracking-[0.35em] text-[#E50914] block mb-2 font-mono">
-              / WELCOME TO VEDANTVERSE /
+      {/* STAGE 0: Reduced Motion Fallback */}
+      {isReducedMotion || stage === 'reduced' ? (
+        <div className="w-full h-full flex flex-col items-center justify-center text-center p-6 bg-black">
+          <div className="max-w-md space-y-6">
+            <span className="text-red-500 text-xs font-mono font-bold uppercase tracking-[0.25em] block">
+              VEDANTVERSE INTRO
             </span>
-            
-            <h1 className="text-3xl sm:text-4xl md:text-6xl font-black tracking-tight mb-3 text-white uppercase font-sans">
-              CHOOSE YOUR <span className="text-[#E50914] glow-text-red">VEDANT</span>
+            <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-white uppercase font-sans">
+              SCROLL TO CONTINUE
             </h1>
-            
-            <p className="text-neutral-400 text-xs md:text-sm font-medium tracking-wide mb-8 sm:mb-14 max-w-md mx-auto">
-              Every version of me. Every expertise you need.
+            <p className="text-neutral-400 text-xs font-mono">
+              (Static version for reduced motion accessibility)
             </p>
-            
-            {/* Side-by-side cards layout */}
-            <div className="flex flex-row overflow-x-auto no-scrollbar md:flex-wrap items-stretch justify-start md:justify-center gap-6 max-w-full mx-auto w-full px-6 md:px-0 py-4">
-              {portfolioData.profiles.map((p) => (
-                <button
-                  key={p.id}
-                  onClick={() => handleProfileSelect(p.id)}
-                  onMouseEnter={() => {
-                    setHoveredProfileId(p.id);
-                    playHoverChime(p.id);
-                  }}
-                  onMouseLeave={() => setHoveredProfileId(null)}
-                  className="group relative flex flex-col items-center justify-between p-5 rounded-xl border transition-all duration-500 ease-out bg-neutral-950/80 backdrop-blur-sm w-[200px] min-h-[420px] shrink-0 text-left cursor-pointer focus:outline-none overflow-hidden select-none hover:scale-102"
-                  style={{
-                    borderColor: hoveredProfileId === p.id ? p.accentColor : 'rgb(38 38 38)',
-                    boxShadow: hoveredProfileId === p.id 
-                      ? `0 10px 40px -10px ${p.accentColor}33, 0 0 25px -5px ${p.accentColor}44` 
-                      : 'none',
-                  }}
+            <button
+              onClick={handleComplete}
+              className="mt-6 px-8 py-3 bg-[#E50914] text-white font-bold uppercase text-xs tracking-wider rounded hover:bg-red-700 transition-colors cursor-pointer"
+            >
+              Enter Portfolio
+            </button>
+          </div>
+        </div>
+      ) : (
+        <AnimatePresence mode="wait">
+          {/* STAGE 1: Calm Initial Dark Screen */}
+          {stage === 'initial' && (
+            <motion.div
+              key="initial-stage"
+              initial={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.6 }}
+              onClick={triggerPlay}
+              className="w-full h-full flex flex-col items-center justify-center text-center p-6 bg-[#050505] cursor-pointer"
+            >
+              <div className="flex flex-col items-center gap-4">
+                <div className="w-2 h-2 rounded-full bg-[#E50914] animate-pulse" />
+                <span className="text-neutral-500 text-xs font-mono font-bold uppercase tracking-[0.3em]">
+                  VEDANTVERSE
+                </span>
+                <h2 className="text-xl sm:text-2xl font-bold text-neutral-300 uppercase tracking-widest mt-2">
+                  SCROLL TO REVEAL
+                </h2>
+                <ChevronDown className="w-5 h-5 text-neutral-500 animate-bounce mt-4" />
+              </div>
+            </motion.div>
+          )}
+
+          {/* STAGE 2: Full-Bleed Video Playback */}
+          {(stage === 'playing' || stage === 'continue') && (
+            <motion.div
+              key="video-stage"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.8 }}
+              className="relative w-full h-full bg-black flex items-center justify-center"
+            >
+              <video
+                ref={videoRef}
+                src="/intro.mp4"
+                muted
+                playsInline
+                preload="auto"
+                onCanPlay={() => setVideoReady(true)}
+                onEnded={() => setStage('continue')}
+                className="w-full h-full object-cover pointer-events-none"
+              />
+
+              {/* STAGE 3: Continue Scroll Overlay when video completes */}
+              {stage === 'continue' && (
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8 }}
+                  onClick={handleComplete}
+                  className="absolute inset-0 bg-black/40 backdrop-blur-[2px] flex flex-col items-center justify-end pb-16 text-center cursor-pointer z-40"
                 >
-                  {/* Card Background image with gradient fading */}
-                  <div className="absolute inset-0 z-0 overflow-hidden">
-                    <img 
-                      src={p.image} 
-                      alt={p.characterName} 
-                      className="w-full h-full object-cover object-center transition-all duration-700 ease-out opacity-30 group-hover:opacity-65 group-hover:scale-105"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-neutral-950 via-neutral-950/30 to-transparent" />
-                    <div 
-                      className="absolute inset-0 opacity-0 group-hover:opacity-15 transition-opacity duration-500" 
-                      style={{ backgroundColor: p.accentColor }}
-                    />
-                  </div>
-
-                  {/* Top category label & badge */}
-                  <div className="relative z-10 w-full flex items-center justify-between">
-                    <span 
-                      className="text-[9px] font-extrabold uppercase tracking-widest px-2.5 py-1 rounded border bg-neutral-950/90 font-mono"
-                      style={{
-                        color: p.accentColor,
-                        borderColor: `${p.accentColor}33`
-                      }}
-                    >
-                      {p.avatar} {p.title.split(' ')[0]}
+                  <div className="flex flex-col items-center gap-3 p-6 bg-black/60 rounded-xl border border-red-900/40 backdrop-blur-md">
+                    <span className="text-[#E50914] text-xs font-mono font-bold tracking-[0.25em] uppercase">
+                      REVEAL COMPLETE
                     </span>
-                  </div>
-
-                  {/* Character Name, Role, Tagline, & Sub-icons */}
-                  <div className="relative z-10 w-full mt-auto pt-4 flex flex-col items-center text-center">
-                    <h3 className="text-sm font-black text-white tracking-wide uppercase transition-colors">
-                      {p.characterName}
+                    <h3 className="text-2xl sm:text-3xl font-black text-white uppercase tracking-widest font-sans">
+                      SCROLL TO CONTINUE
                     </h3>
-                    <span 
-                      className="text-[9.5px] font-bold tracking-wider uppercase mt-1 transition-colors font-mono"
-                      style={{ color: hoveredProfileId === p.id ? p.accentColor : '#888' }}
-                    >
-                      {p.roleTitle.split(' ')[0]} {p.roleTitle.split(' ')[1] || ''}
-                    </span>
-
-                    <p className="text-[10px] text-neutral-400 font-light leading-relaxed mt-3.5 mb-5 max-w-[160px] min-h-[40px] line-clamp-3">
-                      {p.tagline}
+                    <p className="text-neutral-400 text-[10px] font-mono tracking-wider">
+                      (Or tap anywhere to enter homepage)
                     </p>
-
-                    {/* Sub-icons horizontal list */}
-                    <div className="flex items-center justify-center gap-3 w-full pt-4 border-t border-neutral-900/60">
-                      {p.subPlatforms.map((sub, sIdx) => (
-                        <div key={sIdx} className="group/item flex flex-col items-center gap-1">
-                          <div className="p-1.5 rounded-md bg-neutral-900/80 border border-neutral-800/40 group-hover/item:border-neutral-700 transition-colors">
-                            <PlatformIcon name={sub.name} />
-                          </div>
-                          <span className="text-[7.5px] text-neutral-500 font-mono tracking-tighter scale-90 group-hover/item:text-neutral-300">
-                            {sub.name.split(' ')[0]}
-                          </span>
-                        </div>
-                      ))}
-                    </div>
+                    <ChevronDown className="w-6 h-6 text-[#E50914] animate-bounce mt-2" />
                   </div>
-                </button>
-              ))}
-            </div>
-            
-            {/* Slogan & instant skip button */}
-            <div className="mt-10 sm:mt-16 flex flex-col items-center gap-4 sm:gap-6">
-              <button
-                onClick={triggerSkip}
-                className="px-8 py-3 border border-neutral-800 bg-neutral-950/60 text-neutral-400 hover:border-white hover:text-white transition-all duration-300 uppercase tracking-widest text-xs font-black cursor-pointer rounded-md hover:scale-105 active:scale-95"
-              >
-                EXPLORE MY UNIVERSE
-              </button>
-              
-              <span className="text-[9px] sm:text-[10px] tracking-[0.2em] sm:tracking-[0.25em] text-neutral-500 font-medium uppercase mt-4">
-                "DIFFERENT ROLES. ONE MISSION — <span className="text-[#E50914]">DRIVING GROWTH</span>."
-              </span>
-            </div>
-          </motion.div>
-        )}
-
-      </AnimatePresence>
+                </motion.div>
+              )}
+            </motion.div>
+          )}
+        </AnimatePresence>
+      )}
     </div>
   );
 }
