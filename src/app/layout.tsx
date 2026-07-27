@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Butcherman } from "next/font/google";
 import "./globals.css";
 import AnalyticsScripts from "../components/AnalyticsScripts";
 
@@ -11,6 +11,12 @@ const geistSans = Geist({
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+});
+
+const butcherman = Butcherman({
+  weight: "400",
+  subsets: ["latin"],
+  variable: "--horror-font",
 });
 
 export const metadata: Metadata = {
@@ -136,7 +142,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${geistSans.variable} ${geistMono.variable} ${butcherman.variable} h-full antialiased`}
     >
       <head>
         <script
@@ -144,7 +150,7 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdSchema) }}
         />
       </head>
-      <body className="min-h-full flex flex-col">
+      <body className={`min-h-full flex flex-col ${butcherman.variable}`}>
         <AnalyticsScripts />
         {children}
       </body>
