@@ -6,6 +6,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { ShieldAlert, Award, Play, Info, Eye, Briefcase, Zap, Bell, CheckCircle, RefreshCw, X } from 'lucide-react';
 import ParticleBackground from '../components/ParticleBackground';
 import IntroAnimation from '../components/IntroAnimation';
+import HorrorIntro from '../components/HorrorIntro';
 import Hero from '../components/Hero';
 import CareerUniverse from '../components/CareerUniverse';
 import CareerMap from '../components/CareerMap'; // Upgraded metro journey
@@ -237,7 +238,8 @@ export default function Home() {
   };
 
   return (
-    <div className="relative min-h-screen bg-[#050505] text-white overflow-hidden select-none font-sans">
+    <HorrorIntro>
+      <div className="relative min-h-screen bg-[#050505] text-white overflow-hidden select-none font-sans">
       <AnimatePresence mode="wait">
         {showIntro ? (
           <IntroAnimation onComplete={handleIntroComplete} />
@@ -746,5 +748,6 @@ export default function Home() {
         )}
       </AnimatePresence>
     </div>
+    </HorrorIntro>
   );
 }
