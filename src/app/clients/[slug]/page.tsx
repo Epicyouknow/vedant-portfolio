@@ -14,7 +14,9 @@ import {
   User, 
   Zap, 
   ShieldCheck, 
-  Share2 
+  Share2,
+  ChevronRight,
+  ArrowUpRight
 } from 'lucide-react';
 import ParticleBackground from '../../../components/ParticleBackground';
 import CreditsFooter from '../../../components/CreditsFooter';
@@ -37,6 +39,8 @@ export default async function ClientCaseStudyPage({ params }: ClientPageProps) {
     notFound();
   }
 
+  const otherClients = CLIENTS_DATA.filter((c) => c.slug !== client.slug).slice(0, 6);
+
   return (
     <div className="relative min-h-screen bg-[#050507] text-white overflow-hidden select-none font-sans flex flex-col justify-between">
       <ParticleBackground />
@@ -45,9 +49,9 @@ export default async function ClientCaseStudyPage({ params }: ClientPageProps) {
 
       {/* Header Bar */}
       <header className="fixed top-0 left-0 right-0 h-16 md:h-20 z-40 px-6 md:px-16 flex items-center justify-between border-b border-neutral-900 bg-black/90 backdrop-blur-md">
-        <Link href="/" className="flex items-center gap-3 text-[#FF1A1A] font-black tracking-wider text-sm hover:text-white transition-colors uppercase">
+        <Link href="/#client-intelligence" className="flex items-center gap-3 text-[#FF1A1A] font-black tracking-wider text-sm hover:text-white transition-colors uppercase">
           <ArrowLeft className="w-4 h-4" />
-          <span>Back to VedantVerse Portfolio</span>
+          <span>Back to Portfolio</span>
         </Link>
 
         <a
@@ -88,7 +92,7 @@ export default async function ClientCaseStudyPage({ params }: ClientPageProps) {
               href={client.website}
               target="_blank"
               rel="noopener noreferrer"
-              className="px-5 py-3 bg-neutral-900 hover:bg-neutral-800 border border-neutral-800 text-neutral-200 hover:text-white font-bold text-xs font-mono uppercase tracking-wider rounded-xl transition-all duration-200 flex items-center gap-2 shrink-0"
+              className="px-5 py-3 bg-neutral-900 hover:bg-neutral-800 border border-neutral-800 text-neutral-200 hover:text-white font-bold text-xs font-mono uppercase tracking-wider rounded-xl transition-all duration-200 flex items-center gap-2 shrink-0 shadow-md"
             >
               <Globe className="w-4 h-4 text-[#FF1A1A]" />
               <span>{client.website.replace('https://', '').replace('http://', '').replace('www.', '').replace('/', '')}</span>
@@ -120,7 +124,7 @@ export default async function ClientCaseStudyPage({ params }: ClientPageProps) {
         </div>
 
         {/* CASE STUDY DETAILS */}
-        <div className="space-y-8">
+        <div className="space-y-8 mb-16">
           {/* MY ROLE */}
           <div className="bg-[#0c0c10] border border-neutral-800 rounded-2xl p-6 md:p-8 shadow-xl">
             <div className="flex items-center gap-2 mb-3">
@@ -167,8 +171,44 @@ export default async function ClientCaseStudyPage({ params }: ClientPageProps) {
           </div>
         </div>
 
+        {/* OTHER CLIENT CASE STUDIES ROW */}
+        <div className="border-t border-neutral-900 pt-12">
+          <div className="flex items-center justify-between mb-6">
+            <h3 className="text-lg font-extrabold text-white uppercase tracking-tight">
+              Explore Other Client Case Studies
+            </h3>
+            <Link href="/#client-intelligence" className="text-xs font-mono text-[#FF1A1A] hover:text-white uppercase font-bold flex items-center gap-1">
+              <span>View All 18 Clients</span>
+              <ChevronRight className="w-4 h-4" />
+            </Link>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+            {otherClients.map((oc) => (
+              <Link
+                key={oc.id}
+                href={`/clients/${oc.slug}`}
+                className="bg-[#0c0c10] hover:bg-[#13131a] border border-neutral-800/90 hover:border-red-900/70 p-4 rounded-xl transition-all duration-300 flex items-center gap-3.5 group shadow-md"
+              >
+                <div className="w-10 h-10 rounded-lg bg-black border border-neutral-800 p-1 shrink-0 flex items-center justify-center">
+                  <img src={oc.logo} alt={oc.name} className="w-full h-full object-contain" />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <h4 className="text-xs font-bold text-white group-hover:text-[#FF1A1A] transition-colors truncate uppercase">
+                    {oc.name}
+                  </h4>
+                  <span className="text-[10px] text-neutral-500 font-mono truncate block">
+                    {oc.subtitle}
+                  </span>
+                </div>
+                <ArrowUpRight className="w-4 h-4 text-neutral-600 group-hover:text-[#FF1A1A] shrink-0" />
+              </Link>
+            ))}
+          </div>
+        </div>
+
         {/* Back Link Footer */}
-        <div className="mt-12 text-center">
+        <div className="mt-14 text-center">
           <Link
             href="/#client-intelligence"
             className="inline-flex items-center gap-2 px-6 py-3.5 bg-neutral-900 hover:bg-neutral-800 border border-neutral-800 text-white font-bold text-xs uppercase tracking-widest rounded-xl transition-all duration-200 shadow-xl"
