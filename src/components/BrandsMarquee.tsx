@@ -15,18 +15,11 @@ export default function BrandsMarquee() {
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-32 bg-[#FF1A1A]/10 blur-[100px] pointer-events-none rounded-full" />
 
       <div className="max-w-7xl mx-auto px-6 mb-8 text-center">
-        <div className="inline-flex items-center gap-2 px-3.5 py-1 bg-red-950/40 border border-red-800/40 rounded-full mb-3">
-          <span className="w-1.5 h-1.5 rounded-full bg-[#FF1A1A] animate-ping" />
-          <span className="text-[10px] text-[#FF1A1A] font-mono font-bold uppercase tracking-[0.25em]">
-            PAUSE / DRAG TO BROWSE
-          </span>
-        </div>
-
         <h2 className="text-2xl md:text-4xl font-extrabold tracking-tight text-white uppercase font-sans">
           BRANDS <span className="text-[#FF1A1A] drop-shadow-[0_0_15px_rgba(255,26,26,0.6)]">TRUST ME</span>
         </h2>
-        <p className="text-neutral-400 text-xs md:text-sm mt-2 max-w-xl mx-auto font-light">
-          Click any brand card to view their dedicated performance marketing case study & live website. Hover or drag to pause & scroll manually.
+        <p className="text-neutral-400 text-xs md:text-sm mt-2 font-light max-w-xl mx-auto">
+          Scaling ROAS, customer acquisition, and media performance across 18+ high-growth brand campaigns.
         </p>
       </div>
 
