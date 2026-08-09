@@ -20,6 +20,8 @@ import CreditsFooter from '../components/CreditsFooter';
 import ContactForm from '../components/ContactForm';
 import SideScrollNavigator from '../components/SideScrollNavigator';
 import VelocityMarquee from '../components/VelocityMarquee';
+import BrandsMarquee from '../components/BrandsMarquee';
+import ClientCaseStudyShowcase from '../components/ClientCaseStudyShowcase';
 import { portfolioData } from '../data/portfolio';
 import { useAnalytics } from '../hooks/useAnalytics';
 
@@ -540,7 +542,9 @@ export default function Home() {
               {viewMode === 'standard' && (
                 <>
                   <Hero />
+                  <BrandsMarquee />
                   <JarvisCommandCenter />
+                  <ClientCaseStudyShowcase />
                   <VelocityMarquee />
                   <CareerUniverse />
                   <CareerMap />
@@ -567,6 +571,8 @@ export default function Home() {
                 <div className="space-y-4">
                   {/* Client Mode Layout (Focuses on case studies, results, simulated funnel specs) */}
                   <Hero />
+                  <BrandsMarquee />
+                  <ClientCaseStudyShowcase />
                   <JarvisCommandCenter />
                   <WorkShowcase />
                   <MarketingLab />
