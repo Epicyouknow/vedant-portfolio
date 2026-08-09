@@ -1,7 +1,9 @@
 'use client';
 
 import React, { useState } from 'react';
+import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
+import { CLIENTS_DATA, ClientData } from '../data/clientsData';
 import { 
   CheckCircle2, 
   Target, 
@@ -9,350 +11,24 @@ import {
   Layers, 
   Cpu, 
   ArrowUpRight, 
-  Filter,
-  Search,
-  Sparkles,
-  Maximize2,
-  X,
-  ExternalLink,
-  Tag,
-  Share2
+  Search, 
+  Maximize2, 
+  X, 
+  ExternalLink, 
+  Globe, 
+  User, 
+  Zap 
 } from 'lucide-react';
-
-export interface ClientIntelligenceRecord {
-  id: string;
-  client: string;
-  campaign: string;
-  category: 'logistics' | 'ecommerce' | 'services' | 'realestate-app';
-  objective: string;
-  platforms: string[];
-  role: string;
-  challenge: string;
-  approach: string[];
-  result: string;
-  logo: string;
-}
-
-const CLIENT_INTELLIGENCE_DATA: ClientIntelligenceRecord[] = [
-  {
-    id: 'pannest',
-    client: 'Pannest',
-    campaign: 'Surface Express & Cold Chain Pharma Logistics',
-    category: 'logistics',
-    objective: 'Lead Generation',
-    platforms: ['Google Search'],
-    role: 'Strategy • Media Buying • Campaign Optimization • Conversion Tracking',
-    challenge: 'Generate qualified B2B logistics enquiries for surface express and cold chain pharma dispatches while controlling Cost Per Lead (CPL).',
-    approach: [
-      'Search intent mapping for B2B cargo & pharma transport',
-      'Granular keyword segmentation by shipping route & cargo type',
-      'Conversion-focused landing page alignment and form tracking setup',
-      'Negative keyword filtering to exclude low-value consumer queries'
-    ],
-    result: 'Established a consistent flow of qualified B2B logistics inquiries across cold chain and express shipping routes at target CPL.',
-    logo: '/clients/Pannest logo.png'
-  },
-  {
-    id: 'zoomcaargo',
-    client: 'ZoomCaargo',
-    campaign: 'Time-Critical Air Freight & China–India Import Specialist',
-    category: 'logistics',
-    objective: 'Lead Generation',
-    platforms: ['Google Ads', 'Meta Ads'],
-    role: 'Strategy • Media Buying • Campaign Optimization • Conversion Tracking',
-    challenge: 'Target B2B importers, exporters, and manufacturers requiring urgent time-critical air freight and customs clearance.',
-    approach: [
-      'High-intent B2B search campaigns focused on trade lanes & air cargo',
-      'Custom intent audiences on Meta targeting trade show attendees & import businesses',
-      'Lead forms integrated with instant callback workflows',
-      'Route-specific landing page optimization for trade inquiries'
-    ],
-    result: 'High lead-to-inquiry conversion rate from high-volume B2B importers requiring express international freight.',
-    logo: '/clients/zoomcaargo logo.png'
-  },
-  {
-    id: 'we3scs',
-    client: 'WE3SCS',
-    campaign: 'Logistics / Freight Services',
-    category: 'logistics',
-    objective: 'Lead Generation',
-    platforms: ['Google Ads'],
-    role: 'Strategy • Media Buying • Campaign Optimization • Conversion Tracking',
-    challenge: 'Drive high-intent website enquiries and qualified lead form submissions for commercial freight services.',
-    approach: [
-      'Commercial freight search targeting (FCL, LCL, surface cargo)',
-      'Ad extension optimization (callouts, sitelinks, structured snippets)',
-      'GA4 event tracking setup for lead form submissions and click-to-call'
-    ],
-    result: 'Delivered a steady stream of verified commercial freight enquiries for industrial shipping.',
-    logo: '/clients/We3scs logo.png'
-  },
-  {
-    id: 'parcel-solution',
-    client: 'Parcel Solution',
-    campaign: 'Courier & Logistics Services',
-    category: 'logistics',
-    objective: 'Lead Generation',
-    platforms: ['Google Ads'],
-    role: 'Strategy • Media Buying • Campaign Optimization • Conversion Tracking',
-    challenge: 'Maximize qualified courier enquiries while lowering CPL in a highly competitive search market.',
-    approach: [
-      'Exact-match search campaign structure focusing on courier booking intent',
-      'Negative keyword pruning to stop non-commercial traffic drain',
-      'Conversion rate optimization on quick inquiry lead forms'
-    ],
-    result: 'Achieved lower Cost Per Lead with improved lead verification and booking quality.',
-    logo: '/clients/parcel solution logo.webp'
-  },
-  {
-    id: 'skyhorse',
-    client: 'Skyhorse Logistics',
-    campaign: 'Logistics / Freight Forwarding',
-    category: 'logistics',
-    objective: 'Lead Generation',
-    platforms: ['Google Ads'],
-    role: 'Strategy • Media Buying • Campaign Optimization • Conversion Tracking',
-    challenge: 'Capture qualified B2B freight forwarding leads for international & domestic shipping routes.',
-    approach: [
-      'Long-tail cargo keyword targeting focused on freight forwarders',
-      'B2B audience filters and device bid adjustments',
-      'Custom landing page copy addressing port-to-port logistics needs'
-    ],
-    result: 'Built a reliable pipeline of B2B freight forwarding leads for long-haul shipping.',
-    logo: '/clients/skyhorse logo.png'
-  },
-  {
-    id: 'itd-software',
-    client: 'ITD Software',
-    campaign: 'Software / IT Technology Services',
-    category: 'services',
-    objective: 'Lead Generation',
-    platforms: ['Google Ads', 'LinkedIn'],
-    role: 'Strategy • Media Buying • Campaign Optimization • Conversion Tracking',
-    challenge: 'Attract decision-makers seeking enterprise software development & IT consulting services.',
-    approach: [
-      'High-intent tech search ads targeting software development queries',
-      'Clear value-proposition messaging emphasizing custom IT architecture',
-      'Multi-step inquiry form tracking with GA4 & GTM'
-    ],
-    result: 'Generated qualified enterprise IT business enquiries with strong consultation booking rates.',
-    logo: '/clients/Itd software logo.png'
-  },
-  {
-    id: 'itd-growthlabs',
-    client: 'ITD Growth Labs',
-    campaign: 'D2C Digital Marketing & Performance Agency',
-    category: 'services',
-    objective: 'Lead Generation',
-    platforms: ['Meta Ads', 'Google Ads'],
-    role: 'Strategy • Media Buying • Campaign Optimization • Conversion Tracking',
-    challenge: 'Attract D2C brand founders and e-commerce marketing directors looking for scaling agency partners.',
-    approach: [
-      'Direct response Meta video ads showcasing proven performance frameworks',
-      'Google Search campaigns targeting performance marketing agency keywords',
-      'Retargeting audience pools with client case study proofs'
-    ],
-    result: 'Maintained a consistent inbound lead flow of D2C founders seeking performance marketing management.',
-    logo: '/clients/Itd growthlabs logo.png'
-  },
-  {
-    id: 'bhavani',
-    client: 'Bhavani Courier',
-    campaign: 'Courier & Regional Logistics Campaigns',
-    category: 'logistics',
-    objective: 'Lead Generation',
-    platforms: ['Meta Ads', 'Google Ads'],
-    role: 'Strategy • Media Buying • Campaign Optimization • Conversion Tracking',
-    challenge: 'Scale daily courier booking enquiries across regional pickup centers at strict CPL targets.',
-    approach: [
-      'Geo-targeted Search and Meta Lead Ads covering specific postal codes',
-      'WhatsApp click-to-chat ad extensions for instant customer response',
-      'Automated lead notification routing to regional dispatch desks'
-    ],
-    result: 'Drove high daily lead volume with rapid response times and reduced acquisition cost.',
-    logo: '/clients/Bhavani courier logo.png'
-  },
-  {
-    id: 'jdic',
-    client: 'JDIC',
-    campaign: 'International Courier & Overseas Parcel Shipping',
-    category: 'logistics',
-    objective: 'Lead Generation / Awareness',
-    platforms: ['Meta Ads', 'Google Ads'],
-    role: 'Strategy • Media Buying • Creative Direction • Conversion Tracking',
-    challenge: 'Establish brand presence for international shipping routes and generate parcel inquiry leads.',
-    approach: [
-      'Visual ad creative highlighting worldwide express shipping destinations & rates',
-      'Custom audience targeting for expats, students, and international senders',
-      'Clear call-to-action forms for instant doorstep pickup quotes'
-    ],
-    result: 'Increased international courier inquiries and expanded customer awareness across key shipping routes.',
-    logo: '/clients/JDIC logo.png'
-  },
-  {
-    id: 'sobo',
-    client: 'SOBO Logistics',
-    campaign: 'Logistics / Freight Services',
-    category: 'logistics',
-    objective: 'Lead Generation',
-    platforms: ['Google Ads'],
-    role: 'Strategy • Media Buying • Campaign Optimization • Conversion Tracking',
-    challenge: 'Capture high-value commercial freight enquiries in competitive urban logistics hubs.',
-    approach: [
-      'Hyper-local Google Search campaigns targeting commercial logistics keywords',
-      'Call-only ad formats for mobile users needing immediate booking',
-      'Continuous bid adjustment based on peak dispatch hours'
-    ],
-    result: 'Increased direct phone and form inquiries from commercial transport clients.',
-    logo: '/clients/Sobo logistics logo.webp'
-  },
-  {
-    id: 'kaizen',
-    client: 'Kaizen Realty',
-    campaign: 'Demand Gen & Real Estate Property Marketing',
-    category: 'realestate-app',
-    objective: 'Lead Generation / Consideration',
-    platforms: ['Google Demand Gen', 'Google Search'],
-    role: 'Strategy • Media Buying • Keyword Setup • Conversion Tracking',
-    challenge: 'Build buyer consideration and collect qualified site-visit leads for real estate developments.',
-    approach: [
-      'Google Demand Gen campaigns featuring visual property renders & video tours',
-      'High-intent real estate search keyword structure with location extensions',
-      'Custom affinity & in-market real estate buyer audience targeting'
-    ],
-    result: 'Generated consistent qualified buyer leads and scheduled property site visits.',
-    logo: '/clients/Kaizen arc logo.png'
-  },
-  {
-    id: 'bellissima',
-    client: 'Bellissima by Excel',
-    campaign: 'Google Search Ads & Policy Account Verification',
-    category: 'services',
-    objective: 'Lead Generation',
-    platforms: ['Google Search Ads'],
-    role: 'Strategy • Media Buying • Policy Resolution • Account Recovery',
-    challenge: 'Resolve a critical Google Ads account verification & policy suspension issue while maintaining booking flow.',
-    approach: [
-      'Executed full account compliance audit & Advertiser Verification protocol',
-      'Restructured Google Search ad copy to meet Google Ads editorial policies',
-      'Relaunched search campaigns targeting local luxury salon booking intent'
-    ],
-    result: 'Successfully restored active Google Ads account status and resumed clean appointment lead generation.',
-    logo: '/clients/Bellissima logo.png'
-  },
-  {
-    id: 'style-shine',
-    client: 'Style & Shine Lounge',
-    campaign: 'Beauty / Salon Marketing',
-    category: 'services',
-    objective: 'Lead Generation / Awareness',
-    platforms: ['Meta Ads'],
-    role: 'Strategy • Media Buying • Creative Direction • Lead Generation',
-    challenge: 'Drive appointment bookings and increase salon footfall for promotional packages.',
-    approach: [
-      'Engaging Carousel Meta Ads showcasing salon transformations & offers',
-      'Geo-fenced targeting around salon location radius (5km radius)',
-      'Meta Instant Lead Forms for frictionless appointment booking'
-    ],
-    result: 'Boosted salon appointment bookings and built strong local brand awareness.',
-    logo: '/clients/Style and shine logo.png'
-  },
-  {
-    id: 'cutistic',
-    client: 'Cutistic Gifts',
-    campaign: 'E-Commerce Purchase Conversion & Shopify Sales',
-    category: 'ecommerce',
-    objective: 'Sales / Purchase Conversion',
-    platforms: ['Meta Ads', 'Shopify'],
-    role: 'Strategy • Media Buying • Meta Pixel / CAPI • Funnel Optimization',
-    challenge: 'Drive profitable direct e-commerce sales on Shopify during peak gifting seasons.',
-    approach: [
-      'Dynamic Product Ads (DPA) synced with Shopify catalog',
-      'Meta Pixel + Conversion API (CAPI) setup for accurate server-side tracking',
-      'Creative testing matrix targeting gift shoppers and seasonal buyers'
-    ],
-    result: 'Accelerated direct online purchase conversions with positive return on ad spend (ROAS).',
-    logo: '/clients/cutistic_logo.avif'
-  },
-  {
-    id: 'gujju',
-    client: 'Gujju Express Logistics',
-    campaign: 'International Courier (Raksha Bandhan Campaign)',
-    category: 'logistics',
-    objective: 'Lead Generation / Festival Awareness',
-    platforms: ['Meta Ads'],
-    role: 'Strategy • Media Buying • Creative Angle • Seasonal Campaigning',
-    challenge: 'Capture high-volume seasonal shipping demand for Rakhi & festival parcel dispatches abroad.',
-    approach: [
-      'Emotional festive-angle ad copy targeting NRI families & festival senders',
-      'Video ad creatives detailing international express delivery timelines',
-      'Dedicated festive inquiry landing forms'
-    ],
-    result: 'Achieved a massive seasonal spike in international parcel inquiries and booking conversions.',
-    logo: '/clients/Gujju express logo.png'
-  },
-  {
-    id: 'travelkit',
-    client: 'TravelKitSR',
-    campaign: 'Travel Product Advertising',
-    category: 'ecommerce',
-    objective: 'Sales / Purchase Conversion',
-    platforms: ['Meta Ads'],
-    role: 'Strategy • Media Buying • Multi-Format Creative Testing • Sales Funnel',
-    challenge: 'Convert social media traffic into direct product purchases across diverse mobile placements.',
-    approach: [
-      'Multi-format creative placement matrix testing (1:1 feed, 9:16 reels/stories, 16:9 landscape)',
-      'Dynamic retargeting of cart abandoners with social proof testimonials',
-      'Lookalike audience scaling based on past purchaser seeds'
-    ],
-    result: 'Scaled direct e-commerce purchases across Instagram Reels & Facebook placements.',
-    logo: '/clients/travelkit-sr logo.png'
-  },
-  {
-    id: 'koli-catch',
-    client: 'Koli Catch',
-    campaign: 'App Install & User Acquisition',
-    category: 'realestate-app',
-    objective: 'App Installs / Awareness',
-    platforms: ['Google App Campaigns', 'JioHotstar'],
-    role: 'Strategy • Media Buying • App Analytics • User Acquisition',
-    challenge: 'Drive cost-efficient mobile app installs and active user acquisition.',
-    approach: [
-      'Google Universal App Campaigns (UAC) optimized for in-app events',
-      'High-impact JioHotstar video ads targeting sports & entertainment audiences',
-      'App store page creative optimization for higher install conversion rate'
-    ],
-    result: 'Delivered rapid surge in app downloads at an optimized Cost Per Install (CPI).',
-    logo: '/clients/Koli match logo.png'
-  },
-  {
-    id: 'jit-steels',
-    client: 'Jit Steels',
-    campaign: 'Industrial & Steel Supplies Lead Generation',
-    category: 'services',
-    objective: 'Lead Generation',
-    platforms: ['Google Search Ads'],
-    role: 'Strategy • Media Buying • B2B Targeting • Lead Optimization',
-    challenge: 'Capture bulk industrial buyers, fabricators, and construction contractors for steel supplies.',
-    approach: [
-      'Industrial steel specification keyword targeting',
-      'B2B quote inquiry forms + call extension optimization',
-      'Negative keyword exclusion for retail DIY searches'
-    ],
-    result: 'Generated high-value B2B trade inquiries for commercial steel supply orders.',
-    logo: '/clients/Jit Steels logo.png'
-  }
-];
 
 export default function ClientCaseStudyShowcase() {
   const [activeFilter, setActiveFilter] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState<string>('');
-  const [selectedRecord, setSelectedRecord] = useState<ClientIntelligenceRecord | null>(null);
+  const [selectedRecord, setSelectedRecord] = useState<ClientData | null>(null);
 
-  const filteredRecords = CLIENT_INTELLIGENCE_DATA.filter((item) => {
+  const filteredRecords = CLIENTS_DATA.filter((item) => {
     const matchesFilter = activeFilter === 'all' || item.category === activeFilter;
     const matchesSearch = 
-      item.client.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      item.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
       item.campaign.toLowerCase().includes(searchQuery.toLowerCase()) ||
       item.objective.toLowerCase().includes(searchQuery.toLowerCase());
     return matchesFilter && matchesSearch;
@@ -379,7 +55,7 @@ export default function ClientCaseStudyShowcase() {
               Real Clients. <span className="text-[#FF1A1A] drop-shadow-[0_0_20px_rgba(255,26,26,0.7)]">Real Impact.</span>
             </h2>
             <p className="text-neutral-400 text-xs md:text-sm mt-2 max-w-2xl font-light leading-relaxed">
-              A structured overview of 18 live client campaigns I manage end-to-end — strategy, execution, and objective delivery across logistics, e-commerce, software, and apps.
+              A structured overview of 18 real client campaigns I manage end-to-end — strategy, execution, and objective delivery with direct links to live client websites.
             </p>
           </div>
 
@@ -406,7 +82,7 @@ export default function ClientCaseStudyShowcase() {
                 : 'bg-neutral-900/80 text-neutral-400 hover:text-white border border-neutral-800'
             }`}
           >
-            All Clients ({CLIENT_INTELLIGENCE_DATA.length})
+            All Clients ({CLIENTS_DATA.length})
           </button>
           <button
             onClick={() => setActiveFilter('logistics')}
@@ -464,21 +140,31 @@ export default function ClientCaseStudyShowcase() {
               <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-red-600/5 to-transparent blur-lg pointer-events-none" />
 
               <div>
-                {/* Header: Logo, Name & Objective Badge */}
+                {/* Header: Logo, Name & Website Link */}
                 <div className="flex items-start justify-between gap-4 mb-5 pb-4 border-b border-neutral-900">
                   <div className="flex items-center gap-3">
                     <div className="w-12 h-12 rounded-xl bg-black border border-neutral-800 p-1 shrink-0 flex items-center justify-center overflow-hidden group-hover:border-[#FF1A1A]/60 transition-colors">
-                      <img src={record.logo} alt={record.client} className="w-full h-full object-contain" />
+                      <img src={record.logo} alt={record.name} className="w-full h-full object-contain" />
                     </div>
                     <div>
-                      <h3 className="text-lg font-black text-white group-hover:text-[#FF1A1A] transition-colors font-sans uppercase">
-                        {record.client}
-                      </h3>
+                      <Link href={`/clients/${record.slug}`} className="text-lg font-black text-white group-hover:text-[#FF1A1A] transition-colors font-sans uppercase block">
+                        {record.name}
+                      </Link>
                       <span className="text-[11px] text-neutral-400 font-mono block line-clamp-1">
-                        {record.campaign}
+                        {record.subtitle}
                       </span>
                     </div>
                   </div>
+
+                  <a
+                    href={record.website}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="p-2 bg-neutral-900 hover:bg-[#FF1A1A] text-neutral-400 hover:text-white rounded-lg transition-colors border border-neutral-800 shrink-0"
+                    title="Visit Live Client Website"
+                  >
+                    <ExternalLink className="w-4 h-4" />
+                  </a>
                 </div>
 
                 {/* Key Metadata Chips */}
@@ -524,21 +210,30 @@ export default function ClientCaseStudyShowcase() {
                 </div>
               </div>
 
-              {/* View Detail Action Button */}
-              <button
-                onClick={() => setSelectedRecord(record)}
-                className="w-full py-2.5 bg-neutral-900 hover:bg-[#FF1A1A] text-neutral-300 hover:text-white font-bold text-xs uppercase tracking-wider rounded-xl transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer shadow-md"
-              >
-                <span>View Full Case Study Spec</span>
-                <ArrowUpRight className="w-3.5 h-3.5" />
-              </button>
+              {/* Action Buttons */}
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={() => setSelectedRecord(record)}
+                  className="flex-1 py-2.5 bg-neutral-900 hover:bg-[#FF1A1A] text-neutral-300 hover:text-white font-bold text-xs uppercase tracking-wider rounded-xl transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer shadow-md"
+                >
+                  <span>Quick Spec</span>
+                  <Maximize2 className="w-3.5 h-3.5" />
+                </button>
+                <Link
+                  href={`/clients/${record.slug}`}
+                  className="px-3 py-2.5 bg-neutral-900 hover:bg-neutral-800 border border-neutral-800 text-white rounded-xl transition-colors flex items-center justify-center"
+                  title="View Dedicated Case Study Page"
+                >
+                  <ArrowUpRight className="w-4 h-4 text-[#FF1A1A]" />
+                </Link>
+              </div>
             </motion.div>
           ))}
         </div>
 
       </div>
 
-      {/* FULL CLIENT CASE STUDY MODAL */}
+      {/* FULL CLIENT CASE STUDY QUICK MODAL */}
       <AnimatePresence>
         {selectedRecord && (
           <div 
@@ -561,17 +256,30 @@ export default function ClientCaseStudyShowcase() {
               </button>
 
               {/* Client Header */}
-              <div className="flex items-center gap-4 mb-6 pb-6 border-b border-neutral-900">
-                <div className="w-14 h-14 rounded-xl bg-black border border-neutral-800 p-1.5 shrink-0 flex items-center justify-center">
-                  <img src={selectedRecord.logo} alt={selectedRecord.client} className="w-full h-full object-contain" />
+              <div className="flex items-center justify-between gap-4 mb-6 pb-6 border-b border-neutral-900">
+                <div className="flex items-center gap-4">
+                  <div className="w-14 h-14 rounded-xl bg-black border border-neutral-800 p-1.5 shrink-0 flex items-center justify-center">
+                    <img src={selectedRecord.logo} alt={selectedRecord.name} className="w-full h-full object-contain" />
+                  </div>
+                  <div>
+                    <span className="text-[10px] text-[#FF1A1A] font-mono font-bold uppercase tracking-[0.25em] block mb-1">
+                      PERFORMANCE CASE STUDY SPEC
+                    </span>
+                    <h3 className="text-2xl font-black text-white uppercase font-sans">{selectedRecord.name}</h3>
+                    <span className="text-xs text-neutral-400 font-mono">{selectedRecord.subtitle}</span>
+                  </div>
                 </div>
-                <div>
-                  <span className="text-[10px] text-[#FF1A1A] font-mono font-bold uppercase tracking-[0.25em] block mb-1">
-                    PERFORMANCE CASE STUDY SPEC
-                  </span>
-                  <h3 className="text-2xl font-black text-white uppercase font-sans">{selectedRecord.client}</h3>
-                  <span className="text-xs text-neutral-400 font-mono">{selectedRecord.campaign}</span>
-                </div>
+
+                <a
+                  href={selectedRecord.website}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-3.5 py-2 bg-[#FF1A1A] hover:bg-[#d90e0e] text-white text-xs font-bold font-mono uppercase tracking-wider rounded-lg flex items-center gap-2 shrink-0 transition-colors shadow-md"
+                >
+                  <Globe className="w-3.5 h-3.5" />
+                  <span>Visit Website</span>
+                  <ExternalLink className="w-3.5 h-3.5" />
+                </a>
               </div>
 
               {/* Exact Case Study Grid */}
@@ -623,6 +331,16 @@ export default function ClientCaseStudyShowcase() {
                 <div className="bg-gradient-to-r from-red-950/40 via-neutral-950 to-neutral-950 p-4 rounded-xl border border-red-900/50">
                   <span className="text-[10px] text-emerald-400 font-mono font-bold uppercase tracking-wider block mb-1">CAMPAIGN RESULT</span>
                   <p className="text-white font-medium leading-relaxed">{selectedRecord.result}</p>
+                </div>
+
+                <div className="pt-2 text-center">
+                  <Link
+                    href={`/clients/${selectedRecord.slug}`}
+                    className="inline-flex items-center gap-2 px-5 py-2.5 bg-neutral-900 hover:bg-neutral-800 text-white font-bold text-xs uppercase font-mono tracking-wider rounded-xl transition-colors border border-neutral-800"
+                  >
+                    <span>Open Dedicated Case Study Page</span>
+                    <ArrowUpRight className="w-4 h-4 text-[#FF1A1A]" />
+                  </Link>
                 </div>
               </div>
             </motion.div>
