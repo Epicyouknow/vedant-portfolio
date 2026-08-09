@@ -33,7 +33,7 @@ export default function BrandsMarquee() {
           animate={isPaused ? {} : { x: ['0%', '-50%'] }}
           transition={{
             ease: 'linear',
-            duration: 38,
+            duration: 70,
             repeat: Infinity,
           }}
           className="flex items-center gap-5 shrink-0 pr-5"
