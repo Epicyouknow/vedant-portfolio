@@ -4,181 +4,365 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
   CheckCircle2, 
-  TrendingUp, 
   Target, 
   Compass, 
-  BarChart3, 
-  User, 
-  Calendar, 
-  MapPin, 
+  Layers, 
+  Cpu, 
   ArrowUpRight, 
-  ChevronRight, 
-  Maximize2, 
+  Filter,
+  Search,
+  Sparkles,
+  Maximize2,
   X,
-  Layers,
-  Cpu,
-  Eye,
-  FileText,
-  Award,
-  Zap,
-  Clock,
-  PieChart,
-  Filter
+  ExternalLink,
+  Tag,
+  Share2
 } from 'lucide-react';
 
-interface ClientCaseStudy {
+export interface ClientIntelligenceRecord {
   id: string;
-  name: string;
-  industry: string;
-  campaignType: string;
-  location: string;
-  period: string;
+  client: string;
+  campaign: string;
+  category: 'logistics' | 'ecommerce' | 'services' | 'realestate-app';
+  objective: string;
+  platforms: string[];
+  role: string;
+  challenge: string;
+  approach: string[];
+  result: string;
   logo: string;
-  bio: string;
-  snapshot: {
-    conversions: string;
-    conversionsChange: string;
-    cpl: string;
-    cplChange: string;
-    convValue: string;
-    convValueChange: string;
-    roas: string;
-    roasChange: string;
-    ctr: string;
-    ctrChange: string;
-    impressions: string;
-    impressionsChange: string;
-  };
-  objective: { title: string; desc: string };
-  strategy: { title: string; points: string[] };
-  approach: { title: string; points: string[] };
-  results: { title: string; points: string[] };
-  role: { title: string; points: string[] };
-  proofs: { title: string; image: string; type: string }[];
-  dossier: {
-    challenges: string[];
-    investigation: { title: string; desc: string }[];
-    channelSplit: { name: string; pct: number; color: string }[];
-    beforeAfter: { metric: string; before: string; after: string }[];
-    techStack: string[];
-  };
 }
 
-const CLIENT_DATA: ClientCaseStudy[] = [
+const CLIENT_INTELLIGENCE_DATA: ClientIntelligenceRecord[] = [
   {
-    id: 'zoom-cargo',
-    name: 'Zoom Cargo',
-    industry: 'Logistics & Cargo Solutions',
-    campaignType: 'Lead Generation Campaign',
-    location: 'India',
-    period: 'June 2024 – Ongoing',
-    logo: '/logo-icon-exact.png',
-    bio: 'Zoom Cargo is a leading logistics company offering domestic and international freight forwarding, express delivery, and supply chain solutions.',
-    snapshot: {
-      conversions: '2,346',
-      conversionsChange: '+28.6%',
-      cpl: '₹92.45',
-      cplChange: '-18.7%',
-      convValue: '₹21.6L',
-      convValueChange: '+34.2%',
-      roas: '4.68x',
-      roasChange: '+31.5%',
-      ctr: '2.45%',
-      ctrChange: '+22.1%',
-      impressions: '1.2M',
-      impressionsChange: '+19.4%',
-    },
-    objective: {
-      title: 'Generate High-Quality Leads',
-      desc: 'Drive qualified inquiries for freight, cargo, and logistics services across India with high conversion intent.',
-    },
-    strategy: {
-      title: 'Multi-Channel Lead Funnel',
-      points: [
-        'Meta Ads (High-Intent Lead Gen)',
-        'Google Search Ads (Exact Keyword Targeting)',
-        'Landing Page Optimization (Speed & UX)',
-        'Remarketing & Lookalike Retargeting',
-      ],
-    },
-    approach: {
-      title: 'Data-Driven Execution',
-      points: [
-        'Audience Research & B2B Segmentation',
-        'Compelling Ad Creatives & Video Demos',
-        'Conversion Rate Optimized Landing Pages',
-        'Weekly A/B Testing & Bid Iterations',
-      ],
-    },
-    results: {
-      title: 'Strong Growth & Efficiency',
-      points: [
-        '2,346+ High-Quality Verified Lead Flow',
-        '18.7% Reduction in Cost Per Lead (CPL)',
-        'Consistent Monthly Campaign Scaling',
-        '4.68x Return on Ad Spend (ROAS)',
-      ],
-    },
-    role: {
-      title: 'Performance Marketer',
-      points: [
-        'Full End-to-End Campaign Strategy',
-        'Media Buying & Bid Optimization',
-        'GA4 & GTM Event Attribution Tracking',
-        'ROAS Scaling & Budget Allocation',
-      ],
-    },
-    proofs: [
-      { title: 'Meta Ads Manager Overview', image: '/ref_image2.png', type: 'Dashboard' },
-      { title: 'Google Ads Overview', image: '/ref_image3.jpg', type: 'Analytics' },
-      { title: 'Leads Generated Graph', image: '/og-image.png', type: 'Metrics' },
-      { title: 'Performance Over Time', image: '/architect.png', type: 'Telemetry' },
-      { title: 'High-Converting Ad Creatives', image: '/creator.png', type: 'Creative' },
+    id: 'pannest',
+    client: 'Pannest',
+    campaign: 'Surface Express & Cold Chain Pharma Logistics',
+    category: 'logistics',
+    objective: 'Lead Generation',
+    platforms: ['Google Search'],
+    role: 'Strategy • Media Buying • Campaign Optimization • Conversion Tracking',
+    challenge: 'Generate qualified B2B logistics enquiries for surface express and cold chain pharma dispatches while controlling Cost Per Lead (CPL).',
+    approach: [
+      'Search intent mapping for B2B cargo & pharma transport',
+      'Granular keyword segmentation by shipping route & cargo type',
+      'Conversion-focused landing page alignment and form tracking setup',
+      'Negative keyword filtering to exclude low-value consumer queries'
     ],
-    dossier: {
-      challenges: [
-        'High Cost Per Lead (CPL was above target budget)',
-        'Low Quality Leads (Many irrelevant & spam form fills)',
-        'Low Conversion Rate (Website & funnel were unoptimized)',
-        'Limited Brand Presence in competitive logistics market',
-        'Incomplete Tracking & Attribution across ad channels',
-      ],
-      investigation: [
-        { title: 'Audience Research', desc: 'Studied customer behavior & B2B decision makers.' },
-        { title: 'Competitor Analysis', desc: 'Analyzed top logistics brands & copy strategies.' },
-        { title: 'Keyword Research', desc: 'Identified high-intent keywords for freight services.' },
-        { title: 'Landing Page UX', desc: 'Discovered high drop-off points & friction in forms.' },
-        { title: 'Analytics Audit', desc: 'Fixed broken GA4 tags & implemented GTM events.' },
-      ],
-      channelSplit: [
-        { name: 'Meta Ads', pct: 45, color: '#E50914' },
-        { name: 'Google Ads', pct: 35, color: '#3B82F6' },
-        { name: 'Remarketing', pct: 15, color: '#F59E0B' },
-        { name: 'Others', pct: 5, color: '#10B981' },
-      ],
-      beforeAfter: [
-        { metric: 'Cost Per Lead (CPL)', before: '₹210+', after: '₹92.45' },
-        { metric: 'Conversion Rate', before: '1.65%', after: '4.68%' },
-        { metric: 'Monthly Verified Leads', before: '600+', after: '2,346+' },
-        { metric: 'Return on Ad Spend (ROAS)', before: '1.8x', after: '4.68x' },
-      ],
-      techStack: ['Meta Ads', 'Google Ads', 'GA4 Analytics', 'Google Tag Manager', 'Looker Studio', 'Search Console', 'Hotjar', 'Microsoft Clarity', 'Canva', 'Excel'],
-    },
+    result: 'Established a consistent flow of qualified B2B logistics inquiries across cold chain and express shipping routes at target CPL.',
+    logo: '/clients/Pannest logo.png'
   },
+  {
+    id: 'zoomcaargo',
+    client: 'ZoomCaargo',
+    campaign: 'Time-Critical Air Freight & China–India Import Specialist',
+    category: 'logistics',
+    objective: 'Lead Generation',
+    platforms: ['Google Ads', 'Meta Ads'],
+    role: 'Strategy • Media Buying • Campaign Optimization • Conversion Tracking',
+    challenge: 'Target B2B importers, exporters, and manufacturers requiring urgent time-critical air freight and customs clearance.',
+    approach: [
+      'High-intent B2B search campaigns focused on trade lanes & air cargo',
+      'Custom intent audiences on Meta targeting trade show attendees & import businesses',
+      'Lead forms integrated with instant callback workflows',
+      'Route-specific landing page optimization for trade inquiries'
+    ],
+    result: 'High lead-to-inquiry conversion rate from high-volume B2B importers requiring express international freight.',
+    logo: '/clients/zoomcaargo logo.png'
+  },
+  {
+    id: 'we3scs',
+    client: 'WE3SCS',
+    campaign: 'Logistics / Freight Services',
+    category: 'logistics',
+    objective: 'Lead Generation',
+    platforms: ['Google Ads'],
+    role: 'Strategy • Media Buying • Campaign Optimization • Conversion Tracking',
+    challenge: 'Drive high-intent website enquiries and qualified lead form submissions for commercial freight services.',
+    approach: [
+      'Commercial freight search targeting (FCL, LCL, surface cargo)',
+      'Ad extension optimization (callouts, sitelinks, structured snippets)',
+      'GA4 event tracking setup for lead form submissions and click-to-call'
+    ],
+    result: 'Delivered a steady stream of verified commercial freight enquiries for industrial shipping.',
+    logo: '/clients/We3scs logo.png'
+  },
+  {
+    id: 'parcel-solution',
+    client: 'Parcel Solution',
+    campaign: 'Courier & Logistics Services',
+    category: 'logistics',
+    objective: 'Lead Generation',
+    platforms: ['Google Ads'],
+    role: 'Strategy • Media Buying • Campaign Optimization • Conversion Tracking',
+    challenge: 'Maximize qualified courier enquiries while lowering CPL in a highly competitive search market.',
+    approach: [
+      'Exact-match search campaign structure focusing on courier booking intent',
+      'Negative keyword pruning to stop non-commercial traffic drain',
+      'Conversion rate optimization on quick inquiry lead forms'
+    ],
+    result: 'Achieved lower Cost Per Lead with improved lead verification and booking quality.',
+    logo: '/clients/parcel solution logo.webp'
+  },
+  {
+    id: 'skyhorse',
+    client: 'Skyhorse Logistics',
+    campaign: 'Logistics / Freight Forwarding',
+    category: 'logistics',
+    objective: 'Lead Generation',
+    platforms: ['Google Ads'],
+    role: 'Strategy • Media Buying • Campaign Optimization • Conversion Tracking',
+    challenge: 'Capture qualified B2B freight forwarding leads for international & domestic shipping routes.',
+    approach: [
+      'Long-tail cargo keyword targeting focused on freight forwarders',
+      'B2B audience filters and device bid adjustments',
+      'Custom landing page copy addressing port-to-port logistics needs'
+    ],
+    result: 'Built a reliable pipeline of B2B freight forwarding leads for long-haul shipping.',
+    logo: '/clients/skyhorse logo.png'
+  },
+  {
+    id: 'itd-software',
+    client: 'ITD Software',
+    campaign: 'Software / IT Technology Services',
+    category: 'services',
+    objective: 'Lead Generation',
+    platforms: ['Google Ads', 'LinkedIn'],
+    role: 'Strategy • Media Buying • Campaign Optimization • Conversion Tracking',
+    challenge: 'Attract decision-makers seeking enterprise software development & IT consulting services.',
+    approach: [
+      'High-intent tech search ads targeting software development queries',
+      'Clear value-proposition messaging emphasizing custom IT architecture',
+      'Multi-step inquiry form tracking with GA4 & GTM'
+    ],
+    result: 'Generated qualified enterprise IT business enquiries with strong consultation booking rates.',
+    logo: '/clients/Itd software logo.png'
+  },
+  {
+    id: 'itd-growthlabs',
+    client: 'ITD Growth Labs',
+    campaign: 'D2C Digital Marketing & Performance Agency',
+    category: 'services',
+    objective: 'Lead Generation',
+    platforms: ['Meta Ads', 'Google Ads'],
+    role: 'Strategy • Media Buying • Campaign Optimization • Conversion Tracking',
+    challenge: 'Attract D2C brand founders and e-commerce marketing directors looking for scaling agency partners.',
+    approach: [
+      'Direct response Meta video ads showcasing proven performance frameworks',
+      'Google Search campaigns targeting performance marketing agency keywords',
+      'Retargeting audience pools with client case study proofs'
+    ],
+    result: 'Maintained a consistent inbound lead flow of D2C founders seeking performance marketing management.',
+    logo: '/clients/Itd growthlabs logo.png'
+  },
+  {
+    id: 'bhavani',
+    client: 'Bhavani Courier',
+    campaign: 'Courier & Regional Logistics Campaigns',
+    category: 'logistics',
+    objective: 'Lead Generation',
+    platforms: ['Meta Ads', 'Google Ads'],
+    role: 'Strategy • Media Buying • Campaign Optimization • Conversion Tracking',
+    challenge: 'Scale daily courier booking enquiries across regional pickup centers at strict CPL targets.',
+    approach: [
+      'Geo-targeted Search and Meta Lead Ads covering specific postal codes',
+      'WhatsApp click-to-chat ad extensions for instant customer response',
+      'Automated lead notification routing to regional dispatch desks'
+    ],
+    result: 'Drove high daily lead volume with rapid response times and reduced acquisition cost.',
+    logo: '/clients/Bhavani courier logo.png'
+  },
+  {
+    id: 'jdic',
+    client: 'JDIC',
+    campaign: 'International Courier & Overseas Parcel Shipping',
+    category: 'logistics',
+    objective: 'Lead Generation / Awareness',
+    platforms: ['Meta Ads', 'Google Ads'],
+    role: 'Strategy • Media Buying • Creative Direction • Conversion Tracking',
+    challenge: 'Establish brand presence for international shipping routes and generate parcel inquiry leads.',
+    approach: [
+      'Visual ad creative highlighting worldwide express shipping destinations & rates',
+      'Custom audience targeting for expats, students, and international senders',
+      'Clear call-to-action forms for instant doorstep pickup quotes'
+    ],
+    result: 'Increased international courier inquiries and expanded customer awareness across key shipping routes.',
+    logo: '/clients/JDIC logo.png'
+  },
+  {
+    id: 'sobo',
+    client: 'SOBO Logistics',
+    campaign: 'Logistics / Freight Services',
+    category: 'logistics',
+    objective: 'Lead Generation',
+    platforms: ['Google Ads'],
+    role: 'Strategy • Media Buying • Campaign Optimization • Conversion Tracking',
+    challenge: 'Capture high-value commercial freight enquiries in competitive urban logistics hubs.',
+    approach: [
+      'Hyper-local Google Search campaigns targeting commercial logistics keywords',
+      'Call-only ad formats for mobile users needing immediate booking',
+      'Continuous bid adjustment based on peak dispatch hours'
+    ],
+    result: 'Increased direct phone and form inquiries from commercial transport clients.',
+    logo: '/clients/Sobo logistics logo.webp'
+  },
+  {
+    id: 'kaizen',
+    client: 'Kaizen Realty',
+    campaign: 'Demand Gen & Real Estate Property Marketing',
+    category: 'realestate-app',
+    objective: 'Lead Generation / Consideration',
+    platforms: ['Google Demand Gen', 'Google Search'],
+    role: 'Strategy • Media Buying • Keyword Setup • Conversion Tracking',
+    challenge: 'Build buyer consideration and collect qualified site-visit leads for real estate developments.',
+    approach: [
+      'Google Demand Gen campaigns featuring visual property renders & video tours',
+      'High-intent real estate search keyword structure with location extensions',
+      'Custom affinity & in-market real estate buyer audience targeting'
+    ],
+    result: 'Generated consistent qualified buyer leads and scheduled property site visits.',
+    logo: '/clients/Kaizen arc logo.png'
+  },
+  {
+    id: 'bellissima',
+    client: 'Bellissima by Excel',
+    campaign: 'Google Search Ads & Policy Account Verification',
+    category: 'services',
+    objective: 'Lead Generation',
+    platforms: ['Google Search Ads'],
+    role: 'Strategy • Media Buying • Policy Resolution • Account Recovery',
+    challenge: 'Resolve a critical Google Ads account verification & policy suspension issue while maintaining booking flow.',
+    approach: [
+      'Executed full account compliance audit & Advertiser Verification protocol',
+      'Restructured Google Search ad copy to meet Google Ads editorial policies',
+      'Relaunched search campaigns targeting local luxury salon booking intent'
+    ],
+    result: 'Successfully restored active Google Ads account status and resumed clean appointment lead generation.',
+    logo: '/clients/Bellissima logo.png'
+  },
+  {
+    id: 'style-shine',
+    client: 'Style & Shine Lounge',
+    campaign: 'Beauty / Salon Marketing',
+    category: 'services',
+    objective: 'Lead Generation / Awareness',
+    platforms: ['Meta Ads'],
+    role: 'Strategy • Media Buying • Creative Direction • Lead Generation',
+    challenge: 'Drive appointment bookings and increase salon footfall for promotional packages.',
+    approach: [
+      'Engaging Carousel Meta Ads showcasing salon transformations & offers',
+      'Geo-fenced targeting around salon location radius (5km radius)',
+      'Meta Instant Lead Forms for frictionless appointment booking'
+    ],
+    result: 'Boosted salon appointment bookings and built strong local brand awareness.',
+    logo: '/clients/Style and shine logo.png'
+  },
+  {
+    id: 'cutistic',
+    client: 'Cutistic Gifts',
+    campaign: 'E-Commerce Purchase Conversion & Shopify Sales',
+    category: 'ecommerce',
+    objective: 'Sales / Purchase Conversion',
+    platforms: ['Meta Ads', 'Shopify'],
+    role: 'Strategy • Media Buying • Meta Pixel / CAPI • Funnel Optimization',
+    challenge: 'Drive profitable direct e-commerce sales on Shopify during peak gifting seasons.',
+    approach: [
+      'Dynamic Product Ads (DPA) synced with Shopify catalog',
+      'Meta Pixel + Conversion API (CAPI) setup for accurate server-side tracking',
+      'Creative testing matrix targeting gift shoppers and seasonal buyers'
+    ],
+    result: 'Accelerated direct online purchase conversions with positive return on ad spend (ROAS).',
+    logo: '/clients/cutistic_logo.avif'
+  },
+  {
+    id: 'gujju',
+    client: 'Gujju Express Logistics',
+    campaign: 'International Courier (Raksha Bandhan Campaign)',
+    category: 'logistics',
+    objective: 'Lead Generation / Festival Awareness',
+    platforms: ['Meta Ads'],
+    role: 'Strategy • Media Buying • Creative Angle • Seasonal Campaigning',
+    challenge: 'Capture high-volume seasonal shipping demand for Rakhi & festival parcel dispatches abroad.',
+    approach: [
+      'Emotional festive-angle ad copy targeting NRI families & festival senders',
+      'Video ad creatives detailing international express delivery timelines',
+      'Dedicated festive inquiry landing forms'
+    ],
+    result: 'Achieved a massive seasonal spike in international parcel inquiries and booking conversions.',
+    logo: '/clients/Gujju express logo.png'
+  },
+  {
+    id: 'travelkit',
+    client: 'TravelKitSR',
+    campaign: 'Travel Product Advertising',
+    category: 'ecommerce',
+    objective: 'Sales / Purchase Conversion',
+    platforms: ['Meta Ads'],
+    role: 'Strategy • Media Buying • Multi-Format Creative Testing • Sales Funnel',
+    challenge: 'Convert social media traffic into direct product purchases across diverse mobile placements.',
+    approach: [
+      'Multi-format creative placement matrix testing (1:1 feed, 9:16 reels/stories, 16:9 landscape)',
+      'Dynamic retargeting of cart abandoners with social proof testimonials',
+      'Lookalike audience scaling based on past purchaser seeds'
+    ],
+    result: 'Scaled direct e-commerce purchases across Instagram Reels & Facebook placements.',
+    logo: '/clients/travelkit-sr logo.png'
+  },
+  {
+    id: 'koli-catch',
+    client: 'Koli Catch',
+    campaign: 'App Install & User Acquisition',
+    category: 'realestate-app',
+    objective: 'App Installs / Awareness',
+    platforms: ['Google App Campaigns', 'JioHotstar'],
+    role: 'Strategy • Media Buying • App Analytics • User Acquisition',
+    challenge: 'Drive cost-efficient mobile app installs and active user acquisition.',
+    approach: [
+      'Google Universal App Campaigns (UAC) optimized for in-app events',
+      'High-impact JioHotstar video ads targeting sports & entertainment audiences',
+      'App store page creative optimization for higher install conversion rate'
+    ],
+    result: 'Delivered rapid surge in app downloads at an optimized Cost Per Install (CPI).',
+    logo: '/clients/Koli match logo.png'
+  },
+  {
+    id: 'jit-steels',
+    client: 'Jit Steels',
+    campaign: 'Industrial & Steel Supplies Lead Generation',
+    category: 'services',
+    objective: 'Lead Generation',
+    platforms: ['Google Search Ads'],
+    role: 'Strategy • Media Buying • B2B Targeting • Lead Optimization',
+    challenge: 'Capture bulk industrial buyers, fabricators, and construction contractors for steel supplies.',
+    approach: [
+      'Industrial steel specification keyword targeting',
+      'B2B quote inquiry forms + call extension optimization',
+      'Negative keyword exclusion for retail DIY searches'
+    ],
+    result: 'Generated high-value B2B trade inquiries for commercial steel supply orders.',
+    logo: '/clients/Jit Steels logo.png'
+  }
 ];
 
 export default function ClientCaseStudyShowcase() {
-  const [selectedClientIndex, setSelectedClientIndex] = useState(0);
-  const [activeProofModal, setActiveProofModal] = useState<string | null>(null);
-  const [showDossierModal, setShowDossierModal] = useState(false);
+  const [activeFilter, setActiveFilter] = useState<string>('all');
+  const [searchQuery, setSearchQuery] = useState<string>('');
+  const [selectedRecord, setSelectedRecord] = useState<ClientIntelligenceRecord | null>(null);
 
-  const client = CLIENT_DATA[selectedClientIndex];
+  const filteredRecords = CLIENT_INTELLIGENCE_DATA.filter((item) => {
+    const matchesFilter = activeFilter === 'all' || item.category === activeFilter;
+    const matchesSearch = 
+      item.client.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      item.campaign.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      item.objective.toLowerCase().includes(searchQuery.toLowerCase());
+    return matchesFilter && matchesSearch;
+  });
 
   return (
-    <section id="real-clients" className="py-24 bg-[#050507] text-white relative px-6 md:px-16 overflow-hidden select-none">
-      {/* Background Red Lights */}
-      <div className="absolute top-0 right-0 w-96 h-96 bg-red-950/20 blur-[140px] pointer-events-none rounded-full" />
-      <div className="absolute bottom-0 left-0 w-96 h-96 bg-red-900/10 blur-[140px] pointer-events-none rounded-full" />
+    <section id="client-intelligence" className="py-24 bg-[#050507] text-white relative px-6 md:px-16 overflow-hidden select-none">
+      {/* Ambient Backlight Glow */}
+      <div className="absolute top-0 right-0 w-96 h-96 bg-red-950/20 blur-[150px] pointer-events-none rounded-full" />
+      <div className="absolute bottom-0 left-0 w-96 h-96 bg-red-900/10 blur-[150px] pointer-events-none rounded-full" />
 
       <div className="max-w-7xl mx-auto">
         {/* HEADER BADGE & TITLE */}
@@ -187,7 +371,7 @@ export default function ClientCaseStudyShowcase() {
             <div className="inline-flex items-center gap-2 px-3 py-1 bg-red-950/60 border border-red-800/50 rounded-full mb-3">
               <span className="w-2 h-2 rounded-full bg-[#FF1A1A] animate-pulse" />
               <span className="text-[10px] text-[#FF1A1A] font-mono font-bold uppercase tracking-[0.25em]">
-                REAL CLIENT • REAL RESULTS
+                CLIENT INTELLIGENCE • PERFORMANCE CASE STUDIES
               </span>
             </div>
 
@@ -195,435 +379,253 @@ export default function ClientCaseStudyShowcase() {
               Real Clients. <span className="text-[#FF1A1A] drop-shadow-[0_0_20px_rgba(255,26,26,0.7)]">Real Impact.</span>
             </h2>
             <p className="text-neutral-400 text-xs md:text-sm mt-2 max-w-2xl font-light leading-relaxed">
-              A glimpse into live campaigns I manage end-to-end — strategy, execution, and measurable growth.
+              A structured overview of 18 live client campaigns I manage end-to-end — strategy, execution, and objective delivery across logistics, e-commerce, software, and apps.
             </p>
           </div>
 
-          <div className="flex items-center gap-3">
-            <div className="px-3.5 py-1.5 bg-neutral-900/90 border border-neutral-800 rounded-lg flex items-center gap-2 text-xs text-neutral-300 font-mono">
-              <CheckCircle2 className="w-4 h-4 text-[#FF1A1A]" />
-              <span>100% Real Accounts & Managed Budgets</span>
-            </div>
-            <button
-              onClick={() => setShowDossierModal(true)}
-              className="px-4 py-2 bg-[#FF1A1A] hover:bg-[#d90e0e] text-white font-bold text-xs uppercase tracking-wider rounded-lg transition-all duration-300 shadow-[0_0_15px_rgba(255,26,26,0.5)] cursor-pointer flex items-center gap-2"
-            >
-              <FileText className="w-4 h-4" />
-              <span>Full Campaign Dossier</span>
-            </button>
+          {/* Search Box */}
+          <div className="relative w-full md:w-64">
+            <Search className="w-4 h-4 text-neutral-500 absolute left-3 top-1/2 -translate-y-1/2" />
+            <input
+              type="text"
+              placeholder="Search clients or campaigns..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="w-full pl-9 pr-4 py-2 bg-neutral-950/90 border border-neutral-800 rounded-xl text-xs text-white placeholder-neutral-500 focus:outline-none focus:border-[#FF1A1A] transition-colors"
+            />
           </div>
         </div>
 
-        {/* TOP ROW: CLIENT DETAILS CARD + CAMPAIGN SNAPSHOT DASHBOARD */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-10">
-          
-          {/* CLIENT BIO CARD (4 Cols) */}
-          <div className="lg:col-span-4 bg-[#0c0c10] border border-neutral-800/90 rounded-2xl p-6 md:p-8 flex flex-col justify-between shadow-2xl relative overflow-hidden group">
-            <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-red-600/10 to-transparent blur-xl pointer-events-none" />
-
-            <div>
-              {/* Client Logo & Header */}
-              <div className="flex items-start gap-4 mb-6">
-                <div className="w-16 h-16 rounded-xl bg-black border border-neutral-800 p-1.5 shrink-0 shadow-lg flex items-center justify-center">
-                  <img src={client.logo} alt={client.name} className="w-full h-full object-cover rounded-lg" />
-                </div>
-                <div>
-                  <h3 className="text-2xl font-black text-white tracking-tight uppercase font-sans">{client.name}</h3>
-                  <span className="text-xs text-neutral-400 font-medium block mb-2">{client.industry}</span>
-                  <span className="inline-block px-2.5 py-0.5 bg-red-950/70 text-[#FF1A1A] border border-red-900/60 rounded text-[10px] font-mono font-bold uppercase tracking-wider">
-                    {client.campaignType}
-                  </span>
-                </div>
-              </div>
-
-              {/* Meta information */}
-              <div className="flex items-center gap-4 text-[11px] text-neutral-400 font-mono mb-6 border-y border-neutral-900 py-3">
-                <span className="flex items-center gap-1.5">
-                  <MapPin className="w-3.5 h-3.5 text-[#FF1A1A]" />
-                  {client.location}
-                </span>
-                <span>•</span>
-                <span className="flex items-center gap-1.5">
-                  <Calendar className="w-3.5 h-3.5 text-[#FF1A1A]" />
-                  {client.period}
-                </span>
-              </div>
-
-              <p className="text-neutral-300 text-xs leading-relaxed font-light mb-6">
-                {client.bio}
-              </p>
-            </div>
-
-            <button
-              onClick={() => setShowDossierModal(true)}
-              className="w-full py-3 bg-neutral-900 hover:bg-neutral-800 border border-neutral-800 text-neutral-200 hover:text-white font-bold text-xs uppercase tracking-wider rounded-xl transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer"
-            >
-              <span>Explore Full Case Study</span>
-              <ArrowUpRight className="w-4 h-4 text-[#FF1A1A]" />
-            </button>
-          </div>
-
-          {/* CAMPAIGN SNAPSHOT DASHBOARD (8 Cols) */}
-          <div className="lg:col-span-8 bg-[#0c0c10] border border-neutral-800/90 rounded-2xl p-6 md:p-8 shadow-2xl flex flex-col justify-between relative overflow-hidden">
-            <div>
-              <div className="flex items-center justify-between mb-6 pb-4 border-b border-neutral-900">
-                <div className="flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-[#FF1A1A]" />
-                  <h4 className="text-sm font-bold uppercase font-mono tracking-wider text-white">Campaign Snapshot</h4>
-                </div>
-                <div className="flex items-center gap-2 px-3 py-1 bg-neutral-900 border border-neutral-800 rounded-md text-[11px] font-mono text-neutral-400">
-                  <Calendar className="w-3.5 h-3.5 text-neutral-500" />
-                  <span>Last 30 Days</span>
-                </div>
-              </div>
-
-              {/* 6 STAT BOXES GRID */}
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3 mb-6">
-                <div className="bg-neutral-950/80 border border-neutral-900 p-3.5 rounded-xl">
-                  <span className="text-[10px] text-neutral-500 font-mono uppercase block mb-1">Conversions</span>
-                  <span className="text-lg md:text-xl font-extrabold text-white font-mono block">{client.snapshot.conversions}</span>
-                  <span className="text-[10px] text-emerald-400 font-mono font-bold flex items-center gap-0.5 mt-1">
-                    ▲ {client.snapshot.conversionsChange}
-                  </span>
-                </div>
-
-                <div className="bg-neutral-950/80 border border-neutral-900 p-3.5 rounded-xl">
-                  <span className="text-[10px] text-neutral-500 font-mono uppercase block mb-1">Cost / Conv.</span>
-                  <span className="text-lg md:text-xl font-extrabold text-white font-mono block">{client.snapshot.cpl}</span>
-                  <span className="text-[10px] text-emerald-400 font-mono font-bold flex items-center gap-0.5 mt-1">
-                    ▼ {client.snapshot.cplChange}
-                  </span>
-                </div>
-
-                <div className="bg-neutral-950/80 border border-neutral-900 p-3.5 rounded-xl">
-                  <span className="text-[10px] text-neutral-500 font-mono uppercase block mb-1">Conv. Value</span>
-                  <span className="text-lg md:text-xl font-extrabold text-white font-mono block">{client.snapshot.convValue}</span>
-                  <span className="text-[10px] text-emerald-400 font-mono font-bold flex items-center gap-0.5 mt-1">
-                    ▲ {client.snapshot.convValueChange}
-                  </span>
-                </div>
-
-                <div className="bg-neutral-950/80 border border-neutral-900 p-3.5 rounded-xl">
-                  <span className="text-[10px] text-neutral-500 font-mono uppercase block mb-1">ROAS</span>
-                  <span className="text-lg md:text-xl font-extrabold text-[#FF1A1A] font-mono block">{client.snapshot.roas}</span>
-                  <span className="text-[10px] text-emerald-400 font-mono font-bold flex items-center gap-0.5 mt-1">
-                    ▲ {client.snapshot.roasChange}
-                  </span>
-                </div>
-
-                <div className="bg-neutral-950/80 border border-neutral-900 p-3.5 rounded-xl">
-                  <span className="text-[10px] text-neutral-500 font-mono uppercase block mb-1">CTR</span>
-                  <span className="text-lg md:text-xl font-extrabold text-white font-mono block">{client.snapshot.ctr}</span>
-                  <span className="text-[10px] text-emerald-400 font-mono font-bold flex items-center gap-0.5 mt-1">
-                    ▲ {client.snapshot.ctrChange}
-                  </span>
-                </div>
-
-                <div className="bg-neutral-950/80 border border-neutral-900 p-3.5 rounded-xl">
-                  <span className="text-[10px] text-neutral-500 font-mono uppercase block mb-1">Impressions</span>
-                  <span className="text-lg md:text-xl font-extrabold text-white font-mono block">{client.snapshot.impressions}</span>
-                  <span className="text-[10px] text-emerald-400 font-mono font-bold flex items-center gap-0.5 mt-1">
-                    ▲ {client.snapshot.impressionsChange}
-                  </span>
-                </div>
-              </div>
-
-              {/* CONVERSIONS LINE CHART (Matching Image 1 Screenshot) */}
-              <div className="bg-neutral-950/90 border border-neutral-900 rounded-xl p-4 md:p-6 relative overflow-hidden">
-                <div className="flex items-center justify-between mb-4">
-                  <span className="text-xs text-neutral-400 font-mono font-bold uppercase flex items-center gap-2">
-                    <span className="w-2 h-2 rounded-full bg-[#FF1A1A]" />
-                    Conversions Trend (Daily Growth)
-                  </span>
-                  <span className="text-[10px] text-neutral-500 font-mono">Peak: 210 Daily Leads</span>
-                </div>
-
-                {/* SVG Area Chart Path */}
-                <div className="w-full h-36 relative">
-                  <svg className="w-full h-full overflow-visible" viewBox="0 0 500 120" preserveAspectRatio="none">
-                    <defs>
-                      <linearGradient id="redGradientChart" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="0%" stopColor="#FF1A1A" stopOpacity="0.45" />
-                        <stop offset="100%" stopColor="#FF1A1A" stopOpacity="0" />
-                      </linearGradient>
-                    </defs>
-
-                    {/* Background Fill */}
-                    <path
-                      d="M 0,90 Q 40,75 80,60 T 160,70 T 240,40 T 320,20 T 400,45 T 480,30 L 500,35 L 500,120 L 0,120 Z"
-                      fill="url(#redGradientChart)"
-                    />
-
-                    {/* Glowing Stroke Line */}
-                    <path
-                      d="M 0,90 Q 40,75 80,60 T 160,70 T 240,40 T 320,20 T 400,45 T 480,30 L 500,35"
-                      fill="none"
-                      stroke="#FF1A1A"
-                      strokeWidth="3"
-                      className="filter drop-shadow-[0_0_8px_rgba(255,26,26,0.8)]"
-                    />
-
-                    {/* Data Points */}
-                    <circle cx="320" cy="20" r="4" fill="#FFFFFF" stroke="#FF1A1A" strokeWidth="2" />
-                    <circle cx="480" cy="30" r="4" fill="#FFFFFF" stroke="#FF1A1A" strokeWidth="2" />
-                  </svg>
-                </div>
-
-                {/* Date Axis Labels */}
-                <div className="flex items-center justify-between text-[10px] font-mono text-neutral-500 pt-3 border-t border-neutral-900 mt-2">
-                  <span>Jun 28</span>
-                  <span>Jul 2</span>
-                  <span>Jul 6</span>
-                  <span>Jul 10</span>
-                  <span>Jul 14</span>
-                  <span>Jul 18</span>
-                  <span>Jul 22</span>
-                  <span>Jul 26</span>
-                </div>
-              </div>
-            </div>
-          </div>
+        {/* CATEGORY FILTER TABS */}
+        <div className="flex flex-wrap items-center gap-2 mb-10">
+          <button
+            onClick={() => setActiveFilter('all')}
+            className={`px-4 py-2 rounded-xl text-xs font-mono font-bold uppercase tracking-wider transition-all duration-200 cursor-pointer ${
+              activeFilter === 'all'
+                ? 'bg-[#FF1A1A] text-white shadow-[0_0_15px_rgba(255,26,26,0.5)]'
+                : 'bg-neutral-900/80 text-neutral-400 hover:text-white border border-neutral-800'
+            }`}
+          >
+            All Clients ({CLIENT_INTELLIGENCE_DATA.length})
+          </button>
+          <button
+            onClick={() => setActiveFilter('logistics')}
+            className={`px-4 py-2 rounded-xl text-xs font-mono font-bold uppercase tracking-wider transition-all duration-200 cursor-pointer ${
+              activeFilter === 'logistics'
+                ? 'bg-[#FF1A1A] text-white shadow-[0_0_15px_rgba(255,26,26,0.5)]'
+                : 'bg-neutral-900/80 text-neutral-400 hover:text-white border border-neutral-800'
+            }`}
+          >
+            Logistics & Freight
+          </button>
+          <button
+            onClick={() => setActiveFilter('ecommerce')}
+            className={`px-4 py-2 rounded-xl text-xs font-mono font-bold uppercase tracking-wider transition-all duration-200 cursor-pointer ${
+              activeFilter === 'ecommerce'
+                ? 'bg-[#FF1A1A] text-white shadow-[0_0_15px_rgba(255,26,26,0.5)]'
+                : 'bg-neutral-900/80 text-neutral-400 hover:text-white border border-neutral-800'
+            }`}
+          >
+            E-Commerce & Retail
+          </button>
+          <button
+            onClick={() => setActiveFilter('services')}
+            className={`px-4 py-2 rounded-xl text-xs font-mono font-bold uppercase tracking-wider transition-all duration-200 cursor-pointer ${
+              activeFilter === 'services'
+                ? 'bg-[#FF1A1A] text-white shadow-[0_0_15px_rgba(255,26,26,0.5)]'
+                : 'bg-neutral-900/80 text-neutral-400 hover:text-white border border-neutral-800'
+            }`}
+          >
+            Software & Services
+          </button>
+          <button
+            onClick={() => setActiveFilter('realestate-app')}
+            className={`px-4 py-2 rounded-xl text-xs font-mono font-bold uppercase tracking-wider transition-all duration-200 cursor-pointer ${
+              activeFilter === 'realestate-app'
+                ? 'bg-[#FF1A1A] text-white shadow-[0_0_15px_rgba(255,26,26,0.5)]'
+                : 'bg-neutral-900/80 text-neutral-400 hover:text-white border border-neutral-800'
+            }`}
+          >
+            Real Estate & App Installs
+          </button>
         </div>
 
-        {/* 5 STRATEGY PILLARS GRID (Matching Image 1 Screenshot) */}
-        <div className="grid grid-cols-1 md:grid-cols-5 gap-4 mb-14">
-          {/* 1. OBJECTIVE */}
-          <div className="bg-[#0c0c10] border border-neutral-800/90 rounded-xl p-5 hover:border-red-900/60 transition-all duration-300">
-            <div className="flex items-center gap-2 mb-3">
-              <Target className="w-5 h-5 text-[#FF1A1A]" />
-              <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-[#FF1A1A]">OBJECTIVE</span>
-            </div>
-            <h4 className="text-sm font-bold text-white mb-2">{client.objective.title}</h4>
-            <p className="text-neutral-400 text-xs font-light leading-relaxed">{client.objective.desc}</p>
-          </div>
-
-          {/* 2. STRATEGY */}
-          <div className="bg-[#0c0c10] border border-neutral-800/90 rounded-xl p-5 hover:border-red-900/60 transition-all duration-300">
-            <div className="flex items-center gap-2 mb-3">
-              <Compass className="w-5 h-5 text-[#FF1A1A]" />
-              <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-[#FF1A1A]">STRATEGY</span>
-            </div>
-            <h4 className="text-sm font-bold text-white mb-2">{client.strategy.title}</h4>
-            <ul className="space-y-1.5 text-xs text-neutral-400 font-light">
-              {client.strategy.points.map((pt, i) => (
-                <li key={i} className="flex items-start gap-1.5">
-                  <span className="text-[#FF1A1A] font-bold">✓</span>
-                  <span>{pt}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* 3. APPROACH */}
-          <div className="bg-[#0c0c10] border border-neutral-800/90 rounded-xl p-5 hover:border-red-900/60 transition-all duration-300">
-            <div className="flex items-center gap-2 mb-3">
-              <Zap className="w-5 h-5 text-[#FF1A1A]" />
-              <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-[#FF1A1A]">APPROACH</span>
-            </div>
-            <h4 className="text-sm font-bold text-white mb-2">{client.approach.title}</h4>
-            <ul className="space-y-1.5 text-xs text-neutral-400 font-light">
-              {client.approach.points.map((pt, i) => (
-                <li key={i} className="flex items-start gap-1.5">
-                  <span className="text-neutral-600">•</span>
-                  <span>{pt}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* 4. RESULTS */}
-          <div className="bg-[#0c0c10] border border-neutral-800/90 rounded-xl p-5 hover:border-red-900/60 transition-all duration-300">
-            <div className="flex items-center gap-2 mb-3">
-              <BarChart3 className="w-5 h-5 text-[#FF1A1A]" />
-              <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-[#FF1A1A]">RESULTS</span>
-            </div>
-            <h4 className="text-sm font-bold text-white mb-2">{client.results.title}</h4>
-            <ul className="space-y-1.5 text-xs text-neutral-400 font-light">
-              {client.results.points.map((pt, i) => (
-                <li key={i} className="flex items-start gap-1.5">
-                  <span className="text-[#FF1A1A] font-bold">✓</span>
-                  <span>{pt}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* 5. MY ROLE */}
-          <div className="bg-[#0c0c10] border border-neutral-800/90 rounded-xl p-5 hover:border-red-900/60 transition-all duration-300">
-            <div className="flex items-center gap-2 mb-3">
-              <User className="w-5 h-5 text-[#FF1A1A]" />
-              <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-[#FF1A1A]">MY ROLE</span>
-            </div>
-            <h4 className="text-sm font-bold text-white mb-2">{client.role.title}</h4>
-            <ul className="space-y-1.5 text-xs text-neutral-400 font-light">
-              {client.role.points.map((pt, i) => (
-                <li key={i} className="flex items-start gap-1.5">
-                  <span className="text-neutral-600">•</span>
-                  <span>{pt}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-
-        {/* LIVE CAMPAIGN PROOFS ROW (Matching Image 1 Screenshot) */}
-        <div>
-          <div className="flex items-center gap-2 mb-6">
-            <span className="w-2 h-2 rounded-full bg-[#FF1A1A]" />
-            <h4 className="text-xs font-mono font-bold uppercase tracking-[0.2em] text-neutral-300">
-              LIVE CAMPAIGN PROOFS & TELEMETRY
-            </h4>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-4">
-            {client.proofs.map((proof, idx) => (
-              <div
-                key={idx}
-                onClick={() => setActiveProofModal(proof.image)}
-                className="bg-[#0c0c10] border border-neutral-800/90 hover:border-red-600/80 rounded-xl overflow-hidden cursor-pointer group transition-all duration-300 shadow-lg"
-              >
-                <div className="h-32 bg-black relative overflow-hidden">
-                  <img
-                    src={proof.image}
-                    alt={proof.title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                  />
-                  <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                    <Maximize2 className="w-5 h-5 text-white filter drop-shadow-md" />
-                  </div>
-                  <span className="absolute top-2 left-2 px-2 py-0.5 bg-black/80 text-[#FF1A1A] border border-red-900/50 rounded text-[9px] font-mono uppercase font-bold">
-                    {proof.type}
-                  </span>
-                </div>
-                <div className="p-3">
-                  <h5 className="text-xs font-bold text-white group-hover:text-[#FF1A1A] transition-colors line-clamp-1">
-                    {proof.title}
-                  </h5>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-      </div>
-
-      {/* FULL CAMPAIGN DOSSIER MODAL (Matching Image 2 Screenshot) */}
-      <AnimatePresence>
-        {showDossierModal && (
-          <div className="fixed inset-0 z-50 bg-black/90 backdrop-blur-md flex items-center justify-center p-4 md:p-8 overflow-y-auto">
+        {/* CLIENT CASE STUDY CARDS GRID */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+          {filteredRecords.map((record) => (
             <motion.div
-              initial={{ opacity: 0, scale: 0.95, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.95, y: 20 }}
-              className="relative max-w-5xl w-full bg-[#0d0d12] border border-red-900/40 rounded-2xl overflow-hidden shadow-2xl p-6 md:p-10 my-auto"
+              layout
+              key={record.id}
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.3 }}
+              className="bg-[#0c0c10] border border-neutral-800/90 hover:border-red-900/70 rounded-2xl p-6 flex flex-col justify-between transition-all duration-300 shadow-xl group hover:shadow-[0_0_30px_rgba(255,26,26,0.15)] relative overflow-hidden"
             >
-              {/* Close Button */}
-              <button
-                onClick={() => setShowDossierModal(false)}
-                className="absolute top-6 right-6 p-2 bg-neutral-900 text-neutral-400 hover:text-white rounded-full border border-neutral-800 cursor-pointer"
-              >
-                <X className="w-5 h-5" />
-              </button>
+              <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-red-600/5 to-transparent blur-lg pointer-events-none" />
 
-              {/* Dossier Header */}
-              <div className="flex items-center gap-4 mb-8 pb-6 border-b border-neutral-900">
-                <div className="w-12 h-12 rounded-xl bg-black border border-neutral-800 p-1 shrink-0">
-                  <img src={client.logo} alt={client.name} className="w-full h-full object-cover rounded-lg" />
-                </div>
-                <div>
-                  <span className="text-[10px] text-[#FF1A1A] font-mono font-bold uppercase tracking-[0.25em] block mb-1">
-                    CAMPAIGN DOSSIER • DEEP DIVE
-                  </span>
-                  <h3 className="text-2xl font-black text-white uppercase">{client.name} Lead Generation Campaign</h3>
-                </div>
-              </div>
-
-              {/* DOSSIER SECTIONS GRID */}
-              <div className="space-y-8">
-                {/* 01 THE CHALLENGE */}
-                <div>
-                  <h4 className="text-xs font-mono font-bold text-[#FF1A1A] uppercase tracking-widest mb-3">01 THE CHALLENGE</h4>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
-                    {client.dossier.challenges.map((c, i) => (
-                      <div key={i} className="bg-neutral-950 border border-neutral-900 p-3.5 rounded-xl text-xs text-neutral-300 flex items-start gap-2">
-                        <span className="text-red-500 font-bold">•</span>
-                        <span>{c}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                {/* 02 BEFORE VS AFTER IMPACT */}
-                <div>
-                  <h4 className="text-xs font-mono font-bold text-[#FF1A1A] uppercase tracking-widest mb-3">02 BEFORE VS AFTER IMPACT</h4>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
-                    {client.dossier.beforeAfter.map((ba, i) => (
-                      <div key={i} className="bg-neutral-950 border border-neutral-900 p-4 rounded-xl">
-                        <span className="text-[10px] text-neutral-500 font-mono uppercase block mb-2">{ba.metric}</span>
-                        <div className="flex items-center justify-between text-xs">
-                          <div>
-                            <span className="text-neutral-500 block text-[9px]">BEFORE</span>
-                            <span className="text-neutral-400 font-mono">{ba.before}</span>
-                          </div>
-                          <span className="text-[#FF1A1A] font-bold">➔</span>
-                          <div>
-                            <span className="text-emerald-400 block text-[9px]">AFTER</span>
-                            <span className="text-emerald-400 font-mono font-extrabold text-sm">{ba.after}</span>
-                          </div>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                {/* 03 CHANNEL SPLIT & TECH STACK */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  {/* Channel Split */}
-                  <div className="bg-neutral-950 border border-neutral-900 p-5 rounded-xl">
-                    <h4 className="text-xs font-mono font-bold text-white uppercase tracking-wider mb-4">Budget & Channel Allocation</h4>
-                    <div className="space-y-3">
-                      {client.dossier.channelSplit.map((ch) => (
-                        <div key={ch.name}>
-                          <div className="flex justify-between text-xs font-mono mb-1">
-                            <span className="text-neutral-300">{ch.name}</span>
-                            <span className="text-[#FF1A1A] font-bold">{ch.pct}%</span>
-                          </div>
-                          <div className="w-full h-2 bg-neutral-900 rounded-full overflow-hidden">
-                            <div className="h-full rounded-full" style={{ width: `${ch.pct}%`, backgroundColor: ch.color }} />
-                          </div>
-                        </div>
-                      ))}
+              <div>
+                {/* Header: Logo, Name & Objective Badge */}
+                <div className="flex items-start justify-between gap-4 mb-5 pb-4 border-b border-neutral-900">
+                  <div className="flex items-center gap-3">
+                    <div className="w-12 h-12 rounded-xl bg-black border border-neutral-800 p-1 shrink-0 flex items-center justify-center overflow-hidden group-hover:border-[#FF1A1A]/60 transition-colors">
+                      <img src={record.logo} alt={record.client} className="w-full h-full object-contain" />
+                    </div>
+                    <div>
+                      <h3 className="text-lg font-black text-white group-hover:text-[#FF1A1A] transition-colors font-sans uppercase">
+                        {record.client}
+                      </h3>
+                      <span className="text-[11px] text-neutral-400 font-mono block line-clamp-1">
+                        {record.campaign}
+                      </span>
                     </div>
                   </div>
+                </div>
 
-                  {/* Tech Stack */}
-                  <div className="bg-neutral-950 border border-neutral-900 p-5 rounded-xl">
-                    <h4 className="text-xs font-mono font-bold text-white uppercase tracking-wider mb-4">Tech Stack & Tools Used</h4>
-                    <div className="flex flex-wrap gap-2">
-                      {client.dossier.techStack.map((tech) => (
-                        <span key={tech} className="px-3 py-1.5 bg-neutral-900 border border-neutral-800 text-xs font-mono text-neutral-300 rounded-lg">
-                          {tech}
+                {/* Key Metadata Chips */}
+                <div className="space-y-3 mb-5">
+                  <div className="flex items-center justify-between text-xs">
+                    <span className="text-neutral-500 font-mono text-[10px] uppercase">OBJECTIVE</span>
+                    <span className="px-2.5 py-0.5 bg-red-950/60 border border-red-900/60 text-[#FF1A1A] font-mono text-[10px] font-bold rounded uppercase">
+                      {record.objective}
+                    </span>
+                  </div>
+
+                  <div className="flex items-center justify-between text-xs">
+                    <span className="text-neutral-500 font-mono text-[10px] uppercase">PLATFORMS</span>
+                    <div className="flex items-center gap-1.5 flex-wrap justify-end">
+                      {record.platforms.map((p) => (
+                        <span key={p} className="px-2 py-0.5 bg-neutral-900 border border-neutral-800 text-neutral-300 text-[10px] font-mono rounded">
+                          {p}
                         </span>
                       ))}
                     </div>
                   </div>
                 </div>
-              </div>
-            </motion.div>
-          </div>
-        )}
-      </AnimatePresence>
 
-      {/* FULLSCREEN PROOF IMAGE MODAL */}
+                {/* Challenge & Approach */}
+                <div className="space-y-3 mb-6 bg-neutral-950/80 p-3.5 rounded-xl border border-neutral-900">
+                  <div>
+                    <span className="text-[10px] text-[#FF1A1A] font-mono font-bold uppercase tracking-wider block mb-1">
+                      THE CHALLENGE
+                    </span>
+                    <p className="text-neutral-300 text-xs font-light leading-relaxed line-clamp-2">
+                      {record.challenge}
+                    </p>
+                  </div>
+
+                  <div>
+                    <span className="text-[10px] text-neutral-400 font-mono font-bold uppercase tracking-wider block mb-1">
+                      RESULT / IMPACT
+                    </span>
+                    <p className="text-neutral-200 text-xs font-medium leading-relaxed line-clamp-2">
+                      {record.result}
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* View Detail Action Button */}
+              <button
+                onClick={() => setSelectedRecord(record)}
+                className="w-full py-2.5 bg-neutral-900 hover:bg-[#FF1A1A] text-neutral-300 hover:text-white font-bold text-xs uppercase tracking-wider rounded-xl transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer shadow-md"
+              >
+                <span>View Full Case Study Spec</span>
+                <ArrowUpRight className="w-3.5 h-3.5" />
+              </button>
+            </motion.div>
+          ))}
+        </div>
+
+      </div>
+
+      {/* FULL CLIENT CASE STUDY MODAL */}
       <AnimatePresence>
-        {activeProofModal && (
-          <div className="fixed inset-0 z-50 bg-black/95 flex items-center justify-center p-4" onClick={() => setActiveProofModal(null)}>
-            <div className="relative max-w-5xl w-full max-h-[90vh] bg-black border border-neutral-800 rounded-xl overflow-hidden">
-              <button onClick={() => setActiveProofModal(null)} className="absolute top-4 right-4 p-2 bg-neutral-900 text-white rounded-full">
+        {selectedRecord && (
+          <div 
+            className="fixed inset-0 z-50 bg-black/90 backdrop-blur-md flex items-center justify-center p-4 md:p-8 overflow-y-auto"
+            onClick={() => setSelectedRecord(null)}
+          >
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 20 }}
+              onClick={(e) => e.stopPropagation()}
+              className="relative max-w-3xl w-full bg-[#0d0d12] border border-red-900/50 rounded-2xl overflow-hidden shadow-2xl p-6 md:p-8 my-auto"
+            >
+              {/* Close Button */}
+              <button
+                onClick={() => setSelectedRecord(null)}
+                className="absolute top-5 right-5 p-2 bg-neutral-900 text-neutral-400 hover:text-white rounded-full border border-neutral-800 cursor-pointer"
+              >
                 <X className="w-5 h-5" />
               </button>
-              <img src={activeProofModal} alt="Proof" className="w-full h-full object-contain max-h-[85vh]" />
-            </div>
+
+              {/* Client Header */}
+              <div className="flex items-center gap-4 mb-6 pb-6 border-b border-neutral-900">
+                <div className="w-14 h-14 rounded-xl bg-black border border-neutral-800 p-1.5 shrink-0 flex items-center justify-center">
+                  <img src={selectedRecord.logo} alt={selectedRecord.client} className="w-full h-full object-contain" />
+                </div>
+                <div>
+                  <span className="text-[10px] text-[#FF1A1A] font-mono font-bold uppercase tracking-[0.25em] block mb-1">
+                    PERFORMANCE CASE STUDY SPEC
+                  </span>
+                  <h3 className="text-2xl font-black text-white uppercase font-sans">{selectedRecord.client}</h3>
+                  <span className="text-xs text-neutral-400 font-mono">{selectedRecord.campaign}</span>
+                </div>
+              </div>
+
+              {/* Exact Case Study Grid */}
+              <div className="space-y-5 text-xs">
+                {/* Objective & Platforms */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 bg-neutral-950 p-4 rounded-xl border border-neutral-900">
+                  <div>
+                    <span className="text-[10px] text-neutral-500 font-mono uppercase block mb-1">OBJECTIVE</span>
+                    <span className="text-white font-mono font-bold text-sm">{selectedRecord.objective}</span>
+                  </div>
+                  <div>
+                    <span className="text-[10px] text-neutral-500 font-mono uppercase block mb-1">PLATFORMS</span>
+                    <div className="flex items-center gap-1.5 flex-wrap">
+                      {selectedRecord.platforms.map((p) => (
+                        <span key={p} className="px-2.5 py-0.5 bg-neutral-900 border border-neutral-800 text-[#FF1A1A] font-mono text-xs font-bold rounded">
+                          {p}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+
+                {/* My Role */}
+                <div className="bg-neutral-950 p-4 rounded-xl border border-neutral-900">
+                  <span className="text-[10px] text-neutral-500 font-mono uppercase block mb-1">MY ROLE</span>
+                  <span className="text-neutral-200 font-mono font-semibold">{selectedRecord.role}</span>
+                </div>
+
+                {/* Challenge */}
+                <div className="bg-neutral-950 p-4 rounded-xl border border-neutral-900">
+                  <span className="text-[10px] text-[#FF1A1A] font-mono font-bold uppercase tracking-wider block mb-1">THE CHALLENGE</span>
+                  <p className="text-neutral-300 font-light leading-relaxed">{selectedRecord.challenge}</p>
+                </div>
+
+                {/* Approach */}
+                <div className="bg-neutral-950 p-4 rounded-xl border border-neutral-900">
+                  <span className="text-[10px] text-neutral-400 font-mono font-bold uppercase tracking-wider block mb-2">THE APPROACH</span>
+                  <ul className="space-y-1.5 font-light text-neutral-300">
+                    {selectedRecord.approach.map((ap, i) => (
+                      <li key={i} className="flex items-start gap-2">
+                        <span className="text-[#FF1A1A] font-bold">✓</span>
+                        <span>{ap}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                {/* Result */}
+                <div className="bg-gradient-to-r from-red-950/40 via-neutral-950 to-neutral-950 p-4 rounded-xl border border-red-900/50">
+                  <span className="text-[10px] text-emerald-400 font-mono font-bold uppercase tracking-wider block mb-1">CAMPAIGN RESULT</span>
+                  <p className="text-white font-medium leading-relaxed">{selectedRecord.result}</p>
+                </div>
+              </div>
+            </motion.div>
           </div>
         )}
       </AnimatePresence>
