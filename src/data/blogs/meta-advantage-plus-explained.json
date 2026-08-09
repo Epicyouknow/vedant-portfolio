@@ -1,0 +1,24 @@
+{
+  "title": "Meta Advantage+ Explained Simply",
+  "slug": "meta-advantage-plus-explained",
+  "coverImage": "/ref_image3.jpg",
+  "seoMeta": {
+    "title": "Meta Advantage+ Shopping Campaigns Guide | VedantVerse",
+    "description": "Unlock scaling efficiency with Meta Advantage+ Shopping Campaigns (ASC).",
+    "keywords": ["meta ads", "advantage plus", "facebook ads"]
+  },
+  "summary": "Meta's Advantage+ Shopping Campaigns are the gold standard for scaling D2C brands. Here's a complete guide to setup, budget splits, and asset optimization.",
+  "content": "# Meta Advantage+ Shopping Campaigns (ASC) Blueprint\n\nAdvantage+ Shopping Campaigns leverage machine learning to automate creative distribution, audience targeting, and placement. Here is how we configure it for maximum CTR and volume.\n\n## Key Takeaways\n\n* **Keep Existing Customer Cap Low**: Set customer acquisition caps to 10-15% to force the algorithm to hunt for prospecting leads.\n* **Creative Variance is Critical**: ASC thrives on volume. Provide at least 5 different creative formats (Static, UGC Reels, Carousel, PR Review, Collection).\n\n## 1. ASC Setup Hierarchy\n\nRather than segmenting by interest groups, aggregate your budget into a single campaign and feed it diversified creatives. The algorithm will dynamically route budgets based on engagement.",
+  "tags": ["Meta Ads", "Scaling", "eCommerce"],
+  "category": "Meta Ads Collection",
+  "author": {
+    "name": "Vedant Tiwari",
+    "role": "Growth Marketer",
+    "avatar": "/vedant_portrait.png"
+  },
+  "readingTime": "22 Min",
+  "publishDate": "2026-06-28",
+  "featured": false,
+  "views": 980,
+  "difficulty": "Intermediate"
+}

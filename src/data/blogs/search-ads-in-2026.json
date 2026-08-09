@@ -1,0 +1,24 @@
+{
+  "title": "Search Ads in 2026: Intent > Keywords",
+  "slug": "search-ads-in-2026",
+  "coverImage": "/ref_image3.jpg",
+  "seoMeta": {
+    "title": "Search Ads in 2026: The Shift to Intent | VedantVerse",
+    "description": "How AI search engines and answer engines are redefining paid search strategies.",
+    "keywords": ["search ads", "ai search", "perplexity ads"]
+  },
+  "summary": "Keyword matching is dead. AI search, vector search, and thematic clustering are re-drawing the search map. Learn how to target user intent instead of search string matches.",
+  "content": "# Search Ads in 2026: Targeting Intent Over Keywords\n\nAI search queries are conversational, long-tail, and contextual. In this guide, we map the exact strategy to win at thematic clustering and semantic intent mapping.\n\n## Key Takeaways\n\n* **Move to Broad Match**: Google's vector matching algorithms make exact match keywords obsolete for scale.\n* **Thematic Negative Scratches**: Exclude entire semantic topics rather than single words.",
+  "tags": ["Search Ads", "AI Search", "Intent Mapping"],
+  "category": "AI & Automation",
+  "author": {
+    "name": "Vedant Tiwari",
+    "role": "Growth Marketer",
+    "avatar": "/vedant_portrait.png"
+  },
+  "readingTime": "18 Min",
+  "publishDate": "2026-07-01",
+  "featured": false,
+  "views": 840,
+  "difficulty": "Advanced"
+}

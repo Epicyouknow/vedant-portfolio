@@ -1,0 +1,24 @@
+{
+  "title": "Creative Testing Framework 2.0",
+  "slug": "creative-testing-framework-20",
+  "coverImage": "/ref_image2.png",
+  "seoMeta": {
+    "title": "Creative Testing Framework 2.0 | VedantVerse",
+    "description": "Stop guessing. Build a data-backed creative testing matrix for social media ads.",
+    "keywords": ["creative testing", "ad creatives", "video ads"]
+  },
+  "summary": "Creative fatigue is the #1 killer of ad account performance. Stop wasting budget on gut feelings and learn the scientific, system-driven creative testing model.",
+  "content": "# Creative Testing Framework 2.0: The Hook & Concept Matrix\n\nTo build winning ads predictably, you need a system that decouples your hooks from your body content. Here is the hook-concept test blueprint.\n\n## Key Takeaways\n\n* **Test Hooks First**: 3-second hook rate is the primary metric indicating top-of-funnel engagement.\n* **Standardize Body Asset**: Keep the main video body identical while swapping the first 3 seconds to measure hook strength.",
+  "tags": ["Creative Testing", "Video Ads", "Copywriting"],
+  "category": "Campaign Breakdowns",
+  "author": {
+    "name": "Vedant Tiwari",
+    "role": "Growth Marketer",
+    "avatar": "/vedant_portrait.png"
+  },
+  "readingTime": "16 Min",
+  "publishDate": "2026-06-15",
+  "featured": false,
+  "views": 1120,
+  "difficulty": "Intermediate"
+}

@@ -1,0 +1,24 @@
+{
+  "title": "Google Ads Performance Max Guide",
+  "slug": "google-ads-performance-max-guide",
+  "coverImage": "/ref_image2.png",
+  "seoMeta": {
+    "title": "Google Ads Performance Max Guide | VedantVerse",
+    "description": "Master Performance Max campaigns with this blockbuster strategy guide.",
+    "keywords": ["google ads", "performance max", "media buying"]
+  },
+  "summary": "The ultimate blueprint to scaling eCommerce and lead-gen campaigns using Google's flagship AI campaign type. Learn asset group structuring, conversion value rules, and secret audience signal setups.",
+  "content": "# The ₹5L Campaign: Scaling Performance Max Like a Pro\n\nPerformance Max (PMax) is no longer a choice—it is the default engine for scaling conversions across search, shopping, YouTube, and display. In this campaign breakdown, we details the exact strategy used to scale a luxury apparel brand to ₹15.4L managed spend at a **8.45x ROAS**.\n\n## Key Takeaways\n\n* **Audience Signals are Not Targeting**: They are hints to guide Google's bidding algorithm. Start with high-intent customer match lists and bottom-of-funnel custom segments.\n* **Asset Group Separation**: Never mix products. Group items by margin or average order value (AOV) to optimize budget efficiency.\n* **Creative Diversity**: A single video asset can shift a campaign's search-to-display conversion ratio by up to 40%.\n\n## 1. Structuring the Asset Groups\n\nMany media buyers make the mistake of dumping all their assets into a single group. This dilutes the message and leads to poor relevance scores. Here's our recommended setup:\n\n```txt\nAsset Group A: Best Sellers (High Margin)\nAsset Group B: Trendsetters (New Collections)\nAsset Group C: Clearance/Promotional\n```\n\n## 2. Advanced Optimization Hacks\n\nTo prevent PMax from bidding on your brand keywords, implement a brand exclusion list immediately in the campaign settings.",
+  "tags": ["Google Ads", "Strategy", "Media Buying"],
+  "category": "Google Ads Originals",
+  "author": {
+    "name": "Vedant Tiwari",
+    "role": "Growth Marketer",
+    "avatar": "/vedant_portrait.png"
+  },
+  "readingTime": "28 Min",
+  "publishDate": "2026-07-02",
+  "featured": true,
+  "views": 1540,
+  "difficulty": "Advanced"
+}
