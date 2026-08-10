@@ -258,15 +258,15 @@ export default function Home() {
               <div className="flex items-center gap-8">
                 <button
                   onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-                  className="flex items-center gap-3 text-2xl font-extrabold focus:outline-none cursor-pointer group"
+                  className="flex items-center gap-2.5 focus:outline-none cursor-pointer group shrink-0"
                 >
                   <img 
                     src="/logo-icon-exact.png" 
                     alt="VedantVerse" 
-                    className="w-9 h-9 rounded-lg border border-[#FF1A1A]/40 shadow-[0_0_12px_rgba(255,26,26,0.5)] group-hover:scale-105 group-hover:shadow-[0_0_18px_rgba(255,26,26,0.8)] transition-all duration-300 object-cover" 
+                    className="w-8 h-8 md:w-9 md:h-9 rounded-lg border border-[#E50914]/50 shadow-[0_0_14px_rgba(229,9,20,0.6)] group-hover:scale-105 group-hover:shadow-[0_0_20px_rgba(229,9,20,0.9)] transition-all duration-300 object-cover" 
                   />
-                  <span className="text-sm text-neutral-200 font-black uppercase tracking-[0.25em] font-sans hidden sm:inline group-hover:text-[#FF1A1A] transition-colors duration-300">
-                    VEDANT<span className="text-[#FF1A1A]">VERSE</span>
+                  <span className="text-xl md:text-2xl font-black uppercase tracking-wider text-[#E50914] drop-shadow-[0_0_14px_rgba(229,9,20,0.7)] group-hover:text-white transition-colors duration-300 leading-none">
+                    VEDANTVERSE
                   </span>
                 </button>
 
