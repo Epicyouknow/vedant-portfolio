@@ -8,6 +8,9 @@ interface PageProps {
   params: Promise<{ slug: string }>;
 }
 
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+
 // Generate static params for Next.js build optimization (ISR/SSG)
 export async function generateStaticParams() {
   const blogs = getAllBlogs();
