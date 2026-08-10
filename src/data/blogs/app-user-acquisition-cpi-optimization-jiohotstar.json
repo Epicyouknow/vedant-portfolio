@@ -1,0 +1,30 @@
+{
+  "title": "App User Acquisition Blueprint: Lowering Cost Per Install (CPI) using Google App Campaigns & JioHotstar Video Ads",
+  "slug": "app-user-acquisition-cpi-optimization-jiohotstar",
+  "coverImage": "/blog/app-user-acquisition.jpg",
+  "seoMeta": {
+    "title": "Google App Campaigns & JioHotstar CPI Optimization | VedantVerse Guide",
+    "description": "Blueprint for scaling app downloads at low CPI using Google Universal App Campaigns (UAC) and JioHotstar OTT video placements. Aligned with Koli Catch & ITD Software.",
+    "keywords": [
+      "Google App Campaigns CPI optimization",
+      "JioHotstar video ads app installs",
+      "user acquisition performance marketing",
+      "mobile app download scaling",
+      "Universal App Campaigns UAC"
+    ]
+  },
+  "summary": "Scaling mobile app installs requires balancing scale with cost efficiency. Combining Google Universal App Campaigns (UAC) with high-impact JioHotstar video placements drives mass downloads at optimized CPI.",
+  "content": "### The Mobile App Scaling Challenge\n\nPerformance marketers running mobile user acquisition campaigns often hit a wall: single-channel social campaigns suffer rapid ad fatigue, causing Cost Per Install (CPI) to surge while in-app activity declines.\n\nIn my work with **Koli Catch** (Mobile App User Acquisition) and **ITD Software**, combining Google App Campaigns with targeted OTT video advertising on JioHotstar unlocked mass reach at optimized CPI rates.\n\n---\n\n### The Dual-Channel App Growth Playbook\n\n1. **Google Universal App Campaigns (UAC)**: Feed UAC multi-size assets (landscape video, vertical video, HTML5 playables, text ideas) allowing Google Machine Learning to test combinations across Play Store, YouTube, Search, and Display.\n2. **In-App Event Bidding (tCPI & tCPA)**: Optimize for key post-install events (registration, first booking, account creation) rather than raw installs alone.\n3. **JioHotstar Video Placements**: Run non-skippable video ads targeting cricket, live sports, and regional entertainment audiences during high-traffic streaming events.\n4. **App Store Listing Optimization**: A/B test app screenshots, icon visuals, and short descriptions to increase store page install conversion rate.\n\n---\n\n### Proven Results: Koli Catch\n\nThis omnichannel approach for **Koli Catch** delivered a rapid surge in mobile app installs while maintaining tight CPI limits and strong post-install user retention.",
+  "tags": ["App Installs", "Google UAC", "JioHotstar", "User Acquisition", "Mobile Marketing"],
+  "category": "App Installs & User Acquisition",
+  "author": {
+    "name": "Vedant Tiwari",
+    "role": "Performance Marketing Executive",
+    "avatar": "/vedant_portrait.jpg"
+  },
+  "readingTime": "5 min read",
+  "publishDate": "2026-08-10",
+  "featured": false,
+  "views": 298,
+  "difficulty": "Intermediate"
+}

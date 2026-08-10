@@ -1,0 +1,30 @@
+{
+  "title": "Solving Meta Pixel Attribution Loss Post-iOS14: Implementing Server-Side Conversion API (CAPI) on Shopify",
+  "slug": "d2c-shopify-capi-meta-pixel-tracking",
+  "coverImage": "/blog/shopify-meta-capi.jpg",
+  "seoMeta": {
+    "title": "Fix Meta Pixel Attribution Loss with Shopify CAPI | VedantVerse Guide",
+    "description": "Learn how to restore unrecorded Shopify purchase conversions using Meta Conversion API (CAPI). Aligned with client case studies from Cutistic Gifts & TravelKitSR.",
+    "keywords": [
+      "Meta Conversion API setup Shopify",
+      "fix Meta Pixel attribution loss",
+      "iOS 14 Meta Ads attribution",
+      "D2C e-commerce ROAS scaling",
+      "Shopify Meta Pixel CAPI"
+    ]
+  },
+  "summary": "Browser-based Meta Pixel tracking misses up to 30% of purchase conversions due to iOS privacy blocks and ad blockers. Implementing server-side Conversion API (CAPI) restores attribution accuracy.",
+  "content": "### Why D2C E-Commerce Brands Lose Attribution Data\n\nSince iOS 14+ privacy updates and widespread ad-blocker adoption, browser-side client Meta Pixels fail to record a significant percentage of purchase events. For performance marketers, unrecorded purchases distort Ads Manager ROAS numbers, leading to incorrect scaling decisions.\n\nIn my e-commerce work with **Cutistic Gifts** (Customized Gifting & Shopify Sales) and **TravelKitSR** (Travel Accessories), setting up server-side conversion tracking was essential to scale ad spend profitably.\n\n---\n\n### The CAPI + Pixel Dual-Setup Framework\n\n1. **Server-Side CAPI Webhooks**: Connect Shopify backend webhooks directly to Meta's Graph API, sending encrypted purchase events (email, phone, transaction ID) independent of browser blockers.\n2. **Deduplication Event ID Matching**: Ensure browser `event_id` matches server `event_id` to prevent double-counting orders in Meta Ads Manager.\n3. **Event Quality Score (EQS)**: Optimize customer data parameter passing to achieve an Event Match Quality score above 8.0/10.\n4. **Dynamic Product Ads (DPA)**: Sync Shopify product catalogs with Advantage+ Catalog ads to retarget abandoned cart users with exact product recommendations.\n\n---\n\n### Real Impact: Cutistic Gifts & TravelKitSR\n\nBy executing this exact tracking setup for **Cutistic Gifts**, recorded purchase conversions increased dramatically, giving Meta's bidding algorithms the data required to scale profitable campaign spend during peak gifting seasons.",
+  "tags": ["Shopify", "Meta Ads", "Conversion API", "Attribution", "D2C E-Commerce"],
+  "category": "E-Commerce & Tracking",
+  "author": {
+    "name": "Vedant Tiwari",
+    "role": "Performance Marketing Executive",
+    "avatar": "/vedant_portrait.jpg"
+  },
+  "readingTime": "5 min read",
+  "publishDate": "2026-08-10",
+  "featured": false,
+  "views": 412,
+  "difficulty": "Advanced"
+}
