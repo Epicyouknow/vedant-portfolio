@@ -256,68 +256,64 @@ export const portfolioData: PortfolioData = {
     {
       id: "timeline-1",
       year: "May 2026 - Present",
-      role: "Performance Marketing Executive",
-      company: "ITD Growth Labs",
-      period: "Present",
-      description: "Plan, launch, and optimize paid advertising campaigns across Meta Ads and Google Ads with a focus on maximizing conversions, minimizing CPL, and achieving target ROAS for lead generation and brand growth mandates.",
+      role: "Performance Marketing Executive (Paid Ads)",
+      company: "ITD GrowthLabs",
+      period: "Present · 4 mos (Full-time)",
+      description: "Managing 15+ Logistics, D2C, and E-commerce brands across multiple industries.",
       points: [
-        "Develop and execute conversion-focused media strategies encompassing audience segmentation, creative testing, and funnel-specific campaign structuring across awareness, consideration, and conversion objectives.",
-        "Monitor and analyze campaign KPIs including CTR, CPC, CPL, CPA, and ROAS on a daily basis; identify underperformance trends and execute data-driven optimizations to improve campaign efficiency.",
-        "Collaborate cross-functionally with creative and strategy teams to develop high-performing ad creatives, refine messaging, and align campaign assets with brand communication objectives.",
-        "Implement UTM tracking frameworks and conversion tracking setups to ensure accurate performance attribution across all active campaigns and channels."
+        "Experienced in planning, executing, and optimizing campaigns across Google Ads, Meta Ads, LinkedIn Ads, Amazon Ads, Flipkart Ads, Zepto Ads, Blinkit Ads, Swiggy Instamart Ads, JioHotstar Self-Serve, and other biddable media platforms.",
+        "Skilled in lead generation, performance marketing, conversion tracking, GTM, GA4, media planning, campaign automation, and ROI optimization.",
+        "Also involved in website and app development projects, landing page creation, CRO, and end-to-end digital growth strategies."
       ],
-      tools: ["Meta Ads", "Google Ads", "UTM Tracking", "Conversion Tracking", "Funnel Structuring"],
-      lessons: "Full-funnel attribution and real-time optimization trends are essential to scale modern paid acquisitions."
+      tools: ["Google Ads", "Meta Ads", "LinkedIn Ads", "Amazon Ads", "Flipkart Ads", "Zepto Ads", "Blinkit Ads", "Swiggy Instamart Ads", "JioHotstar", "GA4", "GTM", "CRO"],
+      lessons: "Omnichannel paid ads execution with automated conversion tracking is key to scaling multi-industry accounts."
     },
     {
       id: "timeline-2",
-      year: "Mar 2025 - Apr 2026",
-      role: "Jr. Performance Marketing Executive",
+      year: "Apr 2025 - Apr 2026",
+      role: "Jr Performance Marketing Executive",
       company: "Mobligent Media",
-      period: "1 Year 2 Months",
-      description: "Promoted to full-time performance marketing role following consistent high performance during internship, managing an expanded portfolio of D2C and E-commerce brand campaigns across Meta, Google, Quick Commerce, and Marketplace platforms.",
+      period: "1 yr 1 mo (Full-time)",
+      description: "Developing media plans aligned with client objectives across Meta, Google, and other digital platforms.",
       points: [
-        "Independently planned, executed, and optimized paid media campaigns for multiple brand clients — driving measurable improvements in ROAS, conversion rates, and overall campaign profitability.",
-        "Managed advertising budgets totalling ₹12,0,000+ across platforms, applying strategic budget allocation and real-time pacing adjustments to maximize media efficiency and minimize waste.",
-        "Executed end-to-end Quick Commerce advertising campaigns on Zepto Ads, Blinkit Ads, and Instamart Ads to drive product visibility and sales uplift for FMCG and D2C brands.",
-        "Built and optimized Amazon Ads and Flipkart Ads campaigns including Sponsored Products, Sponsored Brands, and Sponsored Display formats to improve marketplace visibility and organic rank.",
-        "Designed and maintained weekly and monthly performance dashboards using Advanced Excel and Pivot Tables; delivered clear, actionable insights and campaign reports to clients and internal stakeholders.",
-        "Conducted A/B testing on ad creatives, audience segments, bidding strategies, and landing page combinations to continuously improve campaign performance metrics.",
-        "Coordinated with the creative team to provide structured ad creative briefs based on performance data, audience insights, and platform-specific best practices."
+        "Planned, launched, and managed cross-channel performance marketing campaigns on Meta Ads and Google Ads for D2C and service brand portfolios.",
+        "Formulated data-driven media plans aligned with client lead generation and acquisition targets.",
+        "Collaborated cross-functionally with creative and technical teams to optimize ad copy, audience segments, and CPL metrics."
       ],
-      tools: ["Meta Ads", "Google Ads", "Zepto Ads", "Blinkit Ads", "Amazon Ads", "Flipkart Ads", "Advanced Excel"],
-      lessons: "Cross-channel budget scaling requires strict pacing discipline and real-time attribution loops."
+      tools: ["Meta Ads", "Google Ads", "Media Planning", "Market Research", "Teamwork", "Conversion Optimization"],
+      lessons: "Precision media planning aligned with target client KPIs creates sustainable campaign profitability."
     },
     {
       id: "timeline-3",
-      year: "Oct 2024 - Mar 2025",
+      year: "Oct 2024 - Apr 2025",
       role: "Digital Marketing Intern",
       company: "Mobligent Media",
-      period: "6 Months",
-      description: "Assisted senior performance marketers in planning and executing paid media campaigns across Meta Ads and Google Ads, gaining hands-on experience in campaign setup, audience targeting, and creative deployment.",
+      period: "7 mos (Internship)",
+      description: "Gained hands-on experience in social media content creation, reel editing, lead generation, and performance reporting.",
       points: [
-        "Conducted in-depth audience research and competitor analysis to inform targeting strategies, ad copy directions, and campaign positioning for D2C and service-based brand clients.",
-        "Supported social media management and content strategy activities including content calendar planning, post scheduling, and platform-specific content optimization across Instagram, Facebook, and LinkedIn.",
-        "Analysed campaign performance metrics — CTR, CPC, CPM, CPA — and compiled daily and weekly performance reports to support optimization decision-making.",
-        "Contributed to UTM tracking setup and performance monitoring activities, developing foundational skills in digital analytics and conversion attribution methodologies."
+        "Gained experience in social media content creation to drive engagement.",
+        "Explored marketing strategies by working on real client campaigns.",
+        "Understood the process of lead generation through targeted digital efforts.",
+        "Edited and created reels for Mobligent and its parent company Mahila, enhancing their digital presence.",
+        "Learned to prepare performance reports and insights for reviews."
       ],
-      tools: ["Meta Ads", "Google Ads", "UTM Tracking", "Instagram", "Facebook", "LinkedIn"],
-      lessons: "Data hygiene in the setup phase is critical to downstream analytics and scaling decisions."
+      tools: ["Social Media", "Reel Editing", "Content Creation", "Lead Generation", "Performance Reporting"],
+      lessons: "Engaging visual content combined with consistent performance tracking builds brand authority."
     },
     {
       id: "timeline-4",
-      year: "Aug 2024 - Jan 2025",
-      role: "Freelance Digital Marketing Executive",
-      company: "Rishaan Media & Brand Buddies Media Pvt. Ltd.",
-      period: "6 Months",
-      description: "Independently managed end-to-end digital marketing campaigns for multiple brands across service, real estate, and lifestyle verticals — encompassing social media strategy, content creation, and paid media execution.",
+      year: "Aug 2024 - Oct 2024",
+      role: "Freelance Performance Marketer & Digital Strategist",
+      company: "Rishaan Media & Brand Buddies",
+      period: "Freelance Work",
+      description: "Independently executed digital marketing strategies, Meta/Google ad setups, and creative content campaigns for clients across Rishaan Media and Brand Buddies.",
       points: [
-        "Designed brand-aligned performance creatives and marketing collaterals using Canva; developed visual communication frameworks tailored to each brand's positioning and campaign objectives.",
-        "Created and managed social media content calendars, executing consistent multi-platform content strategies that improved brand engagement and community growth.",
-        "Delivered performance reporting and campaign insights to brand owners, contributing to campaign refinement and ongoing strategy improvement."
+        "Managed freelance performance marketing campaigns for service, real estate, and lifestyle clients under Rishaan Media.",
+        "Partnered with Brand Buddies on performance ad setups, creative brief design, and audience targeting.",
+        "Built lead generation funnels, social media content calendars, and visual ad assets using Canva."
       ],
-      tools: ["Canva", "Social Media", "Paid Media", "Content Calendars"],
-      lessons: "Visual storytelling paired with localized targeting is the fastest way to validate customer demand."
+      tools: ["Meta Ads", "Google Ads", "Canva", "Content Strategy", "Freelance Media Buying"],
+      lessons: "Agile creative iteration and direct-response ad copy accelerate early-stage campaign validation."
     }
   ],
   projects: [
