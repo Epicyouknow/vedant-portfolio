@@ -52,16 +52,19 @@ const ALL_BLOGS: BlogPost[] = [
 ];
 
 export function getAllBlogs(): BlogPost[] {
-  return [...ALL_BLOGS].sort(
+  return ALL_BLOGS.map((blog) => ({ ...blog, coverImage: '' })).sort(
     (a, b) => new Date(b.publishDate).getTime() - new Date(a.publishDate).getTime()
   );
 }
 
 export function getBlogBySlug(slug: string): BlogPost | null {
-  return ALL_BLOGS.find((blog) => blog.slug === slug) || null;
+  const blog = ALL_BLOGS.find((b) => b.slug === slug);
+  if (!blog) return null;
+  return { ...blog, coverImage: '' };
 }
 
 export function getFeaturedBlog(): BlogPost | null {
-  const featured = ALL_BLOGS.find((blog) => blog.featured);
-  return featured || ALL_BLOGS[0] || null;
+  const featured = ALL_BLOGS.find((blog) => blog.featured) || ALL_BLOGS[0] || null;
+  if (!featured) return null;
+  return { ...featured, coverImage: '' };
 }
