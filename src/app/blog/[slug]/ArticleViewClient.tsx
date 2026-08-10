@@ -211,28 +211,13 @@ export default function ArticleViewClient({ blog, allBlogs }: { blog: BlogPost; 
       {/* Header Navbar */}
       <header className="fixed top-0 left-0 right-0 h-16 md:h-20 bg-gradient-to-b from-black/95 via-black/50 to-transparent z-45 px-6 md:px-16 flex items-center justify-between backdrop-blur-[2px] border-b border-neutral-900/10">
         <div className="flex items-center gap-8">
-          <Link href="/" className="flex items-center gap-2.5 text-2xl font-extrabold text-[#E50914] focus:outline-none cursor-pointer group">
-            <svg className="w-8 h-8 overflow-visible filter drop-shadow-[0_0_8px_rgba(229,9,20,0.6)] group-hover:scale-105 group-hover:drop-shadow-[0_0_12px_rgba(229,9,20,0.85)] transition-all duration-300" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <defs>
-                <linearGradient id="vFacet1-blog-detail" x1="0" y1="0" x2="1" y2="1">
-                  <stop offset="0%" stopColor="#ff1e27" />
-                  <stop offset="100%" stopColor="#b20710" />
-                </linearGradient>
-                <linearGradient id="vFacet2-blog-detail" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stopColor="#e50914" />
-                  <stop offset="100%" stopColor="#600104" />
-                </linearGradient>
-                <linearGradient id="vFacet3-blog-detail" x1="1" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stopColor="#ff4148" />
-                  <stop offset="100%" stopColor="#800206" />
-                </linearGradient>
-              </defs>
-              <path d="M 20 15 L 42 15 L 50 85 L 35 85 Z" fill="url(#vFacet1-blog-detail)" />
-              <path d="M 42 15 L 50 15 L 50 85 Z" fill="url(#vFacet2-blog-detail)" opacity="0.9" />
-              <path d="M 50 85 L 50 15 L 58 15 L 80 15 L 65 85 Z" fill="url(#vFacet3-blog-detail)" />
-              <path d="M 50 85 L 50 15 L 58 15 Z" fill="url(#vFacet2-blog-detail)" opacity="0.6" />
-            </svg>
-            <span className="text-sm text-neutral-300 font-bold uppercase tracking-[0.25em] font-sans hidden sm:inline group-hover:text-white transition-colors duration-300">
+          <Link href="/" className="flex items-center gap-2 focus:outline-none cursor-pointer group shrink-0">
+            <img 
+              src="/logo-icon-exact.png" 
+              alt="VedantVerse" 
+              className="w-7 h-7 md:w-8 md:h-8 rounded-lg border border-[#E50914]/50 shadow-[0_0_10px_rgba(229,9,20,0.5)] group-hover:scale-105 group-hover:shadow-[0_0_16px_rgba(229,9,20,0.8)] transition-all duration-300 object-cover" 
+            />
+            <span className="text-sm md:text-base font-black uppercase tracking-widest text-[#E50914] drop-shadow-[0_0_10px_rgba(229,9,20,0.6)] group-hover:text-white transition-colors duration-300 leading-none font-sans">
               VEDANTVERSE
             </span>
           </Link>

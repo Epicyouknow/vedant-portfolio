@@ -1,5 +1,13 @@
-import fs from 'fs';
-import path from 'path';
+import appUserAcquisition from './app-user-acquisition-cpi-optimization-jiohotstar.json';
+import b2bLogistics from './b2b-logistics-cpl-reduction-search-intent.json';
+import creativeTesting from './creative-testing-framework-20.json';
+import d2cShopify from './d2c-shopify-capi-meta-pixel-tracking.json';
+import googleVerification from './google-ads-account-suspension-advertiser-verification-guide.json';
+import googlePmax from './google-ads-performance-max-guide.json';
+import metaAdvantage from './meta-advantage-plus-explained.json';
+import realEstateLeads from './real-estate-demand-gen-high-net-worth-buyer-leads.json';
+import searchAds2026 from './search-ads-in-2026.json';
+import seasonalCourier from './seasonal-festive-courier-ad-creative-matrix.json';
 
 export interface Author {
   name: string;
@@ -30,51 +38,30 @@ export interface BlogPost {
   difficulty?: 'Beginner' | 'Intermediate' | 'Advanced';
 }
 
-const blogsDirectory = path.join(process.cwd(), 'src/data/blogs');
-
-// Ensure the directory exists
-function ensureBlogsDirectory() {
-  if (!fs.existsSync(blogsDirectory)) {
-    fs.mkdirSync(blogsDirectory, { recursive: true });
-  }
-}
+const ALL_BLOGS: BlogPost[] = [
+  googlePmax as BlogPost,
+  googleVerification as BlogPost,
+  b2bLogistics as BlogPost,
+  d2cShopify as BlogPost,
+  realEstateLeads as BlogPost,
+  appUserAcquisition as BlogPost,
+  seasonalCourier as BlogPost,
+  metaAdvantage as BlogPost,
+  creativeTesting as BlogPost,
+  searchAds2026 as BlogPost,
+];
 
 export function getAllBlogs(): BlogPost[] {
-  ensureBlogsDirectory();
-  try {
-    const fileNames = fs.readdirSync(blogsDirectory);
-    const blogs: BlogPost[] = fileNames
-      .filter((fileName) => fileName.endsWith('.json'))
-      .map((fileName) => {
-        const filePath = path.join(blogsDirectory, fileName);
-        const fileContents = fs.readFileSync(filePath, 'utf8');
-        return JSON.parse(fileContents) as BlogPost;
-      });
-
-    // Sort by publication date desc
-    return blogs.sort((a, b) => new Date(b.publishDate).getTime() - new Date(a.publishDate).getTime());
-  } catch (error) {
-    console.error('Error reading blogs directory:', error);
-    return [];
-  }
+  return [...ALL_BLOGS].sort(
+    (a, b) => new Date(b.publishDate).getTime() - new Date(a.publishDate).getTime()
+  );
 }
 
 export function getBlogBySlug(slug: string): BlogPost | null {
-  ensureBlogsDirectory();
-  try {
-    const filePath = path.join(blogsDirectory, `${slug}.json`);
-    if (fs.existsSync(filePath)) {
-      const fileContents = fs.readFileSync(filePath, 'utf8');
-      return JSON.parse(fileContents) as BlogPost;
-    }
-  } catch (error) {
-    console.error(`Error reading blog by slug ${slug}:`, error);
-  }
-  return null;
+  return ALL_BLOGS.find((blog) => blog.slug === slug) || null;
 }
 
 export function getFeaturedBlog(): BlogPost | null {
-  const blogs = getAllBlogs();
-  const featured = blogs.find((blog) => blog.featured);
-  return featured || blogs[0] || null;
+  const featured = ALL_BLOGS.find((blog) => blog.featured);
+  return featured || ALL_BLOGS[0] || null;
 }
