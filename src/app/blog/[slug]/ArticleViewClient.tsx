@@ -476,16 +476,15 @@ export default function ArticleViewClient({ blog, allBlogs }: { blog: BlogPost; 
                   href={`/blog/${blog.slug}`}
                   className="flex flex-col gap-2 group cursor-pointer"
                 >
-                  <div className="relative aspect-[2/3] bg-neutral-900 rounded overflow-hidden border border-neutral-800 group-hover:border-white transition-all duration-300 shadow-lg">
-                    <img
-                      src={blog.coverImage || '/ref_image2.png'}
-                      alt={blog.title}
-                      className="w-full h-full object-cover"
-                    />
+                  <div className="relative aspect-[2/3] bg-gradient-to-br from-[#140b0d] via-[#09090c] to-[#050505] rounded p-3 border border-neutral-800 group-hover:border-[#E50914] transition-all duration-300 shadow-lg flex flex-col justify-between">
+                    <span className="text-[7px] font-mono text-[#E50914] bg-red-950/40 px-1.5 py-0.5 rounded uppercase font-bold self-start">
+                      {blog.category}
+                    </span>
+                    <h4 className="text-[10px] font-black text-white uppercase leading-snug tracking-tight font-sans line-clamp-3 my-auto group-hover:text-[#E50914] transition-colors">
+                      {blog.title}
+                    </h4>
+                    <span className="text-[7px] font-mono text-neutral-500">{blog.readingTime}</span>
                   </div>
-                  <h4 className="text-[10px] font-bold text-neutral-400 group-hover:text-white uppercase leading-tight line-clamp-2 transition-colors">
-                    {blog.title}
-                  </h4>
                 </Link>
               ))}
             </div>

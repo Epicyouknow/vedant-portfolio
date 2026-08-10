@@ -28,7 +28,7 @@ export default function AdminBlogCMS() {
   // Form Fields
   const [title, setTitle] = useState('');
   const [slug, setSlug] = useState('');
-  const [coverImage, setCoverImage] = useState('/ref_image2.png');
+  const [coverImage, setCoverImage] = useState('/blog/covers/pmax-guide.png');
   const [category, setCategory] = useState('Google Ads Originals');
   const [difficulty, setDifficulty] = useState<'Beginner' | 'Intermediate' | 'Advanced'>('Advanced');
   const [summary, setSummary] = useState('');
@@ -114,7 +114,7 @@ export default function AdminBlogCMS() {
     setEditingArticle(null);
     setTitle('');
     setSlug('');
-    setCoverImage('/ref_image2.png');
+    setCoverImage('/blog/covers/pmax-guide.png');
     setCategory('Google Ads Originals');
     setDifficulty('Advanced');
     setSummary('');
