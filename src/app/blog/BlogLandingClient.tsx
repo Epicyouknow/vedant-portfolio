@@ -18,19 +18,26 @@ function MoviePosterCard({ blog }: { blog: BlogPost }) {
       className="relative flex-shrink-0 w-[180px] sm:w-[220px] aspect-[2/3] rounded-md overflow-visible cursor-pointer z-10"
     >
       {/* Normal Poster View */}
-      <div className="absolute inset-0 bg-neutral-900 rounded-md overflow-hidden border border-neutral-800 transition-all duration-300">
-        <img
-          src={blog.coverImage || '/blog/covers/pmax-guide.png'}
-          alt={blog.title}
-          className="w-full h-full object-cover"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent flex flex-col justify-end p-3">
-          <span className="text-[8px] text-[#E50914] font-mono font-bold tracking-wider uppercase mb-1">
+      <div className="absolute inset-0 bg-gradient-to-br from-[#140b0d] via-[#09090c] to-[#050505] rounded-md overflow-hidden border border-neutral-800 hover:border-red-900/80 transition-all duration-300 p-4 flex flex-col justify-between shadow-xl">
+        <div className="flex items-center justify-between">
+          <span className="text-[8px] font-mono font-bold tracking-widest text-[#E50914] bg-red-950/40 px-2 py-0.5 border border-red-900/30 rounded uppercase">
             {blog.category}
           </span>
-          <h3 className="text-[11px] sm:text-xs font-black text-white line-clamp-2 uppercase leading-tight tracking-tight">
+          <span className="text-[8px] font-mono text-neutral-500">{blog.readingTime}</span>
+        </div>
+
+        <div className="my-auto">
+          <h3 className="text-xs font-extrabold text-white uppercase leading-snug tracking-tight font-sans group-hover:text-[#E50914] transition-colors">
             {blog.title}
           </h3>
+          <p className="text-[9px] text-neutral-400 font-light line-clamp-2 mt-1.5 leading-normal">
+            {blog.summary}
+          </p>
+        </div>
+
+        <div className="flex items-center justify-between border-t border-neutral-900/80 pt-2 text-[8px] font-mono text-neutral-500">
+          <span>{blog.difficulty || 'Advanced'}</span>
+          <span className="text-[#E50914] font-bold">READ ARTICLE →</span>
         </div>
       </div>
 
@@ -42,17 +49,17 @@ function MoviePosterCard({ blog }: { blog: BlogPost }) {
             animate={{ scale: 1.08, opacity: 1, y: -20 }}
             exit={{ scale: 0.95, opacity: 0, y: 10 }}
             transition={{ duration: 0.25, ease: 'easeOut' }}
-            className="absolute left-1/2 -translate-x-1/2 w-[240px] sm:w-[280px] bg-[#141414] border border-neutral-800 rounded-lg shadow-2xl overflow-hidden z-50 pointer-events-auto"
+            className="absolute left-1/2 -translate-x-1/2 w-[240px] sm:w-[280px] bg-[#0d0708] border border-red-900/50 rounded-lg shadow-2xl overflow-hidden z-50 pointer-events-auto"
             style={{ top: '10%' }}
           >
-            {/* Hover Header Image */}
-            <div className="relative h-[130px] w-full">
-              <img
-                src={blog.coverImage || '/blog/covers/pmax-guide.png'}
-                alt={blog.title}
-                className="w-full h-full object-cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#141414] to-transparent" />
+            {/* Hover Header */}
+            <div className="relative p-4 bg-gradient-to-b from-red-950/30 to-[#0d0708] border-b border-neutral-900">
+              <span className="text-[8px] font-mono font-bold tracking-wider text-[#E50914] uppercase block mb-1">
+                {blog.category}
+              </span>
+              <h4 className="text-xs font-black text-white uppercase leading-tight">
+                {blog.title}
+              </h4>
             </div>
 
             {/* Hover Details Panel */}
@@ -275,16 +282,8 @@ export default function BlogLandingClient({
         
         {/* Cinematic Featured Poster Section */}
         {initialFeatured && (
-          <div className="relative w-full h-[60vh] sm:h-[75vh] min-h-[450px] sm:min-h-[580px] bg-black overflow-hidden flex items-end">
-            <div className="absolute inset-0 z-0">
-              <img
-                src={initialFeatured.coverImage || '/blog/covers/pmax-guide.png'}
-                alt={initialFeatured.title}
-                className="w-full h-full object-cover brightness-[0.4] scale-105"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/40 to-transparent" />
-              <div className="absolute inset-0 bg-gradient-to-r from-[#050505] via-transparent to-[#050505]/20" />
-            </div>
+          <div className="relative w-full py-12 sm:py-20 bg-gradient-to-b from-[#0e0708] via-[#050505] to-[#050505] border-b border-neutral-900/60 overflow-hidden flex items-end">
+            <div className="absolute top-0 right-1/4 w-[600px] h-[400px] bg-red-950/20 rounded-full blur-[120px] pointer-events-none" />
 
             {/* Featured Info Container */}
             <div className="relative z-10 max-w-7xl mx-auto w-full px-6 md:px-16 pb-12 sm:pb-20 flex flex-col gap-4 text-left">

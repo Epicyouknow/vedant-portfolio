@@ -305,15 +305,8 @@ export default function ArticleViewClient({ blog, allBlogs }: { blog: BlogPost; 
         </div>
 
         {/* Cinematic Cover Banner */}
-        <div className="relative w-full h-[45vh] sm:h-[55vh] min-h-[380px] bg-black flex items-end">
-          <div className="absolute inset-0 z-0">
-            <img
-              src={blog.coverImage || '/blog/covers/pmax-guide.png'}
-              alt={blog.title}
-              className="w-full h-full object-cover brightness-[0.35]"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#050505] to-transparent" />
-          </div>
+        <div className="relative w-full py-12 sm:py-16 bg-gradient-to-b from-[#0e0708] via-[#050505] to-[#050505] border-b border-neutral-900/60 overflow-hidden flex items-end">
+          <div className="absolute top-0 right-1/4 w-[600px] h-[400px] bg-red-950/20 rounded-full blur-[120px] pointer-events-none" />
 
           <div className="relative z-10 max-w-7xl mx-auto w-full px-6 md:px-16 pb-12 flex flex-col gap-4 text-left">
             <div className="flex flex-wrap items-center gap-3">
