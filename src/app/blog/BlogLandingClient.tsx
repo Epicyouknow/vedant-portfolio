@@ -282,7 +282,10 @@ export default function BlogLandingClient({
         
         {/* Cinematic Featured Poster Section */}
         {initialFeatured && (
-          <div className="relative w-full py-12 sm:py-20 bg-gradient-to-b from-[#0e0708] via-[#050505] to-[#050505] border-b border-neutral-900/60 overflow-hidden flex items-end">
+          <div 
+            style={{ backgroundImage: 'none', backgroundColor: '#050505' }}
+            className="relative w-full py-12 sm:py-20 bg-gradient-to-b from-[#0e0708] via-[#050505] to-[#050505] border-b border-neutral-900/60 overflow-hidden flex items-end"
+          >
             <div className="absolute top-0 right-1/4 w-[600px] h-[400px] bg-red-950/20 rounded-full blur-[120px] pointer-events-none" />
 
             {/* Featured Info Container */}
