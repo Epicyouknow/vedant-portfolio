@@ -323,7 +323,7 @@ export default function ArticleViewClient({ blog, allBlogs }: { blog: BlogPost; 
         <div className="relative w-full h-[45vh] sm:h-[55vh] min-h-[380px] bg-black flex items-end">
           <div className="absolute inset-0 z-0">
             <img
-              src={blog.coverImage || '/blog/google-ads-verification.png'}
+              src={blog.coverImage || '/blog/covers/pmax-guide.png'}
               alt={blog.title}
               className="w-full h-full object-cover brightness-[0.35]"
             />

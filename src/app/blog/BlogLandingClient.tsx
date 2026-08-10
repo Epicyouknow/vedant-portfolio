@@ -20,7 +20,7 @@ function MoviePosterCard({ blog }: { blog: BlogPost }) {
       {/* Normal Poster View */}
       <div className="absolute inset-0 bg-neutral-900 rounded-md overflow-hidden border border-neutral-800 transition-all duration-300">
         <img
-          src={blog.coverImage || '/blog/google-ads-verification.png'}
+          src={blog.coverImage || '/blog/covers/pmax-guide.png'}
           alt={blog.title}
           className="w-full h-full object-cover"
         />
@@ -48,7 +48,7 @@ function MoviePosterCard({ blog }: { blog: BlogPost }) {
             {/* Hover Header Image */}
             <div className="relative h-[130px] w-full">
               <img
-                src={blog.coverImage || '/blog/google-ads-verification.png'}
+                src={blog.coverImage || '/blog/covers/pmax-guide.png'}
                 alt={blog.title}
                 className="w-full h-full object-cover"
               />
@@ -293,7 +293,7 @@ export default function BlogLandingClient({
           <div className="relative w-full h-[60vh] sm:h-[75vh] min-h-[450px] sm:min-h-[580px] bg-black overflow-hidden flex items-end">
             <div className="absolute inset-0 z-0">
               <img
-                src={initialFeatured.coverImage || '/blog/google-ads-verification.png'}
+                src={initialFeatured.coverImage || '/blog/covers/pmax-guide.png'}
                 alt={initialFeatured.title}
                 className="w-full h-full object-cover brightness-[0.4] scale-105"
               />

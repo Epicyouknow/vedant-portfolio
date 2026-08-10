@@ -1,7 +1,7 @@
 {
   "title": "Solving Meta Pixel Attribution Loss Post-iOS14: Implementing Server-Side Conversion API (CAPI) on Shopify",
   "slug": "d2c-shopify-capi-meta-pixel-tracking",
-  "coverImage": "/blog/shopify-meta-capi.png",
+  "coverImage": "/blog/covers/shopify-capi.png",
   "seoMeta": {
     "title": "Fix Meta Pixel Attribution Loss with Shopify CAPI | VedantVerse Guide",
     "description": "Learn how to restore unrecorded Shopify purchase conversions using Meta Conversion API (CAPI). Aligned with client case studies from Cutistic Gifts & TravelKitSR.",
