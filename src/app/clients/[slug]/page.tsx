@@ -1,6 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
+import { Metadata } from 'next';
 import { CLIENTS_DATA, ClientData } from '../../../data/clientsData';
 import { 
   ArrowLeft, 
@@ -25,6 +26,52 @@ export async function generateStaticParams() {
   return CLIENTS_DATA.map((client) => ({
     slug: client.slug,
   }));
+}
+
+export async function generateMetadata({ params }: ClientPageProps): Promise<Metadata> {
+  const resolvedParams = await params;
+  const client = CLIENTS_DATA.find((c) => c.slug === resolvedParams.slug);
+
+  if (!client) {
+    return {
+      title: 'Case Study Not Found | VedantVerse',
+    };
+  }
+
+  return {
+    title: `${client.name} Case Study | ${client.campaign} | VedantVerse`,
+    description: `Performance marketing case study for ${client.name} by Vedant Tiwari. Objective: ${client.objective}. Strategy: ${client.challenge} Platforms: ${client.platforms.join(', ')}.`,
+    keywords: [
+      `${client.name} performance marketing`,
+      `${client.name} case study`,
+      `${client.campaign}`,
+      'Vedant Tiwari case study',
+      'Performance Marketing Executive Mumbai',
+      ...client.platforms,
+    ],
+    metadataBase: new URL('https://vedantverse.in'),
+    alternates: {
+      canonical: `https://vedantverse.in/clients/${client.slug}`,
+    },
+    openGraph: {
+      title: `${client.name} Case Study - ${client.campaign} | VedantVerse`,
+      description: `Performance marketing strategy & growth results for ${client.name}. Objective: ${client.objective}.`,
+      url: `https://vedantverse.in/clients/${client.slug}`,
+      siteName: 'VedantVerse',
+      images: [
+        {
+          url: client.logo,
+          alt: `${client.name} Logo`,
+        },
+      ],
+      type: 'article',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `${client.name} Performance Case Study | VedantVerse`,
+      description: `Growth case study for ${client.name} by Vedant Tiwari.`,
+    },
+  };
 }
 
 export default async function ClientCaseStudyPage({ params }: ClientPageProps) {
@@ -148,8 +195,7 @@ export default async function ClientCaseStudyPage({ params }: ClientPageProps) {
           {/* THE APPROACH */}
           <div className="bg-[#0c0c10] border border-neutral-800/90 rounded-xl md:rounded-2xl p-5 md:p-6 shadow-xl">
             <div className="flex items-center gap-2 mb-3">
-              <Compass className="w-4 h-4 text-[#FF1A1A]" />
-              <h3 className="text-xs font-bold text-neutral-300 uppercase tracking-widest">THE STRATEGY & APPROACH</h3>
+              <Compass className="w-4 h-4 text-neutral-300 uppercase tracking-widest">THE STRATEGY & APPROACH</h3>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {client.approach.map((step, idx) => (

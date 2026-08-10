@@ -1,9 +1,17 @@
 import { MetadataRoute } from 'next';
+import { CLIENTS_DATA } from '../data/clientsData';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://vedantverse.in';
 
-  return [
+  const clientPages: MetadataRoute.Sitemap = CLIENTS_DATA.map((client) => ({
+    url: `${baseUrl}/clients/${client.slug}`,
+    lastModified: new Date(),
+    changeFrequency: 'weekly',
+    priority: 0.8,
+  }));
+
+  const staticPages: MetadataRoute.Sitemap = [
     {
       url: baseUrl,
       lastModified: new Date(),
@@ -35,4 +43,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.4,
     },
   ];
+
+  return [...staticPages, ...clientPages];
 }
