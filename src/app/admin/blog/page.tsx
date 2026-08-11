@@ -43,38 +43,34 @@ export default function AdminBlogCMS() {
   const [uploadError, setUploadError] = useState('');
   const [statusMessage, setStatusMessage] = useState('');
 
-  // Handle uploading cover image from user device
-  const handleDeviceImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  // Handle uploading cover image from user device via client-side FileReader
+  const handleDeviceImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
+
+    if (file.size > 5 * 1024 * 1024) {
+      setUploadError('File size exceeds 5MB limit.');
+      return;
+    }
 
     setUploadingImage(true);
     setUploadError('');
 
-    try {
-      const formData = new FormData();
-      formData.append('file', file);
-
-      const res = await fetch('/api/upload', {
-        method: 'POST',
-        body: formData,
-      });
-
-      const data = await res.json();
-
-      if (res.ok && data.url) {
-        setCoverImage(data.url);
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      const result = event.target?.result as string;
+      if (result) {
+        setCoverImage(result);
         setStatusMessage('Cover image uploaded from device successfully!');
         setTimeout(() => setStatusMessage(''), 4000);
-      } else {
-        setUploadError(data.message || 'Image upload failed.');
       }
-    } catch (err: any) {
-      console.error(err);
-      setUploadError('Network error uploading image from device.');
-    } finally {
       setUploadingImage(false);
-    }
+    };
+    reader.onerror = () => {
+      setUploadError('Failed to read image file from device.');
+      setUploadingImage(false);
+    };
+    reader.readAsDataURL(file);
   };
 
   // Fetch blogs list
