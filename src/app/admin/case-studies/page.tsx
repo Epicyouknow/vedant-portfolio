@@ -252,30 +252,76 @@ export default function AdminCaseStudiesCMS() {
     reader.readAsDataURL(file);
   };
 
-  // CSV Import Parser
-  const handleCsvSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
+  // CSV & Excel (.xlsx / .xls) Import Parser
+  const handleCsvOrExcelSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
     setCsvFile(file);
 
-    const reader = new FileReader();
-    reader.onload = (event) => {
-      const text = event.target?.result as string;
-      if (text) {
-        const lines = text.split('\n').filter((l) => l.trim());
-        if (lines.length > 1) {
-          const headers = lines[0].split(',').map((h) => h.trim().toLowerCase());
-          const firstRow = lines[1].split(',').map((r) => r.trim());
+    const isExcel = file.name.toLowerCase().endsWith('.xlsx') || file.name.toLowerCase().endsWith('.xls');
 
-          const previewMap: any = {};
-          headers.forEach((h, idx) => {
-            previewMap[h] = firstRow[idx] || '';
-          });
-          setCsvPreview([previewMap]);
+    if (isExcel) {
+      const reader = new FileReader();
+      reader.onload = async (event) => {
+        const buffer = event.target?.result as ArrayBuffer;
+        if (!buffer) return;
+
+        // Dynamically load SheetJS XLSX engine if not already present
+        if (!(window as any).XLSX) {
+          try {
+            await new Promise<void>((resolve, reject) => {
+              const script = document.createElement('script');
+              script.src = 'https://cdn.sheetjs.com/xlsx-0.20.1/package/dist/xlsx.full.min.js';
+              script.onload = () => resolve();
+              script.onerror = () => reject(new Error('Failed to load Excel parser engine.'));
+              document.head.appendChild(script);
+            });
+          } catch (err) {
+            setStatusMessage('Failed to load Excel engine. Please check internet connection.');
+            return;
+          }
         }
-      }
-    };
-    reader.readAsText(file);
+
+        try {
+          const XLSX = (window as any).XLSX;
+          const workbook = XLSX.read(buffer, { type: 'array' });
+          const sheetName = workbook.SheetNames[0];
+          const worksheet = workbook.Sheets[sheetName];
+          const json: any[] = XLSX.utils.sheet_to_json(worksheet, { defval: '' });
+
+          if (json && json.length > 0) {
+            const normalizedRow: any = {};
+            Object.entries(json[0]).forEach(([k, v]) => {
+              normalizedRow[k.toLowerCase().trim()] = v;
+            });
+            setCsvPreview([normalizedRow]);
+          }
+        } catch (err: any) {
+          console.error('Excel parse error:', err);
+          setStatusMessage('Failed to parse Excel worksheet. Try converting to CSV.');
+        }
+      };
+      reader.readAsArrayBuffer(file);
+    } else {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        const text = event.target?.result as string;
+        if (text) {
+          const lines = text.split('\n').filter((l) => l.trim());
+          if (lines.length > 1) {
+            const headers = lines[0].split(',').map((h) => h.trim().toLowerCase());
+            const firstRow = lines[1].split(',').map((r) => r.trim());
+
+            const previewMap: any = {};
+            headers.forEach((h, idx) => {
+              previewMap[h] = firstRow[idx] || '';
+            });
+            setCsvPreview([previewMap]);
+          }
+        }
+      };
+      reader.readAsText(file);
+    }
   };
 
   const applyCsvData = () => {
@@ -749,10 +795,15 @@ export default function AdminCaseStudiesCMS() {
                   ★ SECTION 03 — VERIFIED PERFORMANCE METRICS
                 </span>
 
-                <label className="flex items-center gap-2 px-3 py-1.5 bg-neutral-900 hover:bg-neutral-800 border border-neutral-800 text-neutral-300 text-xs font-mono rounded cursor-pointer">
-                  <FileSpreadsheet className="w-3.5 h-3.5 text-emerald-400" />
-                  <span>Import Campaign CSV</span>
-                  <input type="file" accept=".csv" onChange={handleCsvSelect} className="hidden" />
+                <label className="flex items-center gap-2 px-3.5 py-2 bg-neutral-900 hover:bg-neutral-800 border border-neutral-800 text-neutral-200 text-xs font-mono rounded cursor-pointer transition-colors shadow-md">
+                  <FileSpreadsheet className="w-4 h-4 text-emerald-400" />
+                  <span>Import Report (CSV / Excel .xlsx)</span>
+                  <input
+                    type="file"
+                    accept=".csv, .xlsx, .xls, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
+                    onChange={handleCsvOrExcelSelect}
+                    className="hidden"
+                  />
                 </label>
               </div>
 
