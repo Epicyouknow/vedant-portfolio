@@ -516,9 +516,170 @@ export default function ClientCaseStudyView({ study, otherStudies }: ClientCaseS
           </div>
         )}
 
+        {/* SECTION 13 — STRATEGY & AUDIT LEAD FORM */}
+        <div className="mt-14 mb-8 bg-[#09090e] border border-red-900/50 rounded-2xl p-6 md:p-10 shadow-2xl relative overflow-hidden">
+          <div className="absolute top-0 right-0 w-96 h-96 bg-red-950/20 blur-[130px] pointer-events-none rounded-full" />
+          <div className="absolute bottom-0 left-0 w-96 h-96 bg-red-900/10 blur-[130px] pointer-events-none rounded-full" />
+
+          <div className="relative z-10 max-w-3xl mx-auto text-center mb-8">
+            <div className="inline-flex items-center gap-2 px-3 py-1 bg-red-950/60 border border-red-800/50 rounded-full mb-3">
+              <span className="w-2 h-2 rounded-full bg-[#FF1A1A] animate-pulse" />
+              <span className="text-[10px] text-[#FF1A1A] font-bold uppercase tracking-[0.2em]">
+                SCALING STRATEGY & AD ACCOUNT AUDIT
+              </span>
+            </div>
+
+            <h2 className="text-2xl md:text-4xl font-black uppercase text-white tracking-tight font-sans">
+              Want Similar Growth Results For <span className="text-[#FF1A1A]">{study.name}</span> Or Your Brand?
+            </h2>
+            <p className="text-neutral-400 text-xs md:text-sm mt-2 max-w-xl mx-auto font-mono leading-relaxed">
+              Book a 1-on-1 performance marketing consultation or request a free ad account & conversion audit with Vedant Tiwari.
+            </p>
+          </div>
+
+          <CaseStudyLeadForm clientName={study.name} />
+        </div>
+
       </div>
 
       <CreditsFooter />
     </div>
+  );
+}
+
+function CaseStudyLeadForm({ clientName }: { clientName: string }) {
+  const [fullName, setFullName] = useState('');
+  const [contactInfo, setContactInfo] = useState('');
+  const [website, setWebsite] = useState('');
+  const [budget, setBudget] = useState('₹50K - ₹2L');
+  const [goal, setGoal] = useState('Lead Generation');
+  const [message, setMessage] = useState('');
+  const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+      setSubmitted(true);
+    }, 1000);
+  };
+
+  if (submitted) {
+    return (
+      <div className="relative z-10 bg-gradient-to-r from-red-950/40 via-neutral-950 to-neutral-950 border border-emerald-900/60 p-8 rounded-2xl text-center space-y-3 font-sans max-w-2xl mx-auto">
+        <div className="w-12 h-12 rounded-full bg-emerald-950 border border-emerald-800 text-emerald-400 flex items-center justify-center mx-auto text-xl font-bold">
+          ✓
+        </div>
+        <h3 className="text-xl font-black text-white uppercase tracking-tight">Strategy Inquiry Received!</h3>
+        <p className="text-neutral-300 text-xs font-mono leading-relaxed max-w-md mx-auto">
+          Thank you, <strong className="text-white">{fullName}</strong>! Your growth consultation request has been dispatched directly to Vedant. I will review your audit details and contact you via <strong className="text-white">{contactInfo}</strong> within 2 hours.
+        </p>
+        <button
+          onClick={() => setSubmitted(false)}
+          className="mt-4 px-4 py-2 bg-neutral-900 hover:bg-neutral-800 border border-neutral-800 text-neutral-400 text-xs font-mono uppercase rounded transition-colors"
+        >
+          Submit Another Request
+        </button>
+      </div>
+    );
+  }
+
+  return (
+    <form onSubmit={handleSubmit} className="relative z-10 max-w-3xl mx-auto space-y-4 font-sans text-left">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs font-mono">
+        <div className="flex flex-col gap-1.5">
+          <label className="text-neutral-400 font-bold uppercase tracking-wider text-[10px]">Your Name *</label>
+          <input
+            type="text"
+            placeholder="Vedant Tiwari"
+            value={fullName}
+            onChange={(e) => setFullName(e.target.value)}
+            className="px-4 py-3 bg-neutral-950/90 border border-neutral-800 rounded-xl text-white placeholder-neutral-600 focus:outline-none focus:border-[#FF1A1A] transition-colors"
+            required
+          />
+        </div>
+
+        <div className="flex flex-col gap-1.5">
+          <label className="text-neutral-400 font-bold uppercase tracking-wider text-[10px]">Email or WhatsApp Number *</label>
+          <input
+            type="text"
+            placeholder="name@company.com / +91..."
+            value={contactInfo}
+            onChange={(e) => setContactInfo(e.target.value)}
+            className="px-4 py-3 bg-neutral-950/90 border border-neutral-800 rounded-xl text-white placeholder-neutral-600 focus:outline-none focus:border-[#FF1A1A] transition-colors"
+            required
+          />
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs font-mono">
+        <div className="flex flex-col gap-1.5">
+          <label className="text-neutral-400 font-bold uppercase tracking-wider text-[10px]">Website / Brand URL</label>
+          <input
+            type="text"
+            placeholder="https://yourbrand.com"
+            value={website}
+            onChange={(e) => setWebsite(e.target.value)}
+            className="px-4 py-3 bg-neutral-950/90 border border-neutral-800 rounded-xl text-white placeholder-neutral-600 focus:outline-none focus:border-[#FF1A1A] transition-colors"
+          />
+        </div>
+
+        <div className="flex flex-col gap-1.5">
+          <label className="text-neutral-400 font-bold uppercase tracking-wider text-[10px]">Monthly Ad Spend Budget</label>
+          <select
+            value={budget}
+            onChange={(e) => setBudget(e.target.value)}
+            className="px-4 py-3 bg-neutral-950/90 border border-neutral-800 rounded-xl text-white focus:outline-none focus:border-[#FF1A1A] transition-colors"
+          >
+            <option value="₹50K - ₹2L">₹50K - ₹2L / month</option>
+            <option value="₹2L - ₹5L">₹2L - ₹5L / month</option>
+            <option value="₹5L - ₹15L">₹5L - ₹15L / month</option>
+            <option value="₹15L+">₹15L+ / month</option>
+          </select>
+        </div>
+
+        <div className="flex flex-col gap-1.5">
+          <label className="text-neutral-400 font-bold uppercase tracking-wider text-[10px]">Primary Goal</label>
+          <select
+            value={goal}
+            onChange={(e) => setGoal(e.target.value)}
+            className="px-4 py-3 bg-neutral-950/90 border border-neutral-800 rounded-xl text-white focus:outline-none focus:border-[#FF1A1A] transition-colors"
+          >
+            <option value="Lead Generation">Lead Generation</option>
+            <option value="E-Commerce Sales / ROAS">E-Commerce Sales / ROAS</option>
+            <option value="App Installs">App Installs & CPI</option>
+            <option value="Account Audit & Scaling">Account Audit & Scaling</option>
+          </select>
+        </div>
+      </div>
+
+      <div className="flex flex-col gap-1.5 text-xs font-mono">
+        <label className="text-neutral-400 font-bold uppercase tracking-wider text-[10px]">Project Brief / Campaign Goals</label>
+        <textarea
+          rows={3}
+          placeholder="Tell me about your current ad accounts, Target CPL/ROAS, or growth challenges..."
+          value={message}
+          onChange={(e) => setMessage(e.target.value)}
+          className="px-4 py-3 bg-neutral-950/90 border border-neutral-800 rounded-xl text-white placeholder-neutral-600 focus:outline-none focus:border-[#FF1A1A] transition-colors resize-none font-sans"
+        />
+      </div>
+
+      <button
+        type="submit"
+        disabled={loading}
+        className="w-full py-4 bg-[#FF1A1A] hover:bg-[#d90e0e] text-white font-black text-xs uppercase tracking-widest rounded-xl transition-all duration-300 shadow-[0_0_20px_rgba(255,26,26,0.4)] cursor-pointer flex items-center justify-center gap-2 font-mono"
+      >
+        {loading ? (
+          <span>DISPATCHING AUDIT REQUEST...</span>
+        ) : (
+          <>
+            <span>REQUEST PERFORMANCE AUDIT & STRATEGY CALL</span>
+            <span className="text-sm">🚀</span>
+          </>
+        )}
+      </button>
+    </form>
   );
 }
