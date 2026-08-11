@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Play, Plus, Trash2, Edit3, ArrowLeft, LogOut, CheckCircle, RefreshCw, Eye, Save } from 'lucide-react';
+import { Play, Plus, Trash2, Edit3, ArrowLeft, LogOut, CheckCircle, RefreshCw, Eye, Save, Upload, ImageIcon, Loader2 } from 'lucide-react';
 import ParticleBackground from '../../../components/ParticleBackground';
 
 interface BlogPostSummary {
@@ -39,7 +39,43 @@ export default function AdminBlogCMS() {
   const [seoKeywords, setSeoKeywords] = useState('google ads, pmax');
   const [featured, setFeatured] = useState(false);
 
+  const [uploadingImage, setUploadingImage] = useState(false);
+  const [uploadError, setUploadError] = useState('');
   const [statusMessage, setStatusMessage] = useState('');
+
+  // Handle uploading cover image from user device
+  const handleDeviceImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setUploadingImage(true);
+    setUploadError('');
+
+    try {
+      const formData = new FormData();
+      formData.append('file', file);
+
+      const res = await fetch('/api/upload', {
+        method: 'POST',
+        body: formData,
+      });
+
+      const data = await res.json();
+
+      if (res.ok && data.url) {
+        setCoverImage(data.url);
+        setStatusMessage('Cover image uploaded from device successfully!');
+        setTimeout(() => setStatusMessage(''), 4000);
+      } else {
+        setUploadError(data.message || 'Image upload failed.');
+      }
+    } catch (err: any) {
+      console.error(err);
+      setUploadError('Network error uploading image from device.');
+    } finally {
+      setUploadingImage(false);
+    }
+  };
 
   // Fetch blogs list
   const fetchArticles = async () => {
@@ -459,15 +495,67 @@ export default function AdminBlogCMS() {
                 </div>
               </div>
 
-              <div className="flex flex-col gap-1.5">
-                <label className="text-[10px] text-neutral-500 uppercase tracking-widest font-mono font-bold">Cover Image URL</label>
+              <div className="flex flex-col gap-2 bg-[#0b0b0b] border border-neutral-900 rounded-lg p-3.5">
+                <div className="flex items-center justify-between">
+                  <label className="text-[10px] text-neutral-400 uppercase tracking-widest font-mono font-bold flex items-center gap-1.5">
+                    <ImageIcon className="w-3.5 h-3.5 text-[#E50914]" />
+                    Cover Image
+                  </label>
+                  <label className="flex items-center gap-2 cursor-pointer bg-neutral-900 hover:bg-[#E50914] text-neutral-300 hover:text-white font-mono text-[11px] font-bold px-3 py-1.5 rounded border border-neutral-800 transition-colors shadow-sm">
+                    {uploadingImage ? (
+                      <>
+                        <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                        Uploading...
+                      </>
+                    ) : (
+                      <>
+                        <Upload className="w-3.5 h-3.5 text-[#E50914] group-hover:text-white" />
+                        UPLOAD FROM DEVICE
+                      </>
+                    )}
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={handleDeviceImageUpload}
+                      disabled={uploadingImage}
+                      className="hidden"
+                    />
+                  </label>
+                </div>
+
                 <input
                   type="text"
+                  placeholder="/blog/covers/my-cover.png or https://..."
                   value={coverImage}
                   onChange={(e) => setCoverImage(e.target.value)}
-                  className="px-4 py-3 bg-[#0a0a0a] border border-neutral-800 rounded-lg text-xs font-mono text-white focus:outline-none focus:border-[#E50914]/80 transition-colors"
+                  className="px-3 py-2 bg-black border border-neutral-800 rounded text-xs font-mono text-white focus:outline-none focus:border-[#E50914]/80 transition-colors"
                   required
                 />
+
+                {uploadError && (
+                  <p className="text-[10px] text-red-500 font-mono mt-0.5">{uploadError}</p>
+                )}
+
+                {/* Cover Image Preview */}
+                {coverImage && (
+                  <div className="mt-1.5 flex items-center gap-3 bg-black/60 p-2 rounded border border-neutral-900">
+                    <div className="w-16 h-10 rounded overflow-hidden bg-neutral-900 flex-shrink-0 border border-neutral-800 relative">
+                      <img
+                        src={coverImage}
+                        alt="Cover Preview"
+                        className="w-full h-full object-cover"
+                        onError={(e) => {
+                          (e.target as HTMLElement).style.display = 'none';
+                        }}
+                      />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <p className="text-[10px] font-mono text-neutral-400 truncate">
+                        Preview: <span className="text-white">{coverImage}</span>
+                      </p>
+                    </div>
+                  </div>
+                )}
               </div>
 
               <div className="flex flex-col gap-1.5">
