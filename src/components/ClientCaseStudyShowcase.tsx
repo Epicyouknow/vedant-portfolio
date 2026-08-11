@@ -25,7 +25,12 @@ export default function ClientCaseStudyShowcase() {
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [selectedRecord, setSelectedRecord] = useState<ClientData | null>(null);
 
-  const filteredRecords = CLIENTS_DATA.filter((item) => {
+  // Filter out TravelKitSR and Daakiyawala as per prompt specifications
+  const validClients = CLIENTS_DATA.filter(
+    (c) => c.slug !== 'travelkitsr' && c.slug !== 'daakiyawala'
+  );
+
+  const filteredRecords = validClients.filter((item) => {
     const matchesFilter = activeFilter === 'all' || item.category === activeFilter;
     const matchesSearch = 
       item.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -82,7 +87,7 @@ export default function ClientCaseStudyShowcase() {
                 : 'bg-neutral-900/80 text-neutral-400 hover:text-white border border-neutral-800'
             }`}
           >
-            All Clients ({CLIENTS_DATA.length})
+            All Clients ({validClients.length})
           </button>
           <button
             onClick={() => setActiveFilter('logistics')}

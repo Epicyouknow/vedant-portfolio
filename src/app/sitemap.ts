@@ -1,13 +1,13 @@
 import { MetadataRoute } from 'next';
-import { CLIENTS_DATA } from '../data/clientsData';
+import { getAllCaseStudies } from '../lib/caseStudyStorage';
 import { getAllBlogs } from '../data/blogs';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://vedantverse.in';
 
-  const clientPages: MetadataRoute.Sitemap = CLIENTS_DATA.map((client) => ({
+  const clientPages: MetadataRoute.Sitemap = getAllCaseStudies().map((client) => ({
     url: `${baseUrl}/clients/${client.slug}`,
-    lastModified: new Date(),
+    lastModified: new Date(client.updatedAt || Date.now()),
     changeFrequency: 'weekly',
     priority: 0.8,
   }));
