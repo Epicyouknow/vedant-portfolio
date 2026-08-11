@@ -35,6 +35,8 @@ const nextConfig: NextConfig = {
             key: 'Vercel-CDN-Cache-Control',
             value: 'no-store',
           },
+        ],
+      },
       {
         source: '/admin/:path*',
         headers: [
