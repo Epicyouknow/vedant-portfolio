@@ -33,7 +33,7 @@ export default function CreditsFooter() {
     const handleMouseMove = (e: MouseEvent) => {
       mouseX = e.clientX;
       mouseY = e.clientY;
-      
+
       // Instantly position the central red dot
       dot.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0)`;
     };
@@ -56,10 +56,10 @@ export default function CreditsFooter() {
     // Scaling effect on hovering clickable items
     const handleMouseOver = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
-      const isClickable = 
-        target.tagName === 'BUTTON' || 
-        target.tagName === 'A' || 
-        target.closest('a') || 
+      const isClickable =
+        target.tagName === 'BUTTON' ||
+        target.tagName === 'A' ||
+        target.closest('a') ||
         target.closest('button') ||
         target.classList.contains('cursor-pointer');
 
@@ -95,7 +95,7 @@ export default function CreditsFooter() {
 
   return (
     <footer id="credits-footer" className="bg-[#000000] border-t border-neutral-900 pt-20 pb-8 px-6 md:px-16 relative overflow-hidden select-none">
-      
+
       {/* Custom Cursor DOM nodes */}
       <div ref={cursorDotRef} className="custom-cursor z-50 pointer-events-none fixed top-0 left-0" />
       <div ref={cursorGlowRef} className="custom-cursor-glow z-50 pointer-events-none fixed top-0 left-0" />
@@ -104,10 +104,10 @@ export default function CreditsFooter() {
       <div className="ambient-light-red bottom-0 left-10" style={{ opacity: 0.03 }} />
 
       <div className="max-w-6xl mx-auto">
-        
+
         {/* Upper Grid: Contact Info Panels */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-10 pb-16 border-b border-neutral-900">
-          
+
           <div className="space-y-4">
             <div className="space-y-1">
               <h3 className="text-xl font-black text-[#E50914] tracking-wider uppercase" style={{ fontFamily: 'var(--netflix-title-font)' }}>
@@ -125,7 +125,7 @@ export default function CreditsFooter() {
           <div>
             <h4 className="text-xs font-bold text-neutral-400 uppercase tracking-widest mb-4">Ad Spend Enquiries</h4>
             <div className="space-y-3">
-              <a 
+              <a
                 href={`mailto:${portfolioData.personal.email}`}
                 onClick={() => trackEvent('contact_click', { type: 'email' })}
                 className="flex items-center gap-2.5 text-xs text-neutral-400 hover:text-white transition-colors"
@@ -133,7 +133,7 @@ export default function CreditsFooter() {
                 <Mail className="w-4 h-4 text-[#E50914]" />
                 {portfolioData.personal.email}
               </a>
-              <a 
+              <a
                 href={`tel:${portfolioData.personal.phone}`}
                 onClick={() => trackEvent('contact_click', { type: 'phone' })}
                 className="flex items-center gap-2.5 text-xs text-neutral-400 hover:text-white transition-colors"
@@ -147,14 +147,14 @@ export default function CreditsFooter() {
           <div>
             <h4 className="text-xs font-bold text-neutral-400 uppercase tracking-widest mb-4">Channels</h4>
             <div className="space-y-3">
-              <a 
+              <a
                 href={portfolioData.personal.linkedin}
                 target="_blank"
                 rel="noreferrer"
                 onClick={() => trackEvent('linkedin_click')}
                 className="flex items-center gap-2.5 text-xs text-neutral-400 hover:text-white transition-colors">
                 <svg className="w-4 h-4 fill-current text-[#E50914]" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                  <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
                 </svg>
                 LinkedIn Profile
               </a>
@@ -183,7 +183,7 @@ export default function CreditsFooter() {
           <span className="text-[10px] text-neutral-600 uppercase tracking-[0.3em] font-bold block mb-4">
             Production Credits
           </span>
-          
+
           <div className="grid grid-cols-2 gap-x-8 gap-y-6 text-xs leading-relaxed">
             <div className="text-right">
               <span className="text-neutral-500 uppercase block tracking-wider text-[9px] font-bold">Directed By</span>
@@ -196,20 +196,20 @@ export default function CreditsFooter() {
 
             <div className="text-right">
               <span className="text-neutral-500 uppercase block tracking-wider text-[9px] font-bold">Growth Strategy</span>
-              <span className="text-neutral-200 font-extrabold">THE ROAS ALCHEMIST</span>
+              <span className="text-neutral-200 font-extrabold">VEDANT TIWARI</span>
             </div>
             <div className="text-left">
               <span className="text-neutral-500 uppercase block tracking-wider text-[9px] font-bold">Digital Commander</span>
-              <span className="text-neutral-200 font-extrabold">MEDIA COMMANDER</span>
+              <span className="text-neutral-200 font-extrabold">VEDANT TIWARI</span>
             </div>
 
             <div className="text-right">
               <span className="text-neutral-500 uppercase block tracking-wider text-[9px] font-bold">Special Thanks</span>
-              <span className="text-neutral-200 font-extrabold">COFFEE & CODING CONCEPTS</span>
+              <span className="text-neutral-200 font-extrabold">VEDANT TIWARI</span>
             </div>
             <div className="text-left">
               <span className="text-neutral-500 uppercase block tracking-wider text-[9px] font-bold">Cast</span>
-              <span className="text-neutral-200 font-extrabold">RECRUITERS, CLIENTS, YOU</span>
+              <span className="text-neutral-200 font-extrabold">VEDANT TIWARI</span>
             </div>
           </div>
 
