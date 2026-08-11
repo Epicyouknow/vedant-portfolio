@@ -20,7 +20,7 @@ import {
   ShieldCheck
 } from 'lucide-react';
 import ParticleBackground from '../../../components/ParticleBackground';
-import { ClientCaseStudy, VerificationStatus, CaseStudyStatus, StrategyBlock, CampaignSnapshot, MetricComparison } from '../../../lib/caseStudyStorage';
+import { ClientCaseStudy, VerificationStatus, CaseStudyStatus, StrategyBlock, CampaignSnapshot, MetricComparison } from '../../../types/caseStudy';
 
 export default function AdminCaseStudiesCMS() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);

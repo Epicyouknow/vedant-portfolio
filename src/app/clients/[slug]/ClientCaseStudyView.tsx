@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ClientCaseStudy, calculatePercentageChange } from '../../../lib/caseStudyStorage';
+import { ClientCaseStudy, calculatePercentageChange } from '../../../types/caseStudy';
 import { 
   ArrowLeft, 
   ExternalLink, 
