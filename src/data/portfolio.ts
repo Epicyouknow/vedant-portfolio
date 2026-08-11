@@ -134,7 +134,7 @@ export const portfolioData: PortfolioData = {
     email: "tiwarivedant705@gmail.com",
     phone: "816372383",
     linkedin: "https://www.linkedin.com/in/vedant-tiwarii",
-    resumeUrl: "https://docs.google.com/document/d/12P9AWWqzvAVxaXoW0IBKjojWK5Jzog2wSPqzaNrnH7s/edit?usp=sharing",
+    resumeUrl: "/Vedant_Tiwari_Resume.pdf",
     about: "I am a high-impact Performance Marketing Executive and Media Planner based in Mumbai. I specialize in designing and executing cross-channel media strategies, managing significant budgets, and engineering data pipelines that turn clicks into measurable growth."
   },
   stats: {

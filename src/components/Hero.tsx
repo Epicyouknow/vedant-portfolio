@@ -348,6 +348,7 @@ export default function Hero() {
               href={portfolioData.personal.resumeUrl}
               target="_blank"
               rel="noreferrer"
+              download="Vedant_Shivanand_Tiwari_Resume.pdf"
               onClick={() => trackEvent('resume_download')}
               className="flex items-center gap-2.5 bg-transparent text-[#E50914] border border-[#E50914]/40 hover:border-[#E50914] hover:bg-[#E50914]/5 font-bold text-xs px-7 py-4 rounded active:scale-95 transition-all duration-200 cursor-pointer text-center"
             >
