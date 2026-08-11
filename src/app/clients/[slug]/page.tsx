@@ -195,7 +195,8 @@ export default async function ClientCaseStudyPage({ params }: ClientPageProps) {
           {/* THE APPROACH */}
           <div className="bg-[#0c0c10] border border-neutral-800/90 rounded-xl md:rounded-2xl p-5 md:p-6 shadow-xl">
             <div className="flex items-center gap-2 mb-3">
-              <Compass className="w-4 h-4 text-neutral-300 uppercase tracking-widest">THE STRATEGY & APPROACH</h3>
+              <Compass className="w-4 h-4 text-[#FF1A1A]" />
+              <h3 className="text-xs font-bold text-neutral-300 uppercase tracking-widest">THE STRATEGY & APPROACH</h3>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {client.approach.map((step, idx) => (
