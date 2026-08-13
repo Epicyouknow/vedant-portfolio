@@ -60,7 +60,7 @@ function AnimatedCounter({ value, duration = 1.8 }: { value: string; duration?: 
   }, [target, duration]);
 
   return (
-    <span ref={ref} className="font-mono inline-block tracking-tight">
+    <span ref={ref} className="font-sans inline-block tracking-tight font-black">
       {prefix}
       {current}
       {suffix}

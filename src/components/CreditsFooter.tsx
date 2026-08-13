@@ -106,23 +106,10 @@ export default function CreditsFooter() {
       <div className="max-w-6xl mx-auto">
 
         {/* Upper Grid: Contact Info Panels */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-10 pb-16 border-b border-neutral-900">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 md:gap-10 pb-16 border-b border-neutral-900">
 
-          <div className="space-y-4">
-            <div className="space-y-1">
-              <h3 className="text-xl font-black text-[#E50914] tracking-wider uppercase" style={{ fontFamily: 'var(--netflix-title-font)' }}>
-                VEDANTVERSE
-              </h3>
-              <p className="text-[9px] font-bold text-neutral-500 uppercase tracking-widest">
-                Strategy <span className="text-[#E50914]">•</span> Media <span className="text-[#E50914]">•</span> Performance
-              </p>
-            </div>
-            <p className="text-xs text-neutral-400 font-light leading-relaxed">
-              Turning Data Into Growth. Mumbai-based growth marketer specializing in ROAS scaling, media plans, and technical tags.
-            </p>
-          </div>
-
-          <div>
+          {/* Ad Spend Enquiries - Front/Top on mobile */}
+          <div className="order-1 md:order-2">
             <h4 className="text-xs font-bold text-neutral-400 uppercase tracking-widest mb-4">Ad Spend Enquiries</h4>
             <div className="space-y-3">
               <a
@@ -144,7 +131,8 @@ export default function CreditsFooter() {
             </div>
           </div>
 
-          <div>
+          {/* Channels - Front/Top on mobile */}
+          <div className="order-2 md:order-3">
             <h4 className="text-xs font-bold text-neutral-400 uppercase tracking-widest mb-4">Channels</h4>
             <div className="space-y-3">
               <a
@@ -165,8 +153,23 @@ export default function CreditsFooter() {
             </div>
           </div>
 
+          {/* VEDANTVERSE Bio */}
+          <div className="order-3 md:order-1 space-y-4">
+            <div className="space-y-1">
+              <h3 className="text-xl font-black text-[#E50914] tracking-wider uppercase" style={{ fontFamily: 'var(--netflix-title-font)' }}>
+                VEDANTVERSE
+              </h3>
+              <p className="text-[9px] font-bold text-neutral-500 uppercase tracking-widest">
+                Strategy <span className="text-[#E50914]">•</span> Media <span className="text-[#E50914]">•</span> Performance
+              </p>
+            </div>
+            <p className="text-xs text-neutral-400 font-light leading-relaxed">
+              Turning Data Into Growth. Mumbai-based growth marketer specializing in ROAS scaling, media plans, and technical tags.
+            </p>
+          </div>
+
           {/* Return to top */}
-          <div className="flex flex-col items-start md:items-end justify-center">
+          <div className="order-4 flex flex-col items-start md:items-end justify-center">
             <button
               onClick={scrollToTop}
               className="p-3 bg-neutral-900 border border-neutral-800 text-neutral-400 hover:text-white hover:border-[#E50914] rounded-lg cursor-pointer transition-all active:scale-95 flex items-center gap-2 text-xs font-semibold uppercase tracking-wider"

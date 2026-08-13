@@ -13,7 +13,7 @@ export default function PrivacyPolicy() {
       <div className="absolute bottom-1/4 right-1/4 w-[350px] h-[350px] rounded-full bg-red-600/5 blur-[120px] pointer-events-none" />
 
       {/* Header / Navbar */}
-      <header className="sticky top-0 h-16 md:h-20 bg-black/90 backdrop-blur-md border-b border-neutral-900/50 z-40 px-6 md:px-16 flex items-center justify-between">
+      <header className="sticky top-0 h-16 md:h-20 bg-black/30 backdrop-blur-md border-b border-neutral-800/40 shadow-lg shadow-black/30 z-40 px-6 md:px-16 flex items-center justify-between transition-all duration-300">
         <Link
           href="/"
           className="flex items-center gap-2 text-xs font-bold text-neutral-400 hover:text-white uppercase tracking-widest transition-colors duration-300"

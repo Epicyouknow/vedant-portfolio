@@ -170,6 +170,15 @@ export default function BlogLandingClient({
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedDifficulty, setSelectedDifficulty] = useState<string>('All');
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   // Filter logic
   const filteredBlogs = useMemo(() => {
@@ -200,7 +209,11 @@ export default function BlogLandingClient({
       <div className="noise-overlay" />
 
       {/* Header Navbar */}
-      <header className="fixed top-0 left-0 right-0 h-16 md:h-20 bg-gradient-to-b from-black/95 via-black/50 to-transparent z-40 px-6 md:px-16 flex items-center justify-between backdrop-blur-[2px] border-b border-neutral-900/10">
+      <header className={`fixed top-0 left-0 right-0 h-16 md:h-20 z-40 px-6 md:px-16 flex items-center justify-between transition-all duration-300 border-b ${
+        isScrolled 
+          ? 'bg-black/30 backdrop-blur-md border-neutral-800/40 shadow-lg shadow-black/30' 
+          : 'bg-gradient-to-b from-black/80 via-black/30 to-transparent backdrop-blur-none border-transparent'
+      }`}>
         <div className="flex items-center gap-8">
           <Link href="/" className="flex items-center gap-2 focus:outline-none cursor-pointer group shrink-0">
             <img 

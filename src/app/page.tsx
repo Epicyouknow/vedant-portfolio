@@ -12,7 +12,6 @@ import CareerMap from '../components/CareerMap'; // Upgraded metro journey
 import WorkShowcase from '../components/WorkShowcase';
 import Certifications from '../components/Certifications';
 import SkillsGalaxy from '../components/SkillsGalaxy'; // Upgraded skills galaxy
-import JarvisCommandCenter from '../components/JarvisCommandCenter'; // Jarvis command center
 import MarketingLab from '../components/MarketingLab'; // Simulation sandbox
 import DashboardReplicas from '../components/DashboardReplicas'; // Ads manager mockups
 import VedantAI from '../components/VedantAI'; // Vedant GPT
@@ -126,7 +125,7 @@ export default function Home() {
   useEffect(() => {
     if (showIntro) return;
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
+      setIsScrolled(window.scrollY > 20);
     };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
@@ -137,7 +136,6 @@ export default function Home() {
     if (showIntro) return;
 
     const sections = [
-      'command-center',
       'career-universe',
       'career-map',
       'campaign-dashboards',
@@ -252,8 +250,8 @@ export default function Home() {
             {/* Netflix Header Navbar */}
             <header className={`fixed top-0 left-0 right-0 h-16 md:h-20 z-40 px-6 md:px-16 flex items-center justify-between transition-all duration-300 border-b ${
               isScrolled 
-                ? 'bg-black/95 backdrop-blur-md border-neutral-900 shadow-lg shadow-black/40' 
-                : 'bg-gradient-to-b from-black/95 via-black/50 to-transparent backdrop-blur-[2px] border-neutral-900/10'
+                ? 'bg-black/30 backdrop-blur-md border-neutral-800/40 shadow-lg shadow-black/30' 
+                : 'bg-gradient-to-b from-black/80 via-black/30 to-transparent backdrop-blur-none border-transparent'
             }`}>
               <div className="flex items-center gap-8">
                 <button
@@ -271,10 +269,6 @@ export default function Home() {
                 </button>
 
                 <nav className="hidden lg:flex items-center gap-6 text-xs text-neutral-400 font-semibold tracking-wider">
-                  <button onClick={() => scrollSection('command-center')} className={`hover:text-white cursor-pointer uppercase transition-colors relative ${activeSection === 'command-center' ? 'text-[#E50914] font-black' : ''}`}>
-                    HUD
-                    {activeSection === 'command-center' && <span className="absolute bottom-[-8px] left-1/2 -translate-x-1/2 w-1.5 h-1.5 bg-[#E50914] rounded-full" />}
-                  </button>
                   <button onClick={() => scrollSection('career-universe')} className={`hover:text-white cursor-pointer uppercase transition-colors relative ${activeSection === 'career-universe' ? 'text-[#E50914] font-black' : ''}`}>
                     Universe
                     {activeSection === 'career-universe' && <span className="absolute bottom-[-8px] left-1/2 -translate-x-1/2 w-1.5 h-1.5 bg-[#E50914] rounded-full" />}
@@ -399,17 +393,6 @@ export default function Home() {
                       {/* Mobile Nav Links */}
                       <div className="flex flex-col gap-4">
                         <span className="text-[10px] text-neutral-600 uppercase tracking-widest font-bold font-mono">Navigation</span>
-                        <button
-                          onClick={() => {
-                            scrollSection('command-center');
-                            setMobileMenuOpen(false);
-                          }}
-                          className={`text-left font-semibold text-xs uppercase cursor-pointer transition-colors ${
-                            activeSection === 'command-center' ? 'text-[#E50914] font-black' : 'text-neutral-300 hover:text-white'
-                          }`}
-                        >
-                          HUD (Command Center)
-                        </button>
                         <button
                           onClick={() => {
                             scrollSection('career-universe');
@@ -543,7 +526,6 @@ export default function Home() {
                 <>
                   <Hero />
                   <BrandsMarquee />
-                  <JarvisCommandCenter />
                   <ClientCaseStudyShowcase />
                   <VelocityMarquee />
                   <CareerUniverse />
@@ -560,7 +542,6 @@ export default function Home() {
                 <div className="space-y-4">
                   {/* Recruiter Optimized Layout (condenses timeline and statistics maps) */}
                   <Hero />
-                  <JarvisCommandCenter />
                   <SkillsGalaxy />
                   <Certifications />
                   <CareerMap />
@@ -573,7 +554,6 @@ export default function Home() {
                   <Hero />
                   <BrandsMarquee />
                   <ClientCaseStudyShowcase />
-                  <JarvisCommandCenter />
                   <WorkShowcase />
                   <MarketingLab />
                   <DashboardReplicas />

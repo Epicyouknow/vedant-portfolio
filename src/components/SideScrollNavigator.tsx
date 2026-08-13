@@ -11,7 +11,6 @@ interface NavNode {
 }
 
 const navNodes: NavNode[] = [
-  { id: 'command-center', label: 'HUD', icon: <Shield className="w-3.5 h-3.5" /> },
   { id: 'career-universe', label: 'Universe', icon: <Sparkles className="w-3.5 h-3.5" /> },
   { id: 'career-map', label: 'Map', icon: <MapPin className="w-3.5 h-3.5" /> },
   { id: 'campaign-dashboards', label: 'Dashboards', icon: <BarChart3 className="w-3.5 h-3.5" /> },
@@ -22,7 +21,7 @@ const navNodes: NavNode[] = [
 
 export default function SideScrollNavigator() {
   const [scrollProgress, setScrollProgress] = useState(0);
-  const [activeSection, setActiveSection] = useState('command-center');
+  const [activeSection, setActiveSection] = useState('career-universe');
   const [hoveredNode, setHoveredNode] = useState<string | null>(null);
 
   useEffect(() => {
