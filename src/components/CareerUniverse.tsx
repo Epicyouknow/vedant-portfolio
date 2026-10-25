@@ -300,7 +300,7 @@ export default function CareerUniverse() {
                   </div>
                   <div>
                     <span className="text-neutral-600 block uppercase font-bold tracking-wider mb-1">Series Length</span>
-                    <span className="text-white font-medium">1.5+ Years Experience</span>
+                    <span className="text-white font-medium">3+ Years Experience</span>
                   </div>
                   <div>
                     <span className="text-neutral-600 block uppercase font-bold tracking-wider mb-1">Base Location</span>

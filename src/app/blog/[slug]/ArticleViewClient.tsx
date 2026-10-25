@@ -376,7 +376,7 @@ export default function ArticleViewClient({ blog, allBlogs }: { blog: BlogPost; 
                     {blog.author.name}
                   </h4>
                   <p className="text-xs text-neutral-400 font-mono">
-                    {blog.author.role} • 1.5+ Years Experience
+                    {blog.author.role} • 3+ Years Experience
                   </p>
                   <p className="text-xs text-neutral-500 font-light leading-relaxed">
                     I design, audit, and scale search & social ad campaigns for eCommerce brands. I help leverage high-margin performance marketing strategies to build sustainable digital growth.

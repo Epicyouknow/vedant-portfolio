@@ -21,7 +21,7 @@ const butcherman = Butcherman({
 
 export const metadata: Metadata = {
   title: "Vedant Tiwari | Senior Performance Marketing Executive & Media Planner | VedantVerse",
-  description: "Official portfolio of Vedant Tiwari — Performance Marketing Executive, Media Planner, and Growth Strategist based in Mumbai. Specialized in scaling ROAS, managing ₹18L+ ad budgets across Meta Ads, Google Ads, DV360, CM360, GA4, and JioHotstar.",
+  description: "Official portfolio of Vedant Tiwari — Performance Marketing Executive, Media Planner, and Growth Strategist based in Mumbai. Specialized in scaling ROAS, managing ₹50L+ ad budgets across Meta Ads, Google Ads, DV360, CM360, GA4, and JioHotstar.",
   keywords: [
     "Vedant Tiwari",
     "VedantVerse",

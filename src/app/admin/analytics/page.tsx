@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
   Lock, Unlock, RefreshCw, LogOut, Users, Download, Phone, 
@@ -65,7 +66,11 @@ export default function AdminAnalytics() {
     const activePin = pin || sessionStorage.getItem('admin_pin') || '';
     if (!confirm('Are you sure you want to delete this inquiry?')) return;
     try {
-      const res = await fetch(`/api/inquiries?pin=${activePin}&index=${index}`, {
+      const inq = inquiries[index];
+      const deleteUrl = inq?.id 
+        ? `/api/inquiries?pin=${activePin}&id=${inq.id}`
+        : `/api/inquiries?pin=${activePin}&index=${index}`;
+      const res = await fetch(deleteUrl, {
         method: 'DELETE'
       });
       if (res.ok) {
@@ -260,6 +265,14 @@ export default function AdminAnalytics() {
           </div>
 
           <div className="flex items-center gap-3">
+            <Link
+              href="/admin/crm"
+              className="flex items-center gap-2 px-4 py-2 border border-red-900/40 hover:border-[#E50914] bg-red-950/20 text-[#E50914] hover:text-white text-xs font-bold uppercase tracking-wider transition-all duration-200 cursor-pointer rounded-md active:scale-95"
+            >
+              <MessageSquare className="w-4 h-4" />
+              CRM Pipeline
+            </Link>
+
             <button
               onClick={refreshData}
               disabled={isRefreshing}
@@ -457,6 +470,12 @@ export default function AdminAnalytics() {
               <MessageSquare className="w-5 h-5 text-[#E50914]" />
               <h2 className="text-sm font-black uppercase tracking-wider">Incoming Campaign Enquiries ({inquiries.length})</h2>
             </div>
+            <Link
+              href="/admin/crm"
+              className="text-[#E50914] hover:text-white text-xs font-mono font-bold flex items-center gap-1 transition-colors"
+            >
+              Open Full CRM Pipeline →
+            </Link>
           </div>
 
           {loadingInquiries ? (

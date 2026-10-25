@@ -11,6 +11,7 @@ export default function ContactForm() {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
+    phone: '',
     budget: '',
     message: ''
   });
@@ -58,7 +59,7 @@ export default function ContactForm() {
       if (res.ok) {
         setStatus('success');
         trackEvent('form_submit_success', { budget: formData.budget });
-        setFormData({ name: '', email: '', budget: '', message: '' });
+        setFormData({ name: '', email: '', phone: '', budget: '', message: '' });
       } else {
         const data = await res.json();
         setErrorMessage(data.error || 'Something went wrong. Please try again.');
@@ -135,7 +136,7 @@ export default function ContactForm() {
                   </motion.div>
                 )}
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
                   {/* Name field */}
                   <div className="space-y-2">
                     <label htmlFor="name" className="text-[10px] font-bold text-neutral-400 uppercase tracking-widest block font-mono">
@@ -168,6 +169,23 @@ export default function ContactForm() {
                       onChange={handleChange}
                       disabled={status === 'loading'}
                       placeholder="e.g. john@company.com"
+                      className="w-full bg-neutral-900/60 border border-neutral-800/80 rounded-lg px-4 py-3 text-xs text-white placeholder-neutral-600 focus:outline-none focus:border-[#E50914] focus:ring-1 focus:ring-[#E50914]/25 transition-all duration-300"
+                    />
+                  </div>
+
+                  {/* Phone / WhatsApp field */}
+                  <div className="space-y-2">
+                    <label htmlFor="phone" className="text-[10px] font-bold text-neutral-400 uppercase tracking-widest block font-mono">
+                      Phone / WhatsApp <span className="text-neutral-500 font-normal lowercase">(optional)</span>
+                    </label>
+                    <input
+                      type="tel"
+                      id="phone"
+                      name="phone"
+                      value={formData.phone}
+                      onChange={handleChange}
+                      disabled={status === 'loading'}
+                      placeholder="e.g. +91 98765 43210"
                       className="w-full bg-neutral-900/60 border border-neutral-800/80 rounded-lg px-4 py-3 text-xs text-white placeholder-neutral-600 focus:outline-none focus:border-[#E50914] focus:ring-1 focus:ring-[#E50914]/25 transition-all duration-300"
                     />
                   </div>

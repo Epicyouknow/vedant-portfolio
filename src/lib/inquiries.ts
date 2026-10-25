@@ -1,15 +1,38 @@
 import fs from 'fs';
 import path from 'path';
 
+export type InquiryStatus = 'new' | 'contacted' | 'in_discussion' | 'converted' | 'archived';
+
 export interface Inquiry {
+  id: string;
   name: string;
   email: string;
+  phone?: string;
   budget: string;
   message: string;
   timestamp: string; // ISO string
+  status: InquiryStatus;
+  notes?: string;
+  starred?: boolean;
 }
 
 const dbPath = path.join(process.cwd(), 'inquiries.json');
+
+// Ensure an inquiry has an id and valid status (backwards-compatibility migration)
+function normalizeInquiry(item: any, index: number): Inquiry {
+  return {
+    id: item.id || `inq_${new Date(item.timestamp || Date.now()).getTime()}_${index}`,
+    name: item.name || 'Anonymous',
+    email: item.email || '',
+    phone: item.phone || '',
+    budget: item.budget || 'Not specified',
+    message: item.message || '',
+    timestamp: item.timestamp || new Date().toISOString(),
+    status: item.status || 'new',
+    notes: item.notes || '',
+    starred: Boolean(item.starred)
+  };
+}
 
 // Load inquiries from Vercel KV or local fallback
 export async function loadInquiries(): Promise<Inquiry[]> {
@@ -27,7 +50,8 @@ export async function loadInquiries(): Promise<Inquiry[]> {
       if (res.ok) {
         const json = await res.json();
         if (json && json.result) {
-          return JSON.parse(json.result) as Inquiry[];
+          const raw = JSON.parse(json.result) as any[];
+          return raw.map(normalizeInquiry);
         }
       }
     } catch (err) {
@@ -42,7 +66,8 @@ export async function loadInquiries(): Promise<Inquiry[]> {
       return initial;
     }
     const data = fs.readFileSync(dbPath, 'utf-8');
-    return JSON.parse(data) as Inquiry[];
+    const raw = JSON.parse(data) as any[];
+    return raw.map(normalizeInquiry);
   } catch (err) {
     console.error('Error loading inquiries database:', err);
     return [];
@@ -80,22 +105,75 @@ export async function saveInquiries(data: Inquiry[]): Promise<void> {
   }
 }
 
-// Add a single inquiry
-export async function saveInquiry(record: Omit<Inquiry, 'timestamp'>): Promise<void> {
+// Add a single inquiry and return the full saved record
+export async function saveInquiry(
+  record: Omit<Inquiry, 'id' | 'timestamp' | 'status'> & { id?: string; status?: InquiryStatus }
+): Promise<Inquiry> {
   const inquiries = await loadInquiries();
   const newInquiry: Inquiry = {
-    ...record,
+    id: record.id || `inq_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`,
+    name: record.name,
+    email: record.email,
+    phone: record.phone || '',
+    budget: record.budget || 'Not specified',
+    message: record.message,
     timestamp: new Date().toISOString(),
+    status: record.status || 'new',
+    notes: record.notes || '',
+    starred: Boolean(record.starred)
   };
   inquiries.push(newInquiry);
   await saveInquiries(inquiries);
+  return newInquiry;
 }
 
-// Delete an inquiry by index
-export async function deleteInquiry(index: number): Promise<void> {
+// Update an existing inquiry (e.g. status, notes, starred)
+export async function updateInquiry(
+  id: string,
+  updates: Partial<Pick<Inquiry, 'status' | 'notes' | 'starred'>>
+): Promise<Inquiry | null> {
   const inquiries = await loadInquiries();
-  if (index >= 0 && index < inquiries.length) {
-    inquiries.splice(index, 1);
-    await saveInquiries(inquiries);
+  const index = inquiries.findIndex(i => i.id === id);
+  if (index === -1) {
+    return null;
   }
+
+  inquiries[index] = {
+    ...inquiries[index],
+    ...updates
+  };
+
+  await saveInquiries(inquiries);
+  return inquiries[index];
+}
+
+// Delete an inquiry by ID or by legacy index
+export async function deleteInquiry(idOrIndex: string | number): Promise<boolean> {
+  const inquiries = await loadInquiries();
+
+  if (typeof idOrIndex === 'number') {
+    if (idOrIndex >= 0 && idOrIndex < inquiries.length) {
+      inquiries.splice(idOrIndex, 1);
+      await saveInquiries(inquiries);
+      return true;
+    }
+    return false;
+  }
+
+  const initialLength = inquiries.length;
+  const filtered = inquiries.filter(i => i.id !== idOrIndex);
+  if (filtered.length !== initialLength) {
+    await saveInquiries(filtered);
+    return true;
+  }
+
+  // If not found by id, maybe it's a numeric index as string
+  const num = parseInt(idOrIndex, 10);
+  if (!isNaN(num) && num >= 0 && num < inquiries.length) {
+    inquiries.splice(num, 1);
+    await saveInquiries(inquiries);
+    return true;
+  }
+
+  return false;
 }
