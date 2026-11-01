@@ -1,0 +1,49 @@
+[
+  {
+    "id": "log-1",
+    "action": "Published Bellissima by Excel Case Study",
+    "category": "publishing",
+    "targetType": "case-study",
+    "targetId": "bellissima-by-excel",
+    "targetTitle": "Bellissima by Excel",
+    "user": "Vedant Tiwari",
+    "userEmail": "vedant@vedantverse.com",
+    "userRole": "Owner",
+    "timestamp": "2026-11-01T14:35:53.572Z",
+    "details": "Updated verified CPL drop (-42%) and compliance recovery metrics."
+  },
+  {
+    "id": "log-2",
+    "action": "Updated Homepage Hero copy",
+    "category": "content",
+    "targetType": "homepage",
+    "targetTitle": "Homepage Hero",
+    "user": "Vedant Tiwari",
+    "userEmail": "vedant@vedantverse.com",
+    "userRole": "Owner",
+    "timestamp": "2026-11-01T14:05:53.572Z",
+    "details": "Synchronized editorial hero statement with Creative Studio theme."
+  },
+  {
+    "id": "log-3",
+    "action": "User Session Login",
+    "category": "access",
+    "targetType": "auth",
+    "user": "Vedant Tiwari",
+    "userEmail": "vedant@vedantverse.com",
+    "userRole": "Owner",
+    "timestamp": "2026-11-01T12:50:53.572Z",
+    "details": "Authenticated via Command Centre security token."
+  },
+  {
+    "id": "log-4",
+    "action": "System Build & Static Regeneration",
+    "category": "system",
+    "targetType": "system",
+    "user": "System Bot",
+    "userEmail": "system@vedantverse.in",
+    "userRole": "System",
+    "timestamp": "2026-11-01T11:50:53.572Z",
+    "details": "Turbopack build completed successfully with 57 static routes."
+  }
+]
