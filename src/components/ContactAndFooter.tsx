@@ -290,9 +290,14 @@ export default function ContactAndFooter() {
             </div>
             <ul className="space-y-2.5 text-xs text-[#A9A69F]">
               <li>
-                <a href="#featured-work" className="hover:text-white transition-colors">
+                <a href="#case-study-cards" className="hover:text-white transition-colors">
                   Work
                 </a>
+              </li>
+              <li>
+                <Link href="/case-studies" className="hover:text-white transition-colors">
+                  All Case Studies (17+)
+                </Link>
               </li>
               <li>
                 <a href="#growth-process" className="hover:text-white transition-colors">

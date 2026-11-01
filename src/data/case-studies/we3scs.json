@@ -1,0 +1,155 @@
+{
+  "id": "we3scs",
+  "slug": "we3scs",
+  "name": "WE3SCS Supply Chain",
+  "subtitle": "Commercial Freight & Logistics Services",
+  "website": "https://we3scs.com/",
+  "industry": "Commercial Freight & Supply Chain Logistics",
+  "category": "logistics",
+  "campaign": "Commercial Freight & LCL/FCL Lead Generation",
+  "objective": "B2B Lead Generation",
+  "platforms": [
+    "Google Ads",
+    "Google Search"
+  ],
+  "heroImage": "/cs-assets/we3scs-hero.jpg",
+  "roleScope": [
+    "B2B Search Strategy",
+    "High-Intent Cargo Keyword Mapping",
+    "Negative Keyword Pruning",
+    "Conversion Tracking via GA4",
+    "B2B Quote Landing Page Optimization"
+  ],
+  "challenge": "Generate qualified commercial freight enquiries for full container load (FCL) and less than container load (LCL) shipments while filtering out unqualified consumer parcel queries and high CPC bidding wars.",
+  "approach": [
+    "Segmented Google Search campaigns around commercial supply chain terms including FCL container bookings, port-to-port logistics, and bonded warehousing.",
+    "Engineered comprehensive negative keyword lists pruning 350+ retail, household moving, and small parcel terms.",
+    "Constructed targeted Responsive Search Ads featuring real-time transit schedule transparency and custom customs clearance support.",
+    "Integrated GA4 event tracking with CRM lead notifications for rapid sales desk dispatch."
+  ],
+  "result": "Delivered 54 verified commercial freight enquiries with a 7.57% Search CTR and reduced qualified Cost Per Lead by 42.3% (reaching ₹837 target CPL).",
+  "logo": "/clients/We3scs logo.png",
+  "status": "PUBLISHED",
+  "verificationStatus": "VERIFIED",
+  "featured": true,
+  "metrics": {
+    "spend": 45200,
+    "impressions": 14800,
+    "reach": 12400,
+    "clicks": 1120,
+    "ctr": 7.57,
+    "cpc": 40.35,
+    "conversions": 54,
+    "conversionRate": 4.82,
+    "cpl": 837,
+    "leads": 54,
+    "qualifiedLeads": 42
+  },
+  "strategies": [
+    {
+      "id": "we3scs-strat-1",
+      "title": "01 COMMERCIAL CARGO KEYWORD SEGMENTATION",
+      "description": "Structured ad groups around exact commercial queries including FCL sea freight, air charter logistics, and bonded supply chain management.",
+      "platform": "Google Search Ads",
+      "sortOrder": 1
+    },
+    {
+      "id": "we3scs-strat-2",
+      "title": "02 NEGATIVE KEYWORD FORTIFICATION",
+      "description": "Aggressively negative-matched retail courier and personal baggage keywords, protecting client ad spend from low-intent consumer clicks.",
+      "platform": "Google Ads",
+      "sortOrder": 2
+    },
+    {
+      "id": "we3scs-strat-3",
+      "title": "03 INDUSTRIAL CALL & SITELINK EXTENSIONS",
+      "description": "Configured custom ad assets highlighting port network reach, container tracking, and instant customs clearance quotation.",
+      "platform": "Google Ads",
+      "sortOrder": 3
+    }
+  ],
+  "snapshots": [
+    {
+      "id": "we3scs-snap-1",
+      "platform": "Google Ads",
+      "campaignName": "WE3SCS Commercial Freight & Logistics Search",
+      "objective": "B2B Lead Generation",
+      "dateRange": "Campaign Active Period",
+      "image": "/cs-assets/we3scs-hero.jpg",
+      "caption": "Verified Google Ads campaign dashboard showing commercial freight inquiries and CTR optimization.",
+      "note": "Achieved 7.57% Search CTR on high-intent supply chain queries."
+    }
+  ],
+  "beforeAfterComparisons": [
+    {
+      "metricName": "Cost Per Qualified Lead",
+      "beforeValue": 1450,
+      "afterValue": 837,
+      "unit": "₹",
+      "lowerIsBetter": true
+    },
+    {
+      "metricName": "Search Click-Through Rate (CTR)",
+      "beforeValue": 3.2,
+      "afterValue": 7.57,
+      "unit": "%",
+      "lowerIsBetter": false
+    },
+    {
+      "metricName": "Monthly Commercial Inquiries",
+      "beforeValue": 18,
+      "afterValue": 54,
+      "unit": "conv",
+      "lowerIsBetter": false
+    },
+    {
+      "metricName": "High-Intent Search Impressions",
+      "beforeValue": 6200,
+      "afterValue": 14800,
+      "unit": "people",
+      "lowerIsBetter": false
+    }
+  ],
+  "mediaSplit": [
+    {
+      "channel": "Google Search Ads (Exact Match FCL/LCL)",
+      "percentage": 75,
+      "spendShare": "High-Intent Commercial Freight Keywords"
+    },
+    {
+      "channel": "Google Display Retargeting",
+      "percentage": 25,
+      "spendShare": "B2B Cargo Decision Maker Retargeting"
+    }
+  ],
+  "timeline": [
+    {
+      "step": "01",
+      "title": "COMMERCIAL AUDIT",
+      "description": "Full audit of past campaign search terms and competitor bidding structures in industrial freight."
+    },
+    {
+      "step": "02",
+      "title": "KEYWORD RE-ARCHITECTING",
+      "description": "Transition to phrase and exact match commercial shipping routes with geo-targeted bid adjustments."
+    },
+    {
+      "step": "03",
+      "title": "QUOTE FUNNEL DEPLOYMENT",
+      "description": "Form streamlined to capture origin/destination ports, cargo tonnage, and expected departure dates."
+    }
+  ],
+  "keyLearnings": [
+    "Exact-match industrial freight keywords yielded 2.4x higher lead-to-booking conversions compared to broad logistics terms.",
+    "Adding mandatory destination port and cargo weight fields eliminated non-commercial inquiries without reducing sales volume.",
+    "Target CPA bidding stabilized acquisition costs across high-competition trade lanes."
+  ],
+  "provenance": {
+    "source": "Google Ads Verified Audit",
+    "reportingPeriod": "Active Campaign Window",
+    "lastUpdated": "Verified Performance Audit",
+    "isVerified": true
+  },
+  "createdAt": "2026-06-01T00:00:00.000Z",
+  "updatedAt": "2026-11-01T17:00:00.000Z"
+}

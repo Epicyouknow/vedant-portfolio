@@ -1,0 +1,155 @@
+{
+  "id": "kaizen-realty",
+  "slug": "kaizen-realty",
+  "name": "Kaizen Realty",
+  "subtitle": "Real Estate & Property Marketing",
+  "website": "https://www.kaizenrealty.co/",
+  "industry": "Premium Real Estate Marketing",
+  "category": "realestate-app",
+  "campaign": "Demand Gen & Property Buyer Acquisition",
+  "objective": "Lead Generation & Site Visits",
+  "platforms": [
+    "Meta Ads",
+    "Google Ads"
+  ],
+  "heroImage": "/cs-assets/kaizen-hero.jpg",
+  "roleScope": [
+    "Omnichannel Media Strategy",
+    "High-Intent Property Buyer Profiling",
+    "Demand Gen & Carousel Creative Testing",
+    "Pre-Qualified Lead Form Funnel",
+    "CRM Lead Routing & Verification"
+  ],
+  "challenge": "Acquire qualified luxury real estate buyers and schedule on-site property walkthrough visits in a highly crowded urban real estate market with high lead acquisition costs.",
+  "approach": [
+    "Designed multi-tier Google Demand Gen campaigns combining cinematic lifestyle renderings with floor plan transparency.",
+    "Targeted high-net-worth demographic clusters with custom affinity audiences and in-market property search intent.",
+    "Integrated a two-step lead verification form capturing verified budget ranges and expected move-in timelines.",
+    "Configured instant WhatsApp and CRM alerts enabling property advisors to contact hot inquiries within 5 minutes of submission."
+  ],
+  "result": "Generated 84 verified property buyer consultations, reduced Cost Per Qualified Lead by 45.7% (to ₹624), and tripled site visit attendance from 12% to 36%.",
+  "logo": "/clients/Kaizen arc logo.png",
+  "status": "PUBLISHED",
+  "verificationStatus": "VERIFIED",
+  "featured": true,
+  "metrics": {
+    "spend": 52400,
+    "impressions": 38500,
+    "reach": 29200,
+    "clicks": 2140,
+    "ctr": 5.56,
+    "cpc": 24.48,
+    "conversions": 84,
+    "conversionRate": 3.93,
+    "cpl": 624,
+    "leads": 84,
+    "qualifiedLeads": 68
+  },
+  "strategies": [
+    {
+      "id": "kaizen-strat-1",
+      "title": "01 GOOGLE DEMAND GEN CAMPAIGNS",
+      "description": "Deployed YouTube Shorts and Discover feed ads pairing architectural video walkthroughs with localized geo-fencing.",
+      "platform": "Google Ads",
+      "sortOrder": 1
+    },
+    {
+      "id": "kaizen-strat-2",
+      "title": "02 CAROUSEL AMENITY TESTING",
+      "description": "Tested carousel creative formats showcasing clubhouses, private balconies, and smart home automation vs. generic building exterior renderings.",
+      "platform": "Meta Ads",
+      "sortOrder": 2
+    },
+    {
+      "id": "kaizen-strat-3",
+      "title": "03 BUDGET-QUALIFIED LEAD FORMS",
+      "description": "Filtered out casual inquiries with mandatory budget brackets, lifting site-visit show-up rate to 36%.",
+      "platform": "Meta Ads + CRM",
+      "sortOrder": 3
+    }
+  ],
+  "snapshots": [
+    {
+      "id": "kaizen-snap-1",
+      "platform": "Meta Ads",
+      "campaignName": "Kaizen Realty Buyer Acquisition & Site Visit Campaign",
+      "objective": "Lead Generation",
+      "dateRange": "Campaign Active Period",
+      "image": "/cs-assets/kaizen-hero.jpg",
+      "caption": "High-aesthetic property creative featuring interior layout and verified consultation bookings.",
+      "note": "Generated 84 verified consultations with 36% site visit show-up rate."
+    }
+  ],
+  "beforeAfterComparisons": [
+    {
+      "metricName": "Cost Per Qualified Lead",
+      "beforeValue": 1150,
+      "afterValue": 624,
+      "unit": "₹",
+      "lowerIsBetter": true
+    },
+    {
+      "metricName": "Site Visit Show-Up Rate",
+      "beforeValue": 12,
+      "afterValue": 36,
+      "unit": "%",
+      "lowerIsBetter": false
+    },
+    {
+      "metricName": "Verified Buyer Consultations",
+      "beforeValue": 24,
+      "afterValue": 84,
+      "unit": "conv",
+      "lowerIsBetter": false
+    },
+    {
+      "metricName": "High-Intent Reach",
+      "beforeValue": 14000,
+      "afterValue": 29200,
+      "unit": "people",
+      "lowerIsBetter": false
+    }
+  ],
+  "mediaSplit": [
+    {
+      "channel": "Meta Ads (Walkthrough Reels & Carousels)",
+      "percentage": 60,
+      "spendShare": "Affluent Demographics & In-Market Buyers"
+    },
+    {
+      "channel": "Google Demand Gen & Search Ads",
+      "percentage": 40,
+      "spendShare": "High-Intent Property Search & Video Discovery"
+    }
+  ],
+  "timeline": [
+    {
+      "step": "01",
+      "title": "AUDIENCE DISCOVERY",
+      "description": "Geo-fencing affluent residential pin codes and custom intent audiences looking at residential real estate."
+    },
+    {
+      "step": "02",
+      "title": "CREATIVE PRODUCTION",
+      "description": "Creating lifestyle carousel sets and short video previews of sample residences."
+    },
+    {
+      "step": "03",
+      "title": "TWO-STEP QUALIFICATION",
+      "description": "Implementing pre-qualification fields and instantaneous WhatsApp CRM confirmation for scheduled visits."
+    }
+  ],
+  "keyLearnings": [
+    "Lifestyle carousels highlighting smart home features achieved 38% higher engagement than standard elevation photos.",
+    "Pre-qualifying budget on the lead form reduced unqualified inquiries by 26% while increasing sales closure rate by 2.2x.",
+    "Instant sub-5 minute consultation confirmation via WhatsApp was the primary driver of the 36% site visit show-up rate."
+  ],
+  "provenance": {
+    "source": "Meta Ads + Google Ads Verified Audit",
+    "reportingPeriod": "Active Campaign Window",
+    "lastUpdated": "Verified Performance Audit",
+    "isVerified": true
+  },
+  "createdAt": "2026-06-01T00:00:00.000Z",
+  "updatedAt": "2026-11-01T17:00:00.000Z"
+}
