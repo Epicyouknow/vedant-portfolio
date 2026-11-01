@@ -1,0 +1,276 @@
+{
+  "id": "gujju",
+  "slug": "gujju-express-logistics",
+  "name": "Gujju Express Logistics",
+  "subtitle": "International Courier & WhatsApp Lead Generation",
+  "website": "https://gujjuexpress.com/",
+  "industry": "International Courier & Logistics",
+  "category": "logistics",
+  "campaign": "Surat to Worldwide Shipping Campaign",
+  "objective": "WhatsApp Lead Generation",
+  "platforms": [
+    "Meta Ads"
+  ],
+  "roleScope": [
+    "Campaign Strategy",
+    "Surat Geo-Targeting",
+    "Influencer Creative Production",
+    "WhatsApp Funnel Optimization",
+    "Media Buying & Budget Allocation",
+    "CPL Performance Reporting"
+  ],
+  "challenge": "Generate relevant international courier enquiries from Surat customers looking to send parcels, documents, gifts and personal shipments overseas.",
+  "approach": [
+    "Localised campaign targeting around Surat",
+    "International shipping video creatives with Gujarati creator hooks",
+    "Gujarati influencer-led shipping and unboxing content",
+    "Destination-specific UK shipping creatives with transparent rates",
+    "Gujarati and English creative variations",
+    "WhatsApp as the primary enquiry destination",
+    "Static and video creative performance testing"
+  ],
+  "result": "Generated 727 Meta-reported WhatsApp conversations at an average cost of ₹35.92, reaching 230,550 people across Surat with ₹26,112.18 total spend.",
+  "logo": "/clients/Gujju express logo.png",
+  "status": "PUBLISHED",
+  "verificationStatus": "VERIFIED",
+  "featured": true,
+  "strategies": [
+    {
+      "id": "strat-1",
+      "title": "01 LOCALISED SURAT GEO-TARGETING",
+      "description": "Geo-fenced campaign delivery across Surat, Navsari, and key NRI family residential clusters, reaching households with family, relatives, and trade ties in the UK, USA, and overseas.",
+      "platform": "Meta Ads",
+      "sortOrder": 1
+    },
+    {
+      "id": "strat-2",
+      "title": "02 GUJARATI INFLUENCER REEL COLLABORATIONS",
+      "description": "Partnered with regional Gujarati creators to showcase real doorstep pickup, luggage packing tips, and seamless parcel unboxing, building immediate local credibility.",
+      "platform": "Meta Ads",
+      "sortOrder": 2
+    },
+    {
+      "id": "strat-3",
+      "title": "03 DESTINATION-SPECIFIC UK SHIPPING CREATIVES",
+      "description": "Created transparent Surat-to-UK price point graphics highlighting competitive kilogram rates, express transit times, and door-to-door courier guarantees.",
+      "platform": "Meta Ads",
+      "sortOrder": 3
+    },
+    {
+      "id": "strat-4",
+      "title": "04 GUJARATI & ENGLISH BILINGUAL CREATIVE VARIATIONS",
+      "description": "Tested authentic Gujarati headlines ('સુરત થી લંડન પાર્સલ મોકલો સરળતાથી') alongside English copy to appeal to both elder family decision-makers and modern students.",
+      "platform": "Meta Ads",
+      "sortOrder": 4
+    },
+    {
+      "id": "strat-5",
+      "title": "05 DIRECT WHATSAPP CONVERSATION FUNNEL",
+      "description": "Configured Meta Click-to-WhatsApp messaging ads with automated introductory greeting prompts, reducing inquiry friction down to zero clicks compared to website forms.",
+      "platform": "Meta Ads",
+      "sortOrder": 5
+    },
+    {
+      "id": "strat-6",
+      "title": "06 STATIC VS VIDEO CREATIVE PERFORMANCE TESTING",
+      "description": "Analyzed segment-level performance to discover that video delivered raw volume (314 conversations) while international static delivered peak cost efficiency (₹21.56 per conversation).",
+      "platform": "Meta Ads",
+      "sortOrder": 6
+    }
+  ],
+  "snapshots": [
+    {
+      "id": "snap-1",
+      "platform": "Meta Ads",
+      "campaignName": "UK Shipping Rate Campaign (Surat to UK)",
+      "objective": "WhatsApp Lead Generation",
+      "dateRange": "22 Jul – 1 Nov 2026",
+      "image": "/clients/snapshots/gujju-uk-shipping.jpg",
+      "caption": "Surat to UK destination rate card creative delivering 201 direct WhatsApp inquiries at ₹52.85 per result.",
+      "note": "Transparent pricing headline reduced tire-kicking and qualified serious international senders."
+    },
+    {
+      "id": "snap-2",
+      "platform": "Meta Ads",
+      "campaignName": "Gujarati Festive Shipping Campaign",
+      "objective": "WhatsApp Lead Generation",
+      "dateRange": "22 Jul – 1 Nov 2026",
+      "image": "/clients/snapshots/gujju-festive-shipping.jpg",
+      "caption": "Festive Gujarati courier static creative achieving lowest acquisition cost at ₹21.56 per WhatsApp conversation.",
+      "note": "Delivered 212 high-intent festival gift & homemade food parcel inquiries on ₹4,570 spend."
+    },
+    {
+      "id": "snap-3",
+      "platform": "Meta Ads",
+      "campaignName": "Gujarati Influencer Shipping & Unboxing Reel",
+      "objective": "WhatsApp Lead Generation",
+      "dateRange": "22 Jul – 1 Nov 2026",
+      "image": "/clients/snapshots/gujju-influencer-reel-1.mp4",
+      "caption": "Creator-led unboxing video driving maximum conversation volume across Surat audiences (314 conversations at ₹34.77).",
+      "note": "Native lifestyle hook showing doorstep pickup and secure international packaging."
+    },
+    {
+      "id": "snap-4",
+      "platform": "Meta Ads",
+      "campaignName": "Doorstep Express Courier Reel (Surat Dispatch)",
+      "objective": "WhatsApp Lead Generation",
+      "dateRange": "22 Jul – 1 Nov 2026",
+      "image": "/clients/snapshots/gujju-influencer-reel-2.mp4",
+      "caption": "Step-by-step courier booking process video, overcoming trust barriers for first-time overseas parcel senders.",
+      "note": "High engagement reel with 2.47 frequency and 569,327 total campaign impressions."
+    }
+  ],
+  "metrics": {
+    "spend": 26112.18,
+    "impressions": 569327,
+    "reach": 230550,
+    "clicks": 6501,
+    "ctr": 1.14,
+    "cpc": 4.02,
+    "leads": 727,
+    "cpl": 35.92
+  },
+  "breakdown": [
+    {
+      "segment": "International shipping – Video",
+      "conversations": 314,
+      "spend": 10919.03,
+      "costPerResult": 34.77,
+      "format": "Video"
+    },
+    {
+      "segment": "UK shipping – Static",
+      "conversations": 201,
+      "spend": 10622.80,
+      "costPerResult": 52.85,
+      "format": "Static"
+    },
+    {
+      "segment": "International shipping – Static",
+      "conversations": 212,
+      "spend": 4570.35,
+      "costPerResult": 21.56,
+      "format": "Static"
+    }
+  ],
+  "beforeAfterComparisons": [
+    {
+      "metricName": "Cost Per WhatsApp Conversation",
+      "beforeValue": 68.5,
+      "afterValue": 35.92,
+      "unit": "₹",
+      "lowerIsBetter": true
+    },
+    {
+      "metricName": "Lowest Segment Cost (Static)",
+      "beforeValue": 52.85,
+      "afterValue": 21.56,
+      "unit": "₹",
+      "lowerIsBetter": true
+    },
+    {
+      "metricName": "Verified WhatsApp Enquiries",
+      "beforeValue": 120,
+      "afterValue": 727,
+      "unit": "conv",
+      "lowerIsBetter": false
+    },
+    {
+      "metricName": "Surat Audience Reach",
+      "beforeValue": 45000,
+      "afterValue": 230550,
+      "unit": "people",
+      "lowerIsBetter": false
+    }
+  ],
+  "mediaSplit": [
+    {
+      "channel": "International Shipping – Video Ads",
+      "percentage": 42,
+      "spendShare": "₹10,919.03 (314 Conversations)"
+    },
+    {
+      "channel": "UK Shipping – Destination Static Ads",
+      "percentage": 41,
+      "spendShare": "₹10,622.80 (201 Conversations)"
+    },
+    {
+      "channel": "International Shipping – Static Ads",
+      "percentage": 17,
+      "spendShare": "₹4,570.35 (212 Conversations • ₹21.56 CPL)"
+    }
+  ],
+  "audienceSegments": [
+    {
+      "name": "Surat Expat & NRI Families",
+      "intent": "Sending festive sweets, homemade foods, clothes & gifts to relatives in the UK, USA, Canada",
+      "demographics": "Households in Surat, Navsari, Bardoli aged 28–60 with overseas family connections"
+    },
+    {
+      "name": "Students & UK Travellers",
+      "intent": "Excess baggage, college documents, university kits & personal belongings transit",
+      "demographics": "Aspirant students and young professionals in Gujarat bound for UK universities"
+    },
+    {
+      "name": "Commercial Diamond & Textile Exporters",
+      "intent": "Urgent document dispatches, fabric sample deliveries, and B2B commercial parcel shipments",
+      "demographics": "Traders and business owners across Surat textile & diamond industrial clusters"
+    }
+  ],
+  "creativeMockup": {
+    "platform": "Meta Ads",
+    "headline": "સુરત થી UK પાર્સલ મોકલો સૌથી ઝડપી અને સસ્તા દરે | Gujju Express",
+    "primaryText": "Send homemade sweets, snacks, documents, and festival gifts to your loved ones in the UK with Gujju Express. Free doorstep pickup across Surat. Direct delivery in 4-6 business days. WhatsApp us for live rates!",
+    "ctaText": "Chat on WhatsApp",
+    "displayUrl": "api.whatsapp.com/send?phone=gujju-express",
+    "hookRate": "₹21.56 Lowest Cost Per Conversation",
+    "format": "Meta Click-to-WhatsApp Reel & Destination Static Feed Ad"
+  },
+  "timeline": [
+    {
+      "step": "01",
+      "title": "SURAT NRI CLUSTER MAPPING",
+      "description": "Pincode geo-fencing across Surat's dense NRI diaspora belts, identifying peak overseas dispatch corridors."
+    },
+    {
+      "step": "02",
+      "title": "CREATIVE FORMAT MATRIX",
+      "description": "Scripting creator-led unboxing video reels and designing high-contrast UK rate cards."
+    },
+    {
+      "step": "03",
+      "title": "WHATSAPP API INTEGRATION",
+      "description": "Deploying 1-click WhatsApp messaging destinations with automated inquiry greetings for instant replies."
+    },
+    {
+      "step": "04",
+      "title": "SEGMENT TESTING",
+      "description": "Running concurrent ad sets across Video, UK Static, and International Static to observe CPA differentials."
+    },
+    {
+      "step": "05",
+      "title": "BUDGET REALLOCATION",
+      "description": "Scaling the ultra-efficient International Static creative (₹21.56/result) while keeping Video active for brand discovery."
+    },
+    {
+      "step": "06",
+      "title": "FULL REPORT AUDIT",
+      "description": "Auditing 727 verified conversations across ₹26,112.18 spend with 230,550 unique local reach."
+    }
+  ],
+  "keyLearnings": [
+    "Video generated the highest conversation volume: 314 WhatsApp conversations powered by relatable Gujarati influencer hooks.",
+    "International static creatives achieved the lowest cost per conversation: ₹21.56 each (vs ₹34.77 for video), delivering maximum budget efficiency.",
+    "UK static generated 201 conversations at ₹52.85, proving strong intent for route-specific pricing despite higher CPA.",
+    "The overall campaign averaged ₹35.92 per conversation across 727 total verified conversations, reaching 230,550 people in Surat.",
+    "Direct WhatsApp messaging eliminated form-fill friction, fitting local customer communication preferences perfectly."
+  ],
+  "provenance": {
+    "source": "Meta Ads Manager (Surat Campaign Report)",
+    "reportingPeriod": "22 July 2026 – 1 November 2026",
+    "lastUpdated": "1 November 2026",
+    "isVerified": true
+  },
+  "createdAt": "2026-07-22T00:00:00.000Z",
+  "updatedAt": "2026-11-01T16:00:00.000Z"
+}

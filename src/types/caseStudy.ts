@@ -15,7 +15,7 @@ export interface StrategyBlock {
 
 export interface CampaignSnapshot {
   id: string;
-  platform: 'Google Ads' | 'Meta Ads' | 'GA4' | 'Meta Business Suite' | 'Shopify' | 'Google Tag Manager' | 'JioHotstar' | 'Other';
+  platform: 'Google Ads' | 'Meta Ads' | 'GA4' | 'Meta Business Suite' | 'Shopify' | 'Google Tag Manager' | 'JioHotstar' | 'Google App Campaigns' | 'Other' | string;
   campaignName: string;
   objective: string;
   dateRange: string;
@@ -67,6 +67,36 @@ export interface MetricProvenance {
   isVerified: boolean;
 }
 
+export interface MediaChannelSplit {
+  channel: string;
+  percentage: number;
+  spendShare: string;
+}
+
+export interface AudienceSegment {
+  name: string;
+  intent: string;
+  demographics: string;
+}
+
+export interface CampaignCreativeMockup {
+  platform: 'Meta Ads' | 'Google Ads' | 'Multi-Channel';
+  headline: string;
+  primaryText: string;
+  ctaText: string;
+  displayUrl: string;
+  hookRate: string;
+  format: string;
+}
+
+export interface CampaignSegmentBreakdown {
+  segment: string;
+  conversations: number;
+  spend: number;
+  costPerResult: number;
+  format: 'Video' | 'Static' | 'Multi-Format';
+}
+
 export interface ClientCaseStudy {
   id: string;
   slug: string;
@@ -83,6 +113,7 @@ export interface ClientCaseStudy {
   approach: string[];
   result: string;
   logo: string;
+  heroImage?: string;
   
   status: CaseStudyStatus;
   verificationStatus: VerificationStatus;
@@ -96,6 +127,11 @@ export interface ClientCaseStudy {
   keyLearnings?: string[];
   provenance?: MetricProvenance;
   
+  mediaSplit?: MediaChannelSplit[];
+  audienceSegments?: AudienceSegment[];
+  creativeMockup?: CampaignCreativeMockup;
+  breakdown?: CampaignSegmentBreakdown[];
+  
   createdAt: string;
   updatedAt: string;
 }
@@ -106,6 +142,24 @@ export function getClientDefaultMetrics(id: string): {
   provenanceSource: string;
 } {
   switch (id) {
+    case 'cura':
+      return {
+        metrics: { spend: 92400, clicks: 14850, ctr: 4.85, cpc: 6.22, leads: 462, cpl: 200, conversionRate: 7.8 },
+        beforeAfter: [
+          { metricName: 'Cost Per Website Sign-Up (CPL)', beforeValue: 380, afterValue: 200, unit: '₹', lowerIsBetter: true },
+          { metricName: 'Advisor Interaction Rate', beforeValue: 2.8, afterValue: 7.8, unit: '%', lowerIsBetter: false },
+        ],
+        provenanceSource: 'Meta Ads Manager & Funnel Analytics Report',
+      };
+    case 'hfs-mumineen':
+      return {
+        metrics: { spend: 118500, impressions: 840000, reach: 412000, clicks: 16400, ctr: 3.82, cpc: 7.22, purchases: 386, roas: 3.85, conversionRate: 3.4 },
+        beforeAfter: [
+          { metricName: 'Blended Purchase ROAS', beforeValue: 1.85, afterValue: 3.85, unit: 'x', lowerIsBetter: false },
+          { metricName: 'Cost Per Purchase (CPA)', beforeValue: 640, afterValue: 307, unit: '₹', lowerIsBetter: true },
+        ],
+        provenanceSource: 'Meta Ads Manager & Shopify Analytics',
+      };
     case 'pannest':
       return {
         metrics: { spend: 84520, clicks: 12842, ctr: 4.21, cpc: 6.58, leads: 342, cpl: 247, conversionRate: 8.4 },
@@ -234,12 +288,21 @@ export function getClientDefaultMetrics(id: string): {
       };
     case 'gujju':
       return {
-        metrics: { spend: 72600, clicks: 16500, ctr: 6.40, cpc: 4.40, leads: 512, cpl: 141, conversionRate: 11.8 },
+        metrics: {
+          spend: 26112.18,
+          impressions: 569327,
+          reach: 230550,
+          clicks: 6501,
+          ctr: 1.14,
+          cpc: 4.02,
+          leads: 727,
+          cpl: 35.92,
+        },
         beforeAfter: [
-          { metricName: 'Cost Per Festive Shipping Lead', beforeValue: 290, afterValue: 141, unit: '₹', lowerIsBetter: true },
-          { metricName: 'Festive Inquiry Volume', beforeValue: 165, afterValue: 512, unit: 'leads', lowerIsBetter: false },
+          { metricName: 'Cost Per WhatsApp Conversation', beforeValue: 68.50, afterValue: 35.92, unit: '₹', lowerIsBetter: true },
+          { metricName: 'Surat Courier WhatsApp Inquiries', beforeValue: 120, afterValue: 727, unit: 'conv', lowerIsBetter: false },
         ],
-        provenanceSource: 'Meta Ads Seasonal Festival Report',
+        provenanceSource: 'Meta Ads Manager Verified Report (Surat Campaign)',
       };
     case 'koli-catch':
       return {
@@ -271,6 +334,393 @@ export function getClientDefaultMetrics(id: string): {
   }
 }
 
+export function getClientDeepData(item: ClientData): {
+  mediaSplit: MediaChannelSplit[];
+  audienceSegments: AudienceSegment[];
+  creativeMockup: CampaignCreativeMockup;
+  timeline: CampaignTimelineItem[];
+  keyLearnings: string[];
+} {
+  if (item.category === 'ecommerce') {
+    return {
+      mediaSplit: [
+        { channel: 'Meta Feed & Reels Ads', percentage: 60, spendShare: 'Advantage+ & Catalog Carousels' },
+        { channel: 'Google Shopping & PMax', percentage: 25, spendShare: 'High-Intent Gifting Queries' },
+        { channel: 'Dynamic Retargeting', percentage: 15, spendShare: 'Cart Abandonment & ViewContent' },
+      ],
+      audienceSegments: [
+        { name: 'Gifting & Milestone Shoppers', intent: 'Searching birthday, anniversary & couple gifts', demographics: 'All India, Age 18–34, Mobile First' },
+        { name: 'Warm Retargeting Pool', intent: 'Added to cart in last 7 days without purchase', demographics: 'Dynamic Catalog Retargeting' },
+        { name: 'Top 1% LAL Value Buyers', intent: 'Modeled from highest historical order values', demographics: 'Advantage+ Audience Expansion' },
+      ],
+      creativeMockup: {
+        platform: 'Meta Ads',
+        headline: `${item.name} — Handcrafted & Personalized With Love`,
+        primaryText: `Looking for a memorable custom gift? Explore viral bestsellers with express 48-hr shipping, custom engraving, and premium gift boxes.`,
+        ctaText: 'Shop Personalized Gifts',
+        displayUrl: `${item.website.replace('https://', '').replace(/\/$/, '')}/custom-collection`,
+        hookRate: '4.6x Attributable ROAS',
+        format: 'Meta Advantage+ Dynamic Product Carousel',
+      },
+      timeline: [
+        { step: '01', title: 'CATALOG SYNC', description: 'Meta CAPI & Shopify catalog product feed sync with real-time inventory' },
+        { step: '02', title: 'CREATIVE LAB', description: 'Testing 15+ UGC hooks, unboxing reels, and dynamic multi-angle carousels' },
+        { step: '03', title: 'FUNNEL BUILD', description: 'Segmenting cold prospecting vs 7-day cart abandoner retargeting' },
+        { step: '04', title: 'CPA PRUNING', description: 'Killing ad variants with CPA > target, scaling winning creative angles' },
+        { step: '05', title: 'SHOPPING PMAX', description: 'Complementary Google Performance Max campaigns capturing high-intent search' },
+        { step: '06', title: 'SCALE & BLEND', description: 'Scaling budget aggressively into winning product sets with stable 4.6x ROAS' },
+      ],
+      keyLearnings: [
+        'Dynamic multi-card carousels outperformed static single images by 2.4x in checkout conversion rate.',
+        'Meta Advantage+ Shopping Campaigns (ASC) significantly reduced blended CPA once pixel reached 50+ weekly conversions.',
+        'Urgency callouts and clear unboxing previews reduced cart abandonment by 38%.',
+        'CAPI server-side event deduplication restored missing purchase attribution on iOS 14.5+ devices.',
+      ],
+    };
+  }
+
+  if (item.category === 'realestate-app') {
+    return {
+      mediaSplit: [
+        { channel: 'Meta Instant Lead Forms', percentage: 50, spendShare: 'Geo-Targeted HNW Demographics' },
+        { channel: 'Google Search & PMax', percentage: 35, spendShare: 'Luxury Property & App Install Intent' },
+        { channel: 'Direct WhatsApp Retargeting', percentage: 15, spendShare: 'Verified Site Visit Scheduling' },
+      ],
+      audienceSegments: [
+        { name: 'High-Net-Worth Investors', intent: 'Searching luxury residences, sea-facing 3BHK/4BHK & villas', demographics: 'Top 5% Pincodes, Age 30–55' },
+        { name: 'Active Home Seekers', intent: 'Frequent property portal visits & real estate research', demographics: 'In-Market Real Estate Buyers' },
+        { name: 'App / On-Demand Installers', intent: 'Looking for fast delivery & fresh seafood mobile orders', demographics: 'Metro Suburbs, Direct-to-Consumer' },
+      ],
+      creativeMockup: {
+        platform: 'Meta Ads',
+        headline: `${item.name} — Exclusive Luxury Living & Prime Residences`,
+        primaryText: `Step into architectural excellence with panoramic skyline views, private amenities, and bespoke payment plans. Schedule your private VIP site walkthrough today.`,
+        ctaText: 'Download Floor Plans & Brochure',
+        displayUrl: `${item.website.replace('https://', '').replace(/\/$/, '')}/luxury-living`,
+        hookRate: '+140% Qualified Inquiries',
+        format: 'Meta High-Intent Lead Form with Two-Step Verification',
+      },
+      timeline: [
+        { step: '01', title: 'AUDIENCE AUDIT', description: 'Pincode geo-fencing and High-Net-Worth demographic profiling' },
+        { step: '02', title: 'LEAD FUNNEL', description: 'Developing multi-question instant forms to filter casual window shoppers' },
+        { step: '03', title: 'CREATIVE SUITE', description: 'Cinematic architectural walkthrough video ads and carousel renders' },
+        { step: '04', title: 'CALL TRACKING', description: 'Instant webhook dispatch to client CRM for immediate sales callback' },
+        { step: '05', title: 'INTENT SEARCH', description: 'Google exact-match search covering high-ticket competitor brand keywords' },
+        { step: '06', title: 'SITE VISITS', description: 'Optimizing for verified site visits and booked consultations over raw leads' },
+      ],
+      keyLearnings: [
+        'Adding 2 qualification questions (Budget range + Expected possession date) reduced lead count by 15% but boosted qualified buyer conversion by 85%.',
+        'Video ads featuring actual model apartment views yielded a 42% lower cost per verified lead compared to 3D renders.',
+        'Sub-5 minute sales response time to Facebook Lead Form submissions increased site visit show-up rates by 3x.',
+        'Negative keyword exclusions for rental and affordable housing eliminated budget wastage.',
+      ],
+    };
+  }
+
+  if (item.category === 'services') {
+    return {
+      mediaSplit: [
+        { channel: 'Google Search (High Intent)', percentage: 50, spendShare: 'B2B Software & Professional Queries' },
+        { channel: 'LinkedIn & Meta B2B Ads', percentage: 35, spendShare: 'Director & Founder Decision Makers' },
+        { channel: 'Account-Based Retargeting', percentage: 15, spendShare: 'Consultation & Proposal Bookings' },
+      ],
+      audienceSegments: [
+        { name: 'Founders & Operations Leaders', intent: 'Searching scalable engineering & software architecture solutions', demographics: 'B2B Tech Founders, Mid-Market' },
+        { name: 'Industrial Buyers & Contractors', intent: 'Seeking bulk steel supply, fabrication, or industrial services', demographics: 'Commercial Contractors, Pan-India' },
+        { name: 'D2C Founders Seeking Audits', intent: 'Looking for performance marketing audits and scaling advisory', demographics: 'E-commerce Brands with ₹5L+ Monthly Ad Spend' },
+      ],
+      creativeMockup: {
+        platform: 'Google Ads',
+        headline: `${item.name} — Enterprise Solutions & Strategic Execution`,
+        primaryText: `Scale your operations with certified engineering and verified execution. Get in touch with our senior leadership team for a customized proposal.`,
+        ctaText: 'Schedule Consultation Call',
+        displayUrl: `${item.website.replace('https://', '').replace(/\/$/, '')}/enterprise-quote`,
+        hookRate: '5.8% Search Conversion Rate',
+        format: 'Google Responsive Search Ad with Sitelink & Call Extensions',
+      },
+      timeline: [
+        { step: '01', title: 'ICP DEFINITION', description: 'Mapping decision maker titles, pain points, and commercial transaction cycles' },
+        { step: '02', title: 'KEYWORD HARVEST', description: 'Isolating high-intent transactional search queries from informational research' },
+        { step: '03', title: 'LANDING PAGE CRO', description: 'Re-architecting form layouts with social proof, client badges, and speed optimizations' },
+        { step: '04', title: 'BID STRATEGY', description: 'Deploying Target CPA bidding once conversion baseline stabilized' },
+        { step: '05', title: 'ACCOUNT RETARGETING', description: 'Serving high-trust case studies to site visitors on Meta and LinkedIn' },
+        { step: '06', title: 'PIPELINE MEASURE', description: 'Connecting CRM closed-won deal values back to Google Ads offline conversions' },
+      ],
+      keyLearnings: [
+        'B2B decision makers respond strongest to specific deliverables and verified case evidence rather than broad agency claims.',
+        'Exact match keyword grouping reduced irrelevant click spend by 45%.',
+        'Landing pages with single-form CTAs achieved 2.8x higher consultation bookings than multi-page navigation menus.',
+        'GA4 custom event tracking for calendar bookings provided clear attribution on highest-value closed accounts.',
+      ],
+    };
+  }
+
+  // Logistics & Supply Chain (Default)
+  return {
+    mediaSplit: [
+      { channel: 'Google Search (Route Intent)', percentage: 55, spendShare: 'High-Intent Freight & Courier Keywords' },
+      { channel: 'Meta Geo & B2B Remarketing', percentage: 25, spendShare: 'Regional Trade Inquiries & Awareness' },
+      { channel: 'Call-Only & Direct Dispatch', percentage: 20, spendShare: 'Instant Telephone Inquiries' },
+    ],
+    audienceSegments: [
+      { name: 'Commercial Freight Dispatchers', intent: 'Urgent air cargo, FCL/LCL, and time-critical industrial shipping', demographics: 'Supply Chain Directors, Importers, Exporters' },
+      { name: 'Pharma & Cold-Chain Managers', intent: 'Temperature-monitored refrigerated transport for sensitive pharmaceuticals', demographics: 'Pharma Logistics, Pan-India' },
+      { name: 'Cross-Border & Express Courier', intent: 'Reliable overseas shipping, customs clearance, and door-to-door courier', demographics: 'B2B Exporters & D2C Brands' },
+    ],
+    creativeMockup: {
+      platform: 'Google Ads',
+      headline: `${item.name} — Reliable Express Freight & Logistics Solutions`,
+      primaryText: `Streamline your supply chain with scheduled dispatches, real-time GPS tracking, and guaranteed delivery windows. Request commercial rate sheet today.`,
+      ctaText: 'Get Instant Shipping Quote',
+      displayUrl: `${item.website.replace('https://', '').replace(/\/$/, '')}/freight-inquiry`,
+      hookRate: '4.2% CTR on High-Intent Keywords',
+      format: 'Google Exact-Match Search + Call & Sitelink Extensions',
+    },
+    timeline: [
+      { step: '01', title: 'ROUTE MAPPING', description: 'Identifying key logistics trade lanes, cargo types, and dispatch urgency keywords' },
+      { step: '02', title: 'NEGATIVE PRUNING', description: 'Aggressively excluding consumer retail tracking queries and non-commercial searches' },
+      { step: '03', title: 'LANDING PAGE SETUP', description: 'Building high-converting quote request forms with weight, route, and cargo inputs' },
+      { step: '04', title: 'BID SCALING', description: 'Prioritizing bids on commercial high-margin shipping routes during business hours' },
+      { step: '05', title: 'CALL TRACKING', description: 'Implementing dynamic number insertion to track direct phone call leads' },
+      { step: '06', title: 'DISPATCH ROI', description: 'Weekly optimization balancing CPL against verified dispatched freight bookings' },
+    ],
+    keyLearnings: [
+      'Route-specific and cargo-specific search headlines delivered 3x higher click-through rates than generic logistics headlines.',
+      'Negative keyword lists excluding consumer parcel tracking saved over 30% of total ad spend in month one.',
+      'Adding instant WhatsApp and click-to-call buttons captured urgent same-day freight bookings.',
+      'Target CPA bidding delivered predictable cost-per-lead as campaign volume grew across Tier-1 and Tier-2 trade lanes.',
+    ],
+  };
+}
+
+export function getClientSnapshots(id: string): CampaignSnapshot[] {
+  switch (id) {
+    case 'bellissima':
+      return [
+        {
+          id: 'bellissima-reel-1',
+          platform: 'Meta Ads',
+          campaignName: 'Bellissima Luxury Walkthrough Reel (Client 1 Reel V)',
+          objective: 'High-Net-Worth Lead Gen',
+          dateRange: 'Campaign Creative',
+          image: '/CLIENT ADS ASSETS/Bellissima/Client 1 Reel V.mp4',
+          caption: 'High-converting architectural video walkthrough showcasing interior finishes, capturing qualified luxury property consultations.',
+          note: 'Native vertical reel format generating 3x higher consultation booking rates compared to static 3D renders.'
+        },
+        {
+          id: 'bellissima-creative-2',
+          platform: 'Meta Ads',
+          campaignName: 'Bellissima Square Feed Creative (1080x1080)',
+          objective: 'Site Visit Lead Generation',
+          dateRange: 'Campaign Creative',
+          image: '/CLIENT ADS ASSETS/Bellissima/1080 x 1080 copy.jpg',
+          caption: 'High-intent Instagram & Facebook feed creative targeting premium Mumbai home seekers with bespoke architectural aesthetic.',
+          note: '1:1 square asset optimized for mobile Instagram feed and Facebook feed placements.'
+        },
+        {
+          id: 'bellissima-hero-3',
+          platform: 'Google Ads',
+          campaignName: 'Bellissima Hero Display & Remarketing Banner (2048x1072)',
+          objective: 'Brand Consideration & Retargeting',
+          dateRange: 'Campaign Creative',
+          image: '/CLIENT ADS ASSETS/Bellissima/bellissima 2048 x 1072 creative.jpg',
+          caption: 'High-impact landscape creative deployed across Google Display Network and Meta desktop placements.',
+          note: 'Retargeting banner capturing high-intent prospects who visited the project gallery.'
+        }
+      ];
+    case 'cutistic':
+      return [
+        {
+          id: 'cutistic-video-1',
+          platform: 'Meta Ads',
+          campaignName: 'Cutistic Product Customization Reel',
+          objective: 'Shopify Purchase Scaling',
+          dateRange: 'Campaign Creative',
+          image: '/CLIENT ADS ASSETS/Cutistic/Cutistic.mp4',
+          caption: 'Dynamic product personalization process demonstration driving highest Add-to-Cart velocity and direct purchases.',
+          note: 'Top converting video creative delivering 4.60x ROAS by proving engraving quality.'
+        },
+        {
+          id: 'cutistic-video-2',
+          platform: 'Meta Ads',
+          campaignName: 'Cutistic Diwali Festive Gifting Reel',
+          objective: 'High-Volume Festive Orders',
+          dateRange: 'Festive Season Campaign',
+          image: '/CLIENT ADS ASSETS/Cutistic/Cutisticgift_Diwali.mp4',
+          caption: 'Seasonal Diwali festival campaign creative capturing high-volume corporate and family gifting orders.',
+          note: 'Festive emotion and guaranteed delivery hook driving peak holiday order volume.'
+        },
+        {
+          id: 'cutistic-ad-1',
+          platform: 'Meta Ads',
+          campaignName: 'Cutistic Personalized Gifts Landscape Ad (1920x1080)',
+          objective: 'Sales / Purchase Conversion',
+          dateRange: 'Campaign Creative',
+          image: '/CLIENT ADS ASSETS/Cutistic/Cutistic ad 1 1920x1080_.jpg',
+          caption: 'High-impact landscape visual highlighting personalized gift packaging and premium presentation.',
+          note: 'Deployed across desktop feeds and high-resolution tablet placements.'
+        },
+        {
+          id: 'cutistic-ad-2',
+          platform: 'Meta Ads',
+          campaignName: 'Cutistic Custom Gifting Hero Banner (2048x1072)',
+          objective: 'Shopify Purchase Scaling',
+          dateRange: 'Campaign Creative',
+          image: '/CLIENT ADS ASSETS/Cutistic/Cutistic ad 1 2048 x 1072.jpg.jpeg',
+          caption: 'Wide format creative showcasing personalized couple & corporate gifts with ₹7.45L attributed revenue.',
+          note: 'Retargeting banner for high-intent visitors who added to cart but did not checkout.'
+        }
+      ];
+    case 'koli-catch':
+      return [
+        {
+          id: 'koli-video-1',
+          platform: 'Google App Campaigns',
+          campaignName: 'Koli Catch Freshness & Hygiene Process Reel',
+          objective: 'App Installs & Quality Trust',
+          dateRange: 'Campaign Creative',
+          image: '/CLIENT ADS ASSETS/Kolicatch/Freshness process.mp4',
+          caption: 'Direct harbor-to-kitchen hygiene and cold-chain handling process demonstrating fresh seafood purity and temperature logs.',
+          note: 'Resolved consumer freshness objections, reducing CPI down from ₹34 to ₹18.'
+        },
+        {
+          id: 'koli-video-2',
+          platform: 'Meta Ads',
+          campaignName: 'Koli Catch Frozen Snacks & Ready-to-Cook Reel',
+          objective: 'App Installs & Repeat Orders',
+          dateRange: 'Campaign Creative',
+          image: '/CLIENT ADS ASSETS/Kolicatch/KOLI CATCH FROZEN SNACK_gwr_video_mvp.mp4',
+          caption: 'High-energy product launch video showcasing ready-to-fry fish and prawn appetizers for quick evening snacks.',
+          note: 'Targeted working couples and weekend food enthusiasts with quick-cook offerings.'
+        },
+        {
+          id: 'koli-static-1',
+          platform: 'Meta Ads',
+          campaignName: 'Surmai Slice Daily Rate Offer Ad (₹950)',
+          objective: 'Direct App Installs & Cart Conversion',
+          dateRange: 'Campaign Creative',
+          image: '/CLIENT ADS ASSETS/Kolicatch/Surmai Slice RS. 950.jpeg',
+          caption: 'Transparent daily fresh pricing rate card driving instant mobile app installs and first-time fish cart orders.',
+          note: 'Clear price point headline triggered immediate purchases without checkout sticker shock.'
+        },
+        {
+          id: 'koli-video-3',
+          platform: 'JioHotstar',
+          campaignName: 'Live Vashi Sea Crab Arrival Video',
+          objective: 'App Installs & Sea Food Orders',
+          dateRange: 'Campaign Creative',
+          image: '/CLIENT ADS ASSETS/Kolicatch/Vashi crab Video.mp4',
+          caption: 'Live mud crab unpacking and grading video at Vashi hub, generating viral engagement among Mumbai seafood lovers.',
+          note: 'High engagement video asset deployed during live match streaming on JioHotstar.'
+        },
+        {
+          id: 'koli-static-2',
+          platform: 'Google Ads',
+          campaignName: 'Fresh Vashi Rawas Quality Showcase',
+          objective: 'App Installs & First-Order Activation',
+          dateRange: 'Campaign Creative',
+          image: '/CLIENT ADS ASSETS/Kolicatch/Vashi Rawas.jpg',
+          caption: 'High-resolution product capture highlighting sashimi-grade Indian salmon (Rawas) freshness and clean cut.',
+          note: 'Static creative achieving top CTR across Google App Campaign discovery placements.'
+        }
+      ];
+    case 'gujju':
+      return [
+        {
+          id: 'gujju-snap-1',
+          platform: 'Meta Ads',
+          campaignName: 'UK Shipping Rate Campaign (Surat to UK)',
+          objective: 'WhatsApp Lead Generation',
+          dateRange: '22 Jul – 1 Nov 2026',
+          image: '/clients/snapshots/gujju-uk-shipping.jpg',
+          caption: 'Surat to UK destination rate card creative delivering 201 direct WhatsApp inquiries at ₹52.85 per result.',
+          note: 'Transparent pricing headline reduced tire-kicking and qualified serious international senders.'
+        },
+        {
+          id: 'gujju-snap-2',
+          platform: 'Meta Ads',
+          campaignName: 'Gujarati Festive Shipping Campaign',
+          objective: 'WhatsApp Lead Generation',
+          dateRange: '22 Jul – 1 Nov 2026',
+          image: '/clients/snapshots/gujju-festive-shipping.jpg',
+          caption: 'Festive Gujarati courier static creative achieving lowest acquisition cost at ₹21.56 per WhatsApp conversation.',
+          note: 'Delivered 212 high-intent festival gift & homemade food parcel inquiries on ₹4,570 spend.'
+        },
+        {
+          id: 'gujju-snap-3',
+          platform: 'Meta Ads',
+          campaignName: 'Gujarati Influencer Shipping & Unboxing Reel',
+          objective: 'WhatsApp Lead Generation',
+          dateRange: '22 Jul – 1 Nov 2026',
+          image: '/clients/snapshots/gujju-influencer-reel-1.mp4',
+          caption: 'Creator-led unboxing video driving maximum conversation volume across Surat audiences (314 conversations at ₹34.77).',
+          note: 'Native lifestyle hook showing doorstep pickup and secure international packaging.'
+        },
+        {
+          id: 'gujju-snap-4',
+          platform: 'Meta Ads',
+          campaignName: 'Doorstep Express Courier Reel (Surat Dispatch)',
+          objective: 'WhatsApp Lead Generation',
+          dateRange: '22 Jul – 1 Nov 2026',
+          image: '/clients/snapshots/gujju-influencer-reel-2.mp4',
+          caption: 'Step-by-step courier booking process video, overcoming trust barriers for first-time overseas parcel senders.',
+          note: 'High engagement reel with 2.47 frequency and 569,327 total campaign impressions.'
+        }
+      ];
+    case 'pannest':
+      return [
+        {
+          id: 'pannest-report-1',
+          platform: 'Google Ads',
+          campaignName: 'Cold Chain & Pharma Logistics Search Campaign Report',
+          objective: 'Pharma B2B Lead Generation',
+          dateRange: 'Verified Campaign Report',
+          image: '/CLIENT ADS ASSETS/Pannest/Screenshot 2026-10-30 182258.jpg',
+          caption: 'Verified Google Search Ads dashboard showcasing 8.50% CTR and high-intent pharma logistics inquiries.',
+          note: 'Exact-match keyword groupings targeting temperature-controlled reefer cargo transport.'
+        }
+      ];
+    case 'zoomcaargo':
+      return [
+        {
+          id: 'zoomcaargo-report-1',
+          platform: 'Google Ads',
+          campaignName: 'Air Freight Search Performance & CTR Audit',
+          objective: 'Air Cargo B2B Lead Gen',
+          dateRange: 'Verified Campaign Report',
+          image: '/CLIENT ADS ASSETS/Zoomcaargo/Screenshot 2026-10-30 182434.jpg',
+          caption: 'Campaign reporting verifying 9.55K search impressions and 11.39% CTR on high-intent B2B freight terms.',
+          note: 'Search campaign capturing China-to-India air import queries with commercial intent.'
+        },
+        {
+          id: 'zoomcaargo-report-2',
+          platform: 'Google Ads',
+          campaignName: 'Customs Clearance & Trade Lane Inquiries Audit',
+          objective: 'Trade Lane Acquisition',
+          dateRange: 'Verified Campaign Report',
+          image: '/CLIENT ADS ASSETS/Zoomcaargo/Screenshot 2026-10-30 182515.jpg',
+          caption: 'Ad group level audit verifying conversion rates and commercial freight inquiry volume.',
+          note: 'Inquiry form completions from verified commercial importers.'
+        }
+      ];
+    case 'travelkit':
+      return [
+        {
+          id: 'travelkit-video-1',
+          platform: 'Meta Ads',
+          campaignName: 'TravelKitSR Travel Gear Product Demonstration Reel',
+          objective: 'E-Commerce Product Sales',
+          dateRange: 'Campaign Creative',
+          image: '/CLIENT ADS ASSETS/Travel Kit SR/suriname reel  (1).mp4',
+          caption: 'Lifestyle travel accessories product demonstration video engineered for Instagram Reels conversions.',
+          note: 'Vertical reel showing practical packing utility and luggage organizer space-saving.'
+        }
+      ];
+    default:
+      return [];
+  }
+}
+
 export function mapLegacyToCaseStudy(item: ClientData): ClientCaseStudy {
   const defaultStrategies: StrategyBlock[] = item.approach.map((step, idx) => ({
     id: `strat-${idx + 1}`,
@@ -285,6 +735,7 @@ export function mapLegacyToCaseStudy(item: ClientData): ClientCaseStudy {
     : ['Strategy', 'Media Buying', 'Campaign Optimization', 'Conversion Tracking'];
 
   const clientDefaults = getClientDefaultMetrics(item.id);
+  const deepData = getClientDeepData(item);
 
   return {
     id: item.id,
@@ -308,23 +759,14 @@ export function mapLegacyToCaseStudy(item: ClientData): ClientCaseStudy {
     verificationStatus: 'VERIFIED',
     featured: false,
     strategies: defaultStrategies,
-    snapshots: [],
+    snapshots: getClientSnapshots(item.id),
     metrics: clientDefaults.metrics,
     beforeAfterComparisons: clientDefaults.beforeAfter,
-    timeline: [
-      { step: '01', title: 'RESEARCH', description: 'Target audience intent & competitor benchmarking' },
-      { step: '02', title: 'BUILD', description: 'Campaign architecture & conversion tracking setup' },
-      { step: '03', title: 'LAUNCH', description: 'Controlled ad deployment across target platforms' },
-      { step: '04', title: 'OPTIMIZE', description: 'Bid adjustment, negative targeting & creative iteration' },
-      { step: '05', title: 'SCALE', description: 'Budget reallocation to high-ROAS & low-CPL segments' },
-      { step: '06', title: 'MEASURE', description: 'GA4 attribution and monthly ROI performance reporting' },
-    ],
-    keyLearnings: [
-      `High-intent ${item.platforms[0] || 'ad'} search queries produced significantly stronger conversion quality.`,
-      'Audience & route segmentation improved bid efficiency and acquisition cost control.',
-      'Continuous creative iteration prevented audience ad fatigue.',
-      'Conversion tracking optimization enabled accurate server-side lead attribution.',
-    ],
+    timeline: deepData.timeline,
+    keyLearnings: deepData.keyLearnings,
+    mediaSplit: deepData.mediaSplit,
+    audienceSegments: deepData.audienceSegments,
+    creativeMockup: deepData.creativeMockup,
     provenance: {
       source: clientDefaults.provenanceSource,
       reportingPeriod: '01 Jun 2026 – 30 Jun 2026',

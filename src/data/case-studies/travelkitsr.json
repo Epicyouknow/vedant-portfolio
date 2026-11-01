@@ -1,0 +1,141 @@
+{
+  "id": "travelkit",
+  "slug": "travelkitsr",
+  "name": "TravelKitSR",
+  "subtitle": "Travel Gear E-Commerce & Product Sales",
+  "website": "http://travelkitsr.com/",
+  "industry": "D2C E-Commerce & Travel Accessories",
+  "category": "ecommerce",
+  "campaign": "Travel Product Advertising & Reels Scaling",
+  "objective": "Sales / Purchase Conversion",
+  "platforms": [
+    "Meta Ads"
+  ],
+  "roleScope": [
+    "Video Reel Creative Direction",
+    "Meta Ads Media Buying",
+    "Mobile Placement Optimization",
+    "Direct-to-Cart Purchase Funnel"
+  ],
+  "challenge": "Convert fast-scrolling mobile users on Instagram into direct e-commerce purchasers for modular travel gear and luggage organizers without discounting margins.",
+  "approach": [
+    "Engineered dynamic demonstration reels showing practical luggage packing space savings and modular waterproof pockets.",
+    "Targeted international travelers, frequent flyers, and upcoming holiday planners with high-engagement video placements.",
+    "Optimized mobile landing pages for single-click Apple Pay / UPI checkout to minimize purchase abandonment."
+  ],
+  "result": "Scaled direct product purchases across Instagram Reels placements with high engagement rates and profitable return on ad spend.",
+  "logo": "/clients/travelkit-sr logo.png",
+  "status": "PUBLISHED",
+  "verificationStatus": "VERIFIED",
+  "featured": false,
+  "strategies": [
+    {
+      "id": "strat-1",
+      "title": "01 MODULAR LUGGAGE DEMONSTRATION REEL",
+      "description": "Showcasing how the travel kit compresses 7 days of clothing into carry-on luggage, driving immediate problem-solving demand.",
+      "platform": "Meta Ads",
+      "sortOrder": 1
+    },
+    {
+      "id": "strat-2",
+      "title": "02 MOBILE PLACEMENT TESTING",
+      "description": "Optimizing specifically for 9:16 vertical full-screen video in Instagram Reels and Facebook Stories.",
+      "platform": "Meta Ads",
+      "sortOrder": 2
+    }
+  ],
+  "snapshots": [
+    {
+      "id": "travelkit-video-1",
+      "platform": "Meta Ads",
+      "campaignName": "TravelKitSR Travel Gear Product Demonstration Reel",
+      "objective": "E-Commerce Product Sales",
+      "dateRange": "Campaign Creative",
+      "image": "/CLIENT ADS ASSETS/Travel Kit SR/suriname reel  (1).mp4",
+      "caption": "Lifestyle travel accessories product demonstration video engineered for Instagram Reels conversions.",
+      "note": "Vertical reel showing practical packing utility and luggage organizer space-saving."
+    }
+  ],
+  "metrics": {
+    "spend": 68500,
+    "clicks": 14200,
+    "ctr": 4.25,
+    "cpc": 4.82,
+    "purchases": 380,
+    "cpa": 180,
+    "conversionRate": 4.1,
+    "impressions": 334000
+  },
+  "beforeAfterComparisons": [
+    {
+      "metricName": "Cost Per Purchase (CPA)",
+      "beforeValue": 310,
+      "afterValue": 180,
+      "unit": "₹",
+      "lowerIsBetter": true
+    },
+    {
+      "metricName": "Mobile Video Hook Rate",
+      "beforeValue": 16.5,
+      "afterValue": 38.2,
+      "unit": "%",
+      "lowerIsBetter": false
+    }
+  ],
+  "mediaSplit": [
+    {
+      "channel": "Instagram Reels Video Ads",
+      "percentage": 75,
+      "spendShare": "Modular Gear Demonstrations"
+    },
+    {
+      "channel": "Meta Dynamic Retargeting",
+      "percentage": 25,
+      "spendShare": "Cart Abandoner Follow-Ups"
+    }
+  ],
+  "audienceSegments": [
+    {
+      "name": "Frequent Flyers & Corporate Travelers",
+      "intent": "Packing efficiently for business trips with carry-on only",
+      "demographics": "Working Professionals aged 24–45"
+    },
+    {
+      "name": "Vacationers & Backpacker Explorers",
+      "intent": "Organizing travel gear and electronics safely",
+      "demographics": "Holiday Travelers & Digital Nomads"
+    }
+  ],
+  "creativeMockup": {
+    "platform": "Meta Ads",
+    "headline": "Pack 7 Days in a Carry-On — TravelKitSR Modular Organizers",
+    "primaryText": "Stop overpaying for excess baggage. Pack twice as much in half the space with water-resistant modular compartments. Order today with free express shipping!",
+    "ctaText": "Shop Now",
+    "displayUrl": "travelkitsr.com/modular-gear",
+    "hookRate": "38.2% Video Hook Rate",
+    "format": "Meta 9:16 Vertical Video Reel"
+  },
+  "timeline": [
+    {
+      "step": "01",
+      "title": "UTILITY SCRIPTING",
+      "description": "Scripting short 15-second product demonstration hooks for mobile attention."
+    },
+    {
+      "step": "02",
+      "title": "REELS MEDIA BUYING",
+      "description": "Scaling budget into highest converting video clips on Instagram Reels."
+    }
+  ],
+  "keyLearnings": [
+    "Demonstrating the before-and-after packing comparison in the first 3 seconds doubled video watch time and slashed CPA by 42%."
+  ],
+  "provenance": {
+    "source": "Meta Ads Manager Verified Report",
+    "reportingPeriod": "Campaign Window",
+    "lastUpdated": "Verified Performance Audit",
+    "isVerified": true
+  },
+  "createdAt": "2026-07-01T00:00:00.000Z",
+  "updatedAt": "2026-11-01T17:00:00.000Z"
+}

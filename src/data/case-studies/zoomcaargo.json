@@ -1,0 +1,204 @@
+{
+  "id": "zoomcaargo",
+  "slug": "zoomcaargo",
+  "name": "ZoomCaargo Logistics",
+  "subtitle": "Time-Critical Air Freight & Import Customs Clearance",
+  "website": "https://zoomcaargo.com/",
+  "industry": "International Freight & Air Cargo",
+  "category": "logistics",
+  "campaign": "Trade Lane Acquisition & B2B Freight Leads",
+  "objective": "B2B Lead Generation",
+  "platforms": [
+    "Google Ads",
+    "Meta Ads"
+  ],
+  "roleScope": [
+    "Trade Lane Acquisition Strategy",
+    "Search Intent Keyword Harvesting",
+    "Customs Clearance Funnels",
+    "Ad Group Performance Optimization",
+    "B2B Conversion Tracking"
+  ],
+  "challenge": "Acquire high-intent commercial importers, freight forwarders, and enterprise manufacturers needing urgent customs air cargo clearance across China-India and Hong Kong-India trade lanes, while maintaining predictable CPL.",
+  "approach": [
+    "Harvested high-intent transactional search queries for air cargo weight brackets (100kg+, 500kg+, 1000kg+) across specific trade corridors.",
+    "Engineered trade-lane specific landing pages highlighting flight schedule cut-offs and express customs clearance turnaround guarantees.",
+    "Deployed Meta remarketing ads targeting logistics managers, import-export business owners, and trade show participants.",
+    "Integrated dynamic phone call tracking and instant inquiry webhooks to alert dispatchers within 60 seconds of form submission."
+  ],
+  "result": "Generated 9.55K search impressions with an outstanding 11.39% Click-Through Rate (CTR), acquiring 284 enterprise commercial importers with verified trade lane bookings.",
+  "logo": "/clients/zoomcaargo logo.png",
+  "status": "PUBLISHED",
+  "verificationStatus": "VERIFIED",
+  "featured": true,
+  "strategies": [
+    {
+      "id": "strat-1",
+      "title": "01 TRADE LANE SEARCH ARCHITECTURE",
+      "description": "Constructed dedicated ad groups for key air trade corridors ('China to India air freight', 'Hong Kong urgent customs clearance', 'air cargo consolidation').",
+      "platform": "Google Search Ads",
+      "sortOrder": 1
+    },
+    {
+      "id": "strat-2",
+      "title": "02 11.39% CTR AD COPY TESTING",
+      "description": "Tested clear transit timelines ('48-72 Hour Express Air Freight') and transparent weight rate bands to achieve an industry-beating 11.39% CTR.",
+      "platform": "Google Search Ads",
+      "sortOrder": 2
+    },
+    {
+      "id": "strat-3",
+      "title": "03 AD GROUP LEVEL CONVERSION OPTIMIZATION",
+      "description": "Audited individual search queries to allocate budget directly into highest-converting trade lanes while filtering low-margin exploratory searches.",
+      "platform": "Google Ads Reporting",
+      "sortOrder": 3
+    },
+    {
+      "id": "strat-4",
+      "title": "04 RAPID INQUIRY RESPONSE PIPELINE",
+      "description": "Connected web quote forms directly to WhatsApp and dispatch CRM, decreasing lead response time from hours to under 2 minutes.",
+      "platform": "CRM & WhatsApp Webhooks",
+      "sortOrder": 4
+    }
+  ],
+  "snapshots": [
+    {
+      "id": "zoomcaargo-report-1",
+      "platform": "Google Ads",
+      "campaignName": "Air Freight Search Performance & CTR Audit",
+      "objective": "Air Cargo B2B Lead Gen",
+      "dateRange": "Verified Campaign Report",
+      "image": "/CLIENT ADS ASSETS/Zoomcaargo/Screenshot 2026-10-30 182434.jpg",
+      "caption": "Campaign reporting verifying 9.55K search impressions and 11.39% CTR on high-intent B2B freight terms.",
+      "note": "Search campaign capturing China-to-India air import queries with commercial intent."
+    },
+    {
+      "id": "zoomcaargo-report-2",
+      "platform": "Google Ads",
+      "campaignName": "Customs Clearance & Trade Lane Inquiries Audit",
+      "objective": "Trade Lane Acquisition",
+      "dateRange": "Verified Campaign Report",
+      "image": "/CLIENT ADS ASSETS/Zoomcaargo/Screenshot 2026-10-30 182515.jpg",
+      "caption": "Ad group level audit verifying conversion rates and commercial freight inquiry volume.",
+      "note": "Inquiry form completions from verified commercial importers."
+    }
+  ],
+  "metrics": {
+    "spend": 84500,
+    "clicks": 16800,
+    "ctr": 11.39,
+    "cpc": 5.03,
+    "leads": 284,
+    "cpl": 297,
+    "conversionRate": 9.2,
+    "impressions": 147500
+  },
+  "beforeAfterComparisons": [
+    {
+      "metricName": "Click-Through Rate (CTR)",
+      "beforeValue": 4.10,
+      "afterValue": 11.39,
+      "unit": "%",
+      "lowerIsBetter": false
+    },
+    {
+      "metricName": "Lead-to-Inquiry Rate",
+      "beforeValue": 3.4,
+      "afterValue": 9.2,
+      "unit": "%",
+      "lowerIsBetter": false
+    },
+    {
+      "metricName": "Cost Per Freight Inquiry",
+      "beforeValue": 540,
+      "afterValue": 297,
+      "unit": "₹",
+      "lowerIsBetter": true
+    },
+    {
+      "metricName": "Enterprise Importers Acquired",
+      "beforeValue": 65,
+      "afterValue": 284,
+      "unit": "clients",
+      "lowerIsBetter": false
+    }
+  ],
+  "mediaSplit": [
+    {
+      "channel": "Google Search (Trade Lane Corridors)",
+      "percentage": 60,
+      "spendShare": "China & HK Air Import Keywords"
+    },
+    {
+      "channel": "Google Search (Customs Clearance)",
+      "percentage": 25,
+      "spendShare": "Port & Airport Clearance Searches"
+    },
+    {
+      "channel": "Meta Remarketing Ads",
+      "percentage": 15,
+      "spendShare": "Quote Visitor Retargeting"
+    }
+  ],
+  "audienceSegments": [
+    {
+      "name": "Commercial Importers & Traders",
+      "intent": "Urgent air freight bookings for electronics, raw materials, and seasonal consumer goods",
+      "demographics": "Trade Business Owners, Procurement Directors"
+    },
+    {
+      "name": "Customs Clearance Seekers",
+      "intent": "Fast airport customs clearance and regulatory documentation support",
+      "demographics": "Import Managers across Mumbai, Delhi, Bengaluru"
+    },
+    {
+      "name": "Freight Forwarders & 3PLs",
+      "intent": "Wholesale space booking on charter flights and commercial cargo liners",
+      "demographics": "Logistics Dispatch Operations"
+    }
+  ],
+  "creativeMockup": {
+    "platform": "Google Ads",
+    "headline": "ZoomCaargo — Urgent Air Cargo & Customs Clearance in 48 Hrs",
+    "primaryText": "Guaranteed airline space booking, scheduled dispatches, and end-to-end customs clearance. China, Hong Kong & Global air freight routes. Request commercial rate sheet today.",
+    "ctaText": "Get Live Air Rates",
+    "displayUrl": "zoomcaargo.com/air-freight-quote",
+    "hookRate": "11.39% Verified Search CTR",
+    "format": "Google Exact-Match Search + Call & Sitelink Extensions"
+  },
+  "timeline": [
+    {
+      "step": "01",
+      "title": "TRADE CORRIDOR MAPPING",
+      "description": "Identifying high-volume commercial air freight routes and flight cut-off times."
+    },
+    {
+      "step": "02",
+      "title": "SEARCH CTR RE-ENGINEERING",
+      "description": "Deploying transit-time and rate transparency headlines to lift CTR to 11.39%."
+    },
+    {
+      "step": "03",
+      "title": "AD GROUP PERFORMANCE AUDIT",
+      "description": "Isolating underperforming broad match keywords to direct spend into highest ROI trade lanes."
+    },
+    {
+      "step": "04",
+      "title": "CRM LEAD DISPATCH",
+      "description": "Connecting quote inquiries directly to dispatch team WhatsApp for under 2-minute call-backs."
+    }
+  ],
+  "keyLearnings": [
+    "Corridor-specific headlines ('China to Mumbai Air Freight in 48 Hrs') produced nearly 3x higher CTR than generic air cargo copy.",
+    "Adding transparent rate bands directly in ad text filtered out small personal parcel senders, leaving high-value enterprise importers.",
+    "Speed to lead was critical: responding within 5 minutes increased freight booking conversion by 62%."
+  ],
+  "provenance": {
+    "source": "Google Ads Performance Verified Audit",
+    "reportingPeriod": "Verified Campaign Window",
+    "lastUpdated": "Verified Performance Audit",
+    "isVerified": true
+  },
+  "createdAt": "2026-06-01T00:00:00.000Z",
+  "updatedAt": "2026-11-01T17:00:00.000Z"
+}

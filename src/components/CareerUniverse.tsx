@@ -24,7 +24,7 @@ function CharacterSVG({ id, animate = false }: { id: string; animate?: boolean }
           <line x1="28" y1="31" x2="42" y2="31" stroke="#fff" strokeWidth="1"/>
           <line x1="28" y1="34" x2="36" y2="34" stroke="#fff" strokeWidth="1" opacity="0.6"/>
           {/* Ad symbols */}
-          <text x="65" y="75" fill="rgba(255,255,255,0.4)" fontSize="8" fontWeight="bold" fontFamily="monospace">ROAS 4.1</text>
+          <text x="65" y="75" fill="rgba(255,255,255,0.4)" fontSize="8" fontWeight="bold" fontFamily="'Outfit', sans-serif">ROAS 4.1</text>
         </svg>
       );
     case 'media-planning':
@@ -72,7 +72,7 @@ function CharacterSVG({ id, animate = false }: { id: string; animate?: boolean }
           <circle cx="70" cy="40" r="2.5" fill="#E50914"/>
           {/* GA4/GTM Floating tag node */}
           <rect x="35" y="68" width="30" height="10" rx="2" fill="#E50914" opacity="0.8"/>
-          <text x="41" y="76" fill="#fff" fontSize="6" fontWeight="bold" fontFamily="monospace">TAG ACTIVE</text>
+          <text x="41" y="76" fill="#fff" fontSize="6" fontWeight="bold" fontFamily="'Outfit', sans-serif">TAG ACTIVE</text>
         </svg>
       );
     case 'web-dev':

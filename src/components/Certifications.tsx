@@ -80,9 +80,21 @@ export default function Certifications() {
                     Completed: {cert.date}
                   </span>
                   
-                  <span className="text-[10px] text-[#E50914] font-semibold tracking-wider opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-0.5 ml-8">
-                    Verified <ExternalLink className="w-2.5 h-2.5" />
-                  </span>
+                  {cert.credentialUrl ? (
+                    <a
+                      href={cert.credentialUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={(e) => e.stopPropagation()}
+                      className="text-[10px] text-[#E50914] font-semibold tracking-wider opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-0.5 ml-8 hover:underline"
+                    >
+                      Verified <ExternalLink className="w-2.5 h-2.5" />
+                    </a>
+                  ) : (
+                    <span className="text-[10px] text-[#E50914] font-semibold tracking-wider opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-0.5 ml-8">
+                      Verified <ExternalLink className="w-2.5 h-2.5" />
+                    </span>
+                  )}
                 </div>
               </div>
 

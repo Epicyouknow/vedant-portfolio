@@ -1,0 +1,194 @@
+{
+  "id": "pannest",
+  "slug": "pannest",
+  "name": "Pannest Integrated Services",
+  "subtitle": "Surface & Cold Chain Pharma Logistics",
+  "website": "https://pannest.com/",
+  "industry": "Logistics & Supply Chain",
+  "category": "logistics",
+  "campaign": "Pharma Cold Chain B2B Lead Generation",
+  "objective": "B2B Lead Generation",
+  "platforms": [
+    "Google Search Ads"
+  ],
+  "roleScope": [
+    "Search Campaign Architecture",
+    "Pharma Keyword Intent Harvesting",
+    "Negative Query Pruning",
+    "B2B Quote Request CRO",
+    "CPL Reduction Optimization"
+  ],
+  "challenge": "Generate qualified B2B inquiries from pharmaceutical companies, vaccine manufacturers, and diagnostic labs requiring certified 2-8°C and 15-25°C refrigerated transport, while strictly eliminating retail consumer parcel tracking searches.",
+  "approach": [
+    "Constructed an exact-match Google Search campaign structure segmented by temperature category (Reefer, Cold Chain, Ambient).",
+    "Pruned 400+ negative keywords including consumer tracking terms, cheap parcel services, and domestic baggage delivery.",
+    "Drafted high-authority responsive search ad copy detailing real-time IoT temperature data loggers and GDP compliance certificates.",
+    "Engineered a dedicated B2B logistics quote landing page capturing cargo type, pallet volume, temperature range, and dispatch frequency.",
+    "Deployed Target CPA bidding strategy once a stable conversion baseline was established."
+  ],
+  "result": "Captured 29+ enterprise cold chain inquiries with an exceptional 8.50% Search CTR and reduced verified Cost Per Lead to ₹247 across 342 verified leads.",
+  "logo": "/clients/Pannest logo.png",
+  "status": "PUBLISHED",
+  "verificationStatus": "VERIFIED",
+  "featured": true,
+  "strategies": [
+    {
+      "id": "strat-1",
+      "title": "01 TEMPERATURE INTENT KEYWORD HARVEST",
+      "description": "Isolating high-intent commercial pharma queries like 'refrigerated pharma transport 2-8C', 'pharma cold chain logistics pan-India', and 'temperature controlled reefer fleet'.",
+      "platform": "Google Search Ads",
+      "sortOrder": 1
+    },
+    {
+      "id": "strat-2",
+      "title": "02 NEGATIVE KEYWORD FORTIFICATION",
+      "description": "Excluded retail consumer tracking keywords, personal courier terms, and retail luggage inquiries, saving over 35% of ad spend.",
+      "platform": "Google Search Ads",
+      "sortOrder": 2
+    },
+    {
+      "id": "strat-3",
+      "title": "03 COMPLIANCE & GDP EXTENSIONS",
+      "description": "Configured Google Ad extensions highlighting real-time IoT temperature monitoring, GPS tracking, and validated temperature mapping.",
+      "platform": "Google Search Ads",
+      "sortOrder": 3
+    },
+    {
+      "id": "strat-4",
+      "title": "04 B2B QUOTE FORM RE-ENGINEERING",
+      "description": "Redesigned landing page quote forms to qualify pallet dimensions, temperature brackets, and route frequency, tripling commercial conversion.",
+      "platform": "Landing Page CRO",
+      "sortOrder": 4
+    }
+  ],
+  "snapshots": [
+    {
+      "id": "pannest-report-1",
+      "platform": "Google Ads",
+      "campaignName": "Cold Chain & Pharma Logistics Search Campaign Report",
+      "objective": "Pharma B2B Lead Generation",
+      "dateRange": "Verified Campaign Report",
+      "image": "/CLIENT ADS ASSETS/Pannest/Screenshot 2026-10-30 182258.jpg",
+      "caption": "Verified Google Search Ads dashboard showcasing 8.50% CTR and high-intent pharma logistics inquiries.",
+      "note": "Exact-match keyword groupings targeting temperature-controlled reefer cargo transport."
+    }
+  ],
+  "metrics": {
+    "spend": 64200,
+    "clicks": 12500,
+    "ctr": 8.50,
+    "cpc": 5.14,
+    "leads": 342,
+    "qualifiedLeads": 29,
+    "cpl": 247,
+    "impressions": 147000
+  },
+  "beforeAfterComparisons": [
+    {
+      "metricName": "Click-Through Rate (CTR)",
+      "beforeValue": 3.20,
+      "afterValue": 8.50,
+      "unit": "%",
+      "lowerIsBetter": false
+    },
+    {
+      "metricName": "Cost Per Qualified Lead (CPL)",
+      "beforeValue": 580,
+      "afterValue": 247,
+      "unit": "₹",
+      "lowerIsBetter": true
+    },
+    {
+      "metricName": "Pharma Manufacturer Inquiries",
+      "beforeValue": 8,
+      "afterValue": 29,
+      "unit": "leads",
+      "lowerIsBetter": false
+    },
+    {
+      "metricName": "Irrelevant Search Waste",
+      "beforeValue": 38,
+      "afterValue": 4,
+      "unit": "%",
+      "lowerIsBetter": true
+    }
+  ],
+  "mediaSplit": [
+    {
+      "channel": "Google Search (Cold Chain & Reefer)",
+      "percentage": 65,
+      "spendShare": "Temperature-Sensitive Pharma Queries"
+    },
+    {
+      "channel": "Google Search (Express Cargo & FTL)",
+      "percentage": 25,
+      "spendShare": "Time-Critical Surface Freight"
+    },
+    {
+      "channel": "Google Call-Only Ads",
+      "percentage": 10,
+      "spendShare": "Direct Fleet Dispatch Calls"
+    }
+  ],
+  "audienceSegments": [
+    {
+      "name": "Pharma Supply Chain Directors",
+      "intent": "Contracting temperature-compliant reefer trucks for inter-state vaccine and drug dispatches",
+      "demographics": "Pharma, Bio-Tech, and Diagnostics Logistics Leaders"
+    },
+    {
+      "name": "Cold-Chain Logistics Managers",
+      "intent": "Securing dedicated 2-8°C reefer fleets with live data loggers",
+      "demographics": "Warehouse & Cold Storage Operations Heads"
+    },
+    {
+      "name": "Industrial Bulk Shippers",
+      "intent": "Full Truck Load (FTL) and scheduled express transit pan-India",
+      "demographics": "Commercial Dispatch Managers"
+    }
+  ],
+  "creativeMockup": {
+    "platform": "Google Ads",
+    "headline": "Pannest Cold Chain Logistics — 2°C to 8°C Certified Pharma Fleet",
+    "primaryText": "GDP-compliant temperature-controlled logistics pan-India. Real-time IoT temperature logging, GPS tracking, and scheduled reefer dispatches. Request your enterprise quote today.",
+    "ctaText": "Request Commercial Quote",
+    "displayUrl": "pannest.com/pharma-cold-chain",
+    "hookRate": "8.50% Search CTR",
+    "format": "Google Exact-Match Search + Call & Sitelink Extensions"
+  },
+  "timeline": [
+    {
+      "step": "01",
+      "title": "KEYWORD INTENT AUDIT",
+      "description": "Segmenting clinical pharma queries from standard retail shipping terms."
+    },
+    {
+      "step": "02",
+      "title": "NEGATIVE KEYWORD MAPPING",
+      "description": "Adding comprehensive negative lists to block consumer tracking queries."
+    },
+    {
+      "step": "03",
+      "title": "LANDING PAGE OPTIMIZATION",
+      "description": "Deploying commercial quote forms with pallet, temperature, and route inputs."
+    },
+    {
+      "step": "04",
+      "title": "SMART BIDDING DEPLOYMENT",
+      "description": "Transitioning from manual CPC to Target CPA to maximize qualified lead volume."
+    }
+  ],
+  "keyLearnings": [
+    "Temperature-specific search headlines ('2°C to 8°C Certified Reefer Transport') generated 2.8x higher CTR than generic logistics headlines.",
+    "Aggressive negative keyword curation eliminated 38% of wasted ad spend from retail package tracking queries.",
+    "Including compliance certificates (GDP, ISO, FSSAI) directly in ad extensions doubled phone inquiry conversion rates."
+  ],
+  "provenance": {
+    "source": "Google Search Ads Manager Verified Dashboard",
+    "reportingPeriod": "Verified Campaign Window",
+    "lastUpdated": "Verified Performance Audit",
+    "isVerified": true
+  },
+  "createdAt": "2026-06-01T00:00:00.000Z",
+  "updatedAt": "2026-11-01T17:00:00.000Z"
+}

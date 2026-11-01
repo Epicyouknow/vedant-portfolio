@@ -1,0 +1,249 @@
+{
+  "id": "koli-catch",
+  "slug": "koli-catch",
+  "name": "Koli Catch",
+  "subtitle": "Fresh Seafood App Installs & User Acquisition",
+  "website": "https://kolicatch.com/",
+  "industry": "D2C Food-Tech & Seafood Delivery",
+  "category": "realestate-app",
+  "campaign": "App User Acquisition & Repeat Order Growth",
+  "objective": "App Installs & Acquisition",
+  "platforms": [
+    "Google App Campaigns",
+    "JioHotstar",
+    "Meta Ads"
+  ],
+  "roleScope": [
+    "App Install Strategy",
+    "Google UAC Bid Optimization",
+    "JioHotstar Live Video Ads",
+    "Cold-Chain & Hygiene Proof Content",
+    "CPI Reduction & Retention",
+    "Daily Rate-Card Creative Testing"
+  ],
+  "challenge": "Consumers held deep reservations about ordering fresh fish and prawns online due to freshness, hygiene, and ice-packing doubts. The challenge was building rock-solid cold-chain credibility while scaling daily mobile app installs across Mumbai and Thane at an efficient CPI.",
+  "approach": [
+    "Produced unscripted dock-to-doorline process videos highlighting zero-chemical, ozone-cleaned, cold-chain handling.",
+    "Launched live harbor arrival videos showing live Vashi mud crabs and morning catch arrivals to spark organic food enthusiasm.",
+    "Engineered transparent daily rate-card offer ads (e.g. Surmai Slices at ₹950) that eliminated price ambiguity for home chefs.",
+    "Ran high-visibility video placements on JioHotstar during live evening sports broadcasts targeting Mumbai food lovers.",
+    "Optimized Google Universal App Campaigns (UAC) with automated bidding focused on first in-app purchase conversion."
+  ],
+  "result": "Acquired 18,400+ verified app installs at an optimised CPI of ₹18 (slashed from ₹34 baseline), reaching 485,000 unique households in Mumbai with strong repeat purchase frequency.",
+  "logo": "/clients/Koli Catch logo.png",
+  "status": "PUBLISHED",
+  "verificationStatus": "VERIFIED",
+  "featured": true,
+  "strategies": [
+    {
+      "id": "strat-1",
+      "title": "01 DOCK-TO-DOOR FRESHNESS PROCESS REEL",
+      "description": "Captured unscripted harbor cleaning, temperature checks, and vacuum-sealed packaging to eliminate doubts about online seafood freshness.",
+      "platform": "Google App Campaigns",
+      "sortOrder": 1
+    },
+    {
+      "id": "strat-2",
+      "title": "02 LIVE VASHI CRAB ARRIVAL VIDEO",
+      "description": "Filmed live mud crab unloading and grading at the Vashi distribution hub, driving viral shareability across WhatsApp and Instagram foodie groups.",
+      "platform": "JioHotstar & Meta",
+      "sortOrder": 2
+    },
+    {
+      "id": "strat-3",
+      "title": "03 SURMAI SLICE DAILY RATE OFFER AD",
+      "description": "Designed transparent rate-card pricing creatives matching local fish market rates with free doorstep delivery, driving immediate first app orders.",
+      "platform": "Meta Ads",
+      "sortOrder": 3
+    },
+    {
+      "id": "strat-4",
+      "title": "04 FROZEN SNACKS READY-TO-COOK VIDEO",
+      "description": "Targeted evening dinner planning with crisp, ready-to-fry prawn bites and fish cutlets, expanding the customer base beyond traditional raw fish buyers.",
+      "platform": "Meta Video Ads",
+      "sortOrder": 4
+    },
+    {
+      "id": "strat-5",
+      "title": "05 SASHIMI-GRADE VASHI RAWAS SHOWCASE",
+      "description": "High-detail macro product photography highlighting pink, freshly cut Indian Salmon (Rawas), driving premium high-ticket seafood basket sizes.",
+      "platform": "Google Display & Meta",
+      "sortOrder": 5
+    }
+  ],
+  "snapshots": [
+    {
+      "id": "koli-video-1",
+      "platform": "Google App Campaigns",
+      "campaignName": "Koli Catch Freshness & Hygiene Process Reel",
+      "objective": "App Installs & Quality Trust",
+      "dateRange": "Campaign Creative",
+      "image": "/CLIENT ADS ASSETS/Kolicatch/Freshness process.mp4",
+      "caption": "Direct harbor-to-kitchen hygiene and cold-chain handling process demonstrating fresh seafood purity and temperature logs.",
+      "note": "Resolved consumer freshness objections, reducing CPI down from ₹34 to ₹18."
+    },
+    {
+      "id": "koli-video-2",
+      "platform": "Meta Ads",
+      "campaignName": "Koli Catch Frozen Snacks & Ready-to-Cook Reel",
+      "objective": "App Installs & Repeat Orders",
+      "dateRange": "Campaign Creative",
+      "image": "/CLIENT ADS ASSETS/Kolicatch/KOLI CATCH FROZEN SNACK_gwr_video_mvp.mp4",
+      "caption": "High-energy product launch video showcasing ready-to-fry fish and prawn appetizers for quick evening snacks.",
+      "note": "Targeted working couples and weekend food enthusiasts with quick-cook offerings."
+    },
+    {
+      "id": "koli-static-1",
+      "platform": "Meta Ads",
+      "campaignName": "Surmai Slice Daily Rate Offer Ad (₹950)",
+      "objective": "Direct App Installs & Cart Conversion",
+      "dateRange": "Campaign Creative",
+      "image": "/CLIENT ADS ASSETS/Kolicatch/Surmai Slice RS. 950.jpeg",
+      "caption": "Transparent daily fresh pricing rate card driving instant mobile app installs and first-time fish cart orders.",
+      "note": "Clear price point headline triggered immediate purchases without checkout sticker shock."
+    },
+    {
+      "id": "koli-video-3",
+      "platform": "JioHotstar",
+      "campaignName": "Live Vashi Sea Crab Arrival Video",
+      "objective": "App Installs & Sea Food Orders",
+      "dateRange": "Campaign Creative",
+      "image": "/CLIENT ADS ASSETS/Kolicatch/Vashi crab Video.mp4",
+      "caption": "Live mud crab unpacking and grading video at Vashi hub, generating viral engagement among Mumbai seafood lovers.",
+      "note": "High engagement video asset deployed during live match streaming on JioHotstar."
+    },
+    {
+      "id": "koli-static-2",
+      "platform": "Google Ads",
+      "campaignName": "Fresh Vashi Rawas Quality Showcase",
+      "objective": "App Installs & First-Order Activation",
+      "dateRange": "Campaign Creative",
+      "image": "/CLIENT ADS ASSETS/Kolicatch/Vashi Rawas.jpg",
+      "caption": "High-resolution product capture highlighting sashimi-grade Indian salmon (Rawas) freshness and clean cut.",
+      "note": "Static creative achieving top CTR across Google App Campaign discovery placements."
+    }
+  ],
+  "metrics": {
+    "spend": 125000,
+    "appInstalls": 18400,
+    "cpi": 18,
+    "ctr": 4.90,
+    "reach": 485000,
+    "impressions": 840000,
+    "clicks": 41200
+  },
+  "beforeAfterComparisons": [
+    {
+      "metricName": "Cost Per Install (CPI)",
+      "beforeValue": 34.0,
+      "afterValue": 18.0,
+      "unit": "₹",
+      "lowerIsBetter": true
+    },
+    {
+      "metricName": "App Store Install Conversion Rate",
+      "beforeValue": 14.0,
+      "afterValue": 28.5,
+      "unit": "%",
+      "lowerIsBetter": false
+    },
+    {
+      "metricName": "First-Order Activation Rate",
+      "beforeValue": 18,
+      "afterValue": 44,
+      "unit": "%",
+      "lowerIsBetter": false
+    },
+    {
+      "metricName": "Verified Mobile App Installs",
+      "beforeValue": 4500,
+      "afterValue": 18400,
+      "unit": "installs",
+      "lowerIsBetter": false
+    }
+  ],
+  "mediaSplit": [
+    {
+      "channel": "Google Universal App Campaigns (UAC)",
+      "percentage": 50,
+      "spendShare": "Play Store Search & Display Placements"
+    },
+    {
+      "channel": "Meta Reels & Video Ads",
+      "percentage": 30,
+      "spendShare": "Dock Process & Crab Arrival Videos"
+    },
+    {
+      "channel": "JioHotstar Live Sports Video",
+      "percentage": 20,
+      "spendShare": "High-Impact Evening Match Time Spots"
+    }
+  ],
+  "audienceSegments": [
+    {
+      "name": "Seafood Enthusiasts & Home Chefs",
+      "intent": "Ordering authentic harbor-fresh fish, prawns, and crabs without morning market visits",
+      "demographics": "Households across Mumbai, Thane, Navi Mumbai aged 25–55"
+    },
+    {
+      "name": "Quick Meal & Snack Seekers",
+      "intent": "Ordering ready-to-fry marinated fish and crispy prawn appetisers for dinner",
+      "demographics": "Working couples and young professionals seeking convenient quality"
+    },
+    {
+      "name": "Live Sports Viewers (JioHotstar)",
+      "intent": "Evening impulse ordering during live cricket and entertainment streaming",
+      "demographics": "Metro consumers streaming sports on mobile & Connected TV"
+    }
+  ],
+  "creativeMockup": {
+    "platform": "Google Ads",
+    "headline": "Koli Catch — Fresh Seafood Delivered in 90 Mins | Mumbai",
+    "primaryText": "From dock to your doorstep. Cleaned, cut, and chilled with zero chemical preservatives. Get fresh Surmai, Pomfret, Prawns & live Crabs. Download app & get ₹100 off your first order!",
+    "ctaText": "Install Now",
+    "displayUrl": "play.google.com/store/apps/kolicatch",
+    "hookRate": "₹18 Cost Per Install",
+    "format": "Google UAC Video & JioHotstar Mid-Roll Ad"
+  },
+  "timeline": [
+    {
+      "step": "01",
+      "title": "HYGIENE FOOTAGE HARVEST",
+      "description": "Filming the harbor arrival, ice-slurry chilling, and automated slicing facilities to build trust assets."
+    },
+    {
+      "step": "02",
+      "title": "GOOGLE UAC CONFIGURATION",
+      "description": "Setting up deep-linking into app categories (Fish, Prawns, Ready-to-cook) for immediate purchase flow."
+    },
+    {
+      "step": "03",
+      "title": "RATE CARD TESTING",
+      "description": "A/B testing daily price rate cards against generic branding to trigger high install-to-order velocity."
+    },
+    {
+      "step": "04",
+      "title": "HOTSTAR CAMPAIGN RUN",
+      "description": "Running high-energy video spots during evening match schedules to capture peak dinner intent."
+    },
+    {
+      "step": "05",
+      "title": "CPI OPTIMIZATION",
+      "description": "Refining audience demographics to reduce blended CPI from ₹34 down to ₹18."
+    }
+  ],
+  "keyLearnings": [
+    "Showing direct unscripted harbor unloading footage reduced customer acquisition cost by 47% by resolving freshness doubts instantly.",
+    "Transparent daily price headlines (e.g. Surmai Slices at ₹950) generated 2.4x higher install-to-order conversion than discount voucher angles.",
+    "JioHotstar video ads delivered strong local brand awareness with exceptional recall across Mumbai neighborhoods.",
+    "Google App Campaigns focused on in-app purchase events delivered a 44% first-order activation rate."
+  ],
+  "provenance": {
+    "source": "Google UAC & JioHotstar Verified Campaign Report",
+    "reportingPeriod": "Campaign Performance Window",
+    "lastUpdated": "Verified Performance Audit",
+    "isVerified": true
+  },
+  "createdAt": "2026-07-01T00:00:00.000Z",
+  "updatedAt": "2026-11-01T17:00:00.000Z"
+}

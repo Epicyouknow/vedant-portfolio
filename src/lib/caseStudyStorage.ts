@@ -43,12 +43,21 @@ export function getAllCaseStudies(): ClientCaseStudy[] {
 
     const diskSlugMap = new Map(diskStudies.map((s) => [s.slug, s]));
 
-    return validClients.map((client) => {
+    const result = validClients.map((client) => {
       if (diskSlugMap.has(client.slug)) {
         return diskSlugMap.get(client.slug)!;
       }
       return mapLegacyToCaseStudy(client);
     });
+
+    // Also include any standalone disk studies (e.g. aliases)
+    diskStudies.forEach((study) => {
+      if (!result.some((r) => r.slug === study.slug)) {
+        result.push(study);
+      }
+    });
+
+    return result;
   } catch (e) {
     return validClients.map(mapLegacyToCaseStudy);
   }
@@ -56,5 +65,13 @@ export function getAllCaseStudies(): ClientCaseStudy[] {
 
 export function getCaseStudyBySlug(slug: string): ClientCaseStudy | null {
   const all = getAllCaseStudies();
-  return all.find((item) => item.slug === slug) || null;
+  const direct = all.find((item) => item.slug === slug);
+  if (direct) return direct;
+  if (slug === 'gujju-express') {
+    return all.find((item) => item.slug === 'gujju-express-logistics') || null;
+  }
+  if (slug === 'gujju-express-logistics') {
+    return all.find((item) => item.slug === 'gujju-express') || null;
+  }
+  return null;
 }

@@ -47,6 +47,7 @@ export interface Certification {
   date: string;
   color: string;
   certId?: string;
+  credentialUrl?: string;
 }
 
 export interface FutureGoal {
@@ -131,7 +132,7 @@ export const portfolioData: PortfolioData = {
     ],
     tagline: "Turning Data Into Growth.",
     location: "Mumbai, India",
-    email: "tiwarivedant705@gmail.com",
+    email: "contactvedantverse@gmail.com",
     phone: "816372383",
     linkedin: "https://www.linkedin.com/in/vedant-tiwarii",
     resumeUrl: "/Vedant_Tiwari_Resume.pdf",
@@ -411,12 +412,78 @@ export const portfolioData: PortfolioData = {
     }
   ],
   certifications: [
-    { id: "cert-1", title: "Google Search Ads Certification", issuer: "Google", date: "2024", color: "#4285F4", certId: "G-SRCH-94301" },
-    { id: "cert-2", title: "Google Analytics 4 Certification", issuer: "Google", date: "2024", color: "#EA4335", certId: "GA4-39401" },
-    { id: "cert-3", title: "Display & Video 360 (DV360)", issuer: "Google", date: "2024", color: "#34A853", certId: "DV-360-19403" },
-    { id: "cert-4", title: "Campaign Manager 360 (CM360)", issuer: "Google", date: "2024", color: "#FBBC05", certId: "CM-360-5942" },
-    { id: "cert-5", title: "Amazon DSP Certification", issuer: "Amazon Web Services", date: "2023", color: "#FF9900", certId: "AMZ-DSP-4012" },
-    { id: "cert-6", title: "Reddit Ads Professional", issuer: "Reddit", date: "2023", color: "#FF4500", certId: "RD-PRO-20419" }
+    {
+      id: "cert-1",
+      title: "Google Ads Display Certification",
+      issuer: "Google Skillshop",
+      date: "Issued Jun 2025 · Expires Jun 2026",
+      color: "#4285F4",
+      certId: "8301b3dc-e487",
+      credentialUrl: "https://skillshop.credential.net/8301b3dc-e487-48b2-adc4-6fb24f5e837c#acc.KA1LHhX2",
+    },
+    {
+      id: "cert-2",
+      title: "Campaign Manager 360 Certification",
+      issuer: "Google Marketing Platform",
+      date: "Issued Jun 2025 · Expires Jun 2026",
+      color: "#FBBC05",
+      certId: "defd58dc-f43f",
+      credentialUrl: "https://skillshop.credential.net/defd58dc-f43f-4c2d-8bbc-5651c104ebd3",
+    },
+    {
+      id: "cert-3",
+      title: "Display & Video 360 (DV360)",
+      issuer: "Google Marketing Platform",
+      date: "Issued Jun 2025 · Expires Jun 2026",
+      color: "#34A853",
+      certId: "3c2e0e98-2cce",
+      credentialUrl: "https://skillshop.credential.net/3c2e0e98-2cce-4ef5-ab54-fbcff9a1ec96",
+    },
+    {
+      id: "cert-4",
+      title: "Google Ads Creative Certification",
+      issuer: "Google Skillshop",
+      date: "Issued Jan 2025 · Expires Jan 2026",
+      color: "#EA4335",
+      certId: "90936049-e0e9",
+      credentialUrl: "https://skillshop.credential.net/90936049-e0e9-4c27-929e-fb684ba63378",
+    },
+    {
+      id: "cert-5",
+      title: "Reddit Ads Fundamentals Certification",
+      issuer: "Reddit for Business",
+      date: "Issued Aug 2025",
+      color: "#FF4500",
+      certId: "HnHEMaGchQKF",
+      credentialUrl: "https://adsformula.redditforbusiness.com/student/award/HnHEMaGchQKFf2W9JnQCVk1x",
+    },
+    {
+      id: "cert-6",
+      title: "Reddit Ads Boost Certification",
+      issuer: "Reddit for Business",
+      date: "Issued Aug 2025",
+      color: "#FF5722",
+      certId: "LdNYZsE7kK1Y",
+      credentialUrl: "https://adsformula.redditforbusiness.com/student/award/LdNYZsE7kK1YFNyi7ZC22V9y",
+    },
+    {
+      id: "cert-7",
+      title: "Reddit Ads Creative Micro-certification",
+      issuer: "Reddit for Business",
+      date: "Issued Aug 2025",
+      color: "#D84315",
+      certId: "SqYoLtaKDzR9",
+      credentialUrl: "https://adsformula.redditforbusiness.com/student/award/SqYoLtaKDzR9i99pNVmFBLiz",
+    },
+    {
+      id: "cert-8",
+      title: "Amazon DSP Certification",
+      issuer: "Amazon Ads Academy",
+      date: "Issued Feb 2026 · Expires Feb 2028",
+      color: "#FF9900",
+      certId: "AMZ-DSP-2026",
+      credentialUrl: "https://learningconsole.amazonadvertising.com/",
+    },
   ],
   futureGoals: [
     {
@@ -480,7 +547,7 @@ export const portfolioData: PortfolioData = {
     },
     {
       questionKeywords: [["contact", "email"], ["hire", "recruit"], ["phone", "reach", "linkedin"]],
-      answer: "You can reach Vedant Tiwari directly via Email at tiwarivedant705@gmail.com, via Phone at 816372383, or visit his LinkedIn profile (https://www.linkedin.com/in/vedant-tiwarii). He is based in Mumbai, India, and open to remote or on-site opportunities."
+      answer: "You can reach Vedant Tiwari directly via Email at contactvedantverse@gmail.com, via Phone at 816372383, or visit his LinkedIn profile (https://www.linkedin.com/in/vedant-tiwarii). He is based in Mumbai, India, and open to remote or on-site opportunities."
     },
     {
       questionKeywords: [["ad spend", "budget"], ["spend", "money", "managed"]],

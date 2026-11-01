@@ -17,6 +17,48 @@ export interface ClientData {
 
 export const CLIENTS_DATA: ClientData[] = [
   {
+    id: 'cura',
+    slug: 'cura',
+    name: 'Cura',
+    subtitle: 'Travel-Tech Platform (India & US)',
+    website: 'https://joincura.club/',
+    category: 'services',
+    campaign: 'Travel-Tech Platform Sign-Ups & Advisor Acquisition',
+    objective: 'Website Sign-Ups & Advisor Interactions',
+    platforms: ['Meta Ads', 'Funnel Analytics'],
+    role: 'Strategy • Media Buying • City Targeting • Funnel Analysis • Conversion Optimization',
+    challenge: 'Generate qualified website sign-ups and advisor interactions across India and US markets at efficient CPL targets.',
+    approach: [
+      'Meta campaign strategy with refined city and audience targeting across India & US',
+      'Structured campaign and ad-set architecture for systematic creative testing',
+      'Funnel drop-off analysis to improve website sign-up conversion efficiency',
+      'Continuous CPL & conversion review for real-time creative and bid optimization'
+    ],
+    result: 'Scaled qualified website sign-ups and advisor interaction volume while maintaining optimal acquisition costs across India and US target markets.',
+    logo: '/clients/Cura logo.jpg'
+  },
+  {
+    id: 'hfs-mumineen',
+    slug: 'hfs-mumineen',
+    name: 'HFS Mumineen',
+    subtitle: '925 Silver & Faith-Led Jewellery',
+    website: 'https://hfsmumineen.com/',
+    category: 'ecommerce',
+    campaign: 'E-Commerce Growth & Meta Sales Scaling',
+    objective: 'Website Purchases & ROAS Scaling',
+    platforms: ['Meta Ads', 'Catalogue Ads', 'Conversion Tracking'],
+    role: 'Strategy • E-Commerce Growth • Catalogue Campaigns • Retargeting • CRO',
+    challenge: 'Scale direct e-commerce jewellery purchases and maintain high ROAS while testing multiple product collections.',
+    approach: [
+      'Full-funnel Meta sales campaigns with product-wise creative testing matrices',
+      'Dynamic catalogue and collection ads paired with high-intent retargeting',
+      'Conversion tracking & Pixel event configuration for purchase optimization',
+      'Website UX and CRO recommendations to boost cart-to-purchase conversion'
+    ],
+    result: 'Drove consistent ROAS scaling and higher direct e-commerce purchase volume across premium 925 silver collections.',
+    logo: '/clients/Hfs mumineen logo.jpg'
+  },
+  {
     id: 'pannest',
     slug: 'pannest',
     name: 'Pannest',
@@ -25,7 +67,7 @@ export const CLIENTS_DATA: ClientData[] = [
     category: 'logistics',
     campaign: 'Surface Express & Cold Chain Pharma Logistics',
     objective: 'Lead Generation',
-    platforms: ['Google Search'],
+    platforms: ['Google Ads'],
     role: 'Strategy • Media Buying • Campaign Optimization • Conversion Tracking',
     challenge: 'Generate qualified B2B logistics enquiries for surface express and cold chain pharma dispatches while controlling Cost Per Lead (CPL).',
     approach: [
@@ -46,7 +88,7 @@ export const CLIENTS_DATA: ClientData[] = [
     category: 'logistics',
     campaign: 'Time-Critical Air Freight & China–India Import Specialist',
     objective: 'Lead Generation',
-    platforms: ['Google Ads', 'Meta Ads'],
+    platforms: ['Google Ads'],
     role: 'Strategy • Media Buying • Campaign Optimization • Conversion Tracking',
     challenge: 'Target B2B importers, exporters, and manufacturers requiring urgent time-critical air freight and customs clearance.',
     approach: [
@@ -87,7 +129,7 @@ export const CLIENTS_DATA: ClientData[] = [
     category: 'logistics',
     campaign: 'Courier & Logistics Services',
     objective: 'Lead Generation',
-    platforms: ['Google Ads'],
+    platforms: ['Meta Ads'],
     role: 'Strategy • Media Buying • Campaign Optimization • Conversion Tracking',
     challenge: 'Maximize qualified courier enquiries while lowering CPL in a highly competitive search market.',
     approach: [
@@ -107,7 +149,7 @@ export const CLIENTS_DATA: ClientData[] = [
     category: 'logistics',
     campaign: 'Logistics / Freight Forwarding',
     objective: 'Lead Generation',
-    platforms: ['Google Ads'],
+    platforms: ['Meta Ads'],
     role: 'Strategy • Media Buying • Campaign Optimization • Conversion Tracking',
     challenge: 'Capture qualified B2B freight forwarding leads for international & domestic shipping routes.',
     approach: [
@@ -167,7 +209,7 @@ export const CLIENTS_DATA: ClientData[] = [
     category: 'logistics',
     campaign: 'Courier & Regional Logistics Campaigns',
     objective: 'Lead Generation',
-    platforms: ['Meta Ads', 'Google Ads'],
+    platforms: ['Meta Ads'],
     role: 'Strategy • Media Buying • Campaign Optimization • Conversion Tracking',
     challenge: 'Scale daily courier booking enquiries across regional pickup centers at strict CPL targets.',
     approach: [
@@ -187,7 +229,7 @@ export const CLIENTS_DATA: ClientData[] = [
     category: 'logistics',
     campaign: 'International Courier & Overseas Parcel Shipping',
     objective: 'Lead Generation / Awareness',
-    platforms: ['Meta Ads', 'Google Ads'],
+    platforms: ['Meta Ads'],
     role: 'Strategy • Media Buying • Creative Direction • Conversion Tracking',
     challenge: 'Establish brand presence for international shipping routes and generate parcel inquiry leads.',
     approach: [
@@ -207,11 +249,11 @@ export const CLIENTS_DATA: ClientData[] = [
     category: 'logistics',
     campaign: 'Logistics / Freight Services',
     objective: 'Lead Generation',
-    platforms: ['Google Ads'],
+    platforms: ['Meta Ads'],
     role: 'Strategy • Media Buying • Campaign Optimization • Conversion Tracking',
     challenge: 'Capture high-value commercial freight enquiries in competitive urban logistics hubs.',
     approach: [
-      'Hyper-local Google Search campaigns targeting commercial logistics keywords',
+      'Hyper-local Meta campaigns targeting commercial logistics keywords',
       'Call-only ad formats for mobile users needing immediate booking',
       'Continuous bid adjustment based on peak dispatch hours'
     ],
@@ -227,7 +269,7 @@ export const CLIENTS_DATA: ClientData[] = [
     category: 'realestate-app',
     campaign: 'Demand Gen & Real Estate Property Marketing',
     objective: 'Lead Generation / Consideration',
-    platforms: ['Google Demand Gen', 'Google Search'],
+    platforms: ['Meta ads', 'Google Ads'],
     role: 'Strategy • Media Buying • Keyword Setup • Conversion Tracking',
     challenge: 'Build buyer consideration and collect qualified site-visit leads for real estate developments.',
     approach: [
@@ -302,20 +344,23 @@ export const CLIENTS_DATA: ClientData[] = [
     id: 'gujju',
     slug: 'gujju-express-logistics',
     name: 'Gujju Express Logistics',
-    subtitle: 'International Courier & Rakhi Campaign',
+    subtitle: 'International Courier & WhatsApp Lead Generation',
     website: 'https://gujjuexpress.com/',
     category: 'logistics',
-    campaign: 'International Courier (Raksha Bandhan Campaign)',
-    objective: 'Lead Generation / Festival Awareness',
+    campaign: 'Surat to Worldwide Shipping Campaign',
+    objective: 'WhatsApp Lead Generation',
     platforms: ['Meta Ads'],
-    role: 'Strategy • Media Buying • Creative Angle • Seasonal Campaigning',
-    challenge: 'Capture high-volume seasonal shipping demand for Rakhi & festival parcel dispatches abroad.',
+    role: 'Campaign Strategy • Media Buying • Audience Targeting • Regional Creative Testing • WhatsApp Lead Funnel • CPL Optimisation',
+    challenge: 'Generate relevant international courier enquiries from Surat customers looking to send parcels, documents, gifts and personal shipments overseas.',
     approach: [
-      'Emotional festive-angle ad copy targeting NRI families & festival senders',
-      'Video ad creatives detailing international express delivery timelines',
-      'Dedicated festive inquiry landing forms'
+      'Localised audience targeting geo-fenced around Surat and surrounding NRI family clusters',
+      'Gujarati influencer-led shipping, unboxing, and doorstep pickup video advertising',
+      'Destination-specific UK shipping rate cards and transit time creatives',
+      'Bilingual creative testing comparing regional Gujarati vs. English messaging',
+      'Direct click-to-WhatsApp messaging conversation destination with instant auto-greeting',
+      'Continuous creative format testing between high-volume video and cost-efficient static ads'
     ],
-    result: 'Achieved a massive seasonal spike in international parcel inquiries and booking conversions.',
+    result: 'Generated 727 Meta-reported WhatsApp conversations at an average cost of ₹35.92, reaching 230,550 unique accounts across Surat with ₹26,112.18 ad spend.',
     logo: '/clients/Gujju express logo.png'
   },
   {
@@ -356,7 +401,7 @@ export const CLIENTS_DATA: ClientData[] = [
       'App store page creative optimization for higher install conversion rate'
     ],
     result: 'Delivered rapid surge in app downloads at an optimized Cost Per Install (CPI).',
-    logo: '/clients/Koli match logo.png'
+    logo: '/clients/Koli Catch logo.png'
   },
   {
     id: 'jit-steels',

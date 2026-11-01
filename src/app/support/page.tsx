@@ -58,11 +58,11 @@ export default function ContactSupport() {
               
               <div className="space-y-3">
                 <a
-                  href="mailto:tiwarivedant705@gmail.com"
+                  href="mailto:contactvedantverse@gmail.com"
                   className="flex items-center gap-3 p-3 bg-neutral-900/40 border border-neutral-900 rounded-lg text-xs font-mono hover:border-white transition-colors duration-200"
                 >
                   <Mail className="w-4 h-4 text-[#E50914]" />
-                  tiwarivedant705@gmail.com
+                  contactvedantverse@gmail.com
                 </a>
                 
                 <a

@@ -123,7 +123,7 @@ function IndustryArtwork({ type }: { type: 'logistics' | 'jewellery' | 'd2c' | '
           <circle cx="25" cy="70" r="4" fill="#ffffff" />
           <circle cx="50" cy="35" r="4" fill="#E50914" />
           <circle cx="75" cy="55" r="4" fill="#ffffff" />
-          <text x="50" y="25" fill="#34A853" fontSize="8" fontWeight="bold" textAnchor="middle" fontFamily="monospace">ROAS 3.4x</text>
+          <text x="50" y="25" fill="#34A853" fontSize="8" fontWeight="bold" textAnchor="middle" fontFamily="'Outfit', sans-serif">ROAS 3.4x</text>
         </svg>
       );
     case 'jewellery':
@@ -134,7 +134,7 @@ function IndustryArtwork({ type }: { type: 'logistics' | 'jewellery' | 'd2c' | '
           <line x1="50" y1="20" x2="50" y2="80" stroke="rgba(255,255,255,0.4)" strokeWidth="1" />
           <line x1="25" y1="40" x2="75" y2="40" stroke="rgba(255,255,255,0.4)" strokeWidth="1" />
           <polygon points="50,20 62,40 50,80 38,40" stroke="rgba(255,255,255,0.15)" strokeWidth="1" />
-          <text x="50" y="90" fill="#E50914" fontSize="7" fontWeight="bold" textAnchor="middle" fontFamily="monospace">AOV +22%</text>
+          <text x="50" y="90" fill="#E50914" fontSize="7" fontWeight="bold" textAnchor="middle" fontFamily="'Outfit', sans-serif">AOV +22%</text>
         </svg>
       );
     case 'd2c':
@@ -156,7 +156,7 @@ function IndustryArtwork({ type }: { type: 'logistics' | 'jewellery' | 'd2c' | '
           <circle cx="50" cy="78" r="2.5" fill="currentColor" opacity="0.4" />
           <path d="M45 42 L50 48 L55 42 M50 32 V48" stroke="#E50914" strokeWidth="2" strokeLinecap="round" />
           <path d="M40 55 C43 62, 57 62, 60 55" stroke="#E50914" strokeWidth="1.5" strokeLinecap="round" />
-          <text x="50" y="93" fill="currentColor" fontSize="7" fontWeight="bold" textAnchor="middle" fontFamily="monospace">1.2M+ Installs</text>
+          <text x="50" y="93" fill="currentColor" fontSize="7" fontWeight="bold" textAnchor="middle" fontFamily="'Outfit', sans-serif">1.2M+ Installs</text>
         </svg>
       );
   }

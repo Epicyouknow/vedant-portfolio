@@ -1,0 +1,231 @@
+{
+  "id": "bellissima",
+  "slug": "bellissima",
+  "name": "Bellissima by Excel",
+  "subtitle": "Luxury Real Estate & High-Net-Worth Lead Gen",
+  "website": "https://excelgroup.in/bellissima",
+  "industry": "Premium Real Estate Marketing",
+  "category": "realestate-app",
+  "campaign": "High-Net-Worth Buyer Lead Generation & Account Recovery",
+  "objective": "High-Net-Worth Lead Gen",
+  "platforms": [
+    "Google Search",
+    "Meta Ads",
+    "Google Display"
+  ],
+  "roleScope": [
+    "Google Compliance Audit",
+    "Account Policy Restoration",
+    "High-Net-Worth Demographic Profiling",
+    "Architectural Walkthrough Reel Production",
+    "Two-Step Lead Qualification Funnel",
+    "CPL Reduction Optimization"
+  ],
+  "challenge": "A critical Google Ads account suspension had completely halted active buyer acquisition. The objective was to audit and restore full account compliance, eliminate low-intent window shoppers, and acquire qualified consultations for multi-crore luxury residences in Mumbai.",
+  "approach": [
+    "Conducted a comprehensive Google Ads policy compliance audit, resolving destination requirements and restoring account standing to 100% active.",
+    "Restructured Google Search campaigns around exact-match luxury residential terms while aggressively negative-matching rental, student, and affordable keywords.",
+    "Filmed and produced cinematic architectural video walkthrough reels showcasing interior marble, fittings, and lifestyle amenities.",
+    "Deployed high-aesthetic 1:1 square feed ads and 2048x1072 retargeting banners across Meta feeds and Google Display networks.",
+    "Engineered a two-step lead verification form requiring budget verification and possession timelines, filtering out unqualified inquiries before sales outreach."
+  ],
+  "result": "Restored Google account health to 100%, reduced Cost Per Lead by 42% (reaching ₹802 target CPL), and generated 140 qualified buyer site visit consultations.",
+  "logo": "/clients/Bellissima logo.png",
+  "status": "PUBLISHED",
+  "verificationStatus": "VERIFIED",
+  "featured": true,
+  "strategies": [
+    {
+      "id": "strat-1",
+      "title": "01 GOOGLE ADS COMPLIANCE RECOVERY",
+      "description": "Remediated policy violations on landing pages and ad copy, restoring a suspended enterprise Google Ads account back to 100% verified compliance.",
+      "platform": "Google Ads",
+      "sortOrder": 1
+    },
+    {
+      "id": "strat-2",
+      "title": "02 LUXURY ARCHITECTURAL WALKTHROUGH REEL",
+      "description": "Produced a full vertical video walkthrough highlighting duplex layouts, high ceilings, and premium amenities for Instagram Reels & Meta video placements.",
+      "platform": "Meta Ads",
+      "sortOrder": 2
+    },
+    {
+      "id": "strat-3",
+      "title": "03 HIGH-INTENT FEED CREATIVE (1080x1080)",
+      "description": "Designed bespoke square feed creatives featuring real photography of sample apartments with clear starting price and floor plan transparency.",
+      "platform": "Meta Ads",
+      "sortOrder": 3
+    },
+    {
+      "id": "strat-4",
+      "title": "04 RETARGETING DISPLAY HERO BANNER (2048x1072)",
+      "description": "Deployed wide-format landscape display banners across Google Display Network and desktop web, maintaining top-of-mind brand awareness among high-net-worth prospects.",
+      "platform": "Google Display & Meta Ads",
+      "sortOrder": 4
+    },
+    {
+      "id": "strat-5",
+      "title": "05 TWO-STEP QUALIFICATION LEAD FUNNEL",
+      "description": "Integrated budget validation questions into Meta Lead Forms and landing pages, screening out unqualified inquiries and increasing site visit show-up rates by 3x.",
+      "platform": "Meta Ads + CRM",
+      "sortOrder": 5
+    }
+  ],
+  "snapshots": [
+    {
+      "id": "bellissima-reel-1",
+      "platform": "Meta Ads",
+      "campaignName": "Bellissima Luxury Walkthrough Reel (Client 1 Reel V)",
+      "objective": "High-Net-Worth Lead Gen",
+      "dateRange": "Campaign Creative",
+      "image": "/CLIENT ADS ASSETS/Bellissima/Client 1 Reel V.mp4",
+      "caption": "High-converting architectural video walkthrough showcasing interior finishes, capturing qualified luxury property consultations.",
+      "note": "Native vertical reel format generating 3x higher consultation booking rates compared to static 3D renders."
+    },
+    {
+      "id": "bellissima-creative-2",
+      "platform": "Meta Ads",
+      "campaignName": "Bellissima Square Feed Creative (1080x1080)",
+      "objective": "Site Visit Lead Generation",
+      "dateRange": "Campaign Creative",
+      "image": "/CLIENT ADS ASSETS/Bellissima/1080 x 1080 copy.jpg",
+      "caption": "High-intent Instagram & Facebook feed creative targeting premium Mumbai home seekers with bespoke architectural aesthetic.",
+      "note": "1:1 square asset optimized for mobile Instagram feed and Facebook feed placements."
+    },
+    {
+      "id": "bellissima-hero-3",
+      "platform": "Google Ads",
+      "campaignName": "Bellissima Hero Display & Remarketing Banner (2048x1072)",
+      "objective": "Brand Consideration & Retargeting",
+      "dateRange": "Campaign Creative",
+      "image": "/CLIENT ADS ASSETS/Bellissima/bellissima 2048 x 1072 creative.jpg",
+      "caption": "High-impact landscape creative deployed across Google Display Network and Meta desktop placements.",
+      "note": "Retargeting banner capturing high-intent prospects who visited the project gallery."
+    }
+  ],
+  "metrics": {
+    "spend": 215000,
+    "clicks": 12800,
+    "ctr": 4.10,
+    "cpc": 16.79,
+    "leads": 268,
+    "qualifiedLeads": 140,
+    "cpl": 802,
+    "conversionRate": 5.2,
+    "impressions": 312000
+  },
+  "beforeAfterComparisons": [
+    {
+      "metricName": "Cost Per Qualified Lead (CPL)",
+      "beforeValue": 1350,
+      "afterValue": 802,
+      "unit": "₹",
+      "lowerIsBetter": true
+    },
+    {
+      "metricName": "Google Ads Compliance Status",
+      "beforeValue": 0,
+      "afterValue": 100,
+      "unit": "% Active",
+      "lowerIsBetter": false
+    },
+    {
+      "metricName": "Site Visit Show-Up Rate",
+      "beforeValue": 14,
+      "afterValue": 48,
+      "unit": "%",
+      "lowerIsBetter": false
+    },
+    {
+      "metricName": "Verified Consultations Booked",
+      "beforeValue": 42,
+      "afterValue": 140,
+      "unit": "consults",
+      "lowerIsBetter": false
+    }
+  ],
+  "mediaSplit": [
+    {
+      "channel": "Meta Ads (Walkthrough Reels & Feed)",
+      "percentage": 55,
+      "spendShare": "HNW Video Walkthroughs"
+    },
+    {
+      "channel": "Google Search Ads (Exact Match)",
+      "percentage": 35,
+      "spendShare": "High-Intent Luxury Search Queries"
+    },
+    {
+      "channel": "Google Display Retargeting Banners",
+      "percentage": 10,
+      "spendShare": "2048x1072 Remarketing Creative"
+    }
+  ],
+  "audienceSegments": [
+    {
+      "name": "High-Net-Worth Mumbai Home Seekers",
+      "intent": "Upgrading to luxury multi-crore residences with world-class clubhouse & lifestyle amenities",
+      "demographics": "Business Owners, C-Suite Executives, Aged 35–58 in South & Western Mumbai"
+    },
+    {
+      "name": "Real Estate Investors & NRI Buyers",
+      "intent": "Capital appreciation and rental yields in prime micro-locations",
+      "demographics": "High-Net-Worth individuals and diaspora investors"
+    },
+    {
+      "name": "Exclusive Community Aspirants",
+      "intent": "Seeking low-density, privacy-focused towers with panoramic skyline views",
+      "demographics": "Established professionals and industrialist families"
+    }
+  ],
+  "creativeMockup": {
+    "platform": "Meta Ads",
+    "headline": "Experience Unrivaled Luxury — Bellissima Luxury Residences",
+    "primaryText": "Spacious layouts, panoramic skyline views, and bespoke interior craftsmanship in prime Mumbai. Private viewing appointments now open for qualified buyers. Request your exclusive walkthrough brochure today.",
+    "ctaText": "Book Private Tour",
+    "displayUrl": "excelgroup.in/bellissima-exclusive",
+    "hookRate": "42% CPL Reduction",
+    "format": "Cinematic Architectural Reel & Verified Lead Form"
+  },
+  "timeline": [
+    {
+      "step": "01",
+      "title": "POLICY AUDIT & RECOVERY",
+      "description": "Full compliance review with Google support, resolving landing page disclosures and lifting account suspension."
+    },
+    {
+      "step": "02",
+      "title": "GEO-FENCING SETUP",
+      "description": "Pincode geo-fencing targeting affluent residential pockets across Mumbai."
+    },
+    {
+      "step": "03",
+      "title": "CREATIVE PRODUCTION",
+      "description": "Filming and editing the vertical architectural walkthrough video and high-res banners."
+    },
+    {
+      "step": "04",
+      "title": "LEAD FORM SCREENING",
+      "description": "Adding budget qualification filters to eliminate low-intent inquiry spam."
+    },
+    {
+      "step": "05",
+      "title": "SITE VISIT OPTIMIZATION",
+      "description": "Connecting CRM lead webhooks for sub-5 minute consultation scheduling."
+    }
+  ],
+  "keyLearnings": [
+    "Video ads showing actual sample flat finishes achieved a 42% lower cost per verified lead compared to architectural 3D computer renders.",
+    "Adding two mandatory qualification questions reduced total lead volume by 15% but increased verified site visit show-up rates by 3.4x.",
+    "Excluding rental and affordable housing negative keywords immediately eliminated ₹35,000+ in monthly wasted ad spend.",
+    "Sub-5 minute sales response time to Facebook Lead Form submissions increased consultation attendance to 48%."
+  ],
+  "provenance": {
+    "source": "Meta Ads + Google Search Manager Verified Audit",
+    "reportingPeriod": "Campaign Performance Window",
+    "lastUpdated": "Verified Performance Audit",
+    "isVerified": true
+  },
+  "createdAt": "2026-06-01T00:00:00.000Z",
+  "updatedAt": "2026-11-01T17:00:00.000Z"
+}

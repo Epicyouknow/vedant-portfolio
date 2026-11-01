@@ -5,24 +5,29 @@ import { sendInquiryNotifications } from '../../../lib/notifications';
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const { name, email, phone, budget, message } = body;
+    const { name, email, phone, budget, message, growthObjective, website } = body;
 
-    if (!name || !email || !message) {
-      return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
+    const contactInput = String(email || phone || '').trim();
+    const isEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(contactInput);
+    const digitsOnly = contactInput.replace(/\D/g, '');
+    const isPhone = digitsOnly.length >= 10;
+
+    if (!name || (!isEmail && !isPhone)) {
+      return NextResponse.json({ error: 'Please provide a valid email address or WhatsApp phone number' }, { status: 400 });
     }
 
-    // Basic email validation
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-      return NextResponse.json({ error: 'Invalid email address format' }, { status: 400 });
-    }
+    const compiledMessage = [
+      message ? String(message).trim() : 'Lead Consultation Request',
+      growthObjective ? `[Objective: ${growthObjective}]` : '',
+      website ? `[Website: ${website}]` : '',
+    ].filter(Boolean).join(' ');
 
     const savedInquiry = await saveInquiry({
       name: String(name).trim(),
-      email: String(email).trim().toLowerCase(),
-      phone: phone ? String(phone).trim() : '',
+      email: isEmail ? contactInput.toLowerCase() : (email ? String(email).trim().toLowerCase() : `${digitsOnly}@whatsapp.lead`),
+      phone: isPhone ? contactInput : (phone ? String(phone).trim() : ''),
       budget: budget || 'Not specified',
-      message: String(message).trim()
+      message: compiledMessage
     });
 
     // Fire notifications asynchronously across all configured channels

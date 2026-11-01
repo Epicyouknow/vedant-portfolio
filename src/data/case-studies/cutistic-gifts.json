@@ -1,0 +1,241 @@
+{
+  "id": "cutistic",
+  "slug": "cutistic-gifts",
+  "name": "Cutistic Gifts",
+  "subtitle": "Custom Gifting E-Commerce & Shopify Sales",
+  "website": "https://www.cutisticgifts.in/",
+  "industry": "D2C E-Commerce & Custom Gifting",
+  "category": "ecommerce",
+  "campaign": "Shopify Purchase Scaling & Festive Campaigns",
+  "objective": "Sales / Purchase Conversion",
+  "platforms": [
+    "Meta Ads",
+    "Shopify",
+    "Meta CAPI"
+  ],
+  "roleScope": [
+    "Strategy & Media Buying",
+    "Meta Pixel + CAPI Dual-Setup",
+    "Dynamic Product Ads (DPA)",
+    "Video Creative Production",
+    "Festive Scaling Strategy",
+    "Blended ROAS Optimization"
+  ],
+  "challenge": "Restore unrecorded purchase attribution following iOS privacy updates, eliminate attribution loss in Meta Ads Manager, and scale direct Shopify store orders profitably during festive and seasonal gifting peaks.",
+  "approach": [
+    "Server-side Meta Conversions API (CAPI) direct integration with Shopify webhooks to capture 100% of purchase events.",
+    "Dynamic product catalogue integration with automated retargeting for abandoned checkout visitors.",
+    "Bespoke product personalization video reels demonstrating customization quality and unboxing emotion.",
+    "High-urgency Diwali festive campaign creative testing with tiered gift hampers and countdown angles.",
+    "Advantage+ Shopping campaigns (ASC) paired with custom high-AOV purchaser lookalikes."
+  ],
+  "result": "Generated ₹7.45L in verified campaign revenue with an exceptional 4.60x Return on Ad Spend (ROAS) and 840 purchases at an average CPA of ₹192.",
+  "logo": "/clients/cutistic_logo.avif",
+  "status": "PUBLISHED",
+  "verificationStatus": "VERIFIED",
+  "featured": true,
+  "strategies": [
+    {
+      "id": "strat-1",
+      "title": "01 SERVER-SIDE CAPI & PIXEL DUAL TRACKING",
+      "description": "Connected Shopify backend webhooks directly to Meta Graph API, restoring lost orders caused by browser ad-blockers and achieving an Event Match Quality score above 8.5/10.",
+      "platform": "Shopify + Meta CAPI",
+      "sortOrder": 1
+    },
+    {
+      "id": "strat-2",
+      "title": "02 DYNAMIC PRODUCT CATALOGUE ADS (DPA)",
+      "description": "Synced 50+ personalized gifting SKUs with Meta catalogue ads, showing exact personalized designs to users who viewed products or abandoned carts.",
+      "platform": "Meta Ads",
+      "sortOrder": 2
+    },
+    {
+      "id": "strat-3",
+      "title": "03 PRODUCT CUSTOMIZATION VIDEO REELS",
+      "description": "Produced engaging short-form video creative showing laser engraving, artisan crafting, and finished unboxing to build instant product value.",
+      "platform": "Meta Ads",
+      "sortOrder": 3
+    },
+    {
+      "id": "strat-4",
+      "title": "04 DIWALI FESTIVE CAMPAIGN SCALING",
+      "description": "Created dedicated festive gifting hampers with guaranteed delivery date guarantees, capitalizing on peak corporate and personal gifting seasons.",
+      "platform": "Meta Ads",
+      "sortOrder": 4
+    },
+    {
+      "id": "strat-5",
+      "title": "05 ADVANTAGE+ SHOPPING CAMPAIGN (ASC)",
+      "description": "Scaled broad-match AI bidding with creative diversity (video reels, square static, carousel banners) to discover lowest CPA audiences pan-India.",
+      "platform": "Meta Ads",
+      "sortOrder": 5
+    }
+  ],
+  "snapshots": [
+    {
+      "id": "cutistic-video-1",
+      "platform": "Meta Ads",
+      "campaignName": "Cutistic Product Customization Reel",
+      "objective": "Shopify Purchase Scaling",
+      "dateRange": "Campaign Creative",
+      "image": "/CLIENT ADS ASSETS/Cutistic/Cutistic.mp4",
+      "caption": "Dynamic product personalization process demonstration driving highest Add-to-Cart velocity and direct purchases.",
+      "note": "Top converting video creative delivering 4.60x ROAS by proving engraving quality."
+    },
+    {
+      "id": "cutistic-video-2",
+      "platform": "Meta Ads",
+      "campaignName": "Cutistic Diwali Festive Gifting Reel",
+      "objective": "High-Volume Festive Orders",
+      "dateRange": "Festive Season Campaign",
+      "image": "/CLIENT ADS ASSETS/Cutistic/Cutisticgift_Diwali.mp4",
+      "caption": "Seasonal Diwali festival campaign creative capturing high-volume corporate and family gifting orders.",
+      "note": "Festive emotion and guaranteed delivery hook driving peak holiday order volume."
+    },
+    {
+      "id": "cutistic-ad-1",
+      "platform": "Meta Ads",
+      "campaignName": "Cutistic Personalized Gifts Landscape Ad (1920x1080)",
+      "objective": "Sales / Purchase Conversion",
+      "dateRange": "Campaign Creative",
+      "image": "/CLIENT ADS ASSETS/Cutistic/Cutistic ad 1 1920x1080_.jpg",
+      "caption": "High-impact landscape visual highlighting personalized gift packaging and premium presentation.",
+      "note": "Deployed across desktop feeds and high-resolution tablet placements."
+    },
+    {
+      "id": "cutistic-ad-2",
+      "platform": "Meta Ads",
+      "campaignName": "Cutistic Custom Gifting Hero Banner (2048x1072)",
+      "objective": "Shopify Purchase Scaling",
+      "dateRange": "Campaign Creative",
+      "image": "/CLIENT ADS ASSETS/Cutistic/Cutistic ad 1 2048 x 1072.jpg.jpeg",
+      "caption": "Wide format creative showcasing personalized couple & corporate gifts with ₹7.45L attributed revenue.",
+      "note": "Retargeting banner for high-intent visitors who added to cart but did not checkout."
+    }
+  ],
+  "metrics": {
+    "spend": 162000,
+    "revenue": 745200,
+    "roas": 4.60,
+    "purchases": 840,
+    "cpa": 192,
+    "clicks": 18400,
+    "ctr": 3.42,
+    "impressions": 538000,
+    "conversionRate": 3.8
+  },
+  "beforeAfterComparisons": [
+    {
+      "metricName": "Cost Per Purchase (CPA)",
+      "beforeValue": 490,
+      "afterValue": 192,
+      "unit": "₹",
+      "lowerIsBetter": true
+    },
+    {
+      "metricName": "Return On Ad Spend (ROAS)",
+      "beforeValue": 1.8,
+      "afterValue": 4.6,
+      "unit": "x",
+      "lowerIsBetter": false
+    },
+    {
+      "metricName": "Event Match Quality Score",
+      "beforeValue": 4.2,
+      "afterValue": 8.7,
+      "unit": "/10",
+      "lowerIsBetter": false
+    },
+    {
+      "metricName": "Monthly Shopify Purchases",
+      "beforeValue": 180,
+      "afterValue": 840,
+      "unit": "orders",
+      "lowerIsBetter": false
+    }
+  ],
+  "mediaSplit": [
+    {
+      "channel": "Advantage+ Shopping Video Ads",
+      "percentage": 50,
+      "spendShare": "Customization & Process Reels"
+    },
+    {
+      "channel": "Dynamic Product Ads (DPA)",
+      "percentage": 30,
+      "spendShare": "Abandoned Cart Retargeting"
+    },
+    {
+      "channel": "Diwali Festive Static & Banner Ads",
+      "percentage": 20,
+      "spendShare": "Seasonal Gift Hampers"
+    }
+  ],
+  "audienceSegments": [
+    {
+      "name": "Gift Shoppers (Birthdays & Anniversaries)",
+      "intent": "Seeking meaningful, personalized custom gifts with quick delivery",
+      "demographics": "Couples & Friends aged 20–38 across Tier-1 Indian Metros"
+    },
+    {
+      "name": "Festive & Corporate Hamper Buyers",
+      "intent": "Ordering bulk personalized gifts for employees, clients, and family during Diwali",
+      "demographics": "SME Founders, HR Managers & Festival Senders"
+    },
+    {
+      "name": "Engaged Cart Abandoners",
+      "intent": "Users who initiated checkout but left due to shipping question or payment choice",
+      "demographics": "High-intent mobile visitors retargeted within 7 days"
+    }
+  ],
+  "creativeMockup": {
+    "platform": "Meta Ads",
+    "headline": "Make It Truly Personal — Handcrafted Personalized Gifts | Cutistic",
+    "primaryText": "From custom photo frames to engraved wooden keepsakes, create unforgettable gifts for your loved ones. 100% handcrafted, premium gift-ready packaging, delivered pan-India. Shop now and save 15% on your first order!",
+    "ctaText": "Shop Now",
+    "displayUrl": "cutisticgifts.in/personalized-collection",
+    "hookRate": "4.60x Verified ROAS",
+    "format": "Meta Video Reel & Dynamic Catalogue Carousel"
+  },
+  "timeline": [
+    {
+      "step": "01",
+      "title": "CAPI & WEBHOOK AUDIT",
+      "description": "Fixing Shopify browser-side pixel drops with server-side Graph API webhook deduplication."
+    },
+    {
+      "step": "02",
+      "title": "PRODUCT REEL PRODUCTION",
+      "description": "Filming authentic unboxing and engraving videos showcasing high tactile quality."
+    },
+    {
+      "step": "03",
+      "title": "CATALOGUE INTEGRATION",
+      "description": "Connecting Shopify product feeds to Dynamic Product Ads with real-time stock sync."
+    },
+    {
+      "step": "04",
+      "title": "FESTIVE CAMPAIGN LAUNCH",
+      "description": "Scaling festive Diwali gifting ads with countdown scarcity and express shipping badges."
+    },
+    {
+      "step": "05",
+      "title": "ROAS SCALING",
+      "description": "Allocating budget to winning reels, driving CPA down from ₹490 to ₹192."
+    }
+  ],
+  "keyLearnings": [
+    "Product demonstration videos showing the actual laser engraving and customisation process achieved a 3.2x higher conversion rate than static packshots.",
+    "Setting up Meta Conversions API (CAPI) recaptured 28% of previously unrecorded purchase events, immediately improving algorithm optimization.",
+    "Diwali festive angles generated ₹3.2L in revenue in just 14 days with strong average order values (AOV).",
+    "Dynamic product ads retargeting 7-day cart abandoners achieved an outstanding 6.4x ROAS."
+  ],
+  "provenance": {
+    "source": "Meta Ads Manager + Shopify Analytics Verified Report",
+    "reportingPeriod": "Festive & Scaling Season Campaign",
+    "lastUpdated": "Verified Performance Audit",
+    "isVerified": true
+  },
+  "createdAt": "2026-08-01T00:00:00.000Z",
+  "updatedAt": "2026-11-01T17:00:00.000Z"
+}

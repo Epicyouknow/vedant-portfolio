@@ -1,16 +1,19 @@
-import type { Metadata } from "next";
-import { Geist, Geist_Mono, Butcherman } from "next/font/google";
+import type { Metadata, Viewport } from "next";
+import { Geist, Outfit, Butcherman } from "next/font/google";
 import "./globals.css";
 import AnalyticsScripts from "../components/AnalyticsScripts";
+import { ThemeProvider } from "../context/ThemeContext";
+import LeadPopup from "../components/LeadPopup";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const outfit = Outfit({
+  variable: "--font-outfit",
   subsets: ["latin"],
+  display: "swap",
 });
 
 const butcherman = Butcherman({
@@ -87,6 +90,13 @@ export const metadata: Metadata = {
   },
 };
 
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 5,
+  userScalable: true,
+};
+
 const jsonLdSchema = {
   "@context": "https://schema.org",
   "@graph": [
@@ -134,6 +144,7 @@ const jsonLdSchema = {
   ]
 };
 
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -142,17 +153,26 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} ${butcherman.variable} h-full antialiased`}
+      suppressHydrationWarning
+      className={`${geistSans.variable} ${outfit.variable} h-full antialiased`}
     >
       <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var t=localStorage.getItem('vedant_theme');if(t==='dark'){document.documentElement.classList.add('dark');document.documentElement.setAttribute('data-theme','dark');}else{document.documentElement.classList.remove('dark');document.documentElement.setAttribute('data-theme','light');}}catch(e){}})();`,
+          }}
+        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdSchema) }}
         />
       </head>
-      <body className={`min-h-full flex flex-col ${butcherman.variable}`}>
-        <AnalyticsScripts />
-        {children}
+      <body className="min-h-full flex flex-col transition-colors duration-200">
+        <ThemeProvider>
+          <AnalyticsScripts />
+          {children}
+          <LeadPopup />
+        </ThemeProvider>
       </body>
     </html>
   );

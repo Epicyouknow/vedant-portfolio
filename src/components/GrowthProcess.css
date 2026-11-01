@@ -1,0 +1,407 @@
+/* ===================================================
+   VEDANTVERSE — THE GROWTH PROCESS (MATCHED TYPOGRAPHY)
+=================================================== */
+
+.growth-process {
+  --growth-bg: #f5f2ea;
+  --growth-card: #fffdf9;
+  --growth-text: #191919;
+  --growth-muted: #716b65;
+  --growth-red: #df4036;
+  --growth-border: #e6ded4;
+  --growth-icon-bg: #f3ede3;
+  --growth-line: #dfd3c8;
+  --growth-connector: #dfcfc3;
+
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  background: var(--growth-bg);
+  color: var(--growth-text);
+  padding: clamp(80px, 8vw, 120px) 0;
+  border-top: 1px solid var(--growth-border);
+  font-family: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+html.dark .growth-process,
+[data-theme="dark"] .growth-process {
+  --growth-bg: #121211;
+  --growth-card: #1D1C1B;
+  --growth-text: #F7F5F0;
+  --growth-muted: #A9A69F;
+  --growth-red: #E0483C;
+  --growth-border: #2E2D2B;
+  --growth-icon-bg: #262523;
+  --growth-line: #2E2D2B;
+  --growth-connector: #383633;
+}
+
+.growth-process-inner {
+  max-width: 80rem; /* max-w-7xl matching the rest of the site */
+  margin: 0 auto;
+  padding-left: clamp(1.5rem, 4vw, 3rem);
+  padding-right: clamp(1.5rem, 4vw, 3rem);
+}
+
+/* SECTION HEADER (1:1 with CaseStudyCards & PerformanceDashboard) */
+
+.growth-process-header {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  align-items: end;
+  gap: 32px;
+  margin-bottom: 56px;
+}
+
+.growth-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+  color: var(--growth-muted);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+}
+
+.eyebrow-line {
+  width: 18px;
+  height: 1.5px;
+  background: var(--growth-red);
+}
+
+.growth-heading h2 {
+  margin: 0;
+  font-size: clamp(32px, 4.5vw, 48px);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.025em;
+}
+
+.growth-heading h2 span {
+  color: var(--growth-red);
+}
+
+.growth-intro {
+  max-width: 500px;
+  justify-self: end;
+  margin: 0 0 6px;
+  color: var(--growth-muted);
+  font-size: clamp(14px, 1.1vw, 16px);
+  line-height: 1.6;
+  font-weight: 400;
+}
+
+/* TIMELINE TRACK */
+
+.growth-timeline {
+  position: relative;
+  padding-top: 50px;
+}
+
+.timeline-track {
+  position: absolute;
+  z-index: 0;
+  top: 0;
+  left: 10%;
+  right: 10%;
+  height: 2px;
+  background: var(--growth-line);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.timeline-progress {
+  width: 0;
+  height: 100%;
+  background: var(--growth-red);
+  transition: width 1.2s ease 0.35s;
+}
+
+.is-visible .timeline-progress {
+  width: 100%;
+}
+
+/* CARDS GRID */
+
+.growth-cards {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.growth-card {
+  position: relative;
+  min-width: 0;
+  min-height: 330px;
+  padding: 26px 20px;
+  display: flex;
+  flex-direction: column;
+
+  background: var(--growth-card);
+  border: 1px solid var(--growth-border);
+  border-radius: 20px;
+
+  opacity: 0;
+  transform: translateY(40px) scale(0.97);
+
+  transition:
+    opacity 600ms ease,
+    transform 650ms cubic-bezier(.2,.8,.2,1),
+    border-color 300ms ease,
+    box-shadow 300ms ease;
+}
+
+/* Reveal cards sequentially */
+
+.is-visible .growth-card {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* Timeline vertical connector */
+
+.growth-card::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: -50px;
+  height: 50px;
+  width: 1.5px;
+  background: var(--growth-connector);
+}
+
+/* Timeline node dot */
+
+.growth-card::after {
+  content: "";
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  border: 2.5px solid var(--growth-red);
+  border-radius: 50%;
+  background: var(--growth-card);
+  top: -57px;
+  left: calc(50% - 7.5px);
+  box-shadow: 0 0 0 4px var(--growth-bg);
+  transition: all 300ms ease;
+}
+
+/* CARD TOP: NUMBER & ICON */
+
+.card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.card-number {
+  color: var(--growth-red);
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.card-icon {
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--growth-icon-bg);
+  color: var(--growth-text);
+  transition: all 300ms ease;
+}
+
+.growth-card h3 {
+  margin: 0 0 10px;
+  font-size: 19px;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+  font-weight: 700;
+}
+
+.card-description {
+  margin: 0;
+  color: var(--growth-muted);
+  font-size: 13.5px;
+  line-height: 1.55;
+  font-weight: 400;
+}
+
+.card-divider {
+  height: 1px;
+  width: 100%;
+  background: var(--growth-border);
+  margin-top: auto;
+  margin-bottom: 18px;
+}
+
+.phase-label {
+  align-self: flex-start;
+  padding: 6px 14px;
+  border-radius: 50px;
+  background: var(--growth-icon-bg);
+  color: var(--growth-muted);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  transition: all 300ms ease;
+}
+
+/* ACTIVE CARD (Featured Stage 03 Treatment) */
+
+.growth-card.active-card {
+  border-color: var(--growth-red);
+  box-shadow: 0 12px 30px rgba(180, 67, 50, 0.08);
+  transform: translateY(-3px) scale(1);
+}
+
+.growth-card.active-card::after {
+  background: var(--growth-red);
+  border-color: white;
+  box-shadow: 0 0 0 5px rgba(223, 64, 54, 0.15),
+              0 0 0 12px rgba(223, 64, 54, 0.06);
+}
+
+.growth-card.active-card .card-icon {
+  background: #f3e9dc;
+  color: var(--growth-red);
+}
+
+html.dark .growth-card.active-card .card-icon,
+[data-theme="dark"] .growth-card.active-card .card-icon {
+  background: rgba(224, 72, 60, 0.15);
+  color: var(--growth-red);
+}
+
+.growth-card.active-card .phase-label {
+  color: white;
+  background: var(--growth-red);
+}
+
+/* HOVER / FOCUS */
+
+.growth-card:hover {
+  border-color: var(--growth-red);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+}
+
+.growth-card:focus-visible {
+  outline: 2px solid var(--growth-red);
+  outline-offset: 4px;
+}
+
+/* TABLET */
+
+@media (max-width: 1100px) {
+  .growth-process-header {
+    grid-template-columns: 1fr 0.8fr;
+  }
+
+  .growth-cards {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    row-gap: 65px;
+  }
+
+  .growth-card {
+    min-height: 300px;
+  }
+
+  .timeline-track {
+    display: none;
+  }
+
+  .growth-card::before,
+  .growth-card::after {
+    display: none;
+  }
+}
+
+/* MOBILE */
+
+@media (max-width: 650px) {
+  .growth-process {
+    padding: 60px 0;
+  }
+
+  .growth-process-header {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    margin-bottom: 36px;
+  }
+
+  .growth-eyebrow {
+    font-size: 10px;
+    margin-bottom: 12px;
+  }
+
+  .growth-heading h2 {
+    font-size: clamp(28px, 8vw, 38px);
+    line-height: 1.15;
+  }
+
+  .growth-intro {
+    justify-self: start;
+    font-size: 14px;
+  }
+
+  .growth-cards {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .growth-card {
+    min-height: auto;
+    padding: 22px 18px;
+    border-radius: 16px;
+  }
+
+  .card-top {
+    margin-bottom: 14px;
+  }
+
+  .card-icon {
+    width: 38px;
+    height: 38px;
+  }
+
+  .growth-card h3 {
+    font-size: 18px;
+  }
+
+  .card-description {
+    font-size: 13px;
+    max-width: 100%;
+  }
+
+  .card-divider {
+    margin-top: 18px;
+    margin-bottom: 14px;
+  }
+}
+
+/* REDUCED MOTION */
+
+@media (prefers-reduced-motion: reduce) {
+  .growth-process *,
+  .growth-process *::before,
+  .growth-process *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+  }
+
+  .growth-card {
+    opacity: 1;
+    transform: none;
+  }
+
+  .timeline-progress {
+    width: 100%;
+  }
+}

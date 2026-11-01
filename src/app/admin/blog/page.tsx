@@ -105,7 +105,7 @@ export default function AdminBlogCMS() {
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    if (email === 'tiwarivedant705@gmail.com' && password === 'vedant123') {
+    if ((email === 'contactvedantverse@gmail.com' || email === 'tiwarivedant705@gmail.com') && password === 'vedant123') {
       setIsLoggedIn(true);
       setStatusMessage('');
     } else if (email === 'editor@friend.com' && password === 'editor123') {

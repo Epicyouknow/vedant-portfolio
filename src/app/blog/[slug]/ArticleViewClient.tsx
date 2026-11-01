@@ -1,34 +1,26 @@
-// Vercel Cache Buster Build Hash: 2026_08_10_v9999_PURGE_ALL_IMAGES
 'use client';
 
 import React, { useState, useEffect, useMemo, useRef } from 'react';
 import Link from 'next/link';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Play, Info, Plus, ChevronLeft, Bookmark, Share2, MessageSquare, Award, Clock, ArrowLeft, Send, X } from 'lucide-react';
+import Image from 'next/image';
+import { ArrowLeft, Clock, Calendar, Share2, ArrowRight } from 'lucide-react';
 import { BlogPost } from '../../../data/blogs';
-import ParticleBackground from '../../../components/ParticleBackground';
+import Navbar from '../../../components/Navbar';
+import ContactAndFooter from '../../../components/ContactAndFooter';
 
-// Local storage helper for comments
-interface Comment {
-  author: string;
-  avatar: string;
-  text: string;
-  date: string;
-}
-
-// Custom Markdown Parser to render articles beautifully
+// Custom Markdown Parser to render articles in editorial style
 function MarkdownRenderer({ content }: { content: string }) {
   const lines = content.split('\n');
 
   return (
-    <div className="prose prose-invert max-w-none font-sans text-neutral-300 leading-relaxed text-sm sm:text-base space-y-6">
+    <div className="space-y-6 font-sans text-[var(--text-secondary)] leading-relaxed text-base">
       {lines.map((line, idx) => {
         // H1 header
         if (line.startsWith('# ')) {
           const text = line.replace('# ', '');
           const id = text.toLowerCase().replace(/[^a-z0-9]+/g, '-');
           return (
-            <h1 key={idx} id={id} className="text-2xl sm:text-3xl lg:text-4xl font-black text-white pt-6 border-b border-neutral-900 pb-2 uppercase tracking-tight">
+            <h1 key={idx} id={id} className="text-2xl sm:text-3xl lg:text-4xl font-bold text-[var(--text-primary)] pt-6 border-b border-[var(--border-subtle)] pb-3 tracking-tight">
               {text}
             </h1>
           );
@@ -38,8 +30,8 @@ function MarkdownRenderer({ content }: { content: string }) {
           const text = line.replace('## ', '');
           const id = text.toLowerCase().replace(/[^a-z0-9]+/g, '-');
           return (
-            <h2 key={idx} id={id} className="text-xl sm:text-2xl font-bold text-white pt-4 uppercase tracking-tight flex items-center gap-2">
-              <span className="w-1 h-5 bg-[#E50914] rounded-sm" />
+            <h2 key={idx} id={id} className="text-xl sm:text-2xl font-bold text-[var(--text-primary)] pt-6 tracking-tight flex items-center gap-2">
+              <span className="w-1 h-5 bg-[var(--accent-red)] rounded-full shrink-0" />
               {text}
             </h2>
           );
@@ -49,7 +41,7 @@ function MarkdownRenderer({ content }: { content: string }) {
           const text = line.replace('### ', '');
           const id = text.toLowerCase().replace(/[^a-z0-9]+/g, '-');
           return (
-            <h3 key={idx} id={id} className="text-lg font-bold text-neutral-200 uppercase tracking-tight">
+            <h3 key={idx} id={id} className="text-lg font-bold text-[var(--text-primary)] pt-2 tracking-tight">
               {text}
             </h3>
           );
@@ -57,16 +49,16 @@ function MarkdownRenderer({ content }: { content: string }) {
         // Quote callouts
         if (line.startsWith('> ')) {
           return (
-            <blockquote key={idx} className="border-l-4 border-[#E50914] bg-red-950/10 px-6 py-4 rounded-r font-mono italic text-neutral-400">
+            <blockquote key={idx} className="border-l-3 border-[var(--accent-red)] bg-[var(--bg-card)] px-6 py-4 rounded-r-xl italic text-[var(--text-primary)] my-4">
               {line.replace('> ', '')}
             </blockquote>
           );
         }
         // Bullet points
-        if (line.startsWith('* ')) {
+        if (line.startsWith('* ') || line.startsWith('- ')) {
           return (
-            <li key={idx} className="ml-6 list-disc text-neutral-400">
-              {line.replace('* ', '')}
+            <li key={idx} className="ml-6 list-disc text-[var(--text-secondary)] leading-relaxed">
+              {line.replace(/^(\* |- )/, '')}
             </li>
           );
         }
@@ -78,10 +70,9 @@ function MarkdownRenderer({ content }: { content: string }) {
             codeLines.push(lines[currentIdx]);
             currentIdx++;
           }
-          // Fast-forward line mapping index
           lines.splice(idx, currentIdx - idx);
           return (
-            <pre key={idx} className="bg-[#0c0c0c] border border-neutral-800/80 rounded-lg p-5 overflow-x-auto font-mono text-xs sm:text-sm text-red-500/90 shadow-inner">
+            <pre key={idx} className="bg-[#171716] text-[#F7F5F0] border border-[#2E2D2B] rounded-xl p-5 overflow-x-auto font-mono text-xs sm:text-sm my-4">
               <code>{codeLines.join('\n')}</code>
             </pre>
           );
@@ -91,7 +82,7 @@ function MarkdownRenderer({ content }: { content: string }) {
 
         // Render standard paragraphs
         return (
-          <p key={idx} className="text-neutral-400/90 font-light leading-relaxed">
+          <p key={idx} className="text-[var(--text-secondary)] leading-relaxed">
             {line}
           </p>
         );
@@ -101,399 +92,130 @@ function MarkdownRenderer({ content }: { content: string }) {
 }
 
 export default function ArticleViewClient({ blog, allBlogs }: { blog: BlogPost; allBlogs: BlogPost[] }) {
-  const [isScrolled, setIsScrolled] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
-  const [headings, setHeadings] = useState<{ id: string; text: string; level: number }[]>([]);
-  const [activeHeadingId, setActiveHeadingId] = useState('');
-  const [comments, setComments] = useState<Comment[]>([]);
-  const [newCommentName, setNewCommentName] = useState('');
-  const [newCommentText, setNewCommentText] = useState('');
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const contentRef = useRef<HTMLDivElement>(null);
 
-  // Load related posts (Continue watching)
-  const relatedPosts = useMemo(() => {
-    return allBlogs
-      .filter((b) => b.slug !== blog.slug && b.category === blog.category)
-      .slice(0, 6);
-  }, [allBlogs, blog]);
-
-  // Load mock comments from localStorage
-  useEffect(() => {
-    const key = `comments_${blog.slug}`;
-    const saved = localStorage.getItem(key);
-    if (saved) {
-      setComments(JSON.parse(saved));
-    } else {
-      // Default starting comments
-      const defaults: Comment[] = [
-        {
-          author: 'Rohit Sharma',
-          avatar: '🦁',
-          text: 'This is gold! The PMax asset group structuring tip solved our budget bleed issues.',
-          date: '2026-07-02',
-        },
-      ];
-      setComments(defaults);
-      localStorage.setItem(key, JSON.stringify(defaults));
-    }
-  }, [blog]);
-
-  // Scroll and TOC tracking logic
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
-      // Progress Bar tracker
       const totalScroll = document.documentElement.scrollHeight - window.innerHeight;
       if (totalScroll > 0) {
-        setScrollProgress(window.scrollY / totalScroll);
-      }
-
-      // TOC Active heading detection
-      if (headings.length > 0) {
-        let currentActive = headings[0].id;
-        for (const h of headings) {
-          const el = document.getElementById(h.id);
-          if (el) {
-            const rect = el.getBoundingClientRect();
-            if (rect.top <= 120) {
-              currentActive = h.id;
-            } else {
-              break;
-            }
-          }
-        }
-        setActiveHeadingId(currentActive);
+        setScrollProgress((window.scrollY / totalScroll) * 100);
       }
     };
-
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [headings]);
+  }, []);
 
-  // Parse headings for floating TOC
-  useEffect(() => {
-    const list: { id: string; text: string; level: number }[] = [];
-    const lines = blog.content.split('\n');
-    lines.forEach((line) => {
-      if (line.startsWith('# ')) {
-        const text = line.replace('# ', '');
-        list.push({ id: text.toLowerCase().replace(/[^a-z0-9]+/g, '-'), text, level: 1 });
-      } else if (line.startsWith('## ')) {
-        const text = line.replace('## ', '');
-        list.push({ id: text.toLowerCase().replace(/[^a-z0-9]+/g, '-'), text, level: 2 });
-      }
-    });
-    setHeadings(list);
-  }, [blog]);
-
-  const handleAddComment = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!newCommentName.trim() || !newCommentText.trim()) return;
-
-    const newComment: Comment = {
-      author: newCommentName,
-      avatar: '🎬',
-      text: newCommentText,
-      date: new Date().toISOString().split('T')[0],
-    };
-
-    const updated = [newComment, ...comments];
-    setComments(updated);
-    localStorage.setItem(`comments_${blog.slug}`, JSON.stringify(updated));
-    setNewCommentName('');
-    setNewCommentText('');
-  };
+  const relatedPosts = useMemo(() => {
+    return allBlogs.filter((b) => b.slug !== blog.slug).slice(0, 3);
+  }, [allBlogs, blog]);
 
   return (
-    <div className="relative min-h-screen bg-[#050505] text-white overflow-hidden select-none font-sans flex flex-col">
-      <ParticleBackground />
-      <div className="vignette-overlay" />
-      <div className="noise-overlay" />
-
-      {/* Header Navbar */}
-      <header className={`fixed top-0 left-0 right-0 h-16 md:h-20 z-45 px-6 md:px-16 flex items-center justify-between transition-all duration-300 border-b ${
-        isScrolled 
-          ? 'bg-black/30 backdrop-blur-md border-neutral-800/40 shadow-lg shadow-black/30' 
-          : 'bg-gradient-to-b from-black/80 via-black/30 to-transparent backdrop-blur-none border-transparent'
-      }`}>
-        <div className="flex items-center gap-8">
-          <Link href="/" className="flex items-center gap-2 focus:outline-none cursor-pointer group shrink-0">
-            <img 
-              src="/logo-icon-exact.png" 
-              alt="VedantVerse" 
-              className="w-7 h-7 md:w-8 md:h-8 rounded-lg border border-[#E50914]/50 shadow-[0_0_10px_rgba(229,9,20,0.5)] group-hover:scale-105 group-hover:shadow-[0_0_16px_rgba(229,9,20,0.8)] transition-all duration-300 object-cover" 
-            />
-            <span className="text-sm md:text-base font-black uppercase tracking-widest text-[#E50914] drop-shadow-[0_0_10px_rgba(229,9,20,0.6)] group-hover:text-white transition-colors duration-300 leading-none font-sans">
-              VEDANTVERSE
-            </span>
-          </Link>
-
-          <nav className="hidden lg:flex items-center gap-6 text-xs text-neutral-400 font-semibold tracking-wider">
-            <Link href="/#command-center" className="hover:text-white uppercase">HUD</Link>
-            <Link href="/#career-universe" className="hover:text-white uppercase">Universe</Link>
-            <Link href="/#career-map" className="hover:text-white uppercase">Transit Map</Link>
-            <Link href="/#campaign-dashboards" className="hover:text-white uppercase">Dashboards</Link>
-            <Link href="/#marketing-lab" className="hover:text-white uppercase">Lab</Link>
-            <Link href="/blog" className="text-white font-extrabold uppercase">Blogs</Link>
-            <Link href="/#skills-galaxy" className="hover:text-white uppercase">Galaxy</Link>
-            <Link href="/#contact" className="text-[#E50914] hover:text-white font-extrabold uppercase">Contact Me</Link>
-          </nav>
-        </div>
-
-        <div className="flex items-center gap-4">
-          <button
-            onClick={() => setMobileMenuOpen(true)}
-            className="lg:hidden p-2 text-neutral-400 hover:text-white cursor-pointer focus:outline-none"
-            aria-label="Open navigation menu"
-          >
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
-            </svg>
-          </button>
-        </div>
-      </header>
-
-      {/* Mobile Menu */}
-      <AnimatePresence>
-        {mobileMenuOpen && (
-          <>
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              onClick={() => setMobileMenuOpen(false)}
-              className="fixed inset-0 bg-black/60 backdrop-blur-xs z-40 lg:hidden"
-            />
-            <motion.div
-              initial={{ x: '100%' }}
-              animate={{ x: 0 }}
-              exit={{ x: '100%' }}
-              transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-              className="fixed inset-y-0 right-0 w-72 bg-[#0e0e0e]/95 border-l border-neutral-900 z-50 p-6 flex flex-col justify-between shadow-2xl backdrop-blur-md lg:hidden"
-            >
-              <div className="space-y-8">
-                <div className="flex items-center justify-between border-b border-neutral-900 pb-4">
-                  <span className="text-[#E50914] font-black text-lg tracking-tight">VEDANTVERSE</span>
-                  <button onClick={() => setMobileMenuOpen(false)} className="text-neutral-500">
-                    <X className="w-5 h-5" />
-                  </button>
-                </div>
-                <div className="flex flex-col gap-4">
-                  <Link href="/#command-center" onClick={() => setMobileMenuOpen(false)} className="text-neutral-300 text-xs font-semibold uppercase">HUD</Link>
-                  <Link href="/#career-universe" onClick={() => setMobileMenuOpen(false)} className="text-neutral-300 text-xs font-semibold uppercase">Universe</Link>
-                  <Link href="/#career-map" onClick={() => setMobileMenuOpen(false)} className="text-neutral-300 text-xs font-semibold uppercase">Transit Map</Link>
-                  <Link href="/#campaign-dashboards" onClick={() => setMobileMenuOpen(false)} className="text-neutral-300 text-xs font-semibold uppercase">Dashboards</Link>
-                  <Link href="/#marketing-lab" onClick={() => setMobileMenuOpen(false)} className="text-neutral-300 text-xs font-semibold uppercase">Lab</Link>
-                  <Link href="/blog" onClick={() => setMobileMenuOpen(false)} className="text-white font-bold text-xs uppercase">Blogs</Link>
-                  <Link href="/#skills-galaxy" onClick={() => setMobileMenuOpen(false)} className="text-neutral-300 text-xs font-semibold uppercase">Galaxy</Link>
-                  <Link href="/#contact" onClick={() => setMobileMenuOpen(false)} className="text-[#E50914] font-bold text-xs uppercase">Contact Me</Link>
-                </div>
-              </div>
-            </motion.div>
-          </>
-        )}
-      </AnimatePresence>
-
-      {/* Netflix Red Reading Progress Bar */}
+    <div className="min-h-screen bg-[var(--bg-base)] text-[var(--text-primary)] transition-colors duration-200 flex flex-col justify-between">
+      {/* Top Reading Progress Bar */}
       <div
-        className="fixed top-0 left-0 h-1 bg-[#E50914] z-50 transition-all duration-75"
-        style={{ width: `${scrollProgress * 100}%` }}
+        className="fixed top-0 left-0 h-1 bg-[var(--accent-red)] z-50 transition-all duration-75"
+        style={{ width: `${scrollProgress}%` }}
       />
 
-      <main className="flex-1 w-full pt-16 md:pt-20">
+      <Navbar />
+
+      <main className="flex-1 max-w-4xl mx-auto px-6 md:px-12 pt-36 pb-24 w-full">
         
-        {/* Back navigation */}
-        <div className="max-w-7xl mx-auto px-6 md:px-16 pt-6">
-          <Link href="/blog" className="flex items-center gap-2 text-xs font-mono text-neutral-400 hover:text-white uppercase transition-colors">
-            <ArrowLeft className="w-4 h-4" />
-            Back to marketing catalog
+        {/* Back Link */}
+        <div className="mb-8">
+          <Link
+            href="/blog"
+            className="inline-flex items-center gap-2 text-xs font-mono font-bold tracking-wider text-[var(--text-muted)] hover:text-[var(--accent-red)] transition-colors"
+          >
+            <ArrowLeft className="w-3.5 h-3.5" />
+            <span>BACK TO FIELD NOTES</span>
           </Link>
         </div>
 
-        {/* Cinematic Cover Banner */}
-        <div 
-          style={{ backgroundImage: 'none', backgroundColor: '#050505' }}
-          className="relative w-full py-12 sm:py-16 bg-gradient-to-b from-[#0e0708] via-[#050505] to-[#050505] border-b border-neutral-900/60 overflow-hidden flex items-end"
-        >
-          <div className="absolute top-0 right-1/4 w-[600px] h-[400px] bg-red-950/20 rounded-full blur-[120px] pointer-events-none" />
-
-          <div className="relative z-10 max-w-7xl mx-auto w-full px-6 md:px-16 pb-12 flex flex-col gap-4 text-left">
-            <div className="flex flex-wrap items-center gap-3">
-              <span className="text-[9px] font-mono font-black uppercase tracking-wider bg-red-950/40 text-[#E50914] px-3 py-1 border border-red-900/30 rounded">
-                {blog.category}
-              </span>
-              <span className="text-[10px] text-neutral-400 font-mono flex items-center gap-1">
-                <Clock className="w-3.5 h-3.5" />
-                {blog.readingTime}
-              </span>
-              <span className="text-[10px] text-neutral-400 font-mono">
-                {blog.views} views
-              </span>
-            </div>
-
-            <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight uppercase leading-[1.0] max-w-4xl">
-              {blog.title}
-            </h1>
-            <p className="text-neutral-400 text-xs sm:text-base font-light max-w-2xl leading-relaxed">
-              {blog.summary}
-            </p>
-          </div>
-        </div>
-
-        {/* Article Layout split */}
-        <div className="max-w-7xl mx-auto px-6 md:px-16 py-12 flex flex-col lg:flex-row gap-12 relative z-30">
-          
-          {/* Main content body (Left / Center) */}
-          <div ref={contentRef} className="flex-1 max-w-[800px] border-r border-neutral-900/30 pr-0 lg:pr-8">
-            
-            {/* Quick takeaways TL;DR panel */}
-            <div className="bg-[#090909] border border-red-500/10 rounded-xl p-6 sm:p-8 mb-10 flex flex-col gap-3 select-none text-left">
-              <h3 className="text-xs font-mono font-black text-[#E50914] uppercase tracking-[0.2em] flex items-center gap-2">
-                <span className="w-2.5 h-2.5 rounded-full bg-[#E50914] animate-pulse" />
-                TL;DR QUICK SUMMARY & KEY TAKEAWAYS
-              </h3>
-              <p className="text-neutral-400 text-xs sm:text-sm font-light leading-relaxed">
-                {blog.summary}
-              </p>
-            </div>
-
-            <MarkdownRenderer content={blog.content} />
-
-            {/* Meet the Creator Bio Box */}
-            <div className="border-t border-neutral-900 pt-16 mt-16 text-left">
-              <h3 className="text-xs font-mono font-black text-[#E50914] uppercase tracking-widest mb-6">
-                Meet the Creator
-              </h3>
-              <div className="flex flex-col sm:flex-row items-center gap-6 bg-[#080808] border border-neutral-900 p-6 rounded-xl">
-                <img
-                  src="/vedant_portrait.png"
-                  alt="Vedant Tiwari"
-                  className="w-20 h-20 rounded-full border border-[#E50914]/30 object-cover object-top shadow-lg"
-                />
-                <div className="flex-1 flex flex-col gap-2">
-                  <h4 className="text-base font-black text-white uppercase tracking-tight">
-                    {blog.author.name}
-                  </h4>
-                  <p className="text-xs text-neutral-400 font-mono">
-                    {blog.author.role} • 3+ Years Experience
-                  </p>
-                  <p className="text-xs text-neutral-500 font-light leading-relaxed">
-                    I design, audit, and scale search & social ad campaigns for eCommerce brands. I help leverage high-margin performance marketing strategies to build sustainable digital growth.
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            {/* Community Discussion Forums (Comments) */}
-            <div className="border-t border-neutral-900 pt-16 mt-16 text-left">
-              <h3 className="text-xs font-mono font-black text-white uppercase tracking-widest mb-6 flex items-center gap-2">
-                <MessageSquare className="w-4 h-4 text-[#E50914]" />
-                Community Discussion ({comments.length})
-              </h3>
-
-              {/* Form */}
-              <form onSubmit={handleAddComment} className="flex flex-col gap-3.5 mb-8">
-                <div className="flex flex-col sm:flex-row gap-3">
-                  <input
-                    type="text"
-                    placeholder="Your Name"
-                    value={newCommentName}
-                    onChange={(e) => setNewCommentName(e.target.value)}
-                    className="flex-1 px-4 py-3 bg-[#0a0a0a] border border-neutral-800 rounded-lg text-xs font-mono text-white placeholder-neutral-500 focus:outline-none focus:border-[#E50914]/80 transition-colors"
-                  />
-                </div>
-                <textarea
-                  placeholder="Join the discussion... Share your query or feedback."
-                  value={newCommentText}
-                  onChange={(e) => setNewCommentText(e.target.value)}
-                  rows={4}
-                  className="w-full px-4 py-3 bg-[#0a0a0a] border border-neutral-800 rounded-lg text-xs font-mono text-white placeholder-neutral-500 focus:outline-none focus:border-[#E50914]/80 transition-colors resize-none"
-                />
-                <button
-                  type="submit"
-                  className="self-end flex items-center gap-2 bg-[#E50914] text-white font-bold text-xs px-6 py-3 rounded hover:bg-[#b20710] cursor-pointer transition-colors"
-                >
-                  <Send className="w-3.5 h-3.5" />
-                  Post Comment
-                </button>
-              </form>
-
-              {/* List */}
-              <div className="space-y-4">
-                {comments.map((c, i) => (
-                  <div key={i} className="flex items-start gap-4 p-4 bg-[#080808]/50 border border-neutral-900/60 rounded-lg">
-                    <span className="text-xl p-2 bg-neutral-900 rounded-full">{c.avatar}</span>
-                    <div className="flex-1 flex flex-col gap-1">
-                      <div className="flex items-center justify-between">
-                        <span className="text-xs font-black text-white">{c.author}</span>
-                        <span className="text-[10px] text-neutral-500 font-mono">{c.date}</span>
-                      </div>
-                      <p className="text-xs sm:text-sm text-neutral-400 font-light leading-relaxed">
-                        {c.text}
-                      </p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-
+        {/* Article Header */}
+        <header className="mb-12 pb-8 border-b border-[var(--border-subtle)]">
+          <div className="flex items-center gap-3 text-xs font-mono font-bold tracking-wider uppercase mb-4">
+            <span className="text-[var(--accent-red)]">{blog.category}</span>
+            <span className="text-[var(--text-muted)]">•</span>
+            <span className="text-[var(--text-muted)]">{blog.readingTime}</span>
+            <span className="text-[var(--text-muted)]">•</span>
+            <span className="text-[var(--text-muted)]">{blog.publishDate}</span>
           </div>
 
-          {/* Table of Contents sidebar (Right - Desktop only) */}
-          {headings.length > 0 && (
-            <div className="hidden lg:block w-[260px] shrink-0">
-              <div className="sticky top-28 bg-[#080808]/85 border border-neutral-900 p-6 rounded-xl text-left select-none">
-                <h4 className="text-[10px] font-mono font-black text-[#E50914] uppercase tracking-[0.25em] mb-4">
-                  ★ EPISODE SCENES
-                </h4>
-                <ul className="space-y-3 font-mono text-[10px]">
-                  {headings.map((h, i) => (
-                    <li
-                      key={i}
-                      className="transition-colors"
-                      style={{ paddingLeft: h.level === 2 ? '12px' : '0' }}
-                    >
-                      <a
-                        href={`#${h.id}`}
-                        className={`hover:text-white transition-colors capitalize ${
-                          activeHeadingId === h.id ? 'text-white font-bold' : 'text-neutral-500'
-                        }`}
-                      >
-                        {activeHeadingId === h.id ? '▶ ' : ''}
-                        {h.text}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-[var(--text-primary)] leading-[1.15] mb-6">
+            {blog.title}
+          </h1>
+
+          <p className="text-base sm:text-lg text-[var(--text-secondary)] leading-relaxed mb-8">
+            {blog.summary}
+          </p>
+
+          {/* Author Badge */}
+          <div className="flex items-center gap-3.5 pt-4">
+            <div className="w-10 h-10 rounded-full bg-[var(--arch-bg)] overflow-hidden border border-[var(--border-subtle)] shrink-0 flex items-center justify-center">
+              <Image
+                src="/vedant_portrait.png"
+                alt="Vedant Tiwari"
+                width={40}
+                height={40}
+                className="object-cover object-top"
+              />
+            </div>
+            <div>
+              <div className="text-xs font-bold text-[var(--text-primary)]">
+                {blog.author?.name || 'Vedant Tiwari'}
+              </div>
+              <div className="text-[11px] text-[var(--text-muted)] font-mono">
+                {blog.author?.role || 'Senior Performance Marketing Executive'}
               </div>
             </div>
-          )}
+          </div>
+        </header>
 
-        </div>
+        {/* Article Body Content */}
+        <article className="mb-20">
+          <MarkdownRenderer content={blog.content} />
+        </article>
 
-        {/* Continue Watching Section (Related Releases) */}
+        {/* Tags */}
+        {blog.tags && blog.tags.length > 0 && (
+          <div className="pt-6 pb-12 border-t border-[var(--border-subtle)] mb-16 flex items-center gap-2 flex-wrap">
+            <span className="text-xs font-mono text-[var(--text-muted)] mr-2">Tags:</span>
+            {blog.tags.map((tag) => (
+              <span
+                key={tag}
+                className="px-3 py-1 rounded-full text-xs font-mono bg-[var(--bg-card)] border border-[var(--border-subtle)] text-[var(--text-secondary)]"
+              >
+                {tag}
+              </span>
+            ))}
+          </div>
+        )}
+
+        {/* Related Articles */}
         {relatedPosts.length > 0 && (
-          <div className="max-w-7xl mx-auto px-6 md:px-16 py-12 border-t border-neutral-900 text-left select-none mb-20">
-            <h3 className="text-xs font-mono font-black text-[#E50914] uppercase tracking-widest mb-8 flex items-center gap-2">
-              <Play className="w-4 h-4" />
-              Continue Watching (Related Releases)
-            </h3>
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-6">
-              {relatedPosts.map((blog) => (
+          <div className="pt-12 border-t border-[var(--border-subtle)] mb-12">
+            <div className="text-[11px] font-mono font-bold tracking-widest uppercase text-[var(--text-muted)] mb-6">
+              RELATED FIELD NOTES
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {relatedPosts.map((rel) => (
                 <Link
-                  key={blog.slug}
-                  href={`/blog/${blog.slug}`}
-                  className="flex flex-col gap-2 group cursor-pointer"
+                  key={rel.slug}
+                  href={`/blog/${rel.slug}`}
+                  className="surface-card rounded-xl p-5 flex flex-col justify-between shadow-xs hover:border-[var(--border-strong)] transition-all group cursor-pointer"
                 >
-                  <div className="relative aspect-[2/3] bg-gradient-to-br from-[#140b0d] via-[#09090c] to-[#050505] rounded p-3 border border-neutral-800 group-hover:border-[#E50914] transition-all duration-300 shadow-lg flex flex-col justify-between">
-                    <span className="text-[7px] font-mono text-[#E50914] bg-red-950/40 px-1.5 py-0.5 rounded uppercase font-bold self-start">
-                      {blog.category}
+                  <div>
+                    <span className="text-[9px] font-mono font-bold text-[var(--accent-red)] uppercase block mb-2">
+                      {rel.category}
                     </span>
-                    <h4 className="text-[10px] font-black text-white uppercase leading-snug tracking-tight font-sans line-clamp-3 my-auto group-hover:text-[#E50914] transition-colors">
-                      {blog.title}
+                    <h4 className="text-sm font-bold text-[var(--text-primary)] group-hover:text-[var(--accent-red)] transition-colors leading-snug">
+                      {rel.title}
                     </h4>
-                    <span className="text-[7px] font-mono text-neutral-500">{blog.readingTime}</span>
+                  </div>
+                  <div className="pt-4 mt-4 border-t border-[var(--border-subtle)] flex items-center justify-between text-[11px] text-[var(--text-muted)]">
+                    <span>{rel.readingTime}</span>
+                    <ArrowRight className="w-3.5 h-3.5 text-[var(--accent-red)]" />
                   </div>
                 </Link>
               ))}
@@ -502,6 +224,8 @@ export default function ArticleViewClient({ blog, allBlogs }: { blog: BlogPost; 
         )}
 
       </main>
+
+      <ContactAndFooter />
     </div>
   );
 }
