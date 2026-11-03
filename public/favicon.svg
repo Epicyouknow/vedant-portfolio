@@ -1,0 +1,12 @@
+<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#222222"/>
+      <stop offset="100%" stop-color="#0E0E0E"/>
+    </linearGradient>
+  </defs>
+  <!-- Sleek dark circle badge -->
+  <circle cx="256" cy="256" r="248" fill="url(#bg)"/>
+  <!-- Crisp geometric white V -->
+  <polygon points="136,136 210,136 256,282 302,136 376,136 294,376 218,376" fill="#FFFFFF"/>
+</svg>

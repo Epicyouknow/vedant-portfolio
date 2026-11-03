@@ -106,3 +106,4 @@ export function recordAuditLog(entry: Omit<AuditLogEntry, 'id' | 'timestamp'>): 
 
   return newLog;
 }
+

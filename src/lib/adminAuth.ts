@@ -64,3 +64,4 @@ export function canManageUsers(role: AdminRole): boolean {
 export function canManageSettings(role: AdminRole): boolean {
   return role === 'Owner' || role === 'Admin';
 }
+

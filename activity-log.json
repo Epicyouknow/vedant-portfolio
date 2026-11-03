@@ -1,5 +1,18 @@
 [
   {
+    "action": "Updated case study: \"Bellissima by Excel\"",
+    "category": "publishing",
+    "targetType": "case-study",
+    "targetId": "bellissima-by-excel",
+    "targetTitle": "Bellissima by Excel",
+    "user": "Vedant Tiwari",
+    "userEmail": "vedant@vedantverse.com",
+    "userRole": "Owner",
+    "details": "Status set to PUBLISHED. Category: realestate-app.",
+    "id": "log-1793544902485-x8n5h",
+    "timestamp": "2026-11-01T14:55:02.485Z"
+  },
+  {
     "id": "log-1",
     "action": "Published Bellissima by Excel Case Study",
     "category": "publishing",
