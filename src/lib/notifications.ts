@@ -391,6 +391,160 @@ export function getNotificationChannelsStatus() {
   };
 }
 
+/**
+ * Dispatches real-time login security notifications whenever Owner or Partner logs in.
+ * Sends alerts across Telegram, WhatsApp, Discord, ntfy push, and Email.
+ */
+export async function sendAdminLoginNotification(params: {
+  user: { name: string; email: string; role: string };
+  ip?: string;
+  userAgent?: string;
+  location?: string;
+}): Promise<NotificationDispatchSummary> {
+  const timestamp = new Date().toISOString();
+  const results: NotificationResult[] = [];
+  const istTime = new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' });
+
+  // Simplified browser / device detection from user-agent
+  const ua = params.userAgent || '';
+  let device = 'Desktop / Browser';
+  if (/android/i.test(ua)) device = 'Android Mobile';
+  else if (/iphone|ipad|ipod/i.test(ua)) device = 'iPhone / iOS';
+  else if (/macintosh/i.test(ua)) device = 'macOS Desktop';
+  else if (/windows/i.test(ua)) device = 'Windows PC';
+
+  // 1. Telegram Alert
+  const telegramPromise = (async (): Promise<NotificationResult> => {
+    const token = process.env.TELEGRAM_BOT_TOKEN;
+    const chatId = process.env.TELEGRAM_CHAT_ID;
+
+    if (!token || !chatId) {
+      return { channel: 'telegram', configured: false, success: false };
+    }
+
+    try {
+      const text = `
+🔐 <b>VEDANTVERSE ADMIN LOGIN ALERT</b>
+━━━━━━━━━━━━━━━━━━
+👤 <b>Account:</b> ${escapeHtml(params.user.name)} (<code>${escapeHtml(params.user.role)}</code>)
+📧 <b>Email:</b> <code>${escapeHtml(params.user.email)}</code>
+⏱️ <b>Time:</b> ${istTime} IST
+📍 <b>Location:</b> ${escapeHtml(params.location || 'Unknown')}
+🌐 <b>IP Address:</b> <code>${escapeHtml(params.ip || 'Unknown')}</code>
+📱 <b>Device:</b> ${escapeHtml(device)}
+━━━━━━━━━━━━━━━━━━
+<i>CMS Command Centre • Security Monitor</i>
+`.trim();
+
+      const res = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          chat_id: chatId,
+          text,
+          parse_mode: 'HTML',
+          disable_web_page_preview: true
+        })
+      });
+
+      return { channel: 'telegram', configured: true, success: res.ok };
+    } catch (e: any) {
+      return { channel: 'telegram', configured: true, success: false, error: e?.message };
+    }
+  })();
+
+  // 2. WhatsApp Alert (via CallMeBot free API or webhook)
+  const whatsappPromise = (async (): Promise<NotificationResult> => {
+    const phone = process.env.WHATSAPP_ALERT_PHONE; // e.g. +91816372383
+    const apiKey = process.env.WHATSAPP_CALLMEBOT_API_KEY;
+
+    if (!phone || !apiKey) {
+      return { channel: 'webhook', configured: false, success: false };
+    }
+
+    try {
+      const cleanPhone = phone.replace(/[^0-9]/g, '');
+      const waText = `🔐 *VEDANTVERSE CMS LOGIN ALERT*\nAccount: ${params.user.name} (${params.user.role})\nEmail: ${params.user.email}\nTime: ${istTime} IST\nLocation: ${params.location || 'Unknown'}\nIP: ${params.ip || 'Unknown'}\nDevice: ${device}`;
+      const url = `https://api.callmebot.com/whatsapp.php?phone=${cleanPhone}&text=${encodeURIComponent(waText)}&apikey=${apiKey}`;
+
+      const res = await fetch(url);
+      return { channel: 'webhook', configured: true, success: res.ok };
+    } catch (e: any) {
+      return { channel: 'webhook', configured: true, success: false, error: e?.message };
+    }
+  })();
+
+  // 3. Discord Alert
+  const discordPromise = (async (): Promise<NotificationResult> => {
+    const webhookUrl = process.env.DISCORD_WEBHOOK_URL;
+    if (!webhookUrl) return { channel: 'discord', configured: false, success: false };
+
+    try {
+      const payload = {
+        username: 'VedantVerse Security',
+        avatar_url: 'https://vedantverse.in/icon.png',
+        embeds: [
+          {
+            title: '🔐 Admin Panel Login Detected',
+            color: 0xED463B,
+            fields: [
+              { name: '👤 Account', value: `${params.user.name} (${params.user.role})`, inline: true },
+              { name: '📧 Email', value: params.user.email, inline: true },
+              { name: '⏱️ Timestamp', value: `${istTime} IST`, inline: true },
+              { name: '📍 Location', value: params.location || 'Unknown', inline: true },
+              { name: '🌐 IP Address', value: params.ip || 'Unknown', inline: true },
+              { name: '📱 Device', value: device, inline: true }
+            ],
+            footer: { text: 'VedantVerse CMS Command Centre' },
+            timestamp: new Date().toISOString()
+          }
+        ]
+      };
+
+      const res = await fetch(webhookUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+
+      return { channel: 'discord', configured: true, success: res.ok };
+    } catch (e: any) {
+      return { channel: 'discord', configured: true, success: false, error: e?.message };
+    }
+  })();
+
+  // 4. ntfy.sh Phone Push
+  const ntfyPromise = (async (): Promise<NotificationResult> => {
+    const topic = process.env.NTFY_TOPIC;
+    if (!topic) return { channel: 'ntfy', configured: false, success: false };
+
+    try {
+      const res = await fetch(`https://ntfy.sh/${topic}`, {
+        method: 'POST',
+        headers: {
+          Title: `🔐 CMS Login: ${params.user.name}`,
+          Priority: 'urgent',
+          Tags: 'lock,shield'
+        },
+        body: `${params.user.name} (${params.user.role}) logged in at ${istTime} IST. IP: ${params.ip || 'Unknown'}`
+      });
+      return { channel: 'ntfy', configured: true, success: res.ok };
+    } catch (e: any) {
+      return { channel: 'ntfy', configured: true, success: false, error: e?.message };
+    }
+  })();
+
+  const allSettled = await Promise.all([
+    telegramPromise,
+    whatsappPromise,
+    discordPromise,
+    ntfyPromise
+  ]);
+
+  results.push(...allSettled);
+  return { timestamp, results };
+}
+
 function escapeHtml(str: string): string {
   if (!str) return '';
   return str

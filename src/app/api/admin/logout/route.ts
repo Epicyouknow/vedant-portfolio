@@ -48,3 +48,4 @@ export async function POST() {
     return NextResponse.json({ success: false, error: 'Server error during logout.' }, { status: 500 });
   }
 }
+

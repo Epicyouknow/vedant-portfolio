@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { validateAdminCredentials, createSessionToken, ADMIN_COOKIE_NAME } from '@/lib/adminAuth';
 import { recordAuditLog } from '@/lib/auditLog';
+import { sendAdminLoginNotification } from '@/lib/notifications';
 
 export async function POST(request: Request) {
   try {
@@ -19,6 +20,15 @@ export async function POST(request: Request) {
     const user = authResult.user;
     const sessionToken = await createSessionToken(user, 30); // 30-day session
 
+    // Extract request provenance details for audit and notifications
+    const forwardedFor = request.headers.get('x-forwarded-for')?.split(',')[0].trim();
+    const realIp = request.headers.get('x-real-ip');
+    const ip = forwardedFor || realIp || '127.0.0.1';
+    const city = request.headers.get('x-vercel-ip-city') || '';
+    const country = request.headers.get('x-vercel-ip-country') || '';
+    const location = [city, country].filter(Boolean).join(', ') || 'Local / Network';
+    const userAgent = request.headers.get('user-agent') || 'Browser';
+
     // Record Audit Log
     try {
       recordAuditLog({
@@ -29,11 +39,19 @@ export async function POST(request: Request) {
         user: user.name,
         userEmail: user.email,
         userRole: user.role,
-        details: `Successful authenticated login as ${user.role} (${user.email}).`,
+        details: `Successful login as ${user.role} (${user.email}) from ${ip} (${location}).`,
       });
     } catch (e) {
       console.error('Audit logging error:', e);
     }
+
+    // Dispatch instant alert notification across configured channels (Telegram, WhatsApp, Discord, ntfy)
+    sendAdminLoginNotification({
+      user,
+      ip,
+      userAgent,
+      location,
+    }).catch((err) => console.error('Login alert dispatch error:', err));
 
     const response = NextResponse.json({
       success: true,
@@ -61,3 +79,4 @@ export async function POST(request: Request) {
     );
   }
 }
+
