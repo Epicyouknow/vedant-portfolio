@@ -51,7 +51,7 @@ export async function sendInquiryNotifications(
 <i>Sent via VedantVerse Portfolio Lead Engine</i>
 `.trim();
 
-      // Quick action buttons (WhatsApp & Email)
+      // Quick action buttons (Only HTTPS URLs allowed in Telegram inline buttons)
       const actionRow: any[] = [];
       if (inquiry.phone) {
         const cleanPhone = inquiry.phone.replace(/[^0-9]/g, '');
@@ -60,7 +60,8 @@ export async function sendInquiryNotifications(
         }
       }
       if (inquiry.email && !inquiry.email.includes('@whatsapp.lead')) {
-        actionRow.push({ text: '📧 Reply via Email', url: `mailto:${inquiry.email}?subject=Re:%20Performance%20Marketing%20Inquiry%20-%20VedantVerse` });
+        const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(inquiry.email)}&su=${encodeURIComponent('Re: Campaign Inquiry - VedantVerse')}`;
+        actionRow.push({ text: '📧 Reply via Gmail', url: gmailUrl });
       }
 
       const bodyPayload: any = {
