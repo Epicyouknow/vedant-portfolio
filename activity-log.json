@@ -1,5 +1,41 @@
 [
   {
+    "action": "User Session Logout",
+    "category": "access",
+    "targetType": "auth",
+    "targetTitle": "Admin Command Centre",
+    "user": "Vedant Tiwari",
+    "userEmail": "Owner@vedantverse.in",
+    "userRole": "Owner",
+    "details": "Logged out from CMS session.",
+    "id": "log-1793871328029-h8o81",
+    "timestamp": "2026-11-05T09:35:28.029Z"
+  },
+  {
+    "action": "User Session Login",
+    "category": "access",
+    "targetType": "auth",
+    "targetTitle": "Admin Command Centre",
+    "user": "Partner",
+    "userEmail": "Partner@vedantverse.in",
+    "userRole": "Admin",
+    "details": "Successful authenticated login as Admin (Partner@vedantverse.in).",
+    "id": "log-1793871308115-83775",
+    "timestamp": "2026-11-05T09:35:08.115Z"
+  },
+  {
+    "action": "User Session Login",
+    "category": "access",
+    "targetType": "auth",
+    "targetTitle": "Admin Command Centre",
+    "user": "Vedant Tiwari",
+    "userEmail": "Owner@vedantverse.in",
+    "userRole": "Owner",
+    "details": "Successful authenticated login as Owner (Owner@vedantverse.in).",
+    "id": "log-1793871299606-58tt2",
+    "timestamp": "2026-11-05T09:34:59.606Z"
+  },
+  {
     "action": "Updated case study: \"Bellissima by Excel\"",
     "category": "publishing",
     "targetType": "case-study",

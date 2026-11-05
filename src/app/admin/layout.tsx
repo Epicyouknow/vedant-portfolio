@@ -35,8 +35,9 @@ import {
   TrendingUp,
   Inbox,
   BarChart3,
+  UserCheck,
 } from 'lucide-react';
-import { AdminRole, DEFAULT_USERS } from '../../lib/adminAuth';
+import { AdminRole, AdminUser, DEFAULT_USERS } from '../../lib/adminAuth';
 
 interface NavItem {
   label: string;
@@ -54,27 +55,48 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   const pathname = usePathname();
   const router = useRouter();
 
+  const isLoginPage = pathname === '/admin/login';
+
   const [collapsed, setCollapsed] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [dark, setDark] = useState(false);
+  const [currentUser, setCurrentUser] = useState<AdminUser | null>(null);
   const [currentRole, setCurrentRole] = useState<AdminRole>('Owner');
+  const [authLoading, setAuthLoading] = useState(!isLoginPage);
   const [showRoleModal, setShowRoleModal] = useState(false);
-  const [searchQuery, setSearchQuery] = useState('');
   const [notification, setNotification] = useState<{ message: string; tone?: 'success' | 'danger' } | null>(null);
 
-  // Initialize theme from localStorage
+  // Initialize theme & check session
   useEffect(() => {
     try {
       const savedTheme = localStorage.getItem('vedant_admin_theme');
       if (savedTheme === 'dark') {
         setDark(true);
       }
-      const savedRole = localStorage.getItem('vedant_admin_role');
-      if (savedRole) {
-        setCurrentRole(savedRole as AdminRole);
-      }
     } catch (e) {}
-  }, []);
+
+    // Skip auth verification on login page
+    if (isLoginPage) {
+      setAuthLoading(false);
+      return;
+    }
+
+    // Verify session from server
+    fetch('/api/admin/session')
+      .then((res) => res.json())
+      .then((data) => {
+        if (!data.authenticated || !data.user) {
+          window.location.href = '/admin/login';
+        } else {
+          setCurrentUser(data.user);
+          setCurrentRole(data.user.role);
+          setAuthLoading(false);
+        }
+      })
+      .catch(() => {
+        window.location.href = '/admin/login';
+      });
+  }, [pathname, isLoginPage]);
 
   const toggleTheme = () => {
     const next = !dark;
@@ -84,19 +106,43 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     } catch (e) {}
   };
 
-  const selectRole = (role: AdminRole) => {
-    setCurrentRole(role);
-    setShowRoleModal(false);
+  const handleLogout = async () => {
     try {
-      localStorage.setItem('vedant_admin_role', role);
+      await fetch('/api/admin/logout', { method: 'POST' });
+    } catch (e) {
+      console.error(e);
+    }
+    try {
+      localStorage.removeItem('vedant_admin_user');
+      localStorage.removeItem('vedant_admin_role');
     } catch (e) {}
-    showToast(`Switched active role to ${role}`);
+    window.location.href = '/admin/login';
   };
 
   const showToast = (message: string, tone: 'success' | 'danger' = 'success') => {
     setNotification({ message, tone });
     setTimeout(() => setNotification(null), 3500);
   };
+
+  // If on Login Page, render directly without admin frame
+  if (isLoginPage) {
+    return <div className={dark ? 'dark' : ''}>{children}</div>;
+  }
+
+  // If verifying authentication, show clean full-page loader
+  if (authLoading) {
+    return (
+      <div className="min-h-screen bg-[#F5F2EC] flex flex-col items-center justify-center gap-4">
+        <div className="w-10 h-10 rounded-2xl bg-[#191919] flex items-center justify-center text-white font-black text-lg shadow-md animate-pulse">
+          V
+        </div>
+        <div className="text-xs font-mono text-[#737373] tracking-widest uppercase flex items-center gap-2">
+          <span className="w-2 h-2 rounded-full bg-[#ED463B] animate-ping" />
+          Verifying authorized session...
+        </div>
+      </div>
+    );
+  }
 
   const navGroups: NavGroup[] = [
     {
@@ -138,6 +184,15 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     },
   ];
 
+  const userInitials = currentUser?.name
+    ? currentUser.name
+        .split(' ')
+        .map((n) => n[0])
+        .join('')
+        .toUpperCase()
+        .slice(0, 2)
+    : 'VT';
+
   return (
     <div className={dark ? 'dark' : ''}>
       <div className="vv-admin-root">
@@ -163,19 +218,19 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 
             <button
               onClick={() => setCollapsed(!collapsed)}
-              className="ml-auto rounded-lg p-1.5 text-[var(--muted)] hover:bg-[var(--surface-2)] transition-colors cursor-pointer"
+              className="ml-auto text-[var(--muted)] hover:text-[var(--ink)] p-1 rounded-md transition-colors"
               title={collapsed ? 'Expand sidebar' : 'Collapse sidebar'}
             >
               {collapsed ? <PanelLeftOpen className="w-4 h-4" /> : <PanelLeftClose className="w-4 h-4" />}
             </button>
           </div>
 
-          {/* Navigation Items */}
-          <div className="vv-sidebar-scroll px-3 space-y-6">
+          {/* Navigation Groups */}
+          <div className="flex-1 overflow-y-auto px-3 py-4 space-y-6">
             {navGroups.map((group) => (
               <div key={group.label}>
                 {!collapsed && (
-                  <div className="mb-2 px-3 text-[9px] font-bold uppercase tracking-[0.14em] text-[var(--muted)] font-mono">
+                  <div className="mb-2 px-3 text-[10px] font-bold uppercase tracking-widest text-[var(--muted)] font-mono">
                     {group.label}
                   </div>
                 )}
@@ -206,29 +261,36 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             ))}
           </div>
 
-          {/* User profile footer */}
-          <div className="border-t border-[var(--line)] p-3">
-            <button
-              onClick={() => setShowRoleModal(true)}
-              className="vv-nav-item w-full justify-between"
-              title="Switch user role"
-            >
+          {/* Authenticated User Profile & Sign Out Footer */}
+          <div className="border-t border-[var(--line)] p-3 space-y-2">
+            <div className="flex items-center justify-between p-2 rounded-xl bg-[var(--surface-2)] border border-[var(--line)]">
               <div className="flex items-center gap-2.5 min-w-0">
-                <div className="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-[var(--accent-soft)] text-[10px] font-bold text-[var(--accent)]">
-                  VT
+                <div className="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-[#191919] text-[10px] font-bold text-white dark:bg-white dark:text-black">
+                  {userInitials}
                 </div>
                 {!collapsed && (
                   <div className="min-w-0 text-left">
-                    <div className="text-xs font-semibold truncate text-[var(--ink)]">Vedant Tiwari</div>
-                    <div className="text-[10px] text-[var(--muted)] font-mono flex items-center gap-1">
-                      <span className="w-1.5 h-1.5 rounded-full bg-[var(--success)]" />
-                      {currentRole}
+                    <div className="text-xs font-semibold truncate text-[var(--ink)]">
+                      {currentUser?.name || 'Vedant Tiwari'}
+                    </div>
+                    <div className="text-[10px] text-[var(--muted)] font-mono truncate flex items-center gap-1">
+                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+                      {currentUser?.role || currentRole}
                     </div>
                   </div>
                 )}
               </div>
-              {!collapsed && <ChevronRight className="w-3.5 h-3.5 text-[var(--muted)]" />}
-            </button>
+
+              {!collapsed && (
+                <button
+                  onClick={handleLogout}
+                  className="p-1.5 rounded-lg text-[var(--muted)] hover:text-[#ED463B] hover:bg-red-50 dark:hover:bg-red-950/30 transition-colors"
+                  title="Sign out of administration"
+                >
+                  <LogOut className="w-4 h-4" />
+                </button>
+              )}
+            </div>
           </div>
         </aside>
 
@@ -283,6 +345,17 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                   </div>
                 ))}
               </div>
+
+              {/* Mobile logout */}
+              <div className="border-t border-[var(--line)] p-4">
+                <button
+                  onClick={handleLogout}
+                  className="w-full flex items-center justify-center gap-2 py-2.5 px-3 rounded-xl border border-red-200 text-red-600 bg-red-50 text-xs font-semibold"
+                >
+                  <LogOut className="w-4 h-4" />
+                  <span>Sign out</span>
+                </button>
+              </div>
             </div>
           </div>
         )}
@@ -312,6 +385,17 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 
             {/* Quick Actions & Header Controls */}
             <div className="flex items-center gap-2.5">
+              {/* Authenticated user pill */}
+              {currentUser && (
+                <div className="hidden sm:flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[var(--surface-2)] border border-[var(--line)] text-xs text-[var(--ink)]">
+                  <UserCheck className="w-3.5 h-3.5 text-emerald-600" />
+                  <span className="font-semibold">{currentUser.name}</span>
+                  <span className="text-[10px] font-mono px-1.5 py-0.2 rounded bg-black text-white dark:bg-white dark:text-black font-bold">
+                    {currentUser.role}
+                  </span>
+                </div>
+              )}
+
               {/* Live Website Status pill */}
               <Link
                 href="/admin/website-overview"
@@ -342,7 +426,17 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                 aria-label="Toggle theme"
                 title="Switch dark / light theme"
               >
-                {dark ? <Sun className="w-4 h-4 text-amber-400" /> : <Moon className="w-4 h-4" />}
+                {dark ? <Sun className="w-4 h-4 text-amber-400" /> : <Moon className="w-4 h-4 text-[var(--muted)]" />}
+              </button>
+
+              {/* Sign out button */}
+              <button
+                onClick={handleLogout}
+                className="vv-button vv-button--secondary text-xs text-red-600 hover:text-red-700 hover:border-red-300"
+                title="Sign out of Command Centre"
+              >
+                <LogOut className="w-3.5 h-3.5" />
+                <span className="hidden sm:inline">Sign out</span>
               </button>
             </div>
           </header>
@@ -352,67 +446,20 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             {children}
           </main>
         </div>
-
-        {/* Role Switcher Modal */}
-        {showRoleModal && (
-          <div className="vv-modal-backdrop">
-            <div className="vv-modal">
-              <div className="flex items-center justify-between border-b border-[var(--line)] p-5">
-                <div className="flex items-center gap-2">
-                  <ShieldCheck className="w-5 h-5 text-[var(--accent)]" />
-                  <h3 className="text-base font-bold">Switch Access Role</h3>
-                </div>
-                <button onClick={() => setShowRoleModal(false)} className="vv-icon-button">
-                  <X className="w-4 h-4" />
-                </button>
-              </div>
-
-              <div className="p-6 space-y-4">
-                <p className="text-xs text-[var(--muted)] leading-relaxed">
-                  Test role-based access control (RBAC) boundaries directly in the Command Centre:
-                </p>
-
-                <div className="space-y-2">
-                  {(['Owner', 'Admin', 'Editor', 'Blog Contributor', 'Viewer'] as AdminRole[]).map((role) => (
-                    <button
-                      key={role}
-                      onClick={() => selectRole(role)}
-                      className={`w-full p-4 rounded-xl border text-left flex items-center justify-between transition-all ${
-                        currentRole === role
-                          ? 'border-[var(--accent)] bg-[var(--accent-soft)]/40 text-[var(--accent)]'
-                          : 'border-[var(--line)] bg-[var(--surface)] hover:bg-[var(--surface-2)] text-[var(--ink)]'
-                      }`}
-                    >
-                      <div>
-                        <div className="text-xs font-bold font-mono">{role}</div>
-                        <div className="text-[11px] text-[var(--muted)] mt-0.5">
-                          {role === 'Owner' && 'Full access to all modules, publishing, settings, and users.'}
-                          {role === 'Admin' && 'Content and publishing authority; cannot delete primary owners.'}
-                          {role === 'Editor' && 'Create and edit case studies, blogs, and media. Save drafts.'}
-                          {role === 'Blog Contributor' && 'Create and draft blog articles only. Cannot publish.'}
-                          {role === 'Viewer' && 'Read-only visibility across analytics and content.'}
-                        </div>
-                      </div>
-                      {currentRole === role && <span className="text-xs font-bold">Active</span>}
-                    </button>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* Toast Notification */}
-        {notification && (
-          <div className={`vv-toast ${notification.tone === 'danger' ? 'is-danger' : ''}`}>
-            <span className="grid h-6 w-6 place-items-center rounded-full bg-[var(--success-soft)] text-[var(--success)] shrink-0 font-bold text-xs">
-              ✓
-            </span>
-            <div className="text-xs font-semibold text-[var(--ink)]">{notification.message}</div>
-          </div>
-        )}
       </div>
+
+      {/* Global Notification Toast */}
+      {notification && (
+        <div
+          className={`fixed bottom-6 right-6 z-50 flex items-center gap-3 px-4 py-3 rounded-xl border shadow-lg text-sm font-medium animate-fadeIn ${
+            notification.tone === 'danger'
+              ? 'bg-red-50 border-red-200 text-red-900'
+              : 'bg-emerald-50 border-emerald-200 text-emerald-900'
+          }`}
+        >
+          <span>{notification.message}</span>
+        </div>
+      )}
     </div>
   );
 }
-
