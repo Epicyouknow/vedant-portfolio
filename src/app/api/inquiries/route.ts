@@ -30,11 +30,13 @@ export async function POST(req: NextRequest) {
       message: compiledMessage
     });
 
-    // Fire notifications asynchronously across all configured channels
-    // (Telegram, Discord, Resend email, ntfy push)
-    sendInquiryNotifications(savedInquiry).catch(err => {
-      console.error('Background notification dispatch error:', err);
-    });
+    // Await notification dispatch across all channels (Telegram, Email, etc.)
+    // Ensures serverless environments (e.g. Vercel) do not terminate execution before delivery
+    try {
+      await sendInquiryNotifications(savedInquiry);
+    } catch (notifErr) {
+      console.error('Notification dispatch error:', notifErr);
+    }
 
     return NextResponse.json({ 
       success: true, 

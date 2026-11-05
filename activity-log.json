@@ -1,5 +1,17 @@
 [
   {
+    "action": "User Session Login",
+    "category": "access",
+    "targetType": "auth",
+    "targetTitle": "Admin Command Centre",
+    "user": "Vedant Tiwari",
+    "userEmail": "Owner@vedantverse.in",
+    "userRole": "Owner",
+    "details": "Successful login as Owner (Owner@vedantverse.in) from ::1 (Local / Network).",
+    "id": "log-1793873828893-zlnsx",
+    "timestamp": "2026-11-05T10:17:08.893Z"
+  },
+  {
     "action": "User Session Logout",
     "category": "access",
     "targetType": "auth",

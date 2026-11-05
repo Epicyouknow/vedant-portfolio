@@ -26,10 +26,10 @@ export async function sendInquiryNotifications(
 
   const testPrefix = isTest ? '🧪 [TEST NOTIFICATION]\n' : '🚨 [NEW CRM INQUIRY]\n';
 
-  // 1. Telegram Channel
+  // 1. Telegram Channel (Supports dedicated inquiry bot or fallback to primary bot)
   const telegramPromise = (async (): Promise<NotificationResult> => {
-    const token = process.env.TELEGRAM_BOT_TOKEN;
-    const chatId = process.env.TELEGRAM_CHAT_ID;
+    const token = process.env.TELEGRAM_INQUIRY_BOT_TOKEN || process.env.TELEGRAM_BOT_TOKEN;
+    const chatId = process.env.TELEGRAM_INQUIRY_CHAT_ID || process.env.TELEGRAM_CHAT_ID;
 
     if (!token || !chatId) {
       return { channel: 'telegram', configured: false, success: false };
@@ -37,29 +37,49 @@ export async function sendInquiryNotifications(
 
     try {
       const messageText = `
-<b>${testPrefix ? '🧪 TEST NOTIFICATION' : '🔥 NEW PORTFOLIO INQUIRY'}</b>
+<b>${testPrefix ? '🧪 TEST NOTIFICATION' : '🔥 NEW PORTFOLIO LEAD RECEIVED'}</b>
 ━━━━━━━━━━━━━━━━━━
 👤 <b>Name:</b> ${escapeHtml(inquiry.name)}
 📧 <b>Email:</b> <code>${escapeHtml(inquiry.email)}</code>
-📞 <b>Phone:</b> ${inquiry.phone ? `<code>${escapeHtml(inquiry.phone)}</code>` : '<i>Not provided</i>'}
-💰 <b>Budget:</b> <b>${escapeHtml(inquiry.budget || 'Not specified')}</b>
+📞 <b>Phone / WhatsApp:</b> ${inquiry.phone ? `<code>${escapeHtml(inquiry.phone)}</code>` : '<i>Not provided</i>'}
+💰 <b>Ad Budget:</b> <b>${escapeHtml(inquiry.budget || 'Not specified')}</b>
 ⏱️ <b>Time:</b> ${new Date(inquiry.timestamp).toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' })} IST
 
-💬 <b>Message:</b>
+💬 <b>Brief / Message:</b>
 <blockquote>${escapeHtml(inquiry.message)}</blockquote>
 ━━━━━━━━━━━━━━━━━━
-<i>Sent via VedantVerse CRM</i>
+<i>Sent via VedantVerse Portfolio Lead Engine</i>
 `.trim();
+
+      // Quick action buttons (WhatsApp & Email)
+      const actionRow: any[] = [];
+      if (inquiry.phone) {
+        const cleanPhone = inquiry.phone.replace(/[^0-9]/g, '');
+        if (cleanPhone.length >= 10) {
+          actionRow.push({ text: '💬 Chat on WhatsApp', url: `https://wa.me/${cleanPhone}` });
+        }
+      }
+      if (inquiry.email && !inquiry.email.includes('@whatsapp.lead')) {
+        actionRow.push({ text: '📧 Reply via Email', url: `mailto:${inquiry.email}?subject=Re:%20Performance%20Marketing%20Inquiry%20-%20VedantVerse` });
+      }
+
+      const bodyPayload: any = {
+        chat_id: chatId,
+        text: messageText,
+        parse_mode: 'HTML',
+        disable_web_page_preview: true
+      };
+
+      if (actionRow.length > 0) {
+        bodyPayload.reply_markup = {
+          inline_keyboard: [actionRow]
+        };
+      }
 
       const res = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          chat_id: chatId,
-          text: messageText,
-          parse_mode: 'HTML',
-          disable_web_page_preview: true
-        })
+        body: JSON.stringify(bodyPayload)
       });
 
       if (!res.ok) {
@@ -214,10 +234,15 @@ export async function sendInquiryNotifications(
       try {
         const cleanPass = gmailPass.replace(/\s+/g, '');
         const transporter = nodemailer.createTransport({
-          service: 'gmail',
+          host: 'smtp.gmail.com',
+          port: 465,
+          secure: true,
           auth: {
             user: gmailUser,
             pass: cleanPass
+          },
+          tls: {
+            rejectUnauthorized: false
           }
         });
 
