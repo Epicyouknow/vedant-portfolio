@@ -22,10 +22,18 @@ export async function POST(req: NextRequest) {
       website ? `[Website: ${website}]` : '',
     ].filter(Boolean).join(' ');
 
+    const cleanEmail = isEmail 
+      ? contactInput.toLowerCase() 
+      : (email && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(email).trim()) ? String(email).trim().toLowerCase() : `${digitsOnly}@whatsapp.lead`);
+    
+    const cleanPhone = isPhone 
+      ? contactInput 
+      : (phone && !phone.includes('@') && phone.replace(/\D/g, '').length >= 10 ? String(phone).trim() : '');
+
     const savedInquiry = await saveInquiry({
       name: String(name).trim(),
-      email: isEmail ? contactInput.toLowerCase() : (email ? String(email).trim().toLowerCase() : `${digitsOnly}@whatsapp.lead`),
-      phone: isPhone ? contactInput : (phone ? String(phone).trim() : ''),
+      email: cleanEmail,
+      phone: cleanPhone,
       budget: budget || 'Not specified',
       message: compiledMessage
     });
