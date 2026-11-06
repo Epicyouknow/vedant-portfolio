@@ -163,76 +163,147 @@ export async function sendInquiryNotifications(
     const gmailUser = process.env.GMAIL_USER || DEFAULT_GMAIL_USER;
     const resendKey = process.env.RESEND_API_KEY;
 
-    // Build responsive HTML email template
+    // Build responsive HTML email template using the signature VedantVerse warm editorial aesthetic
     const subject = isTest
       ? `🧪 Test Notification: VedantVerse CRM`
       : `🚨 New Lead: ${inquiry.name} (${inquiry.budget}) - VedantVerse`;
+
+    const istTime = new Date(inquiry.timestamp).toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' });
+    const cleanPhone = inquiry.phone ? inquiry.phone.replace(/[^0-9]/g, '') : '';
+    const gmailReplyUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(inquiry.email)}&su=${encodeURIComponent('Re: Performance Marketing Inquiry - VedantVerse')}`;
 
     const htmlContent = `
 <!DOCTYPE html>
 <html>
 <head>
   <meta charset="utf-8">
-  <style>
-    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: #0b0b0b; color: #ffffff; padding: 24px; margin: 0; }
-    .card { max-width: 600px; margin: 0 auto; background: #141414; border: 1px solid #2a2a2a; border-radius: 12px; overflow: hidden; }
-    .header { background: #E50914; padding: 20px 24px; color: #ffffff; }
-    .header h2 { margin: 0; font-size: 20px; font-weight: 800; letter-spacing: 0.5px; text-transform: uppercase; }
-    .content { padding: 24px; line-height: 1.6; }
-    .meta-table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
-    .meta-table td { padding: 10px 0; border-bottom: 1px solid #222; }
-    .label { color: #888; font-size: 12px; text-transform: uppercase; font-weight: 700; width: 120px; }
-    .val { color: #fff; font-size: 14px; font-weight: 500; }
-    .val a { color: #E50914; text-decoration: none; font-weight: bold; }
-    .message-box { background: #0c0c0c; border: 1px solid #2a2a2a; border-radius: 8px; padding: 16px; margin: 20px 0; font-size: 14px; color: #e5e5e5; white-space: pre-wrap; }
-    .btn-white { display: inline-block; background-color: #ffffff; color: #0a0a0a !important; text-decoration: none !important; padding: 14px 28px; border-radius: 8px; font-weight: 800; font-size: 13px; text-transform: uppercase; letter-spacing: 0.5px; }
-    .btn-white span { color: #0a0a0a !important; text-decoration: none !important; }
-    .footer { text-align: center; color: #666; font-size: 11px; padding: 16px 24px; border-top: 1px solid #222; }
-  </style>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>New Lead: ${escapeHtml(inquiry.name)}</title>
 </head>
-<body>
-  <div class="card">
-    <div class="header">
-      <h2>${isTest ? '🧪 TEST LEAD ALERT' : '🔥 NEW PORTFOLIO CAMPAIGN INQUIRY'}</h2>
-    </div>
-    <div class="content">
-      <table class="meta-table">
+<body style="margin: 0; padding: 32px 14px; background-color: #F5F2EA; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; color: #191919; -webkit-font-smoothing: antialiased;">
+  <div style="max-width: 580px; margin: 0 auto; background-color: #FFFFFF; border: 1px solid #E6E0D7; border-radius: 16px; overflow: hidden; box-shadow: 0 10px 30px rgba(48, 40, 29, 0.06);">
+    
+    <!-- Top Branding Header -->
+    <div style="padding: 18px 24px; border-bottom: 1px solid #EFECE6; background-color: #FFFFFF;">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td class="label">Client Name:</td>
-          <td class="val"><strong>${escapeHtml(inquiry.name)}</strong></td>
+          <td align="left" valign="middle">
+            <table cellpadding="0" cellspacing="0" border="0">
+              <tr>
+                <td width="28" height="28" style="background-color: #191919; border-radius: 8px; text-align: center; vertical-align: middle;">
+                  <span style="color: #FFFFFF; font-size: 14px; font-weight: 900; line-height: 28px; font-family: sans-serif;">V</span>
+                </td>
+                <td style="padding-left: 10px;" valign="middle">
+                  <span style="font-size: 11px; font-weight: 800; letter-spacing: 1.2px; text-transform: uppercase; color: #77736D; font-family: -apple-system, BlinkMacSystemFont, monospace;">VEDANTVERSE &bull; INBOUND LEAD</span>
+                </td>
+              </tr>
+            </table>
+          </td>
+          <td align="right" valign="middle">
+            <span style="display: inline-block; background-color: #FCE8E5; color: #ED463B; border: 1px solid rgba(237, 70, 59, 0.25); border-radius: 999px; padding: 4px 10px; font-size: 11px; font-weight: 800; font-family: monospace;">
+              ${escapeHtml(inquiry.budget || 'Not specified')}
+            </span>
+          </td>
         </tr>
-        <tr>
-          <td class="label">Email:</td>
-          <td class="val"><a href="mailto:${escapeHtml(inquiry.email)}" style="color: #38bdf8; text-decoration: none;">${escapeHtml(inquiry.email)}</a></td>
+      </table>
+    </div>
+
+    <!-- Lead Heading -->
+    <div style="padding: 24px 26px 10px;">
+      <div style="font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; color: #ED463B; margin-bottom: 4px; font-family: monospace;">
+        ${isTest ? 'SYSTEM TEST NOTIFICATION' : 'HIGH-INTENT CLIENT INQUIRY'}
+      </div>
+      <h1 style="font-size: 22px; font-weight: 800; color: #191919; letter-spacing: -0.5px; margin: 0 0 6px; line-height: 1.2;">
+        ${isTest ? '🧪 Test Lead: VedantVerse CRM' : `New Lead: ${escapeHtml(inquiry.name)}`}
+      </h1>
+      <p style="font-size: 12px; color: #77736D; margin: 0;">
+        Received on ${istTime} IST &bull; Status: <span style="color: #16865B; font-weight: 700;">Active Pipeline</span>
+      </p>
+    </div>
+
+    <!-- Details Section -->
+    <div style="padding: 10px 26px 26px;">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse; margin: 10px 0 16px;">
+        <tr style="border-bottom: 1px solid #F0EDE6;">
+          <td style="padding: 10px 0; color: #8C877E; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.6px; width: 130px;">
+            Client Name
+          </td>
+          <td style="padding: 10px 0; color: #191919; font-size: 13px; font-weight: 700;">
+            ${escapeHtml(inquiry.name)}
+          </td>
+        </tr>
+        <tr style="border-bottom: 1px solid #F0EDE6;">
+          <td style="padding: 10px 0; color: #8C877E; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.6px;">
+            Email Address
+          </td>
+          <td style="padding: 10px 0; font-size: 13px;">
+            <a href="mailto:${escapeHtml(inquiry.email)}" style="color: #191919; text-decoration: underline; font-weight: 600;">
+              ${escapeHtml(inquiry.email)}
+            </a>
+          </td>
         </tr>
         ${inquiry.phone ? `
-        <tr>
-          <td class="label">Phone / WA:</td>
-          <td class="val"><a href="https://wa.me/${inquiry.phone.replace(/[^0-9]/g, '')}" style="color: #34d399; text-decoration: none;">${escapeHtml(inquiry.phone)}</a></td>
+        <tr style="border-bottom: 1px solid #F0EDE6;">
+          <td style="padding: 10px 0; color: #8C877E; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.6px;">
+            Phone / WhatsApp
+          </td>
+          <td style="padding: 10px 0; font-size: 13px;">
+            <a href="https://wa.me/${cleanPhone}" style="display: inline-block; color: #16865B; background-color: #EBF8F2; border: 1px solid #C2EAD7; padding: 3px 9px; border-radius: 6px; text-decoration: none; font-size: 12px; font-weight: 700;">
+              💬 ${escapeHtml(inquiry.phone)}
+            </a>
+          </td>
         </tr>` : ''}
-        <tr>
-          <td class="label">Ad Budget:</td>
-          <td class="val" style="color: #E50914; font-weight: bold; font-size: 15px;">${escapeHtml(inquiry.budget || 'Not specified')}</td>
+        <tr style="border-bottom: 1px solid #F0EDE6;">
+          <td style="padding: 10px 0; color: #8C877E; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.6px;">
+            Ad Budget
+          </td>
+          <td style="padding: 10px 0; color: #ED463B; font-size: 14px; font-weight: 800;">
+            ${escapeHtml(inquiry.budget || 'Not specified')}
+          </td>
         </tr>
         <tr>
-          <td class="label">Timestamp:</td>
-          <td class="val">${new Date(inquiry.timestamp).toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' })} IST</td>
+          <td style="padding: 10px 0; color: #8C877E; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.6px;">
+            Time Logged
+          </td>
+          <td style="padding: 10px 0; color: #191919; font-size: 12px; font-family: monospace;">
+            ${istTime} IST
+          </td>
         </tr>
       </table>
 
-      <div style="font-size: 11px; color: #888; text-transform: uppercase; font-weight: 700; margin-bottom: 6px;">Campaign Brief / Message:</div>
-      <div class="message-box">${escapeHtml(inquiry.message)}</div>
+      <!-- Campaign Brief Box -->
+      <div style="background-color: #F8F6F1; border: 1px solid #EAE5DC; border-left: 3px solid #ED463B; border-radius: 8px; padding: 14px 16px; margin: 16px 0 20px;">
+        <div style="font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.6px; color: #8C877E; margin-bottom: 6px;">
+          Campaign Brief / Client Message
+        </div>
+        <div style="font-size: 13px; line-height: 1.6; color: #191919; white-space: pre-wrap; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
+${escapeHtml(inquiry.message)}
+        </div>
+      </div>
 
-      <div style="margin-top: 28px; text-align: center;">
-        <a href="mailto:${escapeHtml(inquiry.email)}?subject=Re:%20Campaign%20Inquiry%20-%20VedantVerse"
-           class="btn-white"
-           style="display: inline-block; background-color: #ffffff !important; color: #0a0a0a !important; text-decoration: none !important; padding: 14px 30px; border-radius: 8px; font-weight: 800; font-size: 13px; text-transform: uppercase; letter-spacing: 0.5px; border: 1px solid #ffffff; mso-padding-alt: 0;">
-          <span style="color: #0a0a0a !important; text-decoration: none !important; font-weight: 800; font-size: 13px;">Reply to ${escapeHtml(inquiry.name)} &rarr;</span>
-        </a>
+      <!-- Quick Action CTA Buttons -->
+      <div style="margin-top: 22px; padding-top: 18px; border-top: 1px solid #EFECE6;">
+        <table cellpadding="0" cellspacing="0" border="0">
+          <tr>
+            <td>
+              <a href="${gmailReplyUrl}" target="_blank" style="display: inline-block; background-color: #191919; color: #FFFFFF !important; text-decoration: none !important; padding: 12px 22px; border-radius: 8px; font-weight: 700; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; border: 1px solid #191919;">
+                <span style="color: #FFFFFF !important; text-decoration: none !important;">Reply via Gmail &rarr;</span>
+              </a>
+            </td>
+            ${cleanPhone.length >= 10 ? `
+            <td style="padding-left: 10px;">
+              <a href="https://wa.me/${cleanPhone}" target="_blank" style="display: inline-block; background-color: #EBF8F2; color: #16865B !important; text-decoration: none !important; padding: 12px 20px; border-radius: 8px; font-weight: 700; font-size: 12px; letter-spacing: 0.5px; border: 1px solid #C2EAD7;">
+                <span style="color: #16865B !important; text-decoration: none !important;">Chat on WhatsApp &rarr;</span>
+              </a>
+            </td>` : ''}
+          </tr>
+        </table>
       </div>
     </div>
-    <div class="footer">
-      Sent to ${escapeHtml(toEmail)} via VedantVerse Portfolio CRM
+
+    <!-- Footer -->
+    <div style="background-color: #F8F6F1; border-top: 1px solid #EFECE6; padding: 16px 26px; text-align: center; font-size: 11px; color: #77736D; line-height: 1.5;">
+      Delivered to contactvedantverse@gmail.com via <strong><a href="https://vedantverse.in" style="color: #191919; text-decoration: none;">VedantVerse</a></strong> Portfolio CRM
     </div>
   </div>
 </body>
