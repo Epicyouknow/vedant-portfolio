@@ -1,0 +1,173 @@
+[
+  {
+    "id": "res-1",
+    "assignmentId": "asg-1",
+    "title": "Meta Ads Attribution Updates (2025)",
+    "summary": "Comprehensive analysis of Meta Graph API v21 changes, 7-day click / 1-day view attribution window calibration, and privacy-preserving data clean room integrations.",
+    "topic": "Meta Ads",
+    "tags": [
+      "Meta Ads",
+      "Attribution",
+      "Measurement",
+      "CAPI"
+    ],
+    "status": "Completed",
+    "date": "23 Jan, 2025",
+    "sourcesCount": 12,
+    "executiveSynthesis": "Meta has significantly refined its server-side conversion deduplication and modeled attribution windows in 2025. Standard browser pixels miss up to 34% of checkout events without dual CAPI pipelines, while multi-touch modeling now requires first-party event IDs with verified hashing.",
+    "keyFindings": [
+      "Meta Graph API v21 enforces strict normalized customer information parameters (fn, ln, em, ph).",
+      "Event Match Quality (EMQ) scores below 7.0 experience a 22% higher modeled CPA.",
+      "Server-side CAPI webhooks with automated event deduplication recover 98.4% of unrecorded cart and purchase signals.",
+      "Advantage+ shopping campaigns demonstrate lower volatility when fed verified high-intent customer segments."
+    ],
+    "contentGaps": [
+      "Most industry tutorials fail to explain custom event ID deduplication between Shopify liquid theme and server webhooks.",
+      "Lack of documentation on handling latency in server-to-server batch API requests."
+    ],
+    "originalOpportunities": [
+      "Share VedantVerse real campaign benchmark: How dual CAPI implementation dropped unrecorded conversion rate for Cutistic Gifts and TravelKitSR."
+    ],
+    "sources": [
+      {
+        "id": "src-1",
+        "url": "https://developers.facebook.com/docs/marketing-api/conversions-api",
+        "title": "Meta Conversions API Developer Specification (v21.0)",
+        "publisher": "Meta for Developers",
+        "publicationDate": "2025-01-10",
+        "retrievalDate": "2025-01-20",
+        "category": "Primary Documentation",
+        "evidence": "Official specification detailing event_id hashing algorithms and required user_data parameter schemas.",
+        "claimsSupported": [
+          "EMQ calculation rules",
+          "CAPI deduplication requirements"
+        ],
+        "verificationStatus": "VERIFIED",
+        "reliabilityScore": 98
+      },
+      {
+        "id": "src-2",
+        "url": "https://www.w3.org/TR/private-aggregation-api/",
+        "title": "Private Aggregation API & Attribution Reporting Spec",
+        "publisher": "W3C Privacy Working Group",
+        "publicationDate": "2024-11-15",
+        "retrievalDate": "2025-01-19",
+        "category": "Research Paper",
+        "evidence": "Architectural breakdown of browser-level noise injection and aggregation limits for ad measurement.",
+        "claimsSupported": [
+          "Attribution reporting latency limits",
+          "Browser privacy constraints"
+        ],
+        "verificationStatus": "VERIFIED",
+        "reliabilityScore": 95
+      },
+      {
+        "id": "src-3",
+        "url": "https://help.shopify.com/en/manual/promoting-marketing/customer-retention/facebook-data-sharing",
+        "title": "Shopify Maximum Data Sharing & CAPI Architecture Guide",
+        "publisher": "Shopify Documentation",
+        "publicationDate": "2024-12-05",
+        "retrievalDate": "2025-01-19",
+        "category": "Primary Documentation",
+        "evidence": "Details direct integration pathways between Shopify checkout and Meta Business Manager.",
+        "claimsSupported": [
+          "Shopify webhook reliability"
+        ],
+        "verificationStatus": "VERIFIED",
+        "reliabilityScore": 92
+      }
+    ]
+  },
+  {
+    "id": "res-2",
+    "assignmentId": "asg-3",
+    "title": "Google Performance Max Best Practices & Script Control",
+    "summary": "Evaluating asset group cannibalization, search theme bidding priorities, and custom script exclusion methods for Google PMax campaigns.",
+    "topic": "Google Ads",
+    "tags": [
+      "Google Ads",
+      "PMax",
+      "E-commerce",
+      "Automation"
+    ],
+    "status": "Completed",
+    "date": "20 Jan, 2025",
+    "sourcesCount": 15,
+    "executiveSynthesis": "Performance Max requires explicit negative keyword list applications at the account level and structured asset group segregation by margin tiers to avoid cannibalizing branded search volume.",
+    "keyFindings": [
+      "Account-level negative keyword lists prevent PMax from artificially claiming brand search conversions.",
+      "Segmenting asset groups by product margin yields 38% higher contribution margin versus single blended feeds.",
+      "Search themes function as soft audience signals rather than exact match triggers."
+    ],
+    "contentGaps": [
+      "Almost no guides provide practical step-by-step guidance on auditing Search Term queries hidden inside PMax insights."
+    ],
+    "originalOpportunities": [
+      "Highlight real-world campaign setup used for B2B and e-commerce clients in VedantVerse portfolio."
+    ],
+    "sources": [
+      {
+        "id": "src-4",
+        "url": "https://support.google.com/google-ads/answer/10724817",
+        "title": "About Performance Max campaigns",
+        "publisher": "Google Ads Help",
+        "publicationDate": "2025-01-05",
+        "retrievalDate": "2025-01-18",
+        "category": "Primary Documentation",
+        "evidence": "Details algorithmic bid adjustments and inventory distribution across YouTube, Display, Search, Discover, Gmail, and Maps.",
+        "claimsSupported": [
+          "PMax channel distribution",
+          "Smart Bidding inputs"
+        ],
+        "verificationStatus": "VERIFIED",
+        "reliabilityScore": 99
+      }
+    ]
+  },
+  {
+    "id": "res-3",
+    "assignmentId": "asg-2",
+    "title": "GA4 Data Accuracy & GTM Server-Side Container Setup",
+    "summary": "In-depth assessment of cookie expiration fixes, custom client templates, and Consent Mode v2 implementation guidelines.",
+    "topic": "GA4 & GTM",
+    "tags": [
+      "GA4",
+      "GTM",
+      "Tracking",
+      "Attribution"
+    ],
+    "status": "Completed",
+    "date": "18 Jan, 2025",
+    "sourcesCount": 11,
+    "executiveSynthesis": "Client-side GA4 installations suffer from Safari ITP 7-day cookie caps and browser extensions. Server-side GTM containers mapped to a custom first-party subdomain restore cookie persistence and ensure complete Consent Mode compliance.",
+    "keyFindings": [
+      "Server-side GTM hosted on custom subdomains restores first-party cookie lifetimes beyond the 7-day Safari ITP limit.",
+      "Google Consent Mode v2 requires explicit ad_user_data and ad_personalization signals.",
+      "Deduplicated purchase events prevent double-counting across payment gateway redirects."
+    ],
+    "contentGaps": [
+      "Lack of practical guides for non-developers on setting up Cloud Run or AWS server containers with minimal monthly hosting cost."
+    ],
+    "originalOpportunities": [
+      "Provide VedantVerse production checklist for client onboarding."
+    ],
+    "sources": [
+      {
+        "id": "src-5",
+        "url": "https://developers.google.com/tag-platform/tag-manager/server-side",
+        "title": "Server-Side Tagging Overview",
+        "publisher": "Google Tag Platform",
+        "publicationDate": "2024-11-20",
+        "retrievalDate": "2025-01-17",
+        "category": "Primary Documentation",
+        "evidence": "Explains server container architecture, client requests, and upstream tag dispatches.",
+        "claimsSupported": [
+          "Server-side cookie persistence",
+          "Data minimization protocols"
+        ],
+        "verificationStatus": "VERIFIED",
+        "reliabilityScore": 97
+      }
+    ]
+  }
+]

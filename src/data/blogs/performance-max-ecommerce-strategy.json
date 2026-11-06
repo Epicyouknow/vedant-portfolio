@@ -1,0 +1,35 @@
+{
+  "title": "Performance Max for E-commerce: Strategy, Setup and Optimization",
+  "slug": "performance-max-ecommerce-strategy",
+  "coverImage": "",
+  "seoMeta": {
+    "title": "Performance Max for E-commerce: Strategy, Setup & Optimization | VedantVerse",
+    "description": "Master Google Performance Max for e-commerce. Proven strategies for asset group segmentation, negative keyword controls, and Target ROAS scaling.",
+    "keywords": [
+      "google performance max ecommerce",
+      "pmax asset group segmentation",
+      "pmax negative keywords",
+      "google ads scaling"
+    ]
+  },
+  "summary": "A strategic operating blueprint for scaling Google Performance Max campaigns profitably without sacrificing branded search control or product margin.",
+  "content": "## The Reality of Google PMax in 2025\n\nGoogle Performance Max (PMax) has consolidated what used to be distinct Search, Shopping, Display, Discovery, and YouTube campaigns into a single unified machine learning pipeline. While Google promises hands-off automation, leaving PMax completely unmanaged leads to branded search cannibalization and budget waste on low-margin products.\n\nTo scale profitably, growth teams must implement strict structural guardrails.\n\n---\n\n## Asset Group Segmentation by Margin & Velocity\n\nRather than bundling your entire product catalog into one broad asset group, segment your campaigns according to **gross margin tiers** and **sales velocity**:\n\n1. **Tier 1 (High-Margin Flagships)**: Allocate higher Target ROAS headroom (e.g. 350-400%) to capture aggressive search impression share.\n2. **Tier 2 (Volume Drivers)**: Calibrate for conversion volume with flexible Target CPA constraints.\n3. **Tier 3 (Clearance & Long-Tail)**: Run dedicated feed-only (no video/display creative assets) asset groups to prevent speculative display spend.\n\n---\n\n## Brand Exclusion Lists & Negative Keywords\n\nBy default, PMax aggressively bids on your own brand name to claim easy conversion credit. Always apply an **Account-Level Negative Keyword List** containing:\n- Your exact brand name and common misspellings.\n- Existing customer support queries (e.g. \"tracking\", \"customer care\", \"returns\").\n- Negative competitors whose average order value does not align with your unit economics.",
+  "tags": [
+    "Google Ads",
+    "PMax",
+    "E-commerce",
+    "Smart Bidding"
+  ],
+  "category": "Google Ads & Search",
+  "author": {
+    "name": "Vedant Tiwari",
+    "role": "Performance Marketing Executive",
+    "avatar": "/vedant_portrait.jpg"
+  },
+  "readingTime": "10 min read",
+  "publishDate": "2026-11-06",
+  "featured": false,
+  "views": 1,
+  "difficulty": "Advanced",
+  "growthDeskId": "cnt-3"
+}

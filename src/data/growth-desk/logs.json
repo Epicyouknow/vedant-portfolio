@@ -3,6 +3,36 @@
     "jobName": "Approval Gate Executed: 1 Article(s) Published",
     "stage": "Batch Compilation",
     "status": "Completed",
+    "timestamp": "2026-11-06T08:24:34.494Z",
+    "duration": "12s",
+    "details": "Owner authorized publication. Successfully written to CMS /blog routes: performance-max-ecommerce-strategy",
+    "retryCount": 0,
+    "id": "log-1793953474497"
+  },
+  {
+    "jobName": "Approval Gate Executed: 1 Article(s) Published",
+    "stage": "Batch Compilation",
+    "status": "Completed",
+    "timestamp": "2026-11-06T08:24:21.255Z",
+    "duration": "12s",
+    "details": "Owner authorized publication. Successfully written to CMS /blog routes: ga4-gtm-tracking-guide",
+    "retryCount": 0,
+    "id": "log-1793953461256"
+  },
+  {
+    "jobName": "Assignment Created: My CTR is really Low on meta ads what should i do",
+    "stage": "Opportunity Discovery",
+    "status": "Completed",
+    "timestamp": "2026-11-06T08:17:57.041Z",
+    "duration": "14s",
+    "details": "Queued assignment for Performance Marketing in Scheduled Mode. Deep research scheduled.",
+    "retryCount": 0,
+    "id": "log-1793953077042"
+  },
+  {
+    "jobName": "Approval Gate Executed: 1 Article(s) Published",
+    "stage": "Batch Compilation",
+    "status": "Completed",
     "timestamp": "2026-11-06T07:36:12.693Z",
     "duration": "12s",
     "details": "Owner authorized publication. Successfully written to CMS /blog routes: meta-ads-attribution-2025",

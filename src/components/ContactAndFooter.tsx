@@ -314,6 +314,11 @@ export default function ContactAndFooter() {
                   Insights &amp; Field Notes
                 </Link>
               </li>
+              <li>
+                <Link href="/privacy" className="hover:text-white transition-colors">
+                  Privacy Policy
+                </Link>
+              </li>
             </ul>
           </div>
 
@@ -366,14 +371,21 @@ export default function ContactAndFooter() {
 
         </div>
 
-        {/* Bottom Bar: Copyright & Back to Top */}
+        {/* Bottom Bar: Copyright, Legal Links & Back to Top */}
         <div className="pt-12 mt-12 border-t border-[#2E2D2B] flex flex-wrap items-center justify-between gap-4 text-[11px] font-mono text-[#726F69]">
-          <div>
-            © 2026 VedantVerse.
+          <div className="flex flex-wrap items-center gap-3">
+            <span>© 2026 VedantVerse.</span>
+            <span className="hidden sm:inline">ALL RIGHTS RESERVED.</span>
           </div>
 
-          <div className="hidden sm:inline">
-            ALL RIGHTS RESERVED
+          <div className="flex items-center gap-4 text-xs font-sans">
+            <Link href="/privacy" className="hover:text-white transition-colors underline-offset-4 hover:underline text-[#A9A69F]">
+              Privacy Policy
+            </Link>
+            <span className="text-[#403E39]">•</span>
+            <Link href="/terms" className="hover:text-white transition-colors underline-offset-4 hover:underline text-[#A9A69F]">
+              Terms of Service
+            </Link>
           </div>
 
           <div>

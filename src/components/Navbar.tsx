@@ -194,6 +194,13 @@ export default function Navbar() {
             >
               Contact
             </button>
+            <Link
+              href="/privacy"
+              onClick={() => setMobileMenuOpen(false)}
+              className="text-left py-2 hover:text-[var(--text-primary)] transition-colors border-b border-[var(--border-subtle)]"
+            >
+              Privacy Policy
+            </Link>
             <div className="pt-2">
               <button
                 onClick={() => scrollTo('contact-section')}

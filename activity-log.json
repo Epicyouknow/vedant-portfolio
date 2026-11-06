@@ -1,5 +1,56 @@
 [
   {
+    "action": "Published Blog via VV Growth Desk Approval Gate: Performance Max for E-commerce: Strategy, Setup and Optimization",
+    "category": "publishing",
+    "targetType": "blog",
+    "targetId": "performance-max-ecommerce-strategy",
+    "targetTitle": "Performance Max for E-commerce: Strategy, Setup and Optimization",
+    "user": "Vedant Tiwari",
+    "userEmail": "vedant@vedantverse.in",
+    "userRole": "Owner",
+    "details": "Explicit human approval granted. Live route: /blog/performance-max-ecommerce-strategy",
+    "id": "log-1793953474492-b2eia",
+    "timestamp": "2026-11-06T08:24:34.492Z"
+  },
+  {
+    "action": "Published Blog via VV Growth Desk Approval Gate: GA4 + GTM Setup Guide for Performance Marketers",
+    "category": "publishing",
+    "targetType": "blog",
+    "targetId": "ga4-gtm-tracking-guide",
+    "targetTitle": "GA4 + GTM Setup Guide for Performance Marketers",
+    "user": "Vedant Tiwari",
+    "userEmail": "vedant@vedantverse.in",
+    "userRole": "Owner",
+    "details": "Explicit human approval granted. Live route: /blog/ga4-gtm-tracking-guide",
+    "id": "log-1793953461253-xoz9o",
+    "timestamp": "2026-11-06T08:24:21.253Z"
+  },
+  {
+    "action": "Created Growth Desk Assignment: My CTR is really Low on meta ads what should i do",
+    "category": "content",
+    "targetType": "assignment",
+    "targetId": "asg-1793953077033",
+    "targetTitle": "My CTR is really Low on meta ads what should i do",
+    "user": "Vedant Tiwari",
+    "userEmail": "vedant@vedantverse.in",
+    "userRole": "Owner",
+    "details": "Type: Research & Write, Priority: High",
+    "id": "log-1793953077045-lvuya",
+    "timestamp": "2026-11-06T08:17:57.045Z"
+  },
+  {
+    "action": "User Session Login",
+    "category": "access",
+    "targetType": "auth",
+    "targetTitle": "Admin Command Centre",
+    "user": "Vedant Tiwari",
+    "userEmail": "Owner@vedantverse.in",
+    "userRole": "Owner",
+    "details": "Successful login as Owner (Owner@vedantverse.in) from ::1 (Local / Network).",
+    "id": "log-1793952153409-2zqkb",
+    "timestamp": "2026-11-06T08:02:33.409Z"
+  },
+  {
     "action": "Published Blog via VV Growth Desk Approval Gate: Meta Ads Attribution in 2025: What Changed and How to Adapt",
     "category": "publishing",
     "targetType": "blog",

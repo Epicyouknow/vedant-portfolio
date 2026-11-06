@@ -1,0 +1,35 @@
+{
+  "title": "GA4 + GTM Setup Guide for Performance Marketers",
+  "slug": "ga4-gtm-tracking-guide",
+  "coverImage": "",
+  "seoMeta": {
+    "title": "GA4 + GTM Setup Guide for Performance Marketers | VedantVerse",
+    "description": "Zero-fluff guide to configuring GA4 and GTM for e-commerce and lead gen tracking. Master DataLayer setup, deduplication, and Consent Mode v2.",
+    "keywords": [
+      "ga4 gtm setup guide",
+      "ecommerce datalayer purchase",
+      "google tag manager conversion tracking",
+      "consent mode v2 gtm"
+    ]
+  },
+  "summary": "A definitive, zero-fluff manual on configuring Google Tag Manager and GA4 for accurate e-commerce purchase tracking, custom dimensions, and cross-domain measurement.",
+  "content": "## The Architecture of Modern Analytics\n\nGoogle Analytics 4 (GA4) represents a fundamental shift from session-based tracking to an event-driven data model. For performance marketers, this transition demands a strict, clean implementation of Google Tag Manager (GTM) and DataLayer payloads.\n\nWithout a standardized DataLayer, purchase events risk being dropped during third-party payment gateway redirects (such as Razorpay, Stripe, or Cashfree), distorting Channel Grouping attribution and ROAS metrics.\n\n---\n\n## Standardizing the E-commerce DataLayer\n\nEnsure that every order confirmation page pushes a single, clean `purchase` object containing unique transaction identifiers:\n\n```javascript\nwindow.dataLayer = window.dataLayer || [];\nwindow.dataLayer.push({\n  event: 'purchase',\n  ecommerce: {\n    transaction_id: 'ORDER_98124',\n    value: 3499.00,\n    currency: 'INR',\n    items: [{\n      item_id: 'SKU_001',\n      item_name: 'Premium Travel Organizer',\n      price: 3499.00,\n      quantity: 1\n    }]\n  }\n});\n```\n\n---\n\n## Debugging & Verification Checklist\n\n1. Enable **GTM Preview Mode** and verify tag triggers on `Container Loaded`.\n2. Confirm that `transaction_id` is populated and not `undefined`.\n3. Verify that GA4 **DebugView** registers the purchase event with correct currency and value.\n4. Check that browser reload does not re-fire the transaction event.",
+  "tags": [
+    "GA4",
+    "GTM",
+    "Tracking",
+    "E-commerce"
+  ],
+  "category": "Tracking & Analytics",
+  "author": {
+    "name": "Vedant Tiwari",
+    "role": "Performance Marketing Executive",
+    "avatar": "/vedant_portrait.jpg"
+  },
+  "readingTime": "7 min read",
+  "publishDate": "2026-11-06",
+  "featured": false,
+  "views": 1,
+  "difficulty": "Advanced",
+  "growthDeskId": "cnt-2"
+}

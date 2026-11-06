@@ -143,7 +143,7 @@
     "researchId": "res-3",
     "title": "GA4 + GTM Setup Guide for Performance Marketers",
     "slug": "ga4-gtm-tracking-guide",
-    "status": "Awaiting Approval",
+    "status": "Published",
     "wordCount": 3100,
     "readingTime": "7 min read",
     "summary": "A definitive, zero-fluff manual on configuring Google Tag Manager and GA4 for accurate e-commerce purchase tracking, custom dimensions, and cross-domain measurement.",
@@ -254,7 +254,8 @@
     },
     "suggestedPublishDate": "2025-01-25",
     "createdAt": "2025-01-16T09:00:00Z",
-    "updatedAt": "2025-01-20T11:00:00Z"
+    "updatedAt": "2026-11-06T08:24:21.252Z",
+    "publishedSlug": "ga4-gtm-tracking-guide"
   },
   {
     "id": "cnt-3",
@@ -262,7 +263,7 @@
     "researchId": "res-2",
     "title": "Performance Max for E-commerce: Strategy, Setup and Optimization",
     "slug": "performance-max-ecommerce-strategy",
-    "status": "Ready for Approval",
+    "status": "Published",
     "wordCount": 4600,
     "readingTime": "10 min read",
     "summary": "A strategic operating blueprint for scaling Google Performance Max campaigns profitably without sacrificing branded search control or product margin.",
@@ -373,6 +374,7 @@
     },
     "suggestedPublishDate": "2025-01-26",
     "createdAt": "2025-01-17T08:30:00Z",
-    "updatedAt": "2025-01-19T16:00:00Z"
+    "updatedAt": "2026-11-06T08:24:34.490Z",
+    "publishedSlug": "performance-max-ecommerce-strategy"
   }
 ]
