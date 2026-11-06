@@ -2,132 +2,110 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { ArrowLeft, Scale, Award, FileText, Globe, AlertTriangle } from 'lucide-react';
-import CreditsFooter from '../../components/CreditsFooter';
+import { ArrowLeft, Scale, Award, FileText, Globe, AlertTriangle, CheckCircle2 } from 'lucide-react';
+import Navbar from '../../components/Navbar';
+import ContactAndFooter from '../../components/ContactAndFooter';
 
 export default function TermsOfService() {
   return (
-    <div className="min-h-screen bg-[#000000] text-white font-sans flex flex-col justify-between selection:bg-[#E50914] selection:text-white">
-      {/* Background Red Ambient Glows */}
-      <div className="absolute top-0 left-1/4 w-[400px] h-[400px] rounded-full bg-red-600/5 blur-[120px] pointer-events-none" />
-      <div className="absolute bottom-1/4 right-1/4 w-[350px] h-[350px] rounded-full bg-red-600/5 blur-[120px] pointer-events-none" />
+    <div className="min-h-screen bg-[var(--bg-base)] text-[var(--text-primary)] transition-colors duration-200 flex flex-col justify-between selection:bg-[#ED463B] selection:text-white">
+      {/* 1. Global Navbar */}
+      <Navbar />
 
-      {/* Header / Navbar */}
-      <header className="sticky top-0 h-16 md:h-20 bg-black/30 backdrop-blur-md border-b border-neutral-800/40 shadow-lg shadow-black/30 z-40 px-6 md:px-16 flex items-center justify-between transition-all duration-300">
-        <Link
-          href="/"
-          className="flex items-center gap-2 text-xs font-bold text-neutral-400 hover:text-white uppercase tracking-widest transition-colors duration-300"
-        >
-          <ArrowLeft className="w-4 h-4 text-[#E50914]" />
-          Back to Portfolio
-        </Link>
-        <span className="text-[#E50914] font-black text-lg tracking-wider font-sans select-none" style={{ fontFamily: 'var(--netflix-title-font)' }}>
-          VEDANTVERSE
-        </span>
-      </header>
+      {/* 2. Main Content Container */}
+      <main className="flex-1 max-w-4xl mx-auto px-6 md:px-12 pt-32 md:pt-40 pb-20 w-full">
+        {/* Breadcrumb Navigation */}
+        <div className="mb-8">
+          <Link
+            href="/"
+            className="inline-flex items-center gap-2 text-xs font-mono font-bold tracking-wider text-[var(--text-muted)] hover:text-[#ED463B] transition-colors"
+          >
+            <ArrowLeft className="w-3.5 h-3.5" />
+            <span>BACK TO PORTFOLIO</span>
+          </Link>
+        </div>
 
-      {/* Main Content Area */}
-      <main className="flex-grow max-w-4xl mx-auto px-6 py-16 md:py-24 relative z-10 w-full">
-        <div className="space-y-12">
-          {/* Header Title */}
-          <div className="border-b border-neutral-900 pb-8 space-y-3">
-            <span className="text-[#E50914] text-[10px] font-bold uppercase tracking-[0.3em] font-mono flex items-center gap-1.5">
-              <Scale className="w-3.5 h-3.5" />
-              Legal Agreements
+        {/* Page Header */}
+        <div className="border-b border-[var(--border-subtle)] pb-8 mb-12 space-y-4">
+          <div className="flex items-center gap-2 text-xs font-mono font-bold tracking-widest uppercase text-[#ED463B]">
+            <Scale className="w-4 h-4" />
+            <span>TERMS OF ENGAGEMENT</span>
+          </div>
+
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-[var(--text-primary)] leading-[1.1]">
+            Terms of Service
+          </h1>
+
+          <div className="flex flex-wrap items-center gap-3 text-xs font-mono text-[var(--text-muted)] pt-1">
+            <span className="px-2.5 py-1 rounded-full bg-[var(--tag-bg)] border border-[var(--border-subtle)] text-[var(--text-primary)] font-semibold">
+              Effective: November 2026
             </span>
-            <h1 className="text-4xl md:text-5xl font-black tracking-tight uppercase">
-              Terms of Service
-            </h1>
-            <p className="text-neutral-500 text-xs font-mono">
-              Effective Date: July 2026
+            <span>•</span>
+            <span>Applies to vedantverse.in</span>
+          </div>
+        </div>
+
+        {/* Structured Editorial Terms Content */}
+        <div className="space-y-10 text-sm md:text-base leading-relaxed text-[var(--text-secondary)]">
+
+          {/* Section 1: Acceptance */}
+          <section className="bg-[var(--card-bg)] border border-[var(--border-subtle)] rounded-2xl p-6 md:p-8 space-y-4 shadow-xs">
+            <h2 className="text-lg md:text-xl font-bold text-[var(--text-primary)] flex items-center gap-2.5 tracking-tight">
+              <span className="w-1.5 h-5 bg-[#ED463B] rounded-full" />
+              1. Acceptance of Terms
+            </h2>
+            <p>
+              By accessing, browsing, or utilizing <strong>VedantVerse</strong> (<Link href="/" className="text-[#ED463B] font-mono hover:underline">https://vedantverse.in</Link>), you agree to abide by and be bound by these Terms of Service. If you do not agree with any portion of these terms, please discontinue using this website.
             </p>
-          </div>
+          </section>
 
-          {/* Terms Sections */}
-          <div className="space-y-10 text-neutral-300 text-sm font-light leading-relaxed">
-            
-            {/* Acceptance */}
-            <section className="space-y-4">
-              <h2 className="text-lg font-bold text-white uppercase tracking-wider flex items-center gap-2.5">
-                <span className="w-1.5 h-4 bg-[#E50914] rounded-sm"></span>
-                1. Acceptance
-              </h2>
-              <p>
-                By accessing and using VedantVerse (<Link href="/" className="text-[#E50914] hover:underline font-mono">https://vedantverse.in</Link>), you agree to comply with and be bound by these Terms of Service.
-              </p>
-            </section>
+          {/* Section 2: Intellectual Property */}
+          <section className="bg-[var(--card-bg)] border border-[var(--border-subtle)] rounded-2xl p-6 md:p-8 space-y-4 shadow-xs">
+            <h2 className="text-lg md:text-xl font-bold text-[var(--text-primary)] flex items-center gap-2.5 tracking-tight">
+              <span className="w-1.5 h-5 bg-[#ED463B] rounded-full" />
+              2. Intellectual Property &amp; Original Frameworks
+            </h2>
+            <p>
+              All proprietary media buying models, campaign audit structures, written guides, graphic visualizations, case study summaries, and custom code on VedantVerse are the intellectual property of <strong>Vedant Tiwari</strong>, unless otherwise attributed.
+            </p>
+            <p className="text-xs text-[var(--text-muted)]">
+              You are welcome to reference concepts or share excerpts provided that clear attribution and a direct link back to <code className="font-mono text-[#ED463B]">https://vedantverse.in</code> are included.
+            </p>
+          </section>
 
-            {/* Intellectual Property */}
-            <section className="space-y-4">
-              <h2 className="text-lg font-bold text-white uppercase tracking-wider flex items-center gap-2.5">
-                <span className="w-1.5 h-4 bg-[#E50914] rounded-sm"></span>
-                2. Intellectual Property
-              </h2>
-              <p>
-                Unless otherwise stated, all content on this website—including designs, case studies, graphics, branding, layouts, source code, custom animations, and written content—is the intellectual property of **Vedant Tiwari**.
-              </p>
-              <p className="flex items-start gap-2.5 text-xs text-red-400 font-mono bg-red-950/10 p-4 rounded border border-red-900/15">
-                <Scale className="w-4 h-4 shrink-0 mt-0.5" />
-                <span>
-                  <strong>ATTENTION:</strong> Unauthorized copying, reproduction, redistribution, or commercial use without written permission is strictly prohibited and subject to legal actions.
-                </span>
-              </p>
-            </section>
+          {/* Section 3: Client Case Studies & Verified Results */}
+          <section className="bg-[var(--card-bg)] border border-[var(--border-subtle)] rounded-2xl p-6 md:p-8 space-y-4 shadow-xs">
+            <h2 className="text-lg md:text-xl font-bold text-[var(--text-primary)] flex items-center gap-2.5 tracking-tight">
+              <span className="w-1.5 h-5 bg-[#ED463B] rounded-full" />
+              3. Case Study Data &amp; NDA Integrity
+            </h2>
+            <p>
+              All performance metrics (including ROAS, CPL, conversions, and ad spend) published on VedantVerse represent genuine, verified outcomes achieved in real-world advertising accounts managed by Vedant Tiwari.
+            </p>
+            <p className="text-xs text-[var(--text-muted)]">
+              In accordance with strict client non-disclosure agreements (NDAs), certain brand names, internal identifiers, or sensitive audience segments may be anonymized or aggregated. Past performance results do not constitute an explicit commercial guarantee for future campaigns.
+            </p>
+          </section>
 
-            {/* Portfolio Content */}
-            <section className="space-y-4">
-              <h2 className="text-lg font-bold text-white uppercase tracking-wider flex items-center gap-2.5">
-                <span className="w-1.5 h-4 bg-[#E50914] rounded-sm"></span>
-                3. Portfolio Content
-              </h2>
-              <p>
-                Campaign metrics, case studies, achievements, and projects are presented solely for professional portfolio purposes.
-              </p>
-              <p className="flex items-start gap-2.5 text-xs text-neutral-400 font-normal bg-neutral-950 p-4 rounded border border-neutral-900">
-                <Award className="w-4 h-4 shrink-0 mt-0.5 text-[#E50914]" />
-                <span>
-                  To respect client confidentiality and privacy NDAs, some project visuals, names, and internal configurations may have been simplified, simulated, or anonymized.
-                </span>
-              </p>
-            </section>
+          {/* Section 4: Contact & Governing Law */}
+          <section className="bg-[var(--card-bg)] border border-[var(--border-subtle)] rounded-2xl p-6 md:p-8 space-y-4 shadow-xs">
+            <h2 className="text-lg md:text-xl font-bold text-[var(--text-primary)] flex items-center gap-2.5 tracking-tight">
+              <span className="w-1.5 h-5 bg-[#ED463B] rounded-full" />
+              4. Direct Inquiries
+            </h2>
+            <p>
+              For legal inquiries, contract clarifications, or licensing permissions, please contact:
+            </p>
+            <div className="p-4 rounded-xl bg-[var(--tag-bg)] border border-[var(--border-subtle)] text-xs font-mono text-[var(--text-primary)]">
+              Email: <a href="mailto:contactvedantverse@gmail.com" className="text-[#ED463B] hover:underline font-bold">contactvedantverse@gmail.com</a>
+            </div>
+          </section>
 
-            {/* External Links */}
-            <section className="space-y-4">
-              <h2 className="text-lg font-bold text-white uppercase tracking-wider flex items-center gap-2.5">
-                <span className="w-1.5 h-4 bg-[#E50914] rounded-sm"></span>
-                4. External Links
-              </h2>
-              <p>
-                This website may contain links to third-party platforms such as LinkedIn, GitHub, Google Drive, or other resources.
-              </p>
-              <p>
-                VedantVerse is not responsible for the content, privacy policies, or practices of external websites.
-              </p>
-            </section>
-
-            {/* Disclaimer */}
-            <section className="space-y-4">
-              <h2 className="text-lg font-bold text-white uppercase tracking-wider flex items-center gap-2.5">
-                <span className="w-1.5 h-4 bg-[#E50914] rounded-sm"></span>
-                5. Disclaimer
-              </h2>
-              <p>
-                All information is provided in good faith for informational and professional verification purposes.
-              </p>
-              <p className="flex items-start gap-2.5 text-xs text-amber-500/90 font-mono bg-amber-500/5 p-4 rounded border border-amber-500/10">
-                <AlertTriangle className="w-4 h-4 shrink-0 mt-0.5" />
-                <span>
-                  No guarantees, warranties, or representations are made regarding future campaign performance, ROAS outcomes, or specific business metrics for new partnerships.
-                </span>
-              </p>
-            </section>
-
-          </div>
         </div>
       </main>
 
-      {/* Footer */}
-      <CreditsFooter />
+      {/* 3. Global Footer */}
+      <ContactAndFooter />
     </div>
   );
 }
