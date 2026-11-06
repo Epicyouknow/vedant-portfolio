@@ -1,5 +1,18 @@
 [
   {
+    "action": "Published Blog via VV Growth Desk Approval Gate: Meta Ads Attribution in 2025: What Changed and How to Adapt",
+    "category": "publishing",
+    "targetType": "blog",
+    "targetId": "meta-ads-attribution-2025",
+    "targetTitle": "Meta Ads Attribution in 2025: What Changed and How to Adapt",
+    "user": "Vedant Tiwari",
+    "userEmail": "vedant@vedantverse.in",
+    "userRole": "Owner",
+    "details": "Explicit human approval granted. Live route: /blog/meta-ads-attribution-2025",
+    "id": "log-1793950572690-ip22i",
+    "timestamp": "2026-11-06T07:36:12.690Z"
+  },
+  {
     "action": "User Session Login",
     "category": "access",
     "targetType": "auth",

@@ -159,6 +159,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         { label: 'Homepage Editor', href: '/admin/homepage', icon: <Home className="w-4 h-4 shrink-0" /> },
         { label: 'Case Studies', href: '/admin/case-studies', icon: <Briefcase className="w-4 h-4 shrink-0" />, badge: 'Core' },
         { label: 'Blog Manager', href: '/admin/blogs', icon: <BookOpen className="w-4 h-4 shrink-0" />, badge: 'Core' },
+        { label: 'VV Growth Desk', href: '/admin/growth-desk', icon: <TrendingUp className="w-4 h-4 shrink-0 text-[#ED463B]" />, badge: 'AI Ops' },
         { label: 'Pages Manager', href: '/admin/pages', icon: <FileText className="w-4 h-4 shrink-0" /> },
         { label: 'Client Directory', href: '/admin/clients', icon: <Users className="w-4 h-4 shrink-0" /> },
         { label: 'Media Library', href: '/admin/media', icon: <ImageIcon className="w-4 h-4 shrink-0" /> },

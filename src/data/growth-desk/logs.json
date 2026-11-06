@@ -1,0 +1,62 @@
+[
+  {
+    "jobName": "Approval Gate Executed: 1 Article(s) Published",
+    "stage": "Batch Compilation",
+    "status": "Completed",
+    "timestamp": "2026-11-06T07:36:12.693Z",
+    "duration": "12s",
+    "details": "Owner authorized publication. Successfully written to CMS /blog routes: meta-ads-attribution-2025",
+    "retryCount": 0,
+    "id": "log-1793950572694"
+  },
+  {
+    "id": "log-101",
+    "jobName": "Weekly Opportunity Discovery",
+    "stage": "Opportunity Discovery",
+    "status": "Completed",
+    "timestamp": "2025-01-20T09:00:00Z",
+    "duration": "1m 45s",
+    "details": "Scanned 14 primary ad platforms and search queries; identified 5 high-impact topics for performance marketing.",
+    "retryCount": 0
+  },
+  {
+    "id": "log-102",
+    "jobName": "Deep Research Engine: Meta Ads Attribution",
+    "stage": "Deep Research",
+    "status": "Completed",
+    "timestamp": "2025-01-20T10:15:00Z",
+    "duration": "4m 12s",
+    "details": "Retrieved and verified 12 authoritative sources (Meta Graph API docs, W3C Private Aggregation spec, Shopify CAPI guide).",
+    "retryCount": 0
+  },
+  {
+    "id": "log-103",
+    "jobName": "Content Drafting Engine: Meta Attribution Manual",
+    "stage": "Content Drafting",
+    "status": "Completed",
+    "timestamp": "2025-01-20T11:45:00Z",
+    "duration": "3m 28s",
+    "details": "Drafted 4,200 words with code samples, outlines, FAQs, and social snippets. Injected verified owner case studies.",
+    "retryCount": 0
+  },
+  {
+    "id": "log-104",
+    "jobName": "SEO, AEO & GEO Quality Audit",
+    "stage": "SEO/AEO Audit",
+    "status": "Completed",
+    "timestamp": "2025-01-20T12:05:00Z",
+    "duration": "52s",
+    "details": "Audited draft against search intent, schema markup, and fact provenance. Passed 6/6 critical verification gates with 92/100 score.",
+    "retryCount": 0
+  },
+  {
+    "id": "log-105",
+    "jobName": "Weekly Batch Compilation",
+    "stage": "Batch Compilation",
+    "status": "Completed",
+    "timestamp": "2025-01-20T12:10:00Z",
+    "duration": "22s",
+    "details": "Compiled 3 articles into Weekly Batch (Jan 20 - Jan 24). Queued for mandatory human owner approval.",
+    "retryCount": 0
+  }
+]

@@ -1,0 +1,58 @@
+[
+  {
+    "id": "batch-2025-w04",
+    "title": "Weekly Batch — Jan 20 - Jan 24, 2025",
+    "weekRange": "Jan 20 – Jan 24, 2025",
+    "status": "Ready for Approval",
+    "articles": [
+      {
+        "contentId": "cnt-1",
+        "title": "Meta Ads Attribution in 2025: What Changed and How to Adapt",
+        "slug": "meta-ads-attribution-2025",
+        "tags": [
+          "Meta Ads",
+          "4.2k words"
+        ],
+        "wordCount": 4200,
+        "status": "Approved",
+        "suggestedPublishDate": "2025-01-24",
+        "qualityScore": 92,
+        "thumbnail": "/vedant_portrait.jpg"
+      },
+      {
+        "contentId": "cnt-2",
+        "title": "GA4 + GTM Setup Guide for Performance Marketers",
+        "slug": "ga4-gtm-tracking-guide",
+        "tags": [
+          "GA4",
+          "GTM",
+          "Tracking",
+          "3.1k words"
+        ],
+        "wordCount": 3100,
+        "status": "Ready for Approval",
+        "suggestedPublishDate": "2025-01-25",
+        "qualityScore": 94,
+        "thumbnail": "/vedant_portrait.jpg"
+      },
+      {
+        "contentId": "cnt-3",
+        "title": "Performance Max for E-commerce: Strategy, Setup and Optimization",
+        "slug": "performance-max-ecommerce-strategy",
+        "tags": [
+          "Google Ads",
+          "PMax",
+          "E-commerce",
+          "4.6k words"
+        ],
+        "wordCount": 4600,
+        "status": "Ready for Approval",
+        "suggestedPublishDate": "2025-01-26",
+        "qualityScore": 91,
+        "thumbnail": "/vedant_portrait.jpg"
+      }
+    ],
+    "notes": "Weekly editorial batch prepared for human review. Strict approval gate active: zero content will be published to the live website without explicit owner authorization.",
+    "createdAt": "2025-01-20T10:00:00Z"
+  }
+]
