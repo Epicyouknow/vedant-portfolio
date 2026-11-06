@@ -33,3 +33,4 @@ export const redis: Redis = (url && token)
         return typeof value === 'function' ? value.bind(client) : value;
       },
     });
+
