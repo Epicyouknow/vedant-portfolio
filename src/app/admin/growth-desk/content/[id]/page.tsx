@@ -175,6 +175,44 @@ export default function ContentStudioEditorPage() {
     setContent((prev) => prev + '\n\n' + textToInsert);
   };
 
+  const handleRegenerateWithGemini = async () => {
+    if (!confirm('This will use Gemini 3.5 to rewrite the entire article, outline, SEO tags, and FAQs based on the current title. Continue?')) return;
+    setAiLoading(true);
+    setAiActionName('Regenerating Full Blog');
+    setAiOutput('Invoking Gemini 3.5 Flash engine for full SEO, GEO, and AEO optimization...');
+    try {
+      const res = await fetch('/api/growth-desk/generate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          prompt: title,
+          topic: title,
+          assignmentId: contentId
+        })
+      });
+      const data = await res.json();
+      if (data.success && data.draft) {
+        const d = data.draft;
+        setTitle(d.title);
+        setSlug(d.slug);
+        setContent(d.content);
+        setMetaTitle(d.seoMeta?.title || '');
+        setMetaDesc(d.seoMeta?.description || '');
+        setKeywords(d.seoMeta?.keywords || []);
+        setFaqs(d.faq || []);
+        setDraft(d);
+        setAiOutput(`✨ Successfully regenerated "${d.title}" (${d.wordCount} words) with full AEO/GEO structure!`);
+      } else {
+        setAiOutput(data.error || 'Failed to regenerate with Gemini.');
+      }
+    } catch (err) {
+      console.error(err);
+      setAiOutput('An error occurred during Gemini regeneration.');
+    } finally {
+      setAiLoading(false);
+    }
+  };
+
   const insertToolbarTag = (prefix: string, suffix: string = '') => {
     setContent((prev) => prev + `\n${prefix} ` + suffix);
   };
@@ -693,6 +731,17 @@ export default function ContentStudioEditorPage() {
                 Active
               </span>
             </div>
+
+            {/* Regenerate Full Article with Gemini */}
+            <button
+              type="button"
+              onClick={handleRegenerateWithGemini}
+              disabled={aiLoading || !title}
+              className="w-full p-2.5 rounded-xl bg-gradient-to-r from-[#ED463B] to-[#c7352b] text-white text-xs font-bold flex items-center justify-center gap-2 shadow-sm hover:brightness-105 transition-all cursor-pointer disabled:opacity-50"
+            >
+              <Sparkles className="w-4 h-4 text-amber-300" />
+              <span>Regenerate Entire Article with Gemini</span>
+            </button>
 
             {/* Quick Prompt Action Buttons (Screen 4) */}
             <div className="space-y-1.5">

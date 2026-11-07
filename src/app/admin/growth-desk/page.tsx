@@ -16,7 +16,8 @@ import {
   ExternalLink,
   ChevronRight,
   Plus,
-  Play
+  Play,
+  RefreshCw
 } from 'lucide-react';
 
 export default function GrowthDeskOverview() {
@@ -24,6 +25,7 @@ export default function GrowthDeskOverview() {
   const [prompt, setPrompt] = useState('');
   const [selectedPill, setSelectedPill] = useState('Research & Write');
   const [loading, setLoading] = useState(false);
+  const [generating, setGenerating] = useState(false);
   const [assignments, setAssignments] = useState<any[]>([]);
   const [batches, setBatches] = useState<any[]>([]);
   const [analytics, setAnalytics] = useState<any>(null);
@@ -50,6 +52,34 @@ export default function GrowthDeskOverview() {
       })
       .catch(console.error);
   }, []);
+
+  const handleGenerateMasterBlog = async () => {
+    if (!prompt.trim()) return;
+
+    setGenerating(true);
+    try {
+      const res = await fetch('/api/growth-desk/generate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          prompt,
+          type: selectedPill,
+        })
+      });
+      const data = await res.json();
+      if (data.success && data.draftId) {
+        setPrompt('');
+        router.push(`/admin/growth-desk/content/${data.draftId}`);
+      } else {
+        alert(data.error || 'Failed to generate blog with Gemini.');
+      }
+    } catch (err: any) {
+      console.error(err);
+      alert('An error occurred during blog generation.');
+    } finally {
+      setGenerating(false);
+    }
+  };
 
   const handleCreateAssignment = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -133,14 +163,35 @@ export default function GrowthDeskOverview() {
               ))}
             </div>
 
-            <button
-              type="submit"
-              disabled={loading || !prompt.trim()}
-              className="vv-button-primary px-5 py-2.5 text-xs font-bold tracking-wide uppercase flex items-center gap-2 disabled:opacity-50"
-            >
-              {loading ? 'Queueing...' : 'Create Assignment'}
-              <ArrowRight className="w-4 h-4" />
-            </button>
+            <div className="flex items-center gap-2">
+              <button
+                type="button"
+                onClick={handleGenerateMasterBlog}
+                disabled={generating || loading || !prompt.trim()}
+                className="vv-button-primary bg-[#ED463B] hover:bg-[#d9382d] text-white px-5 py-2.5 text-xs font-bold tracking-wide uppercase flex items-center gap-2 shadow-md disabled:opacity-50 transition-all cursor-pointer"
+              >
+                {generating ? (
+                  <>
+                    <RefreshCw className="w-4 h-4 animate-spin" />
+                    <span>Gemini 3.5 Generating Blog...</span>
+                  </>
+                ) : (
+                  <>
+                    <Sparkles className="w-4 h-4 text-amber-300" />
+                    <span>Generate Full Blog with Gemini</span>
+                  </>
+                )}
+              </button>
+
+              <button
+                type="submit"
+                disabled={generating || loading || !prompt.trim()}
+                className="vv-button vv-button--secondary px-4 py-2.5 text-xs font-bold tracking-wide uppercase flex items-center gap-1.5 disabled:opacity-50"
+              >
+                {loading ? 'Queueing...' : 'Queue'}
+                <ArrowRight className="w-3.5 h-3.5" />
+              </button>
+            </div>
           </div>
         </form>
       </div>
