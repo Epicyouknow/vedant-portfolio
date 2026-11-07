@@ -14,3 +14,4 @@ export async function isGoogleAnalyticsAuthorized(): Promise<boolean> {
     allowedEmail && signedInEmail && allowedEmail === signedInEmail
   );
 }
+

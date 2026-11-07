@@ -113,31 +113,49 @@ export async function getGscPerformance(
     encodeURIComponent(siteUrl) +
     '/searchAnalytics/query';
 
-  const summary = await googleRequest<{
-    rows?: GscRow[];
-  }>(endpoint, {
-    method: 'POST',
-    body: JSON.stringify({
-      startDate,
-      endDate,
-      type: 'web',
-      dataState: 'final',
+  const [summary, queries, daily, pages] = await Promise.all([
+    googleRequest<{ rows?: GscRow[] }>(endpoint, {
+      method: 'POST',
+      body: JSON.stringify({
+        startDate,
+        endDate,
+        type: 'web',
+        dataState: 'final',
+      }),
     }),
-  });
-
-  const queries = await googleRequest<{
-    rows?: GscRow[];
-  }>(endpoint, {
-    method: 'POST',
-    body: JSON.stringify({
-      startDate,
-      endDate,
-      type: 'web',
-      dimensions: ['query'],
-      rowLimit: 10,
-      dataState: 'final',
+    googleRequest<{ rows?: GscRow[] }>(endpoint, {
+      method: 'POST',
+      body: JSON.stringify({
+        startDate,
+        endDate,
+        type: 'web',
+        dimensions: ['query'],
+        rowLimit: 10,
+        dataState: 'final',
+      }),
     }),
-  });
+    googleRequest<{ rows?: GscRow[] }>(endpoint, {
+      method: 'POST',
+      body: JSON.stringify({
+        startDate,
+        endDate,
+        type: 'web',
+        dimensions: ['date'],
+        dataState: 'final',
+      }),
+    }).catch(() => ({ rows: [] as GscRow[] })),
+    googleRequest<{ rows?: GscRow[] }>(endpoint, {
+      method: 'POST',
+      body: JSON.stringify({
+        startDate,
+        endDate,
+        type: 'web',
+        dimensions: ['page'],
+        rowLimit: 10,
+        dataState: 'final',
+      }),
+    }).catch(() => ({ rows: [] as GscRow[] })),
+  ]);
 
   const total = summary.rows?.[0];
 
@@ -148,6 +166,18 @@ export async function getGscPerformance(
     averagePosition: total?.position ?? 0,
     topQueries: (queries.rows ?? []).map((row) => ({
       query: row.keys?.[0] ?? '',
+      clicks: row.clicks ?? 0,
+      impressions: row.impressions ?? 0,
+      ctr: row.ctr ?? 0,
+      position: row.position ?? 0,
+    })),
+    dailyTrend: (daily.rows ?? []).map((row) => ({
+      date: row.keys?.[0] ?? '',
+      clicks: row.clicks ?? 0,
+      impressions: row.impressions ?? 0,
+    })),
+    topPages: (pages.rows ?? []).map((row) => ({
+      page: row.keys?.[0] ?? '',
       clicks: row.clicks ?? 0,
       impressions: row.impressions ?? 0,
       ctr: row.ctr ?? 0,
@@ -199,3 +229,4 @@ export async function getGa4Performance(
     averageSessionDuration: numberAt(5),
   };
 }
+
