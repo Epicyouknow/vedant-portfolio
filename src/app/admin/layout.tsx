@@ -66,13 +66,36 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   const [showRoleModal, setShowRoleModal] = useState(false);
   const [notification, setNotification] = useState<{ message: string; tone?: 'success' | 'danger' } | null>(null);
 
+  const applyTheme = (isDark: boolean) => {
+    if (typeof document === 'undefined') return;
+    const root = document.documentElement;
+    if (isDark) {
+      root.classList.add('dark');
+      root.setAttribute('data-theme', 'dark');
+    } else {
+      root.classList.remove('dark');
+      root.setAttribute('data-theme', 'light');
+    }
+  };
+
   // Initialize theme & check session
   useEffect(() => {
     try {
-      const savedTheme = localStorage.getItem('vedant_admin_theme');
-      if (savedTheme === 'dark') {
-        setDark(true);
+      const savedAdmin = localStorage.getItem('vedant_admin_theme');
+      const savedGlobal = localStorage.getItem('vedant_theme');
+      let isDark = false;
+      if (savedAdmin === 'dark' || savedAdmin === 'light') {
+        isDark = savedAdmin === 'dark';
+      } else if (savedGlobal === 'dark' || savedGlobal === 'light') {
+        isDark = savedGlobal === 'dark';
+      } else if (typeof document !== 'undefined') {
+        isDark =
+          document.documentElement.classList.contains('dark') ||
+          document.documentElement.getAttribute('data-theme') === 'dark';
       }
+
+      setDark(isDark);
+      applyTheme(isDark);
     } catch (e) {}
 
     // Skip auth verification on login page
@@ -101,8 +124,10 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   const toggleTheme = () => {
     const next = !dark;
     setDark(next);
+    applyTheme(next);
     try {
       localStorage.setItem('vedant_admin_theme', next ? 'dark' : 'light');
+      localStorage.setItem('vedant_theme', next ? 'dark' : 'light');
     } catch (e) {}
   };
 
@@ -126,7 +151,11 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 
   // If on Login Page, render directly without admin frame
   if (isLoginPage) {
-    return <div className={dark ? 'dark' : ''}>{children}</div>;
+    return (
+      <div className={dark ? 'dark' : ''} data-theme={dark ? 'dark' : 'light'}>
+        {children}
+      </div>
+    );
   }
 
   // If verifying authentication, show clean full-page loader
@@ -195,7 +224,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     : 'VT';
 
   return (
-    <div className={dark ? 'dark' : ''}>
+    <div className={dark ? 'dark' : ''} data-theme={dark ? 'dark' : 'light'}>
       <div className="vv-admin-root">
         {/* ── Sidebar (Desktop) ── */}
         <aside className={`vv-sidebar hidden lg:flex ${collapsed ? 'is-collapsed' : ''}`}>

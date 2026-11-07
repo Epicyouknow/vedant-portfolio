@@ -1,6 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700&display=swap");
 
-:root {
+:root, [data-theme="light"] {
   --canvas: #f5f2ec;
   --surface: #ffffff;
   --surface-2: #f0ede6;
@@ -20,7 +20,7 @@
   --shadow-sm: 0 2px 8px rgba(48, 40, 29, 0.04);
 }
 
-.dark {
+.dark, [data-theme="dark"] {
   --canvas: #141413;
   --surface: #1e1d1b;
   --surface-2: #272522;
