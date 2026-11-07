@@ -1,36 +1,32 @@
 import { Redis } from '@upstash/redis';
 
-const url = process.env.KV_REST_API_URL || process.env.UPSTASH_REDIS_REST_URL;
-const token = process.env.KV_REST_API_TOKEN || process.env.UPSTASH_REDIS_REST_TOKEN;
+let redisClient: Redis | undefined;
 
-/**
- * Validates and retrieves the Upstash Redis client.
- * Supports both Vercel KV credentials (KV_REST_API_URL/TOKEN) 
- * and native Upstash credentials (UPSTASH_REDIS_REST_URL/TOKEN).
- */
 function getRedisClient(): Redis {
-  const currentUrl = process.env.KV_REST_API_URL || process.env.UPSTASH_REDIS_REST_URL;
-  const currentToken = process.env.KV_REST_API_TOKEN || process.env.UPSTASH_REDIS_REST_TOKEN;
+  if (redisClient) return redisClient;
 
-  if (!currentUrl || !currentToken) {
-    throw new Error('Missing KV_REST_API_URL or KV_REST_API_TOKEN');
+  const url =
+    process.env.KV_REST_API_URL ||
+    process.env.UPSTASH_REDIS_REST_URL;
+  const token =
+    process.env.KV_REST_API_TOKEN ||
+    process.env.UPSTASH_REDIS_REST_TOKEN;
+
+  if (!url || !token) {
+    throw new Error(
+      'Missing Upstash Redis REST URL or write token.'
+    );
   }
 
-  return new Redis({
-    url: currentUrl,
-    token: currentToken,
-  });
+  redisClient = new Redis({ url, token });
+  return redisClient;
 }
 
-// Direct client when environment credentials are present, 
-// or guarded proxy to prevent crashing during build time when env vars are being configured.
-export const redis: Redis = (url && token)
-  ? new Redis({ url, token })
-  : new Proxy({} as Redis, {
-      get(_target, prop) {
-        const client = getRedisClient();
-        const value = (client as any)[prop];
-        return typeof value === 'function' ? value.bind(client) : value;
-      },
-    });
-
+export const redis: Redis = new Proxy({} as Redis, {
+  get(_target, prop) {
+    if (prop === 'then') return undefined;
+    const client = getRedisClient();
+    const value = Reflect.get(client, prop, client);
+    return typeof value === 'function' ? value.bind(client) : value;
+  },
+});
