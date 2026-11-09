@@ -1,11 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { generateMasterBlog } from '@/lib/geminiContentGenerator';
 import {
-  getContentDrafts,
-  saveContentDrafts,
-  getAssignments,
-  saveAssignments,
-  addJobLog,
+  getContentDraftsAsync,
+  saveContentDraftsAsync,
+  getAssignmentsAsync,
+  saveAssignmentsAsync,
+  addJobLogAsync,
   ContentDraft,
   Assignment
 } from '@/lib/growthDeskStorage';
@@ -83,12 +83,12 @@ export async function POST(req: NextRequest) {
     };
 
     // Save Draft
-    const drafts = getContentDrafts();
+    const drafts = await getContentDraftsAsync();
     drafts.unshift(newDraft);
-    saveContentDrafts(drafts);
+    await saveContentDraftsAsync(drafts);
 
     // Update or Create linked Assignment
-    const assignments = getAssignments();
+    const assignments = await getAssignmentsAsync();
     if (assignmentId) {
       const idx = assignments.findIndex((a) => a.id === assignmentId);
       if (idx !== -1) {
@@ -114,10 +114,10 @@ export async function POST(req: NextRequest) {
       };
       assignments.unshift(newAssignment);
     }
-    saveAssignments(assignments);
+    await saveAssignmentsAsync(assignments);
 
     // Persistent log
-    addJobLog({
+    await addJobLogAsync({
       jobName: `Gemini AI Generated Blog: ${generated.title}`,
       stage: 'Content Drafting',
       status: 'Completed',

@@ -1,5 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getContentDrafts, saveContentDrafts, getKnowledgeFacts, addJobLog, ContentDraft } from '../../../../lib/growthDeskStorage';
+import {
+  getContentDraftsAsync,
+  saveContentDraftsAsync,
+  getKnowledgeFactsAsync,
+  addJobLogAsync,
+  ContentDraft
+} from '../../../../lib/growthDeskStorage';
 import { recordAuditLog } from '../../../../lib/auditLog';
 import { performAiWritingAction } from '../../../../lib/geminiContentGenerator';
 
@@ -8,7 +14,7 @@ export async function GET(req: NextRequest) {
     const { searchParams } = new URL(req.url);
     const id = searchParams.get('id');
 
-    const drafts = getContentDrafts();
+    const drafts = await getContentDraftsAsync();
 
     if (id) {
       const found = drafts.find((d) => d.id === id);
@@ -29,7 +35,7 @@ export async function POST(req: NextRequest) {
     const body = await req.json();
     const { action, id, title, slug, content, category, tags, outline, seoMeta, faq, internalLinks } = body;
 
-    const drafts = getContentDrafts();
+    const drafts = await getContentDraftsAsync();
 
     // AI Writing Actions (Powered by Gemini 3.5 Flash)
     if (action && ['rewrite', 'expand', 'shorten', 'improve-seo', 'create-faq', 'suggest-links', 'generate-summary'].includes(action)) {
@@ -118,7 +124,7 @@ export async function POST(req: NextRequest) {
       };
 
       drafts.unshift(newDraft);
-      saveContentDrafts(drafts);
+      await saveContentDraftsAsync(drafts);
 
       recordAuditLog({
         action: `Created Content Draft: ${newDraft.title}`,
@@ -157,7 +163,7 @@ export async function POST(req: NextRequest) {
     if (body.status) drafts[index].status = body.status;
     drafts[index].updatedAt = new Date().toISOString();
 
-    saveContentDrafts(drafts);
+    await saveContentDraftsAsync(drafts);
 
     return NextResponse.json({ success: true, draft: drafts[index] });
   } catch (err: any) {

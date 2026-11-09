@@ -1,14 +1,11 @@
 import fs from 'fs';
 import path from 'path';
+import os from 'os';
+import { redis } from './redis';
 
 // Storage paths
-const BASE_DIR = path.join(process.cwd(), 'src/data/growth-desk');
-
-function ensureDir() {
-  if (!fs.existsSync(BASE_DIR)) {
-    fs.mkdirSync(BASE_DIR, { recursive: true });
-  }
-}
+const LOCAL_DIR = path.join(process.cwd(), 'src/data/growth-desk');
+const TMP_DIR = path.join(os.tmpdir(), 'growth-desk');
 
 // ==========================================
 // 1. DATA MODELS
@@ -865,29 +862,145 @@ const SEED_LOGS: JobLog[] = [
 ];
 
 // ==========================================
-// 3. STORAGE ACCESSORS (JSON with fallback)
+// 3. STORAGE ACCESSORS (Multi-Tier Resilient Storage)
 // ==========================================
 
-function readJsonFile<T>(filename: string, fallback: T): T {
-  ensureDir();
-  const filePath = path.join(BASE_DIR, filename);
+const REDIS_KEY_PREFIX = 'vedantverse:growth-desk:';
+
+function isRedisConfigured(): boolean {
+  return Boolean(
+    (process.env.KV_REST_API_URL || process.env.UPSTASH_REDIS_REST_URL) &&
+    (process.env.KV_REST_API_TOKEN || process.env.UPSTASH_REDIS_REST_TOKEN)
+  );
+}
+
+// In-memory cache for ultra-fast response & instant local reads
+const memoryCache = new Map<string, any>();
+
+// Check writable directory safely
+let cachedWritableDir: string | null = null;
+function getWritableDir(): string {
+  if (cachedWritableDir) return cachedWritableDir;
+
+  // Try LOCAL_DIR first (works in local development)
   try {
-    if (!fs.existsSync(filePath)) {
-      fs.writeFileSync(filePath, JSON.stringify(fallback, null, 2), 'utf8');
-      return fallback;
+    if (!fs.existsSync(LOCAL_DIR)) {
+      fs.mkdirSync(LOCAL_DIR, { recursive: true });
     }
-    const data = fs.readFileSync(filePath, 'utf8');
-    return JSON.parse(data) as T;
-  } catch (err) {
-    console.error(`Error reading ${filename}:`, err);
-    return fallback;
+    const testFile = path.join(LOCAL_DIR, `.write_test_${Date.now()}`);
+    fs.writeFileSync(testFile, '1');
+    fs.unlinkSync(testFile);
+    cachedWritableDir = LOCAL_DIR;
+    return LOCAL_DIR;
+  } catch {
+    // Read-only filesystem (e.g. Vercel Lambda /var/task)
+    try {
+      if (!fs.existsSync(TMP_DIR)) {
+        fs.mkdirSync(TMP_DIR, { recursive: true });
+      }
+      cachedWritableDir = TMP_DIR;
+      return TMP_DIR;
+    } catch {
+      cachedWritableDir = os.tmpdir();
+      return os.tmpdir();
+    }
   }
 }
 
+function readJsonFile<T>(filename: string, fallback: T): T {
+  // 1. Check in-memory cache first
+  if (memoryCache.has(filename)) {
+    return memoryCache.get(filename) as T;
+  }
+
+  // 2. Check writable directory (e.g. /tmp/growth-desk/content.json)
+  try {
+    const tmpFile = path.join(TMP_DIR, filename);
+    if (fs.existsSync(tmpFile)) {
+      const data = fs.readFileSync(tmpFile, 'utf8');
+      const parsed = JSON.parse(data) as T;
+      memoryCache.set(filename, parsed);
+      return parsed;
+    }
+  } catch (err) {
+    // ignore
+  }
+
+  // 3. Check bundled project directory (e.g. /var/task/src/data/growth-desk/content.json)
+  try {
+    const localFile = path.join(LOCAL_DIR, filename);
+    if (fs.existsSync(localFile)) {
+      const data = fs.readFileSync(localFile, 'utf8');
+      const parsed = JSON.parse(data) as T;
+      memoryCache.set(filename, parsed);
+      return parsed;
+    }
+  } catch (err) {
+    // ignore
+  }
+
+  // 4. Return fallback seed data
+  memoryCache.set(filename, fallback);
+  return fallback;
+}
+
 function writeJsonFile<T>(filename: string, data: T): void {
-  ensureDir();
-  const filePath = path.join(BASE_DIR, filename);
-  fs.writeFileSync(filePath, JSON.stringify(data, null, 2), 'utf8');
+  // 1. Update in-memory cache immediately
+  memoryCache.set(filename, data);
+
+  // 2. Write to disk safely without throwing
+  try {
+    const targetDir = getWritableDir();
+    if (!fs.existsSync(targetDir)) {
+      fs.mkdirSync(targetDir, { recursive: true });
+    }
+    const targetPath = path.join(targetDir, filename);
+    fs.writeFileSync(targetPath, JSON.stringify(data, null, 2), 'utf8');
+  } catch (err) {
+    console.warn(`Safe warning: could not write ${filename} to disk, cached in memory:`, err);
+  }
+}
+
+export async function getStoredDataAsync<T>(key: string, filename: string, fallback: T): Promise<T> {
+  // Try Redis first
+  if (isRedisConfigured()) {
+    try {
+      const data = await redis.get<T>(`${REDIS_KEY_PREFIX}${key}`);
+      if (data !== null && data !== undefined) {
+        memoryCache.set(filename, data);
+        writeJsonFile(filename, data);
+        return data;
+      }
+    } catch (err) {
+      console.warn(`Redis get failed for ${key}, falling back to disk/memory:`, err);
+    }
+  }
+
+  // Fallback to disk / memory
+  const result = readJsonFile<T>(filename, fallback);
+
+  // Seed Redis if it was missing
+  if (isRedisConfigured() && result) {
+    redis.set(`${REDIS_KEY_PREFIX}${key}`, result).catch((err) => {
+      console.warn(`Redis seed failed for ${key}:`, err);
+    });
+  }
+
+  return result;
+}
+
+export async function saveStoredDataAsync<T>(key: string, filename: string, data: T): Promise<void> {
+  // Update memory & disk
+  writeJsonFile(filename, data);
+
+  // Save to Redis
+  if (isRedisConfigured()) {
+    try {
+      await redis.set(`${REDIS_KEY_PREFIX}${key}`, data);
+    } catch (err) {
+      console.warn(`Redis save failed for ${key}:`, err);
+    }
+  }
 }
 
 // Assignments
@@ -895,8 +1008,19 @@ export function getAssignments(): Assignment[] {
   return readJsonFile<Assignment[]>('assignments.json', SEED_ASSIGNMENTS);
 }
 
+export async function getAssignmentsAsync(): Promise<Assignment[]> {
+  return getStoredDataAsync<Assignment[]>('assignments', 'assignments.json', SEED_ASSIGNMENTS);
+}
+
 export function saveAssignments(assignments: Assignment[]): void {
   writeJsonFile('assignments.json', assignments);
+  if (isRedisConfigured()) {
+    redis.set(`${REDIS_KEY_PREFIX}assignments`, assignments).catch(console.warn);
+  }
+}
+
+export async function saveAssignmentsAsync(assignments: Assignment[]): Promise<void> {
+  return saveStoredDataAsync('assignments', 'assignments.json', assignments);
 }
 
 // Research Projects
@@ -904,8 +1028,19 @@ export function getResearchProjects(): ResearchProject[] {
   return readJsonFile<ResearchProject[]>('research.json', SEED_RESEARCH);
 }
 
+export async function getResearchProjectsAsync(): Promise<ResearchProject[]> {
+  return getStoredDataAsync<ResearchProject[]>('research', 'research.json', SEED_RESEARCH);
+}
+
 export function saveResearchProjects(projects: ResearchProject[]): void {
   writeJsonFile('research.json', projects);
+  if (isRedisConfigured()) {
+    redis.set(`${REDIS_KEY_PREFIX}research`, projects).catch(console.warn);
+  }
+}
+
+export async function saveResearchProjectsAsync(projects: ResearchProject[]): Promise<void> {
+  return saveStoredDataAsync('research', 'research.json', projects);
 }
 
 // Knowledge Base
@@ -913,8 +1048,19 @@ export function getKnowledgeFacts(): KnowledgeFact[] {
   return readJsonFile<KnowledgeFact[]>('knowledge.json', SEED_KNOWLEDGE);
 }
 
+export async function getKnowledgeFactsAsync(): Promise<KnowledgeFact[]> {
+  return getStoredDataAsync<KnowledgeFact[]>('knowledge', 'knowledge.json', SEED_KNOWLEDGE);
+}
+
 export function saveKnowledgeFacts(facts: KnowledgeFact[]): void {
   writeJsonFile('knowledge.json', facts);
+  if (isRedisConfigured()) {
+    redis.set(`${REDIS_KEY_PREFIX}knowledge`, facts).catch(console.warn);
+  }
+}
+
+export async function saveKnowledgeFactsAsync(facts: KnowledgeFact[]): Promise<void> {
+  return saveStoredDataAsync('knowledge', 'knowledge.json', facts);
 }
 
 // Content Studio Drafts
@@ -922,8 +1068,19 @@ export function getContentDrafts(): ContentDraft[] {
   return readJsonFile<ContentDraft[]>('content.json', SEED_CONTENT);
 }
 
+export async function getContentDraftsAsync(): Promise<ContentDraft[]> {
+  return getStoredDataAsync<ContentDraft[]>('content', 'content.json', SEED_CONTENT);
+}
+
 export function saveContentDrafts(drafts: ContentDraft[]): void {
   writeJsonFile('content.json', drafts);
+  if (isRedisConfigured()) {
+    redis.set(`${REDIS_KEY_PREFIX}content`, drafts).catch(console.warn);
+  }
+}
+
+export async function saveContentDraftsAsync(drafts: ContentDraft[]): Promise<void> {
+  return saveStoredDataAsync('content', 'content.json', drafts);
 }
 
 // Weekly Batches
@@ -931,8 +1088,19 @@ export function getEditorialBatches(): EditorialBatch[] {
   return readJsonFile<EditorialBatch[]>('batches.json', SEED_BATCHES);
 }
 
+export async function getEditorialBatchesAsync(): Promise<EditorialBatch[]> {
+  return getStoredDataAsync<EditorialBatch[]>('batches', 'batches.json', SEED_BATCHES);
+}
+
 export function saveEditorialBatches(batches: EditorialBatch[]): void {
   writeJsonFile('batches.json', batches);
+  if (isRedisConfigured()) {
+    redis.set(`${REDIS_KEY_PREFIX}batches`, batches).catch(console.warn);
+  }
+}
+
+export async function saveEditorialBatchesAsync(batches: EditorialBatch[]): Promise<void> {
+  return saveStoredDataAsync('batches', 'batches.json', batches);
 }
 
 // Agent Settings
@@ -940,8 +1108,11 @@ export function getAgentSettings(): AgentSettings {
   return readJsonFile<AgentSettings>('settings.json', SEED_SETTINGS);
 }
 
+export async function getAgentSettingsAsync(): Promise<AgentSettings> {
+  return getStoredDataAsync<AgentSettings>('settings', 'settings.json', SEED_SETTINGS);
+}
+
 export function saveAgentSettings(settings: AgentSettings): void {
-  // Enforce locked preferences:
   const enforced: AgentSettings = {
     ...settings,
     autonomyMode: 'SCHEDULED',
@@ -949,11 +1120,28 @@ export function saveAgentSettings(settings: AgentSettings): void {
     publishingMode: 'HUMAN_APPROVAL_REQUIRED'
   };
   writeJsonFile('settings.json', enforced);
+  if (isRedisConfigured()) {
+    redis.set(`${REDIS_KEY_PREFIX}settings`, enforced).catch(console.warn);
+  }
+}
+
+export async function saveAgentSettingsAsync(settings: AgentSettings): Promise<void> {
+  const enforced: AgentSettings = {
+    ...settings,
+    autonomyMode: 'SCHEDULED',
+    researchDepth: 'DEEP',
+    publishingMode: 'HUMAN_APPROVAL_REQUIRED'
+  };
+  return saveStoredDataAsync('settings', 'settings.json', enforced);
 }
 
 // Job Logs
 export function getJobLogs(): JobLog[] {
   return readJsonFile<JobLog[]>('logs.json', SEED_LOGS);
+}
+
+export async function getJobLogsAsync(): Promise<JobLog[]> {
+  return getStoredDataAsync<JobLog[]>('logs', 'logs.json', SEED_LOGS);
 }
 
 export function addJobLog(log: Omit<JobLog, 'id'>): JobLog {
@@ -964,5 +1152,19 @@ export function addJobLog(log: Omit<JobLog, 'id'>): JobLog {
   };
   logs.unshift(newLog);
   writeJsonFile('logs.json', logs.slice(0, 100)); // retain last 100
+  if (isRedisConfigured()) {
+    redis.set(`${REDIS_KEY_PREFIX}logs`, logs.slice(0, 100)).catch(console.warn);
+  }
+  return newLog;
+}
+
+export async function addJobLogAsync(log: Omit<JobLog, 'id'>): Promise<JobLog> {
+  const logs = await getJobLogsAsync();
+  const newLog: JobLog = {
+    ...log,
+    id: `log-${Date.now()}`
+  };
+  logs.unshift(newLog);
+  await saveStoredDataAsync('logs', 'logs.json', logs.slice(0, 100));
   return newLog;
 }

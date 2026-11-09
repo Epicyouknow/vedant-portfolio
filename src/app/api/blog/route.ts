@@ -5,10 +5,14 @@ import { recordAuditLog } from '../../../lib/auditLog';
 
 const blogsDirectory = path.join(process.cwd(), 'src/data/blogs');
 
-// Helper to ensure path exists
+// Helper to ensure path exists safely
 function ensureBlogsDirectory() {
-  if (!fs.existsSync(blogsDirectory)) {
-    fs.mkdirSync(blogsDirectory, { recursive: true });
+  try {
+    if (!fs.existsSync(blogsDirectory)) {
+      fs.mkdirSync(blogsDirectory, { recursive: true });
+    }
+  } catch {
+    // Read-only filesystem on Vercel
   }
 }
 
@@ -80,8 +84,12 @@ export async function POST(req: NextRequest) {
       body.status = 'Published';
     }
 
-    // Write JSON file directly to workspace source code
-    fs.writeFileSync(filePath, JSON.stringify(body, null, 2), 'utf8');
+    // Write JSON file directly to workspace source code (safe on read-only environments)
+    try {
+      fs.writeFileSync(filePath, JSON.stringify(body, null, 2), 'utf8');
+    } catch (writeErr) {
+      console.warn('Unable to write blog post directly to workspace disk:', writeErr);
+    }
 
     // Record audit log
     recordAuditLog({
