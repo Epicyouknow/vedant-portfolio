@@ -6,7 +6,6 @@ import { ArrowRight } from 'lucide-react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { TextMaskReveal, FadeUpStagger, FadeUpItem, EASING } from './motion/MotionSystem';
 import StatsStrip from './StatsStrip';
-import FlippablePortrait from './FlippablePortrait';
 
 export default function Hero() {
   const { scrollY } = useScroll();
@@ -120,16 +119,58 @@ export default function Hero() {
 
           </motion.div>
 
-          {/* Right Column: 360-Degree Flippable Interactive 3D Portrait */}
-          <div className="lg:col-span-5 flex justify-center lg:justify-end order-1 lg:order-2">
+          {/* Right Column: Transparent Cutout Portrait covering hero from the right side */}
+          <div className="lg:col-span-5 flex justify-center lg:justify-end order-1 lg:order-2 relative">
             <motion.div
               style={{ y: archParallax }}
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 1, delay: 0.3, ease: EASING.smooth }}
-              className="relative w-full flex justify-center lg:justify-end"
+              className="relative w-full flex flex-col items-center lg:items-end justify-end"
             >
-              <FlippablePortrait />
+              {/* Cinematic Red Halo Glow */}
+              <div 
+                className="absolute inset-0 m-auto w-[360px] h-[360px] lg:w-[440px] lg:h-[440px] rounded-full blur-3xl opacity-35 dark:opacity-60 pointer-events-none"
+                style={{
+                  background: 'radial-gradient(circle, rgba(237, 70, 59, 0.45) 0%, rgba(237, 70, 59, 0.08) 65%, transparent 80%)',
+                }}
+              />
+
+              {/* Dark Theme Cutout */}
+              <div className="relative hidden dark:block w-full max-w-[440px] lg:max-w-[480px]">
+                <Image
+                  src="/vedant_hero_cutout_dark.png"
+                  alt="Vedant Tiwari — Senior Performance Marketing Executive"
+                  width={484}
+                  height={553}
+                  priority
+                  className="w-full h-auto max-h-[560px] lg:max-h-[620px] object-contain object-bottom ml-auto drop-shadow-[0_25px_50px_rgba(0,0,0,0.9)] select-none"
+                />
+              </div>
+
+              {/* Light Theme Cutout */}
+              <div className="relative block dark:hidden w-full max-w-[440px] lg:max-w-[480px]">
+                <Image
+                  src="/vedant_hero_cutout_light.png"
+                  alt="Vedant Tiwari — Senior Performance Marketing Executive"
+                  width={467}
+                  height={539}
+                  priority
+                  className="w-full h-auto max-h-[560px] lg:max-h-[620px] object-contain object-bottom ml-auto drop-shadow-[0_20px_40px_rgba(237,70,59,0.18)] select-none"
+                />
+              </div>
+
+              {/* Floating Role Pill */}
+              <div className="mt-3 inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[var(--bg-card)]/80 backdrop-blur-md border border-[var(--border-subtle)] text-[var(--text-primary)] shadow-sm text-xs">
+                <span className="w-2 h-2 rounded-full bg-[#ED463B] animate-pulse" />
+                <span className="font-extrabold uppercase tracking-wider text-[11px] font-mono">
+                  VEDANT TIWARI
+                </span>
+                <span className="text-[var(--text-secondary)] font-mono text-[10px]">&bull;</span>
+                <span className="text-[#ED463B] font-bold text-[11px] font-mono tracking-wider">
+                  PERFORMANCE MARKETING
+                </span>
+              </div>
             </motion.div>
           </div>
 

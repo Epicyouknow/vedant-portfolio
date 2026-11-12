@@ -108,56 +108,48 @@ export default function HeroSection() {
             </div>
           </div>
 
-          {/* Right Column: Big Unboxed Portrait on Hero Section */}
-          <div className="lg:col-span-5 xl:col-span-6 flex flex-col items-center lg:items-end justify-center relative w-full">
-            {/* Cinematic Background Glow */}
+          {/* Right Column: Transparent Cutout Portrait covering hero from the right side */}
+          <div className="lg:col-span-5 xl:col-span-6 relative flex flex-col items-center lg:items-end justify-end w-full">
+            {/* Cinematic Background Radial Glow */}
             <div 
-              className="absolute -inset-4 sm:-inset-8 rounded-full blur-3xl opacity-30 dark:opacity-60 pointer-events-none"
+              className="absolute -inset-4 sm:-inset-10 rounded-full blur-3xl opacity-35 dark:opacity-65 pointer-events-none"
               style={{
-                background: 'radial-gradient(circle at 60% 50%, rgba(237, 70, 59, 0.4) 0%, rgba(237, 70, 59, 0.08) 60%, transparent 80%)',
+                background: 'radial-gradient(circle at 65% 50%, rgba(237, 70, 59, 0.45) 0%, rgba(237, 70, 59, 0.08) 60%, transparent 80%)',
               }}
             />
 
-            {/* Unboxed Big Portrait Container */}
-            <div className="relative w-full max-w-[560px] lg:max-w-[620px] xl:max-w-[680px]">
+            {/* Cutout Container covering hero from right side */}
+            <div className="relative w-full max-w-[480px] lg:max-w-[560px] xl:max-w-[620px] flex flex-col items-center lg:items-end">
               
-              {/* Dark Theme: Big Unboxed Portrait */}
+              {/* Dark Theme: Cutout with transparent background */}
               <div className="relative hidden dark:block w-full">
                 <Image
-                  src="/vedant_hero_dark.jpg"
+                  src="/vedant_hero_cutout_dark.png"
                   alt="Vedant Tiwari — Performance Marketing Executive"
-                  width={1024}
-                  height={576}
+                  width={484}
+                  height={553}
                   priority
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 680px"
-                  className="w-full h-auto object-cover select-none pointer-events-none drop-shadow-[0_20px_50px_rgba(0,0,0,0.8)]"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 620px"
+                  className="w-full h-auto max-h-[580px] lg:max-h-[660px] xl:max-h-[720px] object-contain object-bottom ml-auto drop-shadow-[0_25px_60px_rgba(0,0,0,0.95)] select-none pointer-events-none"
                 />
-                {/* Soft feathered fade on the left edge so it dissolves seamlessly into dark background */}
-                <div className="absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-[var(--bg-base)] via-[var(--bg-base)]/40 to-transparent pointer-events-none hidden lg:block" />
-                {/* Soft feathered fade on bottom edge */}
-                <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-[var(--bg-base)] to-transparent pointer-events-none" />
               </div>
 
-              {/* Light Theme: Big Unboxed Portrait */}
+              {/* Light Theme: Cutout with transparent background */}
               <div className="relative block dark:hidden w-full">
                 <Image
-                  src="/vedant_hero_light.jpg"
+                  src="/vedant_hero_cutout_light.png"
                   alt="Vedant Tiwari — Performance Marketing Executive"
-                  width={1024}
-                  height={576}
+                  width={467}
+                  height={539}
                   priority
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 680px"
-                  className="w-full h-auto object-cover select-none pointer-events-none drop-shadow-[0_15px_35px_rgba(237,70,59,0.12)]"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 620px"
+                  className="w-full h-auto max-h-[580px] lg:max-h-[660px] xl:max-h-[720px] object-contain object-bottom ml-auto drop-shadow-[0_20px_45px_rgba(237,70,59,0.18)] select-none pointer-events-none"
                 />
-                {/* Soft feathered fade on the left edge so it dissolves seamlessly into light background */}
-                <div className="absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-[var(--bg-base)] via-[var(--bg-base)]/40 to-transparent pointer-events-none hidden lg:block" />
-                {/* Soft feathered fade on bottom edge */}
-                <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-[var(--bg-base)] to-transparent pointer-events-none" />
               </div>
 
               {/* Verified Performance Marketer Pill (Floating, non-boxed) */}
-              <div className="mt-3 flex items-center justify-between px-1 text-xs">
-                <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[var(--bg-card)]/80 backdrop-blur-md border border-[var(--border-subtle)] text-[var(--text-primary)] shadow-sm">
+              <div className="mt-2 flex items-center justify-between w-full px-2 text-xs">
+                <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[var(--bg-card)]/85 backdrop-blur-md border border-[var(--border-subtle)] text-[var(--text-primary)] shadow-md">
                   <span className="w-2 h-2 rounded-full bg-[#ED463B] animate-pulse" />
                   <span className="font-extrabold uppercase tracking-wider text-[11px] font-mono">
                     VEDANT TIWARI
