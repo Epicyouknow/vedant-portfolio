@@ -87,6 +87,26 @@ export default function LeadEnquiryForm() {
       return;
     }
 
+    if (!websiteUrl.trim()) {
+      setErrorMessage('Please enter your Website or Instagram URL.');
+      return;
+    }
+
+    if (!serviceHelp.trim()) {
+      setErrorMessage('Please select what you need help with.');
+      return;
+    }
+
+    if (!advertisingBudget.trim()) {
+      setErrorMessage('Please select your monthly advertising budget.');
+      return;
+    }
+
+    if (!additionalNotes.trim()) {
+      setErrorMessage('Please share any context regarding your business or immediate objectives.');
+      return;
+    }
+
     setIsSubmitting(true);
 
     try {
@@ -279,13 +299,14 @@ export default function LeadEnquiryForm() {
               </div>
             </div>
 
-            {/* Row 3: Website or Instagram URL (Optional) */}
+            {/* Row 3: Website or Instagram URL (Mandatory) */}
             <div>
               <label className="block text-xs font-mono font-bold uppercase tracking-wider text-[var(--text-primary)] mb-2">
-                5. Website or Instagram URL <span className="text-xs text-[var(--text-secondary)] font-normal lowercase">(optional)</span>
+                5. Website or Instagram URL <span className="text-[#ED463B]">*</span>
               </label>
               <input
                 type="text"
+                required
                 placeholder="https://yourbrand.com or @yourhandle"
                 value={websiteUrl}
                 onChange={(e) => setWebsiteUrl(e.target.value)}
@@ -333,12 +354,13 @@ export default function LeadEnquiryForm() {
               </select>
             </div>
 
-            {/* Optional Textarea */}
+            {/* Textarea (Mandatory) */}
             <div>
               <label className="block text-xs font-mono font-bold uppercase tracking-wider text-[var(--text-primary)] mb-2">
-                Anything else I should know about your business? <span className="text-xs text-[var(--text-secondary)] font-normal lowercase">(optional)</span>
+                Anything else I should know about your business? <span className="text-[#ED463B]">*</span>
               </label>
               <textarea
+                required
                 rows={3}
                 placeholder="Share any context regarding past advertising results, current bottlenecks, target markets, or immediate objectives..."
                 value={additionalNotes}

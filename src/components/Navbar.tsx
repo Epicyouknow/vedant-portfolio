@@ -122,10 +122,15 @@ export default function Navbar() {
           <ThemeToggle />
 
           <button
-            onClick={() => scrollTo('contact-section')}
-            className="hidden sm:inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-semibold tracking-wide bg-[#191919] text-[#FFFDF9] hover:bg-[#2E2D2B] dark:bg-[#F7F5F0] dark:text-[#191919] dark:hover:bg-[#EAE6DC] transition-all duration-200 cursor-pointer shadow-xs group"
+            type="button"
+            onClick={() => {
+              if (typeof window !== 'undefined') {
+                window.dispatchEvent(new CustomEvent('open-enquiry-modal'));
+              }
+            }}
+            className="hidden sm:inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-bold uppercase tracking-wider bg-[#ED463B] hover:bg-[#d9382d] text-white transition-all duration-200 cursor-pointer shadow-md shadow-[#ED463B]/20 group"
           >
-            <span>Let&apos;s Talk</span>
+            <span>Let&apos;s Discuss</span>
             <ArrowRight className="w-3.5 h-3.5 transition-transform duration-200 group-hover:translate-x-0.5" />
           </button>
 
@@ -217,10 +222,16 @@ export default function Navbar() {
             </Link>
             <div className="pt-2">
               <button
-                onClick={() => scrollTo('contact-section')}
-                className="w-full py-3 rounded-full text-xs font-semibold tracking-wide bg-[#191919] text-[#FFFDF9] dark:bg-[#F7F5F0] dark:text-[#191919] flex items-center justify-center gap-2"
+                type="button"
+                onClick={() => {
+                  setMobileMenuOpen(false);
+                  if (typeof window !== 'undefined') {
+                    window.dispatchEvent(new CustomEvent('open-enquiry-modal'));
+                  }
+                }}
+                className="w-full py-3 rounded-full text-xs font-bold uppercase tracking-wider bg-[#ED463B] text-white hover:bg-[#d9382d] flex items-center justify-center gap-2 shadow-md shadow-[#ED463B]/20 cursor-pointer"
               >
-                <span>Let&apos;s Talk</span>
+                <span>LET&apos;S DISCUSS YOUR BUSINESS</span>
                 <ArrowRight className="w-3.5 h-3.5" />
               </button>
             </div>

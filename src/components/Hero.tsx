@@ -63,16 +63,22 @@ export default function Hero() {
             <FadeUpStagger delay={0.5} stagger={0.1} className="flex flex-wrap items-center gap-4 mb-16">
               <FadeUpItem>
                 <button
-                  onClick={() => scrollTo('contact-section')}
-                  className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full text-xs sm:text-sm font-semibold tracking-wide bg-[#191919] text-[#FFFDF9] hover:bg-[#2E2D2B] dark:bg-[#F7F5F0] dark:text-[#191919] dark:hover:bg-[#EAE6DC] transition-all duration-200 cursor-pointer shadow-xs group"
+                  type="button"
+                  onClick={() => {
+                    if (typeof window !== 'undefined') {
+                      window.dispatchEvent(new CustomEvent('open-enquiry-modal'));
+                    }
+                  }}
+                  className="inline-flex items-center gap-3 px-8 py-4 rounded-full text-xs sm:text-sm font-bold uppercase tracking-wider bg-[#ED463B] hover:bg-[#d9382d] text-white transition-all duration-200 cursor-pointer shadow-lg shadow-[#ED463B]/25 hover:shadow-xl hover:shadow-[#ED463B]/35 hover:-translate-y-0.5 group"
                 >
-                  <span>Start a conversation</span>
+                  <span>LET&apos;S DISCUSS YOUR BUSINESS</span>
                   <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" />
                 </button>
               </FadeUpItem>
 
               <FadeUpItem>
                 <button
+                  type="button"
                   onClick={() => scrollTo('featured-work')}
                   className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full text-xs sm:text-sm font-medium tracking-wide bg-transparent text-[var(--text-primary)] border border-[var(--border-strong)] hover:border-[var(--text-primary)] hover:bg-[var(--bg-card)] transition-all duration-200 cursor-pointer group"
                 >

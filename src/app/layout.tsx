@@ -4,6 +4,7 @@ import "./globals.css";
 import AnalyticsScripts from "../components/AnalyticsScripts";
 import { ThemeProvider } from "../context/ThemeContext";
 import LeadPopup from "../components/LeadPopup";
+import EnquiryModal from "../components/EnquiryModal";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -173,6 +174,7 @@ export default function RootLayout({
           <AnalyticsScripts />
           {children}
           <LeadPopup />
+          <EnquiryModal />
         </ThemeProvider>
       </body>
     </html>

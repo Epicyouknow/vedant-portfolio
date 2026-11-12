@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Image from 'next/image';
-import { ArrowRight, ChevronDown, CheckCircle2, TrendingUp, ShieldAlert, Sparkles } from 'lucide-react';
+import { ArrowRight, ChevronDown, TrendingUp } from 'lucide-react';
 
 export default function HeroSection() {
   const scrollTo = (id: string) => {
@@ -29,8 +29,8 @@ export default function HeroSection() {
       <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
           
-          {/* Left Column: Copy & CTAs (7 columns) */}
-          <div className="lg:col-span-7 flex flex-col items-start text-left">
+          {/* Left Column: Copy & CTAs (6 to 7 columns) */}
+          <div className="lg:col-span-7 xl:col-span-6 flex flex-col items-start text-left">
             {/* Eyebrow */}
             <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full border border-[var(--border-subtle)] bg-[var(--bg-card)] shadow-xs mb-6">
               <span className="w-2 h-2 rounded-full bg-[#ED463B] animate-pulse" />
@@ -108,61 +108,71 @@ export default function HeroSection() {
             </div>
           </div>
 
-          {/* Right Column: Actual Portrait with Cinematic Red Halo (5 columns) */}
-          <div className="lg:col-span-5 flex justify-center lg:justify-end relative">
-            {/* Cinematic Halo */}
+          {/* Right Column: Big Unboxed Portrait on Hero Section */}
+          <div className="lg:col-span-5 xl:col-span-6 flex flex-col items-center lg:items-end justify-center relative w-full">
+            {/* Cinematic Background Glow */}
             <div 
-              className="absolute inset-0 max-w-[420px] max-h-[520px] m-auto rounded-3xl blur-2xl opacity-50 dark:opacity-75 pointer-events-none"
+              className="absolute -inset-4 sm:-inset-8 rounded-full blur-3xl opacity-30 dark:opacity-60 pointer-events-none"
               style={{
-                background: 'radial-gradient(circle at 50% 50%, rgba(237, 70, 59, 0.35) 0%, rgba(237, 70, 59, 0.1) 60%, transparent 80%)',
+                background: 'radial-gradient(circle at 60% 50%, rgba(237, 70, 59, 0.4) 0%, rgba(237, 70, 59, 0.08) 60%, transparent 80%)',
               }}
             />
 
-            {/* Premium Portrait Card */}
-            <div className="relative w-full max-w-[380px] sm:max-w-[420px] rounded-3xl overflow-hidden border border-[var(--border-subtle)] bg-[var(--bg-card)] shadow-2xl transition-all duration-300 hover:border-[#ED463B]/40 group">
-              {/* Inner Portrait Container */}
-              <div className="relative aspect-[4/5] w-full overflow-hidden bg-neutral-900">
+            {/* Unboxed Big Portrait Container */}
+            <div className="relative w-full max-w-[560px] lg:max-w-[620px] xl:max-w-[680px]">
+              
+              {/* Dark Theme: Big Unboxed Portrait */}
+              <div className="relative hidden dark:block w-full">
                 <Image
-                  src="/vedant_portrait.jpg"
+                  src="/vedant_hero_dark.jpg"
                   alt="Vedant Tiwari — Performance Marketing Executive"
-                  fill
+                  width={1024}
+                  height={576}
                   priority
-                  sizes="(max-width: 768px) 100vw, 420px"
-                  className="object-cover object-top transition-transform duration-700 group-hover:scale-105"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 680px"
+                  className="w-full h-auto object-cover select-none pointer-events-none drop-shadow-[0_20px_50px_rgba(0,0,0,0.8)]"
                 />
+                {/* Soft feathered fade on the left edge so it dissolves seamlessly into dark background */}
+                <div className="absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-[var(--bg-base)] via-[var(--bg-base)]/40 to-transparent pointer-events-none hidden lg:block" />
+                {/* Soft feathered fade on bottom edge */}
+                <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-[var(--bg-base)] to-transparent pointer-events-none" />
+              </div>
 
-                {/* Subtle gradient vignette to blend base */}
-                <div className="absolute inset-0 bg-gradient-to-t from-[#121211] via-transparent to-transparent opacity-80" />
+              {/* Light Theme: Big Unboxed Portrait */}
+              <div className="relative block dark:hidden w-full">
+                <Image
+                  src="/vedant_hero_light.jpg"
+                  alt="Vedant Tiwari — Performance Marketing Executive"
+                  width={1024}
+                  height={576}
+                  priority
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 680px"
+                  className="w-full h-auto object-cover select-none pointer-events-none drop-shadow-[0_15px_35px_rgba(237,70,59,0.12)]"
+                />
+                {/* Soft feathered fade on the left edge so it dissolves seamlessly into light background */}
+                <div className="absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-[var(--bg-base)] via-[var(--bg-base)]/40 to-transparent pointer-events-none hidden lg:block" />
+                {/* Soft feathered fade on bottom edge */}
+                <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-[var(--bg-base)] to-transparent pointer-events-none" />
+              </div>
 
-                {/* Top Badge: Verified Status */}
-                <div className="absolute top-4 left-4 inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-black/70 backdrop-blur-md border border-white/10 text-white text-[11px] font-mono tracking-wider">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
-                  <span>Verified Portfolio</span>
+              {/* Verified Performance Marketer Pill (Floating, non-boxed) */}
+              <div className="mt-3 flex items-center justify-between px-1 text-xs">
+                <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[var(--bg-card)]/80 backdrop-blur-md border border-[var(--border-subtle)] text-[var(--text-primary)] shadow-sm">
+                  <span className="w-2 h-2 rounded-full bg-[#ED463B] animate-pulse" />
+                  <span className="font-extrabold uppercase tracking-wider text-[11px] font-mono">
+                    VEDANT TIWARI
+                  </span>
+                  <span className="text-[var(--text-secondary)] font-mono text-[10px]">&bull;</span>
+                  <span className="text-[#ED463B] font-bold text-[11px] font-mono tracking-wider">
+                    PERFORMANCE MARKETING
+                  </span>
                 </div>
 
-                {/* Role Label Overlay on bottom */}
-                <div className="absolute bottom-5 left-5 right-5 p-4 rounded-2xl bg-black/75 backdrop-blur-md border border-white/15 text-white">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <div className="text-sm font-extrabold tracking-wide uppercase font-outfit">
-                        VEDANT TIWARI
-                      </div>
-                      <div className="text-[11px] font-mono tracking-widest text-[#ED463B] uppercase font-bold mt-0.5">
-                        PERFORMANCE MARKETING
-                      </div>
-                    </div>
-                    <div className="w-8 h-8 rounded-full bg-[#ED463B]/20 border border-[#ED463B]/40 flex items-center justify-center text-[#ED463B]">
-                      <TrendingUp className="w-4 h-4" />
-                    </div>
-                  </div>
+                <div className="hidden sm:inline-flex items-center gap-2 text-[11px] font-mono text-[var(--text-secondary)]">
+                  <span>Strategy &bull; Media &bull; Tracking</span>
                 </div>
               </div>
 
-              {/* Bottom Quick Card Footer */}
-              <div className="p-4 bg-[var(--bg-card)] flex items-center justify-between text-xs text-[var(--text-secondary)] border-t border-[var(--border-subtle)]">
-                <span className="font-mono">Strategy &bull; Media &bull; Tracking</span>
-                <span className="text-[#ED463B] font-semibold font-mono">Mumbai, India</span>
-              </div>
             </div>
           </div>
 
