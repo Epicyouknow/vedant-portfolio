@@ -1,6 +1,19 @@
 'use client';
 
 import { useCallback } from 'react';
+import { 
+  trackPixelEvent, 
+  trackPixelCustom, 
+  trackButtonClick, 
+  trackNavigationClick, 
+  trackContactClick,
+  trackFormStart,
+  trackFormQualification,
+  trackFormSubmitAttempt,
+  trackFormError,
+  generateEventId,
+  getAttributionData
+} from '@/lib/tracking';
 
 export interface AnalyticsEvent {
   eventName: string;
@@ -9,12 +22,10 @@ export interface AnalyticsEvent {
 
 export function useAnalytics() {
   const trackEvent = useCallback((eventName: string, metadata?: Record<string, any>) => {
-    // 1. Send to Google Analytics 4 (GA4) if loaded
-    if (typeof window !== 'undefined' && (window as any).gtag) {
-      (window as any).gtag('event', eventName, metadata);
-    }
+    // 1. Send to Meta Pixel & GA4 through unified engine
+    trackPixelCustom(eventName, metadata);
 
-    // 2. Send to our Custom Admin Analytics API
+    // 2. Send to Custom Admin Analytics API
     if (typeof window !== 'undefined') {
       const payload = {
         eventName,
@@ -37,7 +48,10 @@ export function useAnalytics() {
   }, []);
 
   const trackPageView = useCallback((path: string) => {
-    // 1. Send to GA4
+    // 1. Meta Pixel Standard PageView
+    trackPixelEvent('PageView', { page_path: path });
+
+    // 2. GA4 Page View
     if (typeof window !== 'undefined' && (window as any).gtag) {
       const gaId = process.env.NEXT_PUBLIC_GA_ID || 'G-50KTBS74YJ';
       if (gaId) {
@@ -45,12 +59,21 @@ export function useAnalytics() {
       }
     }
 
-    // 2. Send to custom endpoint
+    // 3. Custom telemetry endpoint
     trackEvent('page_view', { path });
   }, [trackEvent]);
 
   return {
     trackEvent,
     trackPageView,
+    trackButtonClick,
+    trackNavigationClick,
+    trackContactClick,
+    trackFormStart,
+    trackFormQualification,
+    trackFormSubmitAttempt,
+    trackFormError,
+    generateEventId,
+    getAttributionData,
   };
 }

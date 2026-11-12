@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { ArrowRight, Sparkles } from 'lucide-react';
+import { trackButtonClick } from '@/lib/tracking';
 
 export default function FinalCTASection() {
   const scrollTo = (id: string) => {
@@ -36,7 +37,15 @@ export default function FinalCTASection() {
 
         <button
           type="button"
-          onClick={() => scrollTo('enquiry')}
+          onClick={() => {
+            trackButtonClick({
+              buttonName: 'final_cta_start_conversation',
+              label: 'Start a Conversation',
+              sectionName: 'final_cta',
+              destination: '#enquiry',
+            });
+            scrollTo('enquiry');
+          }}
           className="inline-flex items-center justify-center gap-3 px-9 py-4 rounded-full bg-[#ED463B] hover:bg-[#d9382d] text-white text-sm font-bold uppercase tracking-wider transition-all duration-200 shadow-xl shadow-[#ED463B]/25 hover:shadow-2xl hover:shadow-[#ED463B]/35 hover:-translate-y-0.5 cursor-pointer group"
         >
           <span>Start a Conversation</span>

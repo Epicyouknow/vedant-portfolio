@@ -20,6 +20,17 @@ export interface Inquiry {
   utmSource?: string;
   utmMedium?: string;
   utmCampaign?: string;
+  utmContent?: string;
+  utmTerm?: string;
+  fbclid?: string;
+  fbc?: string;
+  fbp?: string;
+  firstTouch?: any;
+  latestTouch?: any;
+  eventId?: string;
+  capiStatus?: 'delivered' | 'skipped' | 'failed';
+  capiEventId?: string;
+  capiTraceId?: string;
 }
 
 const dbPath = path.join(process.cwd(), 'inquiries.json');
@@ -43,6 +54,17 @@ function normalizeInquiry(item: any, index: number): Inquiry {
     utmSource: item.utmSource || '',
     utmMedium: item.utmMedium || '',
     utmCampaign: item.utmCampaign || '',
+    utmContent: item.utmContent || '',
+    utmTerm: item.utmTerm || '',
+    fbclid: item.fbclid || '',
+    fbc: item.fbc || '',
+    fbp: item.fbp || '',
+    firstTouch: item.firstTouch || null,
+    latestTouch: item.latestTouch || null,
+    eventId: item.eventId || '',
+    capiStatus: item.capiStatus,
+    capiEventId: item.capiEventId,
+    capiTraceId: item.capiTraceId,
   };
 }
 
@@ -139,6 +161,17 @@ export async function saveInquiry(
     utmSource: record.utmSource || '',
     utmMedium: record.utmMedium || '',
     utmCampaign: record.utmCampaign || '',
+    utmContent: record.utmContent || '',
+    utmTerm: record.utmTerm || '',
+    fbclid: record.fbclid || '',
+    fbc: record.fbc || '',
+    fbp: record.fbp || '',
+    firstTouch: record.firstTouch || null,
+    latestTouch: record.latestTouch || null,
+    eventId: record.eventId || '',
+    capiStatus: record.capiStatus,
+    capiEventId: record.capiEventId,
+    capiTraceId: record.capiTraceId,
   };
   inquiries.push(newInquiry);
   await saveInquiries(inquiries);

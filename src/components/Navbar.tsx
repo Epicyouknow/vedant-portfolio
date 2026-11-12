@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { Menu, X, ArrowRight } from 'lucide-react';
 import ThemeToggle from './ThemeToggle';
 import { useEnquiryModal } from '../context/EnquiryModalContext';
+import { trackButtonClick, trackNavigationClick } from '@/lib/tracking';
 
 export default function Navbar() {
   const { openModal } = useEnquiryModal();
@@ -125,7 +126,15 @@ export default function Navbar() {
 
           <button
             type="button"
-            onClick={openModal}
+            onClick={() => {
+              trackButtonClick({
+                buttonName: 'header_discuss_click',
+                label: "Let's Discuss",
+                sectionName: 'header',
+                destination: 'modal',
+              });
+              openModal();
+            }}
             className="hidden sm:inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-bold uppercase tracking-wider bg-[#ED463B] hover:bg-[#d9382d] text-white transition-all duration-200 cursor-pointer shadow-md shadow-[#ED463B]/20 group"
           >
             <span>Let&apos;s Discuss</span>
@@ -222,6 +231,12 @@ export default function Navbar() {
               <button
                 type="button"
                 onClick={() => {
+                  trackButtonClick({
+                    buttonName: 'mobile_header_discuss_click',
+                    label: "LET'S DISCUSS YOUR BUSINESS",
+                    sectionName: 'mobile_nav',
+                    destination: 'modal',
+                  });
                   setMobileMenuOpen(false);
                   openModal();
                 }}

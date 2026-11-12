@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Send, CheckCircle2, AlertCircle, Sparkles } from 'lucide-react';
 import { useAnalytics } from '../hooks/useAnalytics';
+import { getAttributionData, trackPixelEvent, generateEventId } from '@/lib/tracking';
 
 export default function ContactForm() {
   const { trackEvent } = useAnalytics();
@@ -48,20 +49,45 @@ export default function ContactForm() {
     trackEvent('form_submit_start');
 
     try {
+      const attr = getAttributionData();
+      const clientEventId = generateEventId('lead');
+
       const res = await fetch('/api/inquiries', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify(formData)
+        body: JSON.stringify({
+          ...formData,
+          utmSource: attr.utmSource,
+          utmMedium: attr.utmMedium,
+          utmCampaign: attr.utmCampaign,
+          utmContent: attr.utmContent,
+          utmTerm: attr.utmTerm,
+          fbclid: attr.fbclid,
+          fbc: attr.fbc,
+          fbp: attr.fbp,
+          firstTouch: attr.firstTouch,
+          latestTouch: attr.latestTouch,
+          landingUrl: attr.landingUrl,
+          eventId: clientEventId,
+        })
       });
 
-      if (res.ok) {
+      const data = await res.json();
+
+      if (res.ok && data.success) {
         setStatus('success');
-        trackEvent('form_submit_success', { budget: formData.budget });
+        const stableEventId = data.eventId || clientEventId;
+        trackPixelEvent('Lead', {
+          content_name: 'Contact Session',
+          content_category: 'Consultation',
+          value: formData.budget,
+          currency: 'INR',
+        }, stableEventId);
+        trackEvent('form_submit_success', { budget: formData.budget, event_id: stableEventId });
         setFormData({ name: '', email: '', phone: '', budget: '', message: '' });
       } else {
-        const data = await res.json();
         setErrorMessage(data.error || 'Something went wrong. Please try again.');
         setStatus('error');
         trackEvent('form_submit_failed', { error: data.error });

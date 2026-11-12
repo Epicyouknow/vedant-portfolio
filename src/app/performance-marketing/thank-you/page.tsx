@@ -15,6 +15,7 @@ import {
 import LandingNavbar from '@/components/performance-marketing/LandingNavbar';
 import LandingFooter from '@/components/performance-marketing/LandingFooter';
 import { useAnalytics } from '@/hooks/useAnalytics';
+import { trackThankYouView } from '@/lib/tracking';
 
 interface LeadData {
   name: string;
@@ -32,6 +33,7 @@ export default function ThankYouPage() {
 
   useEffect(() => {
     trackPageView('/performance-marketing/thank-you');
+    trackThankYouView();
 
     if (typeof window !== 'undefined') {
       const stored = sessionStorage.getItem('vv_last_lead');

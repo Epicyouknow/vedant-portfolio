@@ -3,6 +3,7 @@
 import React from 'react';
 import Image from 'next/image';
 import { ArrowRight, ChevronDown, TrendingUp } from 'lucide-react';
+import { trackButtonClick } from '@/lib/tracking';
 
 export default function HeroSection() {
   const scrollTo = (id: string) => {
@@ -62,7 +63,15 @@ export default function HeroSection() {
             <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 w-full sm:w-auto mb-10">
               <button
                 type="button"
-                onClick={() => scrollTo('enquiry')}
+                onClick={() => {
+                  trackButtonClick({
+                    buttonName: 'perf_hero_discuss_business',
+                    label: "Let's Discuss Your Business",
+                    sectionName: 'hero_perf',
+                    destination: '#enquiry',
+                  });
+                  scrollTo('enquiry');
+                }}
                 className="inline-flex items-center justify-center gap-3 px-8 py-4 rounded-full bg-[#ED463B] hover:bg-[#d9382d] text-white text-sm font-bold uppercase tracking-wider transition-all duration-200 shadow-lg shadow-[#ED463B]/25 hover:shadow-xl hover:shadow-[#ED463B]/35 hover:-translate-y-0.5 cursor-pointer group"
               >
                 <span>Let&apos;s Discuss Your Business</span>
@@ -71,7 +80,15 @@ export default function HeroSection() {
 
               <button
                 type="button"
-                onClick={() => scrollTo('capabilities')}
+                onClick={() => {
+                  trackButtonClick({
+                    buttonName: 'perf_hero_explore_capabilities',
+                    label: 'Explore Capabilities',
+                    sectionName: 'hero_perf',
+                    destination: '#capabilities',
+                  });
+                  scrollTo('capabilities');
+                }}
                 className="inline-flex items-center justify-center gap-2 px-7 py-4 rounded-full border border-[var(--border-strong)] bg-[var(--bg-card)] hover:bg-[var(--bg-card-subtle)] text-[var(--text-primary)] text-sm font-semibold tracking-wide transition-all duration-200 cursor-pointer"
               >
                 <span>Explore Capabilities</span>

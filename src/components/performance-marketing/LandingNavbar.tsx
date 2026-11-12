@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { ArrowRight, Menu, X, Shield, Sparkles } from 'lucide-react';
 import ThemeToggle from '../ThemeToggle';
+import { trackButtonClick, trackNavigationClick } from '@/lib/tracking';
 
 export default function LandingNavbar() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -102,7 +103,15 @@ export default function LandingNavbar() {
           <ThemeToggle />
 
           <button
-            onClick={() => scrollTo('enquiry')}
+            onClick={() => {
+              trackButtonClick({
+                buttonName: 'landing_header_discuss_click',
+                label: "Let's Discuss",
+                sectionName: 'landing_navbar',
+                destination: '#enquiry',
+              });
+              scrollTo('enquiry');
+            }}
             className="hidden sm:inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-bold tracking-wide uppercase bg-[#ED463B] hover:bg-[#d9382d] text-white transition-all duration-200 cursor-pointer shadow-md shadow-[#ED463B]/20 group"
           >
             <span>Let&apos;s Discuss</span>

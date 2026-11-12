@@ -7,7 +7,7 @@ import { portfolioData } from '../data/portfolio';
 import { useAnalytics } from '../hooks/useAnalytics';
 
 export default function CreditsFooter() {
-  const { trackEvent } = useAnalytics();
+  const { trackEvent, trackContactClick } = useAnalytics();
   const cursorDotRef = useRef<HTMLDivElement>(null);
   const cursorGlowRef = useRef<HTMLDivElement>(null);
 
@@ -114,7 +114,7 @@ export default function CreditsFooter() {
             <div className="space-y-3">
               <a
                 href={`mailto:${portfolioData.personal.email}`}
-                onClick={() => trackEvent('contact_click', { type: 'email' })}
+                onClick={() => trackContactClick('email', portfolioData.personal.email, 'credits_footer')}
                 className="flex items-center gap-2.5 text-xs text-neutral-400 hover:text-white transition-colors"
               >
                 <Mail className="w-4 h-4 text-[#E50914]" />
@@ -122,7 +122,7 @@ export default function CreditsFooter() {
               </a>
               <a
                 href={`tel:${portfolioData.personal.phone}`}
-                onClick={() => trackEvent('contact_click', { type: 'phone' })}
+                onClick={() => trackContactClick('phone', portfolioData.personal.phone, 'credits_footer')}
                 className="flex items-center gap-2.5 text-xs text-neutral-400 hover:text-white transition-colors"
               >
                 <Phone className="w-4 h-4 text-[#E50914]" />

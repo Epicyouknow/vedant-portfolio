@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import { trackButtonClick } from '@/lib/tracking';
 import { 
   ArrowUpRight, 
   Layers, 
@@ -107,6 +108,12 @@ export default function SelectedWorkSection() {
   ];
 
   const handleDiscuss = (projectName: string) => {
+    trackButtonClick({
+      buttonName: 'selected_work_contact_click',
+      label: `Discuss: ${projectName}`,
+      sectionName: 'selected_work',
+      destination: '#enquiry',
+    });
     const el = document.getElementById('enquiry');
     if (el) {
       el.scrollIntoView({ behavior: 'smooth' });

@@ -7,6 +7,7 @@ import { TextMaskReveal, FadeUpStagger, FadeUpItem, EASING } from './motion/Moti
 import StatsStrip from './StatsStrip';
 import FlippablePortrait from './FlippablePortrait';
 import { useEnquiryModal } from '../context/EnquiryModalContext';
+import { trackButtonClick } from '@/lib/tracking';
 
 export default function Hero() {
   const { openModal } = useEnquiryModal();
@@ -65,7 +66,15 @@ export default function Hero() {
               <FadeUpItem>
                 <button
                   type="button"
-                  onClick={openModal}
+                  onClick={() => {
+                    trackButtonClick({
+                      buttonName: 'hero_discuss_business',
+                      label: "LET'S DISCUSS YOUR BUSINESS",
+                      sectionName: 'hero_main',
+                      destination: 'modal',
+                    });
+                    openModal();
+                  }}
                   className="inline-flex items-center gap-3 px-8 py-4 rounded-full text-xs sm:text-sm font-bold uppercase tracking-wider bg-[#ED463B] hover:bg-[#d9382d] text-white transition-all duration-200 cursor-pointer shadow-lg shadow-[#ED463B]/25 hover:shadow-xl hover:shadow-[#ED463B]/35 hover:-translate-y-0.5 group"
                 >
                   <span>LET&apos;S DISCUSS YOUR BUSINESS</span>
@@ -76,7 +85,15 @@ export default function Hero() {
               <FadeUpItem>
                 <button
                   type="button"
-                  onClick={() => scrollTo('featured-work')}
+                  onClick={() => {
+                    trackButtonClick({
+                      buttonName: 'hero_explore_work',
+                      label: 'Explore selected work',
+                      sectionName: 'hero_main',
+                      destination: '#featured-work',
+                    });
+                    scrollTo('featured-work');
+                  }}
                   className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full text-xs sm:text-sm font-medium tracking-wide bg-transparent text-[var(--text-primary)] border border-[var(--border-strong)] hover:border-[var(--text-primary)] hover:bg-[var(--bg-card)] transition-all duration-200 cursor-pointer group"
                 >
                   <span>Explore selected work</span>

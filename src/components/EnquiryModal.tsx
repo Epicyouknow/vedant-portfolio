@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { 
   X, 
@@ -12,6 +12,15 @@ import {
   Sparkles 
 } from 'lucide-react';
 import { useEnquiryModal } from '../context/EnquiryModalContext';
+import { 
+  getAttributionData, 
+  generateEventId, 
+  trackFormStart, 
+  trackFormQualification, 
+  trackFormSubmitAttempt, 
+  trackFormError, 
+  trackPixelEvent 
+} from '@/lib/tracking';
 
 export default function EnquiryModal() {
   const router = useRouter();
@@ -33,25 +42,24 @@ export default function EnquiryModal() {
   // Status
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+  const hasTrackedStart = useRef(false);
 
-  // UTM parameters
-  const [utmParams, setUtmParams] = useState({
-    utmSource: '',
-    utmMedium: '',
-    utmCampaign: '',
-  });
-
-  // Read UTM params on mount
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const params = new URLSearchParams(window.location.search);
-      setUtmParams({
-        utmSource: params.get('utm_source') || '',
-        utmMedium: params.get('utm_medium') || '',
-        utmCampaign: params.get('utm_campaign') || '',
-      });
+  const handleFormInteraction = () => {
+    if (!hasTrackedStart.current) {
+      hasTrackedStart.current = true;
+      trackFormStart('enquiry_modal');
     }
-  }, []);
+  };
+
+  const handleServiceChange = (val: string) => {
+    setServiceHelp(val);
+    trackFormQualification('enquiry_modal', 'service', val);
+  };
+
+  const handleBudgetChange = (val: string) => {
+    setAdvertisingBudget(val);
+    trackFormQualification('enquiry_modal', 'budget', val);
+  };
 
   // Escape key listener & body scroll lock
   useEffect(() => {
@@ -77,6 +85,7 @@ export default function EnquiryModal() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setErrorMessage('');
+    trackFormSubmitAttempt('enquiry_modal');
 
     // Spam honeypot
     if (companyFax) {
@@ -85,51 +94,59 @@ export default function EnquiryModal() {
     }
 
     // STRICT VALIDATION - ALL FIELDS MANDATORY
+    const triggerValidationError = (msg: string) => {
+      setErrorMessage(msg);
+      trackFormError('enquiry_modal', msg);
+    };
+
     if (!fullName.trim()) {
-      setErrorMessage('Please enter your full name.');
+      triggerValidationError('Please enter your full name.');
       return;
     }
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(businessEmail.trim())) {
-      setErrorMessage('Please enter a valid business email address.');
+      triggerValidationError('Please enter a valid business email address.');
       return;
     }
 
     const cleanPhoneDigits = phoneNumber.replace(/\D/g, '');
     if (cleanPhoneDigits.length < 10) {
-      setErrorMessage('Please enter a valid 10-digit phone or WhatsApp number.');
+      triggerValidationError('Please enter a valid 10-digit phone or WhatsApp number.');
       return;
     }
 
     if (!businessName.trim()) {
-      setErrorMessage('Please enter your business or company name.');
+      triggerValidationError('Please enter your business or company name.');
       return;
     }
 
     if (!websiteUrl.trim()) {
-      setErrorMessage('Please provide your website or Instagram handle.');
+      triggerValidationError('Please provide your website or Instagram handle.');
       return;
     }
 
     if (!serviceHelp.trim()) {
-      setErrorMessage('Please select what you need help with.');
+      triggerValidationError('Please select what you need help with.');
       return;
     }
 
     if (!advertisingBudget.trim()) {
-      setErrorMessage('Please select your monthly advertising budget.');
+      triggerValidationError('Please select your monthly advertising budget.');
       return;
     }
 
     if (!additionalNotes.trim()) {
-      setErrorMessage('Please share a few words about your business goals or current advertising bottlenecks.');
+      triggerValidationError('Please share a few words about your business goals or current advertising bottlenecks.');
       return;
     }
 
     setIsSubmitting(true);
 
     try {
+      const attr = getAttributionData();
+      const clientEventId = generateEventId('lead');
+
       const payload = {
         name: fullName.trim(),
         email: businessEmail.trim().toLowerCase(),
@@ -139,9 +156,18 @@ export default function EnquiryModal() {
         serviceHelp,
         budget: advertisingBudget,
         message: additionalNotes.trim(),
-        utmSource: utmParams.utmSource,
-        utmMedium: utmParams.utmMedium,
-        utmCampaign: utmParams.utmCampaign,
+        utmSource: attr.utmSource,
+        utmMedium: attr.utmMedium,
+        utmCampaign: attr.utmCampaign,
+        utmContent: attr.utmContent,
+        utmTerm: attr.utmTerm,
+        fbclid: attr.fbclid,
+        fbc: attr.fbc,
+        fbp: attr.fbp,
+        firstTouch: attr.firstTouch,
+        latestTouch: attr.latestTouch,
+        landingUrl: attr.landingUrl,
+        eventId: clientEventId,
       };
 
       const res = await fetch('/api/inquiries', {
@@ -156,21 +182,15 @@ export default function EnquiryModal() {
         throw new Error(data.error || 'Failed to submit enquiry. Please try again.');
       }
 
-      const eventId = data.eventId || `lead_${Date.now()}`;
+      const stableEventId = data.eventId || clientEventId;
 
-      // 1. Trigger Meta Pixel Lead event
-      if (typeof window !== 'undefined' && (window as any).fbq) {
-        try {
-          (window as any).fbq('track', 'Lead', {
-            content_name: serviceHelp,
-            content_category: 'Performance Marketing',
-            value: advertisingBudget,
-            currency: 'INR',
-          }, { eventID: eventId });
-        } catch (fbErr) {
-          console.warn('Meta Pixel dispatch error:', fbErr);
-        }
-      }
+      // 1. Trigger Meta Pixel Lead event (Deduplicated with exact server CAPI event_id)
+      trackPixelEvent('Lead', {
+        content_name: serviceHelp,
+        content_category: 'Performance Marketing',
+        value: advertisingBudget,
+        currency: 'INR',
+      }, stableEventId);
 
       // 2. Trigger GA4 generate_lead conversion event
       if (typeof window !== 'undefined' && (window as any).gtag) {
@@ -179,7 +199,7 @@ export default function EnquiryModal() {
             currency: 'INR',
             service_help: serviceHelp,
             budget: advertisingBudget,
-            event_id: eventId,
+            event_id: stableEventId,
           });
         } catch (gaErr) {
           console.warn('GA4 dispatch error:', gaErr);
@@ -194,7 +214,7 @@ export default function EnquiryModal() {
           business: businessName,
           service: serviceHelp,
           budget: advertisingBudget,
-          id: data.id || eventId,
+          id: data.id || stableEventId,
           timestamp: new Date().toISOString(),
         }));
       }
@@ -203,7 +223,9 @@ export default function EnquiryModal() {
       router.push('/performance-marketing/thank-you');
     } catch (err: any) {
       console.error('Modal submission error:', err);
-      setErrorMessage(err.message || 'Something went wrong. Please check your connection.');
+      const errMsg = err.message || 'Something went wrong. Please check your connection.';
+      setErrorMessage(errMsg);
+      trackFormError('enquiry_modal', errMsg);
       setIsSubmitting(false);
     }
   };
@@ -254,7 +276,7 @@ export default function EnquiryModal() {
           </div>
         )}
 
-        <form onSubmit={handleSubmit} className="space-y-4 text-left">
+        <form onSubmit={handleSubmit} onFocus={handleFormInteraction} className="space-y-4 text-left">
           
           {/* Honeypot hidden input */}
           <div className="hidden" aria-hidden="true">
@@ -353,7 +375,7 @@ export default function EnquiryModal() {
             <select
               required
               value={serviceHelp}
-              onChange={(e) => setServiceHelp(e.target.value)}
+              onChange={(e) => handleServiceChange(e.target.value)}
               className="w-full px-3.5 py-3 rounded-xl bg-[var(--bg-base)] border border-[var(--border-subtle)] text-[var(--text-primary)] text-sm focus:outline-none focus:border-[#ED463B] transition-colors cursor-pointer"
             >
               <option value="Meta Ads Management">Meta Ads Management</option>
@@ -375,7 +397,7 @@ export default function EnquiryModal() {
             <select
               required
               value={advertisingBudget}
-              onChange={(e) => setAdvertisingBudget(e.target.value)}
+              onChange={(e) => handleBudgetChange(e.target.value)}
               className="w-full px-3.5 py-3 rounded-xl bg-[var(--bg-base)] border border-[var(--border-subtle)] text-[var(--text-primary)] text-sm focus:outline-none focus:border-[#ED463B] transition-colors cursor-pointer font-medium"
             >
               <option value="Below ₹10,000">Below ₹10,000</option>

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { 
   ArrowRight, 
@@ -11,6 +11,15 @@ import {
   Sparkles,
   ShieldCheck 
 } from 'lucide-react';
+import { 
+  getAttributionData, 
+  generateEventId, 
+  trackFormStart, 
+  trackFormQualification, 
+  trackFormSubmitAttempt, 
+  trackFormError, 
+  trackPixelEvent 
+} from '@/lib/tracking';
 
 export default function LeadEnquiryForm() {
   const router = useRouter();
@@ -31,32 +40,29 @@ export default function LeadEnquiryForm() {
   // Status
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+  const hasTrackedStart = useRef(false);
 
-  // UTM Parameters
-  const [utmParams, setUtmParams] = useState({
-    utmSource: '',
-    utmMedium: '',
-    utmCampaign: '',
-    utmTerm: '',
-    utmContent: '',
-  });
-
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const params = new URLSearchParams(window.location.search);
-      setUtmParams({
-        utmSource: params.get('utm_source') || '',
-        utmMedium: params.get('utm_medium') || '',
-        utmCampaign: params.get('utm_campaign') || '',
-        utmTerm: params.get('utm_term') || '',
-        utmContent: params.get('utm_content') || '',
-      });
+  const handleFormInteraction = () => {
+    if (!hasTrackedStart.current) {
+      hasTrackedStart.current = true;
+      trackFormStart('lead_enquiry_form');
     }
-  }, []);
+  };
+
+  const handleServiceChange = (val: string) => {
+    setServiceHelp(val);
+    trackFormQualification('lead_enquiry_form', 'service', val);
+  };
+
+  const handleBudgetChange = (val: string) => {
+    setAdvertisingBudget(val);
+    trackFormQualification('lead_enquiry_form', 'budget', val);
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setErrorMessage('');
+    trackFormSubmitAttempt('lead_enquiry_form');
 
     // Spam honeypot check
     if (companyFax) {
@@ -65,51 +71,59 @@ export default function LeadEnquiryForm() {
     }
 
     // Client-side validations
+    const triggerValidationError = (msg: string) => {
+      setErrorMessage(msg);
+      trackFormError('lead_enquiry_form', msg);
+    };
+
     if (!fullName.trim()) {
-      setErrorMessage('Please enter your full name.');
+      triggerValidationError('Please enter your full name.');
       return;
     }
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(businessEmail.trim())) {
-      setErrorMessage('Please enter a valid business email address.');
+      triggerValidationError('Please enter a valid business email address.');
       return;
     }
 
     const cleanPhoneDigits = phoneNumber.replace(/\D/g, '');
     if (cleanPhoneDigits.length < 10) {
-      setErrorMessage('Please provide a valid 10-digit phone or WhatsApp number.');
+      triggerValidationError('Please provide a valid 10-digit phone or WhatsApp number.');
       return;
     }
 
     if (!businessName.trim()) {
-      setErrorMessage('Please enter your business or company name.');
+      triggerValidationError('Please enter your business or company name.');
       return;
     }
 
     if (!websiteUrl.trim()) {
-      setErrorMessage('Please enter your Website or Instagram URL.');
+      triggerValidationError('Please enter your Website or Instagram URL.');
       return;
     }
 
     if (!serviceHelp.trim()) {
-      setErrorMessage('Please select what you need help with.');
+      triggerValidationError('Please select what you need help with.');
       return;
     }
 
     if (!advertisingBudget.trim()) {
-      setErrorMessage('Please select your monthly advertising budget.');
+      triggerValidationError('Please select your monthly advertising budget.');
       return;
     }
 
     if (!additionalNotes.trim()) {
-      setErrorMessage('Please share any context regarding your business or immediate objectives.');
+      triggerValidationError('Please share any context regarding your business or immediate objectives.');
       return;
     }
 
     setIsSubmitting(true);
 
     try {
+      const attr = getAttributionData();
+      const clientEventId = generateEventId('lead');
+
       const payload = {
         name: fullName.trim(),
         email: businessEmail.trim().toLowerCase(),
@@ -119,9 +133,18 @@ export default function LeadEnquiryForm() {
         serviceHelp,
         budget: advertisingBudget,
         message: additionalNotes.trim(),
-        utmSource: utmParams.utmSource,
-        utmMedium: utmParams.utmMedium,
-        utmCampaign: utmParams.utmCampaign,
+        utmSource: attr.utmSource,
+        utmMedium: attr.utmMedium,
+        utmCampaign: attr.utmCampaign,
+        utmContent: attr.utmContent,
+        utmTerm: attr.utmTerm,
+        fbclid: attr.fbclid,
+        fbc: attr.fbc,
+        fbp: attr.fbp,
+        firstTouch: attr.firstTouch,
+        latestTouch: attr.latestTouch,
+        landingUrl: attr.landingUrl,
+        eventId: clientEventId,
       };
 
       const res = await fetch('/api/inquiries', {
@@ -136,21 +159,15 @@ export default function LeadEnquiryForm() {
         throw new Error(data.error || 'Failed to submit enquiry. Please try again.');
       }
 
-      const eventId = data.eventId || `lead_${Date.now()}`;
+      const stableEventId = data.eventId || clientEventId;
 
-      // 1. Trigger Meta Pixel Lead Event (Once, with Event ID deduplication)
-      if (typeof window !== 'undefined' && (window as any).fbq) {
-        try {
-          (window as any).fbq('track', 'Lead', {
-            content_name: serviceHelp,
-            content_category: 'Performance Marketing',
-            value: advertisingBudget,
-            currency: 'INR',
-          }, { eventID: eventId });
-        } catch (fbErr) {
-          console.warn('Meta Pixel Lead dispatch warning:', fbErr);
-        }
-      }
+      // 1. Trigger Meta Pixel Lead Event (Deduplicated with exact CAPI event_id)
+      trackPixelEvent('Lead', {
+        content_name: serviceHelp,
+        content_category: 'Performance Marketing',
+        value: advertisingBudget,
+        currency: 'INR',
+      }, stableEventId);
 
       // 2. Trigger Google Analytics 4 generate_lead conversion event
       if (typeof window !== 'undefined' && (window as any).gtag) {
@@ -159,7 +176,7 @@ export default function LeadEnquiryForm() {
             currency: 'INR',
             service_help: serviceHelp,
             budget: advertisingBudget,
-            event_id: eventId,
+            event_id: stableEventId,
           });
         } catch (gaErr) {
           console.warn('GA4 generate_lead warning:', gaErr);
@@ -174,7 +191,7 @@ export default function LeadEnquiryForm() {
           business: businessName,
           service: serviceHelp,
           budget: advertisingBudget,
-          id: data.id || eventId,
+          id: data.id || stableEventId,
           timestamp: new Date().toISOString(),
         }));
       }
@@ -183,7 +200,9 @@ export default function LeadEnquiryForm() {
       router.push('/performance-marketing/thank-you');
     } catch (err: any) {
       console.error('Submission error:', err);
-      setErrorMessage(err.message || 'Something went wrong. Please check your connection.');
+      const errMsg = err.message || 'Something went wrong. Please check your connection.';
+      setErrorMessage(errMsg);
+      trackFormError('lead_enquiry_form', errMsg);
       setIsSubmitting(false);
     }
   };
@@ -220,7 +239,7 @@ export default function LeadEnquiryForm() {
             </div>
           )}
 
-          <form onSubmit={handleSubmit} className="space-y-6">
+          <form onSubmit={handleSubmit} onFocus={handleFormInteraction} className="space-y-6">
             
             {/* Honeypot hidden input */}
             <div className="hidden" aria-hidden="true">
@@ -318,7 +337,7 @@ export default function LeadEnquiryForm() {
               </label>
               <select
                 value={serviceHelp}
-                onChange={(e) => setServiceHelp(e.target.value)}
+                onChange={(e) => handleServiceChange(e.target.value)}
                 className="w-full px-4 py-3.5 rounded-xl bg-[var(--bg-base)] border border-[var(--border-subtle)] text-[var(--text-primary)] text-sm focus:outline-none focus:border-[#ED463B] transition-colors cursor-pointer"
               >
                 <option value="Meta Ads Management">Meta Ads Management</option>
@@ -339,7 +358,7 @@ export default function LeadEnquiryForm() {
               </label>
               <select
                 value={advertisingBudget}
-                onChange={(e) => setAdvertisingBudget(e.target.value)}
+                onChange={(e) => handleBudgetChange(e.target.value)}
                 className="w-full px-4 py-3.5 rounded-xl bg-[var(--bg-base)] border border-[var(--border-subtle)] text-[var(--text-primary)] text-sm focus:outline-none focus:border-[#ED463B] transition-colors cursor-pointer font-medium"
               >
                 <option value="Below ₹10,000">Below ₹10,000</option>

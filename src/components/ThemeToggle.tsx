@@ -3,6 +3,7 @@
 import React from 'react';
 import { useTheme } from '../context/ThemeContext';
 import { Sun, Moon } from 'lucide-react';
+import { trackThemeChange } from '@/lib/tracking';
 
 interface ThemeToggleProps {
   className?: string;
@@ -15,7 +16,11 @@ export default function ThemeToggle({ className = '' }: ThemeToggleProps) {
   return (
     <button
       type="button"
-      onClick={toggleTheme}
+      onClick={() => {
+        const next = isDark ? 'light' : 'dark';
+        trackThemeChange(next);
+        toggleTheme();
+      }}
       aria-label={isDark ? 'Switch to light theme' : 'Switch to dark theme'}
       title={isDark ? 'Switch to light theme' : 'Switch to dark theme'}
       className={`relative inline-flex items-center justify-center w-9 h-9 rounded-full transition-all duration-200 border cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D94035] ${

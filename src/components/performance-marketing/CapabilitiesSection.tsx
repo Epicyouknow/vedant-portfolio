@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import { trackButtonClick } from '@/lib/tracking';
 import { 
   Target, 
   Search, 
@@ -115,7 +116,14 @@ export default function CapabilitiesSection() {
             return (
               <div
                 key={cap.id}
-                className="group relative p-7 rounded-2xl bg-[var(--bg-card)] border border-[var(--border-subtle)] shadow-xs hover:border-[#ED463B]/50 hover:shadow-xl transition-all duration-300 flex flex-col justify-between"
+                onClick={() => {
+                  trackButtonClick({
+                    buttonName: `capability_${cap.id.replace(/-/g, '_')}`,
+                    label: cap.title,
+                    sectionName: 'capabilities',
+                  });
+                }}
+                className="group relative p-7 rounded-2xl bg-[var(--bg-card)] border border-[var(--border-subtle)] shadow-xs hover:border-[#ED463B]/50 hover:shadow-xl transition-all duration-300 flex flex-col justify-between cursor-pointer"
               >
                 {/* Top Row: Tag & Icon */}
                 <div>

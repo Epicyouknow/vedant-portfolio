@@ -12,32 +12,21 @@ import LeadEnquiryForm from '@/components/performance-marketing/LeadEnquiryForm'
 import FinalCTASection from '@/components/performance-marketing/FinalCTASection';
 import LandingFooter from '@/components/performance-marketing/LandingFooter';
 import { useAnalytics } from '@/hooks/useAnalytics';
+import { trackPixelEvent } from '@/lib/tracking';
 
 export default function PerformanceMarketingClient() {
-  const { trackPageView, trackEvent } = useAnalytics();
+  const { trackPageView } = useAnalytics();
 
   useEffect(() => {
     // 1. Track standard page view
     trackPageView('/performance-marketing');
 
-    // 2. Track ViewContent event
-    trackEvent('ViewContent', {
+    // 2. Track Standard Meta ViewContent event
+    trackPixelEvent('ViewContent', {
       content_name: 'Performance Marketing Landing Page',
       content_category: 'Consultation & Growth Services',
     });
-
-    // 3. Meta Pixel ViewContent event
-    if (typeof window !== 'undefined' && (window as any).fbq) {
-      try {
-        (window as any).fbq('track', 'ViewContent', {
-          content_name: 'Performance Marketing Landing Page',
-          content_category: 'Consultation & Growth Services',
-        });
-      } catch (e) {
-        // Safe catch
-      }
-    }
-  }, [trackPageView, trackEvent]);
+  }, [trackPageView]);
 
   return (
     <div className="min-h-screen bg-[var(--bg-base)] text-[var(--text-primary)] transition-colors duration-200 flex flex-col justify-between selection:bg-[#ED463B] selection:text-white">
