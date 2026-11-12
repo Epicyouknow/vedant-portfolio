@@ -14,6 +14,12 @@ export interface Inquiry {
   status: InquiryStatus;
   notes?: string;
   starred?: boolean;
+  businessName?: string;
+  website?: string;
+  serviceHelp?: string;
+  utmSource?: string;
+  utmMedium?: string;
+  utmCampaign?: string;
 }
 
 const dbPath = path.join(process.cwd(), 'inquiries.json');
@@ -30,7 +36,13 @@ function normalizeInquiry(item: any, index: number): Inquiry {
     timestamp: item.timestamp || new Date().toISOString(),
     status: item.status || 'new',
     notes: item.notes || '',
-    starred: Boolean(item.starred)
+    starred: Boolean(item.starred),
+    businessName: item.businessName || '',
+    website: item.website || '',
+    serviceHelp: item.serviceHelp || '',
+    utmSource: item.utmSource || '',
+    utmMedium: item.utmMedium || '',
+    utmCampaign: item.utmCampaign || '',
   };
 }
 
@@ -120,7 +132,13 @@ export async function saveInquiry(
     timestamp: new Date().toISOString(),
     status: record.status || 'new',
     notes: record.notes || '',
-    starred: Boolean(record.starred)
+    starred: Boolean(record.starred),
+    businessName: record.businessName || '',
+    website: record.website || '',
+    serviceHelp: record.serviceHelp || '',
+    utmSource: record.utmSource || '',
+    utmMedium: record.utmMedium || '',
+    utmCampaign: record.utmCampaign || '',
   };
   inquiries.push(newInquiry);
   await saveInquiries(inquiries);

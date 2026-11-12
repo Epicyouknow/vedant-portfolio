@@ -67,6 +67,12 @@ export default function Navbar() {
           >
             Industries
           </button>
+          <Link
+            href="/performance-marketing"
+            className="hover:text-[#ED463B] transition-colors"
+          >
+            Growth Studio
+          </Link>
           <button
             onClick={() => scrollTo('growth-process')}
             className="hover:text-[var(--text-primary)] transition-colors cursor-pointer"
@@ -139,6 +145,14 @@ export default function Navbar() {
       {mobileMenuOpen && (
         <div className="lg:hidden border-b border-[var(--border-subtle)] bg-[var(--bg-base)] px-6 py-6 transition-all duration-200 shadow-lg">
           <nav className="flex flex-col gap-3 text-sm font-medium text-[var(--text-secondary)]">
+            <Link
+              href="/performance-marketing"
+              onClick={() => setMobileMenuOpen(false)}
+              className="text-left py-2 text-[#ED463B] font-bold transition-colors border-b border-[var(--border-subtle)] flex items-center justify-between"
+            >
+              <span>Growth Studio &bull; Performance Marketing</span>
+              <span>&rarr;</span>
+            </Link>
             <button
               onClick={() => scrollTo('case-study-cards')}
               className="text-left py-2 hover:text-[var(--text-primary)] transition-colors border-b border-[var(--border-subtle)]"

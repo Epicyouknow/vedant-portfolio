@@ -657,6 +657,138 @@ export async function sendAdminLoginNotification(params: {
   return { timestamp, results };
 }
 
+/**
+ * Sends an automated acknowledgement email to the prospect confirming enquiry receipt.
+ */
+export async function sendProspectAcknowledgement(inquiry: Inquiry): Promise<boolean> {
+  if (!inquiry.email || inquiry.email.includes('@whatsapp.lead')) {
+    return false;
+  }
+
+  const gmailPass = process.env.GMAIL_APP_PASSWORD || process.env.SMTP_PASS || DEFAULT_GMAIL_PASS;
+  const gmailUser = process.env.GMAIL_USER || DEFAULT_GMAIL_USER;
+  const resendKey = process.env.RESEND_API_KEY;
+
+  const subject = `Your Enquiry Has Been Received — VedantVerse Performance Marketing`;
+  const htmlContent = `
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Enquiry Has Been Received</title>
+</head>
+<body style="margin: 0; padding: 32px 14px; background-color: #F5F2EA; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; color: #191919; -webkit-font-smoothing: antialiased;">
+  <div style="max-width: 580px; margin: 0 auto; background-color: #FFFFFF; border: 1px solid #E6E0D7; border-radius: 16px; overflow: hidden; box-shadow: 0 10px 30px rgba(48, 40, 29, 0.06);">
+    <!-- Header -->
+    <div style="padding: 24px; border-bottom: 1px solid #EFECE6; background-color: #191919; color: #FFFFFF;">
+      <span style="display: inline-block; background-color: #ED463B; color: #FFFFFF; font-size: 10px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; padding: 3px 8px; border-radius: 4px; margin-bottom: 8px;">
+        VEDANTVERSE &bull; PERFORMANCE MARKETING
+      </span>
+      <h1 style="font-size: 20px; font-weight: 800; margin: 0; color: #FFFFFF; letter-spacing: -0.3px;">
+        Your Enquiry Has Been Received.
+      </h1>
+      <p style="font-size: 12px; color: #A9A69F; margin: 6px 0 0;">
+        Strategy &bull; Media &bull; Tracking &bull; Growth
+      </p>
+    </div>
+
+    <!-- Body -->
+    <div style="padding: 28px 24px;">
+      <p style="font-size: 15px; line-height: 1.6; margin: 0 0 16px; color: #191919;">
+        Hi ${escapeHtml(inquiry.name)},
+      </p>
+      <p style="font-size: 14px; line-height: 1.6; margin: 0 0 20px; color: #57544F;">
+        Thank you for reaching out. I'll review your requirements and get back to you with the right advertising approach for your business.
+      </p>
+
+      <!-- Summary Box -->
+      <div style="background-color: #F8F6F1; border: 1px solid #EAE5DC; border-radius: 10px; padding: 18px; margin: 0 0 24px;">
+        <div style="font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.8px; color: #ED463B; margin-bottom: 12px;">
+          Details Logged
+        </div>
+        <table width="100%" cellpadding="0" cellspacing="0" border="0" style="font-size: 13px; line-height: 1.8;">
+          ${inquiry.businessName ? `<tr><td style="color: #8C877E; width: 130px;">Business:</td><td style="font-weight: 600; color: #191919;">${escapeHtml(inquiry.businessName)}</td></tr>` : ''}
+          ${inquiry.serviceHelp ? `<tr><td style="color: #8C877E; width: 130px;">Help Needed:</td><td style="font-weight: 600; color: #191919;">${escapeHtml(inquiry.serviceHelp)}</td></tr>` : ''}
+          <tr><td style="color: #8C877E; width: 130px;">Monthly Budget:</td><td style="font-weight: 700; color: #ED463B;">${escapeHtml(inquiry.budget || 'Not specified')}</td></tr>
+          ${inquiry.phone ? `<tr><td style="color: #8C877E; width: 130px;">Phone:</td><td style="color: #191919;">${escapeHtml(inquiry.phone)}</td></tr>` : ''}
+          ${inquiry.website ? `<tr><td style="color: #8C877E; width: 130px;">Website / URL:</td><td style="color: #191919;">${escapeHtml(inquiry.website)}</td></tr>` : ''}
+        </table>
+      </div>
+
+      <p style="font-size: 13px; line-height: 1.6; margin: 0 0 20px; color: #77736D;">
+        <strong>What to expect next:</strong> I personally evaluate your unit economics, tracking architecture, and growth targets before our discussion. I will get in touch within <strong>24 business hours</strong>.
+      </p>
+
+      <div style="padding-top: 20px; border-top: 1px solid #EFECE6; font-size: 13px; color: #191919;">
+        <strong>Vedant Tiwari</strong><br>
+        <span style="font-size: 12px; color: #77736D;">Performance Marketing Executive & Media Planner</span><br>
+        <a href="https://vedantverse.in" style="color: #ED463B; text-decoration: none; font-size: 12px; font-weight: 600;">vedantverse.in</a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
+`.trim();
+
+  // 1. Direct Gmail SMTP via Nodemailer
+  if (gmailPass) {
+    try {
+      const cleanPass = gmailPass.replace(/\s+/g, '');
+      const transporter = nodemailer.createTransport({
+        host: 'smtp.gmail.com',
+        port: 465,
+        secure: true,
+        connectionTimeout: 5000,
+        auth: {
+          user: gmailUser,
+          pass: cleanPass
+        },
+        tls: {
+          rejectUnauthorized: false
+        }
+      });
+
+      await transporter.sendMail({
+        from: `"Vedant Tiwari | VedantVerse" <${gmailUser}>`,
+        to: inquiry.email,
+        subject,
+        html: htmlContent
+      });
+
+      return true;
+    } catch (err) {
+      console.warn('Prospect acknowledgement via SMTP failed:', err);
+    }
+  }
+
+  // 2. Resend REST API
+  if (resendKey) {
+    try {
+      const fromEmail = process.env.RESEND_FROM_EMAIL || 'VedantVerse <onboarding@resend.dev>';
+      const res = await fetch('https://api.resend.com/emails', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${resendKey}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          from: fromEmail,
+          to: [inquiry.email],
+          subject,
+          html: htmlContent
+        })
+      });
+
+      return res.ok;
+    } catch (err) {
+      console.warn('Prospect acknowledgement via Resend failed:', err);
+    }
+  }
+
+  return false;
+}
+
 function escapeHtml(str: string): string {
   if (!str) return '';
   return str

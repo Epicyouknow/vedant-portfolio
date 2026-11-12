@@ -57,6 +57,25 @@ const nextConfig: NextConfig = {
       },
     ];
   },
+  async redirects() {
+    return [
+      {
+        source: '/growth',
+        destination: '/performance-marketing',
+        permanent: false,
+      },
+      {
+        source: '/consult',
+        destination: '/performance-marketing',
+        permanent: false,
+      },
+      {
+        source: '/consultation',
+        destination: '/performance-marketing',
+        permanent: false,
+      },
+    ];
+  },
 };
 
 export default nextConfig;

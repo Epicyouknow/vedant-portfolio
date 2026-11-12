@@ -1,11 +1,24 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { loadInquiries, saveInquiry, updateInquiry, deleteInquiry } from '../../../lib/inquiries';
-import { sendInquiryNotifications } from '../../../lib/notifications';
+import { sendInquiryNotifications, sendProspectAcknowledgement } from '../../../lib/notifications';
 
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const { name, email, phone, budget, message, growthObjective, website } = body;
+    const {
+      name,
+      email,
+      phone,
+      budget,
+      message,
+      growthObjective,
+      businessName,
+      website,
+      serviceHelp,
+      utmSource,
+      utmMedium,
+      utmCampaign,
+    } = body;
 
     const contactInput = String(email || phone || '').trim();
     const isEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(contactInput);
@@ -17,10 +30,12 @@ export async function POST(req: NextRequest) {
     }
 
     const compiledMessage = [
-      message ? String(message).trim() : 'Lead Consultation Request',
+      businessName ? `[Business: ${businessName}]` : '',
+      serviceHelp ? `[Service: ${serviceHelp}]` : '',
       growthObjective ? `[Objective: ${growthObjective}]` : '',
       website ? `[Website: ${website}]` : '',
-    ].filter(Boolean).join(' ');
+      message ? String(message).trim() : 'Performance Marketing Consultation Request',
+    ].filter(Boolean).join(' \n');
 
     const cleanEmail = isEmail 
       ? contactInput.toLowerCase() 
@@ -35,13 +50,22 @@ export async function POST(req: NextRequest) {
       email: cleanEmail,
       phone: cleanPhone,
       budget: budget || 'Not specified',
-      message: compiledMessage
+      message: compiledMessage,
+      businessName: businessName ? String(businessName).trim() : '',
+      website: website ? String(website).trim() : '',
+      serviceHelp: serviceHelp ? String(serviceHelp).trim() : '',
+      utmSource: utmSource ? String(utmSource).trim() : '',
+      utmMedium: utmMedium ? String(utmMedium).trim() : '',
+      utmCampaign: utmCampaign ? String(utmCampaign).trim() : '',
     });
 
     // Await notification dispatch across all channels (Telegram, Email, etc.)
     // Ensures serverless environments (e.g. Vercel) do not terminate execution before delivery
     try {
-      await sendInquiryNotifications(savedInquiry);
+      await Promise.allSettled([
+        sendInquiryNotifications(savedInquiry),
+        sendProspectAcknowledgement(savedInquiry),
+      ]);
     } catch (notifErr) {
       console.error('Notification dispatch error:', notifErr);
     }
@@ -49,6 +73,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ 
       success: true, 
       id: savedInquiry.id,
+      eventId: `lead_${savedInquiry.id}`,
       message: 'Inquiry received successfully' 
     });
   } catch (error) {
