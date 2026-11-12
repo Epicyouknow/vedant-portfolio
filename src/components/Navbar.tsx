@@ -4,8 +4,10 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Menu, X, ArrowRight } from 'lucide-react';
 import ThemeToggle from './ThemeToggle';
+import { useEnquiryModal } from '../context/EnquiryModalContext';
 
 export default function Navbar() {
+  const { openModal } = useEnquiryModal();
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -123,11 +125,7 @@ export default function Navbar() {
 
           <button
             type="button"
-            onClick={() => {
-              if (typeof window !== 'undefined') {
-                window.dispatchEvent(new CustomEvent('open-enquiry-modal'));
-              }
-            }}
+            onClick={openModal}
             className="hidden sm:inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-bold uppercase tracking-wider bg-[#ED463B] hover:bg-[#d9382d] text-white transition-all duration-200 cursor-pointer shadow-md shadow-[#ED463B]/20 group"
           >
             <span>Let&apos;s Discuss</span>
@@ -225,9 +223,7 @@ export default function Navbar() {
                 type="button"
                 onClick={() => {
                   setMobileMenuOpen(false);
-                  if (typeof window !== 'undefined') {
-                    window.dispatchEvent(new CustomEvent('open-enquiry-modal'));
-                  }
+                  openModal();
                 }}
                 className="w-full py-3 rounded-full text-xs font-bold uppercase tracking-wider bg-[#ED463B] text-white hover:bg-[#d9382d] flex items-center justify-center gap-2 shadow-md shadow-[#ED463B]/20 cursor-pointer"
               >

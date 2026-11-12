@@ -3,6 +3,7 @@ import { Geist, Outfit, Butcherman } from "next/font/google";
 import "./globals.css";
 import AnalyticsScripts from "../components/AnalyticsScripts";
 import { ThemeProvider } from "../context/ThemeContext";
+import { EnquiryModalProvider } from "../context/EnquiryModalContext";
 import LeadPopup from "../components/LeadPopup";
 import EnquiryModal from "../components/EnquiryModal";
 
@@ -171,10 +172,12 @@ export default function RootLayout({
       </head>
       <body className="min-h-full flex flex-col transition-colors duration-200">
         <ThemeProvider>
-          <AnalyticsScripts />
-          {children}
-          <LeadPopup />
-          <EnquiryModal />
+          <EnquiryModalProvider>
+            <AnalyticsScripts />
+            {children}
+            <LeadPopup />
+            <EnquiryModal />
+          </EnquiryModalProvider>
         </ThemeProvider>
       </body>
     </html>

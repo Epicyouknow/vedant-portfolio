@@ -6,8 +6,10 @@ import { ArrowRight } from 'lucide-react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { TextMaskReveal, FadeUpStagger, FadeUpItem, EASING } from './motion/MotionSystem';
 import StatsStrip from './StatsStrip';
+import { useEnquiryModal } from '../context/EnquiryModalContext';
 
 export default function Hero() {
+  const { openModal } = useEnquiryModal();
   const { scrollY } = useScroll();
   const archParallax = useTransform(scrollY, [0, 600], [0, 45]);
   const textParallax = useTransform(scrollY, [0, 600], [0, -25]);
@@ -63,11 +65,7 @@ export default function Hero() {
               <FadeUpItem>
                 <button
                   type="button"
-                  onClick={() => {
-                    if (typeof window !== 'undefined') {
-                      window.dispatchEvent(new CustomEvent('open-enquiry-modal'));
-                    }
-                  }}
+                  onClick={openModal}
                   className="inline-flex items-center gap-3 px-8 py-4 rounded-full text-xs sm:text-sm font-bold uppercase tracking-wider bg-[#ED463B] hover:bg-[#d9382d] text-white transition-all duration-200 cursor-pointer shadow-lg shadow-[#ED463B]/25 hover:shadow-xl hover:shadow-[#ED463B]/35 hover:-translate-y-0.5 group"
                 >
                   <span>LET&apos;S DISCUSS YOUR BUSINESS</span>

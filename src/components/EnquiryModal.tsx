@@ -11,10 +11,11 @@ import {
   ShieldCheck, 
   Sparkles 
 } from 'lucide-react';
+import { useEnquiryModal } from '../context/EnquiryModalContext';
 
 export default function EnquiryModal() {
   const router = useRouter();
-  const [isOpen, setIsOpen] = useState(false);
+  const { isOpen, closeModal } = useEnquiryModal();
 
   // Form State - ALL FIELDS MANDATORY
   const [fullName, setFullName] = useState('');
@@ -40,20 +41,8 @@ export default function EnquiryModal() {
     utmCampaign: '',
   });
 
+  // Read UTM params on mount
   useEffect(() => {
-    const handleOpen = () => {
-      setIsOpen(true);
-      setErrorMessage('');
-    };
-
-    const handleClose = () => {
-      setIsOpen(false);
-    };
-
-    window.addEventListener('open-enquiry-modal', handleOpen);
-    window.addEventListener('close-enquiry-modal', handleClose);
-
-    // Read UTM params
     if (typeof window !== 'undefined') {
       const params = new URLSearchParams(window.location.search);
       setUtmParams({
@@ -62,18 +51,13 @@ export default function EnquiryModal() {
         utmCampaign: params.get('utm_campaign') || '',
       });
     }
-
-    return () => {
-      window.removeEventListener('open-enquiry-modal', handleOpen);
-      window.removeEventListener('close-enquiry-modal', handleClose);
-    };
   }, []);
 
   // Escape key listener & body scroll lock
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape' && isOpen) {
-        setIsOpen(false);
+        closeModal();
       }
     };
 
@@ -88,7 +72,7 @@ export default function EnquiryModal() {
       document.body.style.overflow = 'unset';
       window.removeEventListener('keydown', handleKeyDown);
     };
-  }, [isOpen]);
+  }, [isOpen, closeModal]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -215,7 +199,7 @@ export default function EnquiryModal() {
         }));
       }
 
-      setIsOpen(false);
+      closeModal();
       router.push('/performance-marketing/thank-you');
     } catch (err: any) {
       console.error('Modal submission error:', err);
@@ -227,22 +211,21 @@ export default function EnquiryModal() {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 overflow-y-auto bg-black/75 backdrop-blur-md transition-opacity duration-300">
-      
-      {/* Backdrop click area */}
-      <div 
-        className="fixed inset-0 -z-10" 
-        onClick={() => setIsOpen(false)} 
-        aria-hidden="true"
-      />
-
+    <div 
+      className="fixed inset-0 z-[9999] flex items-center justify-center p-4 sm:p-6 overflow-y-auto bg-black/80 backdrop-blur-md transition-opacity duration-300 animate-in fade-in"
+      onClick={closeModal}
+      role="dialog"
+      aria-modal="true"
+    >
       {/* Modal Dialog Card */}
-      <div className="relative w-full max-w-2xl max-h-[92vh] overflow-y-auto rounded-3xl bg-[var(--bg-card)] border border-[var(--border-subtle)] shadow-2xl p-6 sm:p-10 text-[var(--text-primary)] my-auto animate-in fade-in zoom-in-95 duration-200">
-        
+      <div 
+        className="relative w-full max-w-2xl max-h-[92vh] overflow-y-auto rounded-3xl bg-[var(--bg-card)] border border-[var(--border-subtle)] shadow-2xl p-6 sm:p-10 text-[var(--text-primary)] my-auto animate-in zoom-in-95 duration-200"
+        onClick={(e) => e.stopPropagation()}
+      >
         {/* Close Button */}
         <button
           type="button"
-          onClick={() => setIsOpen(false)}
+          onClick={closeModal}
           className="absolute top-5 right-5 w-9 h-9 rounded-full bg-[var(--bg-card-subtle)] border border-[var(--border-subtle)] flex items-center justify-center text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:border-[#ED463B] transition-colors cursor-pointer"
           aria-label="Close dialog"
         >
