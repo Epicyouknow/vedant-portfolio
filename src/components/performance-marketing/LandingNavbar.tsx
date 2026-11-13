@@ -60,37 +60,55 @@ export default function LandingNavbar() {
           aria-label="Landing Page Navigation"
         >
           <button
-            onClick={() => scrollTo('capabilities')}
+            onClick={() => {
+              trackNavigationClick('Capabilities', '#capabilities');
+              scrollTo('capabilities');
+            }}
             className="hover:text-[var(--text-primary)] transition-colors cursor-pointer"
           >
             Capabilities
           </button>
           <button
-            onClick={() => scrollTo('framework')}
+            onClick={() => {
+              trackNavigationClick('Framework', '#framework');
+              scrollTo('framework');
+            }}
             className="hover:text-[var(--text-primary)] transition-colors cursor-pointer"
           >
             Framework
           </button>
           <button
-            onClick={() => scrollTo('industries')}
+            onClick={() => {
+              trackNavigationClick('Industries', '#industries');
+              scrollTo('industries');
+            }}
             className="hover:text-[var(--text-primary)] transition-colors cursor-pointer"
           >
             Industries
           </button>
           <button
-            onClick={() => scrollTo('work')}
+            onClick={() => {
+              trackNavigationClick('Selected Work', '#work');
+              scrollTo('work');
+            }}
             className="hover:text-[var(--text-primary)] transition-colors cursor-pointer"
           >
             Selected Work
           </button>
           <button
-            onClick={() => scrollTo('trust')}
+            onClick={() => {
+              trackNavigationClick('Why Strategy', '#trust');
+              scrollTo('trust');
+            }}
             className="hover:text-[var(--text-primary)] transition-colors cursor-pointer"
           >
             Why Strategy
           </button>
           <button
-            onClick={() => scrollTo('enquiry')}
+            onClick={() => {
+              trackNavigationClick('Enquire', '#enquiry');
+              scrollTo('enquiry');
+            }}
             className="hover:text-[#ED463B] transition-colors cursor-pointer"
           >
             Enquire
@@ -105,7 +123,7 @@ export default function LandingNavbar() {
           <button
             onClick={() => {
               trackButtonClick({
-                buttonName: 'landing_header_discuss_click',
+                buttonName: 'header_discuss_click',
                 label: "Let's Discuss",
                 sectionName: 'landing_navbar',
                 destination: '#enquiry',
@@ -135,37 +153,55 @@ export default function LandingNavbar() {
         <div className="lg:hidden border-b border-[var(--border-subtle)] bg-[var(--bg-base)] px-6 py-6 transition-all duration-200 shadow-xl">
           <div className="flex flex-col gap-4 text-sm font-semibold tracking-wide uppercase text-[var(--text-primary)]">
             <button
-              onClick={() => scrollTo('capabilities')}
+              onClick={() => {
+                trackNavigationClick('Capabilities', '#capabilities');
+                scrollTo('capabilities');
+              }}
               className="text-left py-2 hover:text-[#ED463B] transition-colors"
             >
               Capabilities
             </button>
             <button
-              onClick={() => scrollTo('framework')}
+              onClick={() => {
+                trackNavigationClick('Framework', '#framework');
+                scrollTo('framework');
+              }}
               className="text-left py-2 hover:text-[#ED463B] transition-colors"
             >
               Framework
             </button>
             <button
-              onClick={() => scrollTo('industries')}
+              onClick={() => {
+                trackNavigationClick('Industries', '#industries');
+                scrollTo('industries');
+              }}
               className="text-left py-2 hover:text-[#ED463B] transition-colors"
             >
               Industries
             </button>
             <button
-              onClick={() => scrollTo('work')}
+              onClick={() => {
+                trackNavigationClick('Selected Work', '#work');
+                scrollTo('work');
+              }}
               className="text-left py-2 hover:text-[#ED463B] transition-colors"
             >
               Selected Work
             </button>
             <button
-              onClick={() => scrollTo('trust')}
+              onClick={() => {
+                trackNavigationClick('Why Strategy', '#trust');
+                scrollTo('trust');
+              }}
               className="text-left py-2 hover:text-[#ED463B] transition-colors"
             >
               Why Strategy
             </button>
             <button
-              onClick={() => scrollTo('enquiry')}
+              onClick={() => {
+                trackNavigationClick('Enquire', '#enquiry');
+                scrollTo('enquiry');
+              }}
               className="text-left py-2 text-[#ED463B] font-bold"
             >
               Enquire Now
@@ -177,7 +213,15 @@ export default function LandingNavbar() {
               <ThemeToggle />
             </div>
             <button
-              onClick={() => scrollTo('enquiry')}
+              onClick={() => {
+                trackButtonClick({
+                  buttonName: 'hero_discuss_business',
+                  label: "Let's Discuss Your Business",
+                  sectionName: 'mobile_nav',
+                  destination: '#enquiry',
+                });
+                scrollTo('enquiry');
+              }}
               className="mt-2 w-full py-3 rounded-full text-center text-xs font-bold uppercase tracking-wider bg-[#ED463B] text-white"
             >
               Let&apos;s Discuss Your Business &rarr;

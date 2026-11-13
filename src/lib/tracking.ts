@@ -246,12 +246,14 @@ export function trackPixelCustom(
 
 /**
  * Phase 4: Track button interactions across the site.
- * Throttles rapid clicks to avoid repeated events.
+ * Delivers the specific button name directly as the custom event name (e.g. hero_discuss_business)
+ * and includes full metadata in the event payload. Throttles rapid clicks to avoid repeated events.
  */
 export function trackButtonClick(opts: ButtonTrackingOptions): void {
   if (typeof window === 'undefined') return;
 
-  const key = `btn_${opts.buttonName}`;
+  const eventName = opts.buttonName || 'custom_button_click';
+  const key = `btn_${eventName}`;
   if (isDuplicateClientEvent(key, 1500)) {
     return;
   }
@@ -266,14 +268,24 @@ export function trackButtonClick(opts: ButtonTrackingOptions): void {
     ...opts.metadata,
   };
 
-  trackPixelCustom('VV_ButtonClick', params);
+  // Deliver the specific button name directly as the custom event
+  trackPixelCustom(eventName, params);
 }
 
 /**
  * Phase 4: Track navigation link clicks
+ * Delivers specific event names like nav_capabilities_click, nav_framework_click, etc.
  */
 export function trackNavigationClick(navItem: string, destination: string): void {
   if (typeof window === 'undefined') return;
+
+  const cleanNav = navItem.toLowerCase().trim().replace(/[^a-z0-9]+/g, '_').replace(/^_+|_+$/g, '');
+  const eventName = `nav_${cleanNav}_click`;
+
+  const key = `nav_${eventName}`;
+  if (isDuplicateClientEvent(key, 1500)) {
+    return;
+  }
 
   const params = {
     nav_item: navItem,
@@ -282,7 +294,7 @@ export function trackNavigationClick(navItem: string, destination: string): void
     page_url: window.location.href,
   };
 
-  trackPixelCustom('VV_NavigationClick', params);
+  trackPixelCustom(eventName, params);
 }
 
 /**

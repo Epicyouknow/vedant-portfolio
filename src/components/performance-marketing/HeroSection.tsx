@@ -65,7 +65,7 @@ export default function HeroSection() {
                 type="button"
                 onClick={() => {
                   trackButtonClick({
-                    buttonName: 'perf_hero_discuss_business',
+                    buttonName: 'hero_discuss_business',
                     label: "Let's Discuss Your Business",
                     sectionName: 'hero_perf',
                     destination: '#enquiry',
@@ -82,7 +82,7 @@ export default function HeroSection() {
                 type="button"
                 onClick={() => {
                   trackButtonClick({
-                    buttonName: 'perf_hero_explore_capabilities',
+                    buttonName: 'hero_explore_capabilities',
                     label: 'Explore Capabilities',
                     sectionName: 'hero_perf',
                     destination: '#capabilities',
