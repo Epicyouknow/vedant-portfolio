@@ -156,8 +156,27 @@ export function getAttributionData(): AttributionData {
   };
 }
 
+// Memory cache to prevent duplicate events from firing within a cooldown window
+const eventThrottleMap = new Map<string, number>();
+
 /**
- * Dispatches a standard Meta Pixel event with eventID deduplication support
+ * Intercepts duplicate events fired within a given cooldown window (default 2000ms).
+ * Returns true if the event was already fired recently and should be skipped.
+ */
+export function isDuplicateClientEvent(key: string, cooldownMs: number = 2000): boolean {
+  if (typeof window === 'undefined') return false;
+  const now = Date.now();
+  const lastTime = eventThrottleMap.get(key);
+  if (lastTime && (now - lastTime) < cooldownMs) {
+    return true; // Duplicate trigger intercepted!
+  }
+  eventThrottleMap.set(key, now);
+  return false;
+}
+
+/**
+ * Dispatches a standard Meta Pixel event with eventID deduplication support.
+ * Deduplicates automatically against re-renders and repeated calls.
  */
 export function trackPixelEvent(
   eventName: string,
@@ -165,6 +184,12 @@ export function trackPixelEvent(
   eventId?: string
 ): void {
   if (typeof window === 'undefined') return;
+
+  // Deduplicate against double-fires (e.g. React StrictMode, multiple component mounts)
+  const throttleKey = `std_${eventName}_${eventId || params.content_name || params.page_path || ''}`;
+  if (isDuplicateClientEvent(throttleKey, 2000)) {
+    return;
+  }
 
   const resolvedEventId = eventId || generateEventId(eventName.toLowerCase());
 
@@ -191,7 +216,8 @@ export function trackPixelEvent(
 }
 
 /**
- * Dispatches a custom Meta Pixel event with eventID deduplication support
+ * Dispatches a custom Meta Pixel event with eventID deduplication support.
+ * Only sends directly to fbq to prevent GTM loops.
  */
 export function trackPixelCustom(
   eventName: string,
@@ -200,9 +226,15 @@ export function trackPixelCustom(
 ): void {
   if (typeof window === 'undefined') return;
 
+  // Deduplicate against double-fires within 1500ms
+  const throttleKey = `cst_${eventName}_${eventId || params.button_name || params.nav_item || params.dimension || ''}`;
+  if (isDuplicateClientEvent(throttleKey, 1500)) {
+    return;
+  }
+
   const resolvedEventId = eventId || generateEventId(eventName.toLowerCase());
 
-  // 1. Meta Pixel
+  // 1. Meta Pixel direct dispatch
   if ((window as any).fbq) {
     try {
       (window as any).fbq('trackCustom', eventName, params, { eventID: resolvedEventId });
@@ -210,26 +242,19 @@ export function trackPixelCustom(
       console.warn('Meta Pixel custom dispatch warning:', err);
     }
   }
-
-  // 2. GA4 & DataLayer
-  if ((window as any).dataLayer) {
-    try {
-      (window as any).dataLayer.push({
-        event: eventName,
-        event_id: resolvedEventId,
-        ...params,
-      });
-    } catch (err) {
-      // ignore
-    }
-  }
 }
 
 /**
- * Phase 4: Track button interactions across the site
+ * Phase 4: Track button interactions across the site.
+ * Throttles rapid clicks to avoid repeated events.
  */
 export function trackButtonClick(opts: ButtonTrackingOptions): void {
   if (typeof window === 'undefined') return;
+
+  const key = `btn_${opts.buttonName}`;
+  if (isDuplicateClientEvent(key, 1500)) {
+    return;
+  }
 
   const params = {
     button_name: opts.buttonName,

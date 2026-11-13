@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import Link from 'next/link';
 import { 
   CheckCircle2, 
@@ -30,10 +30,14 @@ interface LeadData {
 export default function ThankYouPage() {
   const [lead, setLead] = useState<LeadData | null>(null);
   const { trackPageView } = useAnalytics();
+  const hasTrackedThankYou = useRef(false);
 
   useEffect(() => {
     trackPageView('/performance-marketing/thank-you');
-    trackThankYouView();
+    if (!hasTrackedThankYou.current) {
+      hasTrackedThankYou.current = true;
+      trackThankYouView();
+    }
 
     if (typeof window !== 'undefined') {
       const stored = sessionStorage.getItem('vv_last_lead');

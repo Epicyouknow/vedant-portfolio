@@ -48,6 +48,14 @@ export function useAnalytics() {
   }, []);
 
   const trackPageView = useCallback((path: string) => {
+    if (typeof window !== 'undefined') {
+      // Prevent duplicate PageView if already fired on initial page load or route
+      if ((window as any).__vv_last_pageview === path) {
+        return;
+      }
+      (window as any).__vv_last_pageview = path;
+    }
+
     // 1. Meta Pixel Standard PageView
     trackPixelEvent('PageView', { page_path: path });
 

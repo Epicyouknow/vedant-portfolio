@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import LandingNavbar from '@/components/performance-marketing/LandingNavbar';
 import HeroSection from '@/components/performance-marketing/HeroSection';
 import CapabilitiesSection from '@/components/performance-marketing/CapabilitiesSection';
@@ -16,16 +16,20 @@ import { trackPixelEvent } from '@/lib/tracking';
 
 export default function PerformanceMarketingClient() {
   const { trackPageView } = useAnalytics();
+  const hasTrackedViewContent = useRef(false);
 
   useEffect(() => {
-    // 1. Track standard page view
+    // 1. Track standard page view (guarded against duplicates)
     trackPageView('/performance-marketing');
 
-    // 2. Track Standard Meta ViewContent event
-    trackPixelEvent('ViewContent', {
-      content_name: 'Performance Marketing Landing Page',
-      content_category: 'Consultation & Growth Services',
-    });
+    // 2. Track Standard Meta ViewContent event (strictly once per visit)
+    if (!hasTrackedViewContent.current) {
+      hasTrackedViewContent.current = true;
+      trackPixelEvent('ViewContent', {
+        content_name: 'Performance Marketing Landing Page',
+        content_category: 'Consultation & Growth Services',
+      });
+    }
   }, [trackPageView]);
 
   return (
