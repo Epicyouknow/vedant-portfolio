@@ -38,90 +38,116 @@ export default function Navbar() {
           : 'bg-transparent py-5'
       }`}
     >
-      <div className="max-w-7xl mx-auto px-6 md:px-12 flex items-center justify-between">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 xl:px-12 flex items-center justify-between gap-2 lg:gap-4 xl:gap-8">
         {/* Brand / Logo */}
         <Link
           href="/"
-          className="flex items-center gap-2.5 group cursor-pointer"
+          className="flex items-center gap-2.5 group cursor-pointer shrink-0"
           aria-label="VedantVerse Homepage"
         >
-          <div className="w-8 h-8 rounded-full bg-[#191919] dark:bg-[#F7F5F0] flex items-center justify-center text-white dark:text-[#191919] font-black text-sm tracking-tight transition-transform duration-200 group-hover:scale-105">
+          <div className="w-8 h-8 rounded-full bg-[#191919] dark:bg-[#F7F5F0] flex items-center justify-center text-white dark:text-[#191919] font-black text-sm tracking-tight transition-transform duration-200 group-hover:scale-105 shrink-0">
             V
           </div>
-          <span className="font-semibold text-base tracking-tight text-[var(--text-primary)] transition-colors">
+          <span className="font-semibold text-base tracking-tight text-[var(--text-primary)] transition-colors whitespace-nowrap">
             VedantVerse
           </span>
         </Link>
 
         {/* Desktop Navigation Links */}
         <nav
-          className="hidden lg:flex items-center gap-7 text-sm font-medium text-[var(--text-secondary)]"
+          className="hidden lg:flex items-center justify-center gap-2 lg:gap-2.5 xl:gap-4 2xl:gap-6 text-xs xl:text-[13px] 2xl:text-sm font-medium text-[var(--text-secondary)] whitespace-nowrap min-w-0"
           aria-label="Primary Navigation"
         >
           <button
-            onClick={() => scrollTo('case-study-cards')}
-            className="hover:text-[var(--text-primary)] transition-colors cursor-pointer"
+            onClick={() => {
+              trackNavigationClick('Work', '#case-study-cards');
+              scrollTo('case-study-cards');
+            }}
+            className="hover:text-[var(--text-primary)] transition-colors cursor-pointer whitespace-nowrap py-1"
           >
             Work
           </button>
           <button
-            onClick={() => scrollTo('industries-scaled')}
-            className="hover:text-[var(--text-primary)] transition-colors cursor-pointer"
+            onClick={() => {
+              trackNavigationClick('Industries', '#industries-scaled');
+              scrollTo('industries-scaled');
+            }}
+            className="hover:text-[var(--text-primary)] transition-colors cursor-pointer whitespace-nowrap py-1"
           >
             Industries
           </button>
           <Link
             href="/performance-marketing"
-            className="hover:text-[#ED463B] transition-colors"
+            onClick={() => trackNavigationClick('Growth Studio', '/performance-marketing')}
+            className="hover:text-[#ED463B] text-[var(--text-secondary)] transition-colors whitespace-nowrap shrink-0 py-1"
           >
             Growth Studio
           </Link>
           <button
-            onClick={() => scrollTo('growth-process')}
-            className="hover:text-[var(--text-primary)] transition-colors cursor-pointer"
+            onClick={() => {
+              trackNavigationClick('Services', '#growth-process');
+              scrollTo('growth-process');
+            }}
+            className="hover:text-[var(--text-primary)] transition-colors cursor-pointer whitespace-nowrap py-1"
           >
             Services
           </button>
           <button
-            onClick={() => scrollTo('performance-reporting')}
-            className="hover:text-[var(--text-primary)] transition-colors cursor-pointer"
+            onClick={() => {
+              trackNavigationClick('Reporting', '#performance-reporting');
+              scrollTo('performance-reporting');
+            }}
+            className="hover:text-[var(--text-primary)] transition-colors cursor-pointer whitespace-nowrap py-1"
           >
             Reporting
           </button>
           <button
-            onClick={() => scrollTo('unlocked-achievements')}
-            className="hover:text-[var(--text-primary)] transition-colors cursor-pointer"
+            onClick={() => {
+              trackNavigationClick('Achievements', '#unlocked-achievements');
+              scrollTo('unlocked-achievements');
+            }}
+            className="hover:text-[var(--text-primary)] transition-colors cursor-pointer whitespace-nowrap py-1"
           >
             Achievements
           </button>
           <button
-            onClick={() => scrollTo('interactive-career-map')}
-            className="hover:text-[var(--text-primary)] transition-colors cursor-pointer"
+            onClick={() => {
+              trackNavigationClick('Career', '#interactive-career-map');
+              scrollTo('interactive-career-map');
+            }}
+            className="hover:text-[var(--text-primary)] transition-colors cursor-pointer whitespace-nowrap py-1"
           >
             Career
           </button>
           <button
-            onClick={() => scrollTo('editorial-statement')}
-            className="hover:text-[var(--text-primary)] transition-colors cursor-pointer"
+            onClick={() => {
+              trackNavigationClick('About', '#editorial-statement');
+              scrollTo('editorial-statement');
+            }}
+            className="hover:text-[var(--text-primary)] transition-colors cursor-pointer whitespace-nowrap py-1"
           >
             About
           </button>
           <Link
             href="/blog"
-            className="hover:text-[var(--text-primary)] transition-colors"
+            onClick={() => trackNavigationClick('Blog', '/blog')}
+            className="hover:text-[var(--text-primary)] transition-colors whitespace-nowrap py-1"
           >
             Blog
           </Link>
           <button
-            onClick={() => scrollTo('contact-section')}
-            className="hover:text-[var(--text-primary)] transition-colors cursor-pointer"
+            onClick={() => {
+              trackNavigationClick('Contact', '#contact-section');
+              scrollTo('contact-section');
+            }}
+            className="hover:text-[var(--text-primary)] transition-colors cursor-pointer whitespace-nowrap py-1"
           >
             Contact
           </button>
         </nav>
 
         {/* Action Controls: Theme Toggle & CTA Button */}
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2.5 sm:gap-3 shrink-0">
           <ThemeToggle />
 
           <button
@@ -135,7 +161,7 @@ export default function Navbar() {
               });
               openModal();
             }}
-            className="hidden sm:inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-bold uppercase tracking-wider bg-[#ED463B] hover:bg-[#d9382d] text-white transition-all duration-200 cursor-pointer shadow-md shadow-[#ED463B]/20 group"
+            className="hidden sm:inline-flex items-center gap-2 px-4 py-2 xl:px-5 xl:py-2.5 rounded-full text-xs font-bold uppercase tracking-wider bg-[#ED463B] hover:bg-[#d9382d] text-white transition-all duration-200 cursor-pointer shadow-md shadow-[#ED463B]/20 group shrink-0 whitespace-nowrap"
           >
             <span>Let&apos;s Discuss</span>
             <ArrowRight className="w-3.5 h-3.5 transition-transform duration-200 group-hover:translate-x-0.5" />
@@ -145,7 +171,7 @@ export default function Navbar() {
           <button
             type="button"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="lg:hidden p-2 rounded-lg text-[var(--text-primary)] hover:bg-[var(--tag-bg)] transition-colors cursor-pointer"
+            className="lg:hidden p-2 rounded-lg text-[var(--text-primary)] hover:bg-[var(--tag-bg)] transition-colors cursor-pointer shrink-0"
             aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
           >
             {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}

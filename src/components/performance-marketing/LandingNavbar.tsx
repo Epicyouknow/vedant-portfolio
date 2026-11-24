@@ -34,21 +34,21 @@ export default function LandingNavbar() {
           : 'bg-transparent py-5'
       }`}
     >
-      <div className="max-w-7xl mx-auto px-6 md:px-12 flex items-center justify-between">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 xl:px-12 flex items-center justify-between gap-4">
         {/* Brand / Logo */}
         <Link
           href="/"
-          className="flex items-center gap-2.5 group cursor-pointer"
+          className="flex items-center gap-2.5 group cursor-pointer shrink-0"
           aria-label="VedantVerse"
         >
-          <div className="w-8 h-8 rounded-full bg-[#191919] dark:bg-[#F7F5F0] flex items-center justify-center text-white dark:text-[#191919] font-black text-sm tracking-tight transition-transform duration-200 group-hover:scale-105">
+          <div className="w-8 h-8 rounded-full bg-[#191919] dark:bg-[#F7F5F0] flex items-center justify-center text-white dark:text-[#191919] font-black text-sm tracking-tight transition-transform duration-200 group-hover:scale-105 shrink-0">
             V
           </div>
           <div className="flex flex-col">
-            <span className="font-bold text-base tracking-tight text-[var(--text-primary)] transition-colors leading-none">
+            <span className="font-bold text-base tracking-tight text-[var(--text-primary)] transition-colors leading-none whitespace-nowrap">
               VedantVerse
             </span>
-            <span className="text-[10px] tracking-wider uppercase text-[#ED463B] font-semibold mt-0.5">
+            <span className="text-[10px] tracking-wider uppercase text-[#ED463B] font-semibold mt-0.5 whitespace-nowrap">
               Growth Studio
             </span>
           </div>
@@ -56,7 +56,7 @@ export default function LandingNavbar() {
 
         {/* Desktop Navigation Links */}
         <nav
-          className="hidden lg:flex items-center gap-7 text-xs font-semibold uppercase tracking-wider text-[var(--text-secondary)]"
+          className="hidden lg:flex items-center gap-4 xl:gap-7 text-xs font-semibold uppercase tracking-wider text-[var(--text-secondary)] whitespace-nowrap"
           aria-label="Landing Page Navigation"
         >
           <button
@@ -116,7 +116,7 @@ export default function LandingNavbar() {
         </nav>
 
         {/* Action Controls: Theme Toggle & Primary CTA */}
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-3 shrink-0">
           {/* Dark / Bright mode toggle button matching website */}
           <ThemeToggle />
 
@@ -130,7 +130,7 @@ export default function LandingNavbar() {
               });
               scrollTo('enquiry');
             }}
-            className="hidden sm:inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-bold tracking-wide uppercase bg-[#ED463B] hover:bg-[#d9382d] text-white transition-all duration-200 cursor-pointer shadow-md shadow-[#ED463B]/20 group"
+            className="hidden sm:inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-bold tracking-wide uppercase bg-[#ED463B] hover:bg-[#d9382d] text-white transition-all duration-200 cursor-pointer shadow-md shadow-[#ED463B]/20 group shrink-0 whitespace-nowrap"
           >
             <span>Let&apos;s Discuss</span>
             <ArrowRight className="w-3.5 h-3.5 transition-transform duration-200 group-hover:translate-x-0.5" />
@@ -140,7 +140,7 @@ export default function LandingNavbar() {
           <button
             type="button"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="lg:hidden p-2 rounded-lg text-[var(--text-primary)] hover:bg-[var(--tag-bg)] transition-colors cursor-pointer"
+            className="lg:hidden p-2 rounded-lg text-[var(--text-primary)] hover:bg-[var(--tag-bg)] transition-colors cursor-pointer shrink-0"
             aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
           >
             {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
