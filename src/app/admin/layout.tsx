@@ -109,7 +109,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
       .then((res) => res.json())
       .then((data) => {
         if (!data.authenticated || !data.user) {
-          window.location.href = '/admin/login';
+          window.location.href = '/admin/login?reauth=1';
         } else {
           setCurrentUser(data.user);
           setCurrentRole(data.user.role);
@@ -117,7 +117,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         }
       })
       .catch(() => {
-        window.location.href = '/admin/login';
+        window.location.href = '/admin/login?reauth=1';
       });
   }, [pathname, isLoginPage]);
 
@@ -141,7 +141,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
       localStorage.removeItem('vedant_admin_user');
       localStorage.removeItem('vedant_admin_role');
     } catch (e) {}
-    window.location.href = '/admin/login';
+    window.location.href = '/admin/login?reauth=1';
   };
 
   const showToast = (message: string, tone: 'success' | 'danger' = 'success') => {
@@ -209,6 +209,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
       label: 'System & Security',
       items: [
         { label: 'User Management', href: '/admin/users', icon: <ShieldCheck className="w-4 h-4 shrink-0" /> },
+        { label: 'Security & Sentinel', href: '/admin/security', icon: <Lock className="w-4 h-4 shrink-0 text-[#ED463B]" />, badge: '6-Hr' },
         { label: 'System Settings', href: '/admin/settings', icon: <Settings className="w-4 h-4 shrink-0" /> },
       ],
     },

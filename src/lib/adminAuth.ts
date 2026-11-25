@@ -13,6 +13,16 @@ export interface AdminUser {
 
 export const AUTHORIZED_ADMIN_USERS: (AdminUser & { password: string })[] = [
   {
+    id: 'user-owner-gmail',
+    name: 'Vedant Tiwari',
+    email: 'contactvedantverse@gmail.com',
+    role: 'Owner',
+    title: 'Founder & Performance Director',
+    status: 'Active',
+    lastActive: 'Just now',
+    password: 'vedaarya.in#1',
+  },
+  {
     id: 'user-owner',
     name: 'Vedant Tiwari',
     email: 'Owner@vedantverse.in',
@@ -36,6 +46,31 @@ export const AUTHORIZED_ADMIN_USERS: (AdminUser & { password: string })[] = [
 
 export const DEFAULT_USERS: AdminUser[] = AUTHORIZED_ADMIN_USERS.map(({ password, ...user }) => user);
 
+export function getAdminUserByEmail(email: string): AdminUser | undefined {
+  if (!email) return undefined;
+  const cleanEmail = email.trim().toLowerCase();
+  const matched = AUTHORIZED_ADMIN_USERS.find(
+    (u) => u.email.toLowerCase() === cleanEmail
+  );
+  if (!matched) {
+    // If not in the hardcoded list, check if it's the owner's gmail
+    if (cleanEmail === 'contactvedantverse@gmail.com') {
+      return {
+        id: 'user-owner-gmail',
+        name: 'Vedant Tiwari',
+        email: 'contactvedantverse@gmail.com',
+        role: 'Owner',
+        title: 'Founder & Performance Director',
+        status: 'Active',
+        lastActive: 'Just now',
+      };
+    }
+    return undefined;
+  }
+  const { password: _, ...safeUser } = matched;
+  return safeUser;
+}
+
 export const ADMIN_COOKIE_NAME = 'vedant_admin_session';
 const SESSION_SECRET = process.env.ADMIN_AUTH_SECRET || 'vedantverse-command-centre-auth-2026-prod';
 
@@ -50,13 +85,22 @@ export function validateAdminCredentials(email: string, password: string): { val
 
   const cleanEmail = email.trim().toLowerCase();
   const matched = AUTHORIZED_ADMIN_USERS.find(
-    (u) => u.email.toLowerCase() === cleanEmail && u.password === password
+    (u) => u.email.toLowerCase() === cleanEmail
   );
 
   if (!matched) {
     return {
       valid: false,
-      error: 'Invalid email or password. Access restricted to authorized accounts (Owner@vedantverse.in / Partner@vedantverse.in).',
+      error: 'Invalid email or password. Access restricted to authorized accounts (contactvedantverse@gmail.com / Owner@vedantverse.in / Partner@vedantverse.in).',
+    };
+  }
+
+  const expectedPassword = matched.password;
+
+  if (password !== expectedPassword) {
+    return {
+      valid: false,
+      error: 'Invalid password. Please check your credentials.',
     };
   }
 
@@ -67,7 +111,7 @@ export function validateAdminCredentials(email: string, password: string): { val
 /**
  * Generate a signed session token.
  */
-export async function createSessionToken(user: AdminUser, durationDays = 30): Promise<string> {
+export async function createSessionToken(user: AdminUser, durationDays = 15): Promise<string> {
   const expiresAt = Date.now() + durationDays * 24 * 60 * 60 * 1000;
   const payload = {
     id: user.id,

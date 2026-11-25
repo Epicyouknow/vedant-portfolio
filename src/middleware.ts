@@ -12,8 +12,9 @@ export function middleware(request: NextRequest) {
 
     // If user is accessing the login page:
     if (pathname === '/admin/login') {
-      // If user is already authenticated with a valid session cookie, redirect to dashboard
-      if (sessionCookie && sessionCookie.includes('.')) {
+      const isReauth = request.nextUrl.searchParams.get('reauth') === '1' || request.nextUrl.searchParams.get('switch') === '1';
+      // If user is already authenticated with a valid session cookie and didn't request reauth, redirect to dashboard
+      if (!isReauth && sessionCookie && sessionCookie.includes('.')) {
         return NextResponse.redirect(new URL('/admin/dashboard', request.url));
       }
       return NextResponse.next();

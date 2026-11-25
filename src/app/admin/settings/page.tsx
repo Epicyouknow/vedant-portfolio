@@ -281,6 +281,37 @@ export default function AdminSettingsPage() {
           </div>
         </div>
 
+        {/* SECURITY SENTINEL & 6-HOUR PROGRESSIVE RATE LIMITING */}
+        <div className="admin-card p-6 sm:p-8 space-y-6">
+          <div className="border-b border-[var(--admin-border)] pb-4 flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <ShieldCheck className="w-4 h-4 text-[#ED463B]" />
+              <h2 className="text-base font-bold text-[var(--admin-text)]">Security Sentinel &amp; 6-Hour Lockout Ladder</h2>
+            </div>
+            <span className="text-xs px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 font-mono font-bold border border-emerald-200">
+              Active Defense
+            </span>
+          </div>
+
+          <div className="p-4 rounded-xl border border-[var(--admin-border)] bg-[var(--surface-2)] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+            <div>
+              <div className="text-sm font-bold text-[var(--admin-text)] flex items-center gap-2">
+                <span>6-Hour Progressive Rate Limiting Active</span>
+                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+              </div>
+              <p className="text-xs text-[var(--admin-muted)] mt-1 max-w-xl">
+                Enforcing mathematical attempt degression (5 &rarr; 4 &rarr; 3 &rarr; 2 &rarr; 1 &rarr; Blocked) with 6-hour escalating lockout windows. Single successful OTP auto-resets back to Chance 1.
+              </p>
+            </div>
+            <a
+              href="/admin/security"
+              className="px-4 py-2 rounded-xl bg-[#191919] hover:bg-black text-white text-xs font-bold transition-all shrink-0 flex items-center gap-2 shadow-sm"
+            >
+              Open Security Console &rarr;
+            </a>
+          </div>
+        </div>
+
         {/* EDGE OPERATIONS & BACKUPS */}
         <div className="admin-card p-6 sm:p-8 space-y-6">
           <div className="border-b border-[var(--admin-border)] pb-4 flex items-center justify-between">

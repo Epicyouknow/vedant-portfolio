@@ -91,7 +91,7 @@ export default function TrustExpertiseSection() {
             {/* Portrait */}
             <div className="relative w-32 h-32 sm:w-36 sm:h-36 rounded-2xl overflow-hidden border-2 border-[var(--border-subtle)] bg-neutral-900 shrink-0 shadow-md">
               <Image
-                src="/vedant_portrait.jpg"
+                src="/vedant_editorial.jpg"
                 alt="Vedant Tiwari"
                 fill
                 sizes="144px"
