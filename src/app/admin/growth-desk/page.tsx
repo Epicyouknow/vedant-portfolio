@@ -26,6 +26,7 @@ export default function GrowthDeskOverview() {
   const [selectedPill, setSelectedPill] = useState('Research & Write');
   const [loading, setLoading] = useState(false);
   const [generating, setGenerating] = useState(false);
+  const [errorBanner, setErrorBanner] = useState<string | null>(null);
   const [assignments, setAssignments] = useState<any[]>([]);
   const [batches, setBatches] = useState<any[]>([]);
   const [analytics, setAnalytics] = useState<any>(null);
@@ -57,6 +58,7 @@ export default function GrowthDeskOverview() {
     if (!prompt.trim()) return;
 
     setGenerating(true);
+    setErrorBanner(null);
     try {
       const res = await fetch('/api/growth-desk/generate', {
         method: 'POST',
@@ -71,11 +73,11 @@ export default function GrowthDeskOverview() {
         setPrompt('');
         router.push(`/admin/growth-desk/content/${data.draftId}`);
       } else {
-        alert(data.error || 'Failed to generate blog with Gemini.');
+        setErrorBanner(data.error || 'Failed to generate blog with Gemini.');
       }
     } catch (err: any) {
       console.error(err);
-      alert('An error occurred during blog generation.');
+      setErrorBanner('An error occurred during blog generation. Please try again.');
     } finally {
       setGenerating(false);
     }
@@ -133,6 +135,19 @@ export default function GrowthDeskOverview() {
           <Sparkles className="w-4 h-4 text-[#ED463B]" />
           What should I research or create today?
         </div>
+
+        {errorBanner && (
+          <div className="mb-4 p-3.5 rounded-xl bg-red-50 dark:bg-red-950/40 border border-red-200 dark:border-red-800 text-red-900 dark:text-red-200 text-xs flex items-center justify-between gap-3 animate-fadeIn">
+            <span>{errorBanner}</span>
+            <button
+              type="button"
+              onClick={() => setErrorBanner(null)}
+              className="font-bold hover:underline shrink-0 text-red-700 dark:text-red-300 cursor-pointer"
+            >
+              Dismiss
+            </button>
+          </div>
+        )}
 
         <form onSubmit={handleCreateAssignment} className="space-y-4">
           <div className="relative">
