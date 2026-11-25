@@ -128,6 +128,7 @@ export interface ContentDraft {
   researchId?: string;
   title: string;
   slug: string;
+  coverImage?: string;
   status: 'Drafting' | 'Auditing' | 'Awaiting Approval' | 'Ready for Approval' | 'Approved' | 'Published' | 'Revisions Requested';
   wordCount: number;
   readingTime: string;
@@ -147,6 +148,16 @@ export interface ContentDraft {
     keywords: string[];
     canonicalUrl?: string;
   };
+  seo?: {
+    title?: string;
+    description?: string;
+    keywords?: string[];
+  };
+  author?: {
+    name?: string;
+    role?: string;
+    avatar?: string;
+  };
   faq: Array<{ question: string; answer: string }>;
   internalLinks: Array<{ text: string; url: string; reason: string }>;
   socialSnippets: {
@@ -156,6 +167,7 @@ export interface ContentDraft {
   audit: ContentAudit;
   suggestedPublishDate?: string;
   publishedSlug?: string;
+  publishedAt?: string;
   createdAt: string;
   updatedAt: string;
 }

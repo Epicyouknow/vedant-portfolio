@@ -47,6 +47,12 @@ export default function ContentStudioEditorPage() {
   const [aiOutput, setAiOutput] = useState('');
   const [aiActionName, setAiActionName] = useState('');
   const [previewMode, setPreviewMode] = useState(false);
+  const [publishing, setPublishing] = useState(false);
+  const [publishSuccess, setPublishSuccess] = useState(false);
+  const [publishedUrl, setPublishedUrl] = useState<string | null>(null);
+  const [coverImage, setCoverImage] = useState<string>('');
+  const [coverTheme, setCoverTheme] = useState<'dark' | 'cream' | 'editorial'>('dark');
+  const [generatingCover, setGeneratingCover] = useState(false);
 
   // Form states
   const [title, setTitle] = useState('');
@@ -71,6 +77,10 @@ export default function ContentStudioEditorPage() {
           setMetaDesc(d.seoMeta?.description || '');
           setKeywords(d.seoMeta?.keywords || []);
           setFaqs(d.faq || []);
+          setCoverImage((d as any).coverImage || `/covers/${d.slug}.svg`);
+          if (d.status === 'Published') {
+            setPublishedUrl(`/blog/${d.slug}`);
+          }
         }
       })
       .catch(console.error);
@@ -79,6 +89,82 @@ export default function ContentStudioEditorPage() {
   useEffect(() => {
     fetchDraft();
   }, [contentId]);
+
+  const handleGenerateCover = async (themeParam?: 'dark' | 'cream' | 'editorial') => {
+    setGeneratingCover(true);
+    const themeToUse = themeParam || coverTheme;
+    try {
+      const res = await fetch('/api/growth-desk/content', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          action: 'generate-cover',
+          id: contentId,
+          title,
+          slug,
+          category: draft?.category,
+          tags: draft?.tags,
+          theme: themeToUse
+        })
+      });
+      const data = await res.json();
+      if (data.success && data.coverUrl) {
+        setCoverImage(data.coverUrl);
+        setSaveMessage('✨ 16:9 Cover Image generated!');
+        setTimeout(() => setSaveMessage(''), 3000);
+      }
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setGeneratingCover(false);
+    }
+  };
+
+  const handlePublish = async () => {
+    if (!title.trim() || !content.trim()) return;
+    setPublishing(true);
+    try {
+      const res = await fetch('/api/growth-desk/content', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          action: 'publish',
+          id: contentId,
+          title,
+          slug,
+          content,
+          coverImage,
+          category: draft?.category,
+          tags: draft?.tags,
+          seoMeta: {
+            title: metaTitle,
+            description: metaDesc,
+            keywords
+          },
+          faq: faqs
+        })
+      });
+      const data = await res.json();
+      if (data.success) {
+        setPublishSuccess(true);
+        const liveUrl = data.publishedUrl || `/blog/${slug}`;
+        setPublishedUrl(liveUrl);
+        if (data.coverUrl) setCoverImage(data.coverUrl);
+        if (draft) {
+          setDraft({ ...draft, status: 'Published' });
+        }
+        setSaveMessage('🚀 Published live to website!');
+        setTimeout(() => setSaveMessage(''), 4000);
+      } else {
+        alert(data.error || 'Failed to publish blog.');
+      }
+    } catch (err) {
+      console.error(err);
+      alert('An error occurred while publishing blog.');
+    } finally {
+      setPublishing(false);
+    }
+  };
 
   const handleSave = async () => {
     setSaving(true);
@@ -252,15 +338,79 @@ export default function ContentStudioEditorPage() {
             </button>
             <button
               onClick={handleSave}
-              disabled={saving}
-              className="vv-button-primary px-3.5 py-1.5 text-xs font-bold flex items-center gap-1.5"
+              disabled={saving || publishing}
+              className="vv-button-secondary px-3.5 py-1.5 text-xs font-bold flex items-center gap-1.5"
             >
               <Save className="w-3.5 h-3.5" />
               {saving ? 'Saving...' : 'Save Draft'}
             </button>
+            {publishedUrl ? (
+              <a
+                href={publishedUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-3.5 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold flex items-center gap-1.5 transition-all shadow-sm"
+              >
+                <CheckCircle2 className="w-3.5 h-3.5" />
+                <span>Live on Website</span>
+                <ExternalLink className="w-3 h-3" />
+              </a>
+            ) : null}
+            <button
+              onClick={handlePublish}
+              disabled={publishing || saving}
+              className="px-4 py-1.5 rounded-xl bg-[#ED463B] hover:bg-[#d9382e] text-white text-xs font-bold flex items-center gap-1.5 transition-all shadow-md cursor-pointer disabled:opacity-50"
+            >
+              {publishing ? (
+                <>
+                  <RefreshCw className="w-3.5 h-3.5 animate-spin" />
+                  <span>Publishing...</span>
+                </>
+              ) : (
+                <>
+                  <Sparkles className="w-3.5 h-3.5 text-amber-300" />
+                  <span>{draft?.status === 'Published' ? 'Update Live Blog' : 'Publish to Website'}</span>
+                </>
+              )}
+            </button>
           </div>
         }
       />
+
+      {/* Publication Success Banner */}
+      {publishSuccess && publishedUrl && (
+        <div className="p-4 rounded-2xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 animate-fadeIn">
+          <div className="flex items-center gap-2.5">
+            <CheckCircle2 className="w-5 h-5 text-emerald-600 shrink-0" />
+            <div>
+              <div className="text-xs font-bold text-emerald-900 dark:text-emerald-200">
+                Article is Live on Website!
+              </div>
+              <div className="text-[11px] text-emerald-700 dark:text-emerald-400 font-mono">
+                Accessible to Google, AI answer engines, and visitors at <b>https://vedantverse.in{publishedUrl}</b>
+              </div>
+            </div>
+          </div>
+          <div className="flex items-center gap-2 w-full sm:w-auto">
+            <a
+              href={publishedUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex-1 sm:flex-none px-3.5 py-1.5 rounded-xl bg-[#191919] hover:bg-black text-white text-xs font-bold flex items-center justify-center gap-1.5 transition-all shadow-sm"
+            >
+              <span>Open Live Article</span>
+              <ExternalLink className="w-3 h-3" />
+            </a>
+            <button
+              type="button"
+              onClick={() => setPublishSuccess(false)}
+              className="px-2.5 py-1.5 rounded-xl text-xs font-bold text-emerald-800 hover:bg-emerald-100 dark:hover:bg-emerald-900/40 transition-colors cursor-pointer"
+            >
+              Dismiss
+            </button>
+          </div>
+        </div>
+      )}
 
       {/* Title & Slug Header Inputs */}
       <div className="vv-card p-4 space-y-3">
@@ -696,19 +846,141 @@ export default function ContentStudioEditorPage() {
             </div>
           )}
 
-          {/* TAB 5: MEDIA */}
+          {/* TAB 5: MEDIA (16:9 DEDICATED EDITORIAL COVER STUDIO) */}
           {activeTab === 'Media' && (
-            <div className="vv-card p-6 space-y-4">
-              <h3 className="text-sm font-bold text-[var(--ink)] font-mono uppercase">
-                Visual Assets & Cover Image
-              </h3>
-              <div className="p-6 border-2 border-dashed border-[var(--line)] rounded-xl text-center space-y-2">
-                <ImageIcon className="w-8 h-8 text-[var(--muted)] mx-auto" />
-                <div className="text-xs font-semibold text-[var(--ink)]">
-                  Primary Cover Image / Technical Diagram
+            <div className="space-y-6">
+              {/* Cover Image Canvas Card */}
+              <div className="vv-card p-6 space-y-5">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-[var(--line)] pb-4">
+                  <div>
+                    <h3 className="text-sm font-bold text-[var(--ink)] font-mono uppercase flex items-center gap-2">
+                      <ImageIcon className="w-4 h-4 text-[#ED463B]" />
+                      Dedicated 16:9 Editorial Cover Studio
+                    </h3>
+                    <p className="text-xs text-[var(--muted)] mt-0.5">
+                      Tailored visual schematics and metrics strictly adhering to VedantVerse design standards (1200x675).
+                    </p>
+                  </div>
+                  <span className="text-[10px] font-mono px-2.5 py-1 rounded-full bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-300 font-bold border border-emerald-200 dark:border-emerald-800 self-start sm:self-auto">
+                    16:9 HD Resolution
+                  </span>
                 </div>
-                <div className="text-[11px] text-[var(--muted)]">
-                  Suggested schema: 1200x630px high-contrast editorial graphic
+
+                {/* Live 16:9 Cover Preview */}
+                <div className="space-y-2">
+                  <div className="relative w-full aspect-[16/9] rounded-2xl overflow-hidden border-2 border-[var(--line)] bg-[#121211] shadow-lg group">
+                    {coverImage ? (
+                      <img
+                        src={coverImage}
+                        alt="Editorial Cover"
+                        className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-101"
+                      />
+                    ) : (
+                      <div className="w-full h-full flex flex-col items-center justify-center p-6 text-center space-y-3">
+                        <div className="w-14 h-14 rounded-2xl bg-[var(--surface-2)] grid place-items-center border border-[var(--line)]">
+                          <ImageIcon className="w-7 h-7 text-[var(--muted)]" />
+                        </div>
+                        <div>
+                          <div className="text-sm font-bold text-[var(--ink)]">
+                            No Cover Graphic Generated Yet
+                          </div>
+                          <div className="text-xs text-[var(--muted)] max-w-sm mt-1">
+                            Click below to generate an AI-tailored 16:9 editorial graphic based on this article&apos;s title and topic.
+                          </div>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+
+                  <div className="flex items-center justify-between text-[11px] font-mono text-[var(--muted)] pt-1 px-1">
+                    <span>Target Ratio: 16:9 (1200 × 675px)</span>
+                    {coverImage && (
+                      <a
+                        href={coverImage}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-[#ED463B] hover:underline flex items-center gap-1 font-semibold"
+                      >
+                        Open Full-Size Graphic <ExternalLink className="w-3 h-3" />
+                      </a>
+                    )}
+                  </div>
+                </div>
+
+                {/* Generation Controls */}
+                <div className="p-4 rounded-xl border border-[var(--line)] bg-[var(--surface-2)] space-y-4">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                    {/* Theme Selector */}
+                    <div>
+                      <label className="text-[10px] font-mono uppercase font-bold text-[var(--muted)] block mb-1.5">
+                        Editorial Theme Palette:
+                      </label>
+                      <div className="flex items-center gap-2">
+                        {(['dark', 'cream', 'editorial'] as const).map((t) => (
+                          <button
+                            key={t}
+                            type="button"
+                            onClick={() => {
+                              setCoverTheme(t);
+                              handleGenerateCover(t);
+                            }}
+                            className={`px-3 py-1.5 rounded-lg text-xs font-semibold capitalize transition-all cursor-pointer border ${
+                              coverTheme === t
+                                ? 'bg-[var(--ink)] text-white dark:bg-white dark:text-black border-transparent shadow-xs'
+                                : 'bg-[var(--surface)] text-[var(--muted)] border-[var(--line)] hover:border-[var(--ink)]'
+                            }`}
+                          >
+                            {t === 'dark' ? '● Dark Studio' : t === 'cream' ? '● Warm Cream' : '● Swiss Minimal'}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Primary Generate Button */}
+                    <button
+                      type="button"
+                      onClick={() => handleGenerateCover()}
+                      disabled={generatingCover || !title}
+                      className="px-4 py-2.5 rounded-xl bg-[#ED463B] hover:bg-[#d9382e] text-white text-xs font-bold flex items-center justify-center gap-2 transition-all shadow-md cursor-pointer disabled:opacity-50 self-end sm:self-auto"
+                    >
+                      {generatingCover ? (
+                        <>
+                          <RefreshCw className="w-3.5 h-3.5 animate-spin" />
+                          <span>Architecting Cover...</span>
+                        </>
+                      ) : (
+                        <>
+                          <Sparkles className="w-3.5 h-3.5 text-amber-300" />
+                          <span>{coverImage ? 'Regenerate 16:9 Cover Graphic' : 'Generate 16:9 Cover Graphic'}</span>
+                        </>
+                      )}
+                    </button>
+                  </div>
+
+                  {/* Custom URL Input Fallback */}
+                  <div className="pt-2 border-t border-[var(--line)] space-y-1">
+                    <label className="text-[10px] font-mono uppercase font-bold text-[var(--muted)] block">
+                      Cover Image URL (Direct Path or Data URI):
+                    </label>
+                    <input
+                      type="text"
+                      value={coverImage}
+                      onChange={(e) => setCoverImage(e.target.value)}
+                      placeholder="/covers/my-custom-cover.svg or https://..."
+                      className="w-full bg-[var(--surface)] border border-[var(--line)] rounded-lg px-3 py-2 text-xs font-mono text-[var(--ink)] focus:outline-hidden focus:border-[#ED463B]"
+                    />
+                  </div>
+                </div>
+
+                {/* Editorial Quality Guardrail Callout */}
+                <div className="p-4 rounded-xl border border-emerald-500/20 bg-emerald-50/30 dark:bg-emerald-950/20 space-y-1 text-xs">
+                  <div className="font-bold text-emerald-900 dark:text-emerald-300 flex items-center gap-1.5 font-mono">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+                    <span>Clean Minimalist Guardrails Enforced</span>
+                  </div>
+                  <p className="text-[var(--text-secondary)] leading-relaxed">
+                    Graphics are generated using high-contrast vector typography, authentic performance marketing schematics, and clean layout grids. Free from plastic, distorted cartoon AI artifacts.
+                  </p>
                 </div>
               </div>
             </div>
@@ -811,6 +1083,33 @@ export default function ContentStudioEditorPage() {
                 >
                   <span>Generate Summary</span>
                   <Share2 className="w-3.5 h-3.5 text-[var(--muted)]" />
+                </button>
+              </div>
+
+              {/* Visuals & Cover Generator Quick Button */}
+              <div className="pt-2 border-t border-[var(--line)] space-y-1.5">
+                <div className="text-[10px] font-mono uppercase text-[var(--muted)] font-bold flex items-center justify-between">
+                  <span>Visual Assets</span>
+                  <span className="text-[9px] font-semibold text-emerald-600">16:9 HD</span>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setActiveTab('Media');
+                    handleGenerateCover();
+                  }}
+                  disabled={generatingCover || !title}
+                  className="w-full p-2.5 rounded-lg border border-[var(--line)] bg-[var(--surface-2)] hover:border-[#ED463B] text-left text-xs font-medium text-[var(--ink)] transition-colors flex items-center justify-between cursor-pointer"
+                >
+                  <span className="flex items-center gap-1.5">
+                    <ImageIcon className="w-3.5 h-3.5 text-[#ED463B]" />
+                    <span>Generate 16:9 Cover Image</span>
+                  </span>
+                  {generatingCover ? (
+                    <RefreshCw className="w-3.5 h-3.5 animate-spin text-[#ED463B]" />
+                  ) : (
+                    <ChevronRight className="w-3.5 h-3.5 text-[var(--muted)]" />
+                  )}
                 </button>
               </div>
             </div>

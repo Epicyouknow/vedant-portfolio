@@ -1,6 +1,6 @@
 import { MetadataRoute } from 'next';
 import { getAllCaseStudies } from '../lib/caseStudyStorage';
-import { getAllBlogs } from '../data/blogs';
+import { getServerBlogs } from '../lib/serverBlogs';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://vedantverse.in';
@@ -12,7 +12,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.8,
   }));
 
-  const allBlogs = getAllBlogs();
+  const allBlogs = getServerBlogs();
   const blogPages: MetadataRoute.Sitemap = allBlogs.map((blog) => ({
     url: `${baseUrl}/blog/${blog.slug}`,
     lastModified: new Date(blog.publishDate || Date.now()),

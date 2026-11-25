@@ -1,3 +1,6 @@
+import fs from 'fs';
+import path from 'path';
+import os from 'os';
 import { NextRequest, NextResponse } from 'next/server';
 import {
   getContentDraftsAsync,
@@ -8,6 +11,31 @@ import {
 } from '../../../../lib/growthDeskStorage';
 import { recordAuditLog } from '../../../../lib/auditLog';
 import { performAiWritingAction } from '../../../../lib/geminiContentGenerator';
+import { saveCoverImage } from '../../../../lib/coverImageGenerator';
+
+const blogsDir = path.join(process.cwd(), 'src/data/blogs');
+const tmpBlogsDir = path.join(os.tmpdir(), 'blogs');
+
+function getWritableBlogsDir(): string {
+  try {
+    if (!fs.existsSync(blogsDir)) {
+      fs.mkdirSync(blogsDir, { recursive: true });
+    }
+    const testFile = path.join(blogsDir, `.write_test_${Date.now()}`);
+    fs.writeFileSync(testFile, '1');
+    fs.unlinkSync(testFile);
+    return blogsDir;
+  } catch {
+    try {
+      if (!fs.existsSync(tmpBlogsDir)) {
+        fs.mkdirSync(tmpBlogsDir, { recursive: true });
+      }
+      return tmpBlogsDir;
+    } catch {
+      return os.tmpdir();
+    }
+  }
+}
 
 export async function GET(req: NextRequest) {
   try {
@@ -66,6 +94,124 @@ export async function POST(req: NextRequest) {
           result: `${selectedText.trim()}\n\n*Optimized for performance marketing and AEO entity depth.*`
         });
       }
+    }
+
+    // Action 1: Generate AI Cover Image
+    if (action === 'generate-cover') {
+      const targetSlug = slug || (title ? title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') : `cover-${Date.now()}`);
+      const coverUrl = await saveCoverImage({
+        title: title || 'Performance Marketing Architecture',
+        slug: targetSlug,
+        category: category || 'Performance Marketing',
+        tags: tags || ['Paid Media', 'Growth'],
+        theme: body.theme || 'dark'
+      });
+
+      if (id) {
+        const idx = drafts.findIndex((d) => d.id === id);
+        if (idx !== -1) {
+          drafts[idx].coverImage = coverUrl;
+          drafts[idx].updatedAt = new Date().toISOString();
+          await saveContentDraftsAsync(drafts);
+        }
+      }
+
+      return NextResponse.json({ success: true, coverUrl });
+    }
+
+    // Action 2: Publish Directly to Website
+    if (action === 'publish') {
+      if (!id) {
+        return NextResponse.json({ success: false, error: 'Draft ID required to publish' }, { status: 400 });
+      }
+
+      const index = drafts.findIndex((d) => d.id === id);
+      if (index === -1) {
+        return NextResponse.json({ success: false, error: 'Draft not found' }, { status: 404 });
+      }
+
+      const draft = drafts[index];
+      const blogSlug = (slug || draft.slug || draft.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')).trim();
+
+      // Ensure cover image exists, if not generate clean topic-specific 16:9 editorial cover
+      let coverUrl = body.coverImage || draft.coverImage;
+      if (!coverUrl) {
+        coverUrl = await saveCoverImage({
+          title: title || draft.title,
+          slug: blogSlug,
+          category: category || draft.category || 'Performance Marketing',
+          tags: tags || draft.tags || ['Paid Media', 'Growth'],
+          theme: body.theme || 'dark'
+        });
+      }
+
+      const blogPayload = {
+        title: title || draft.title,
+        slug: blogSlug,
+        coverImage: coverUrl,
+        seoMeta: {
+          title: (seoMeta?.title || draft.seoMeta?.title || `${draft.title} | VedantVerse Guide`),
+          description: (seoMeta?.description || draft.seoMeta?.description || draft.summary),
+          keywords: (seoMeta?.keywords || draft.seoMeta?.keywords || draft.tags || ['Performance Marketing'])
+        },
+        summary: body.summary || draft.summary || (draft.content ? draft.content.slice(0, 160) : ''),
+        content: content !== undefined ? content : draft.content,
+        tags: tags || draft.tags || ['Performance Marketing'],
+        category: category || draft.category || 'Paid Media & Growth',
+        author: {
+          name: 'Vedant Tiwari',
+          role: 'Senior Performance Marketing Executive',
+          avatar: '/vedant_portrait.png'
+        },
+        readingTime: draft.readingTime || '7 min read',
+        publishDate: new Date().toISOString().split('T')[0],
+        featured: false,
+        views: 1,
+        difficulty: 'Advanced',
+        growthDeskId: draft.id
+      };
+
+      // Write blog file to src/data/blogs/${blogSlug}.json
+      const targetBlogsDir = getWritableBlogsDir();
+      const blogFilePath = path.join(targetBlogsDir, `${blogSlug}.json`);
+      try {
+        fs.writeFileSync(blogFilePath, JSON.stringify(blogPayload, null, 2), 'utf8');
+      } catch (err) {
+        console.warn(`Could not write published blog ${blogSlug} to disk:`, err);
+      }
+
+      // Update draft state
+      draft.status = 'Published';
+      draft.slug = blogSlug;
+      draft.publishedSlug = blogSlug;
+      draft.coverImage = coverUrl;
+      if (title) draft.title = title;
+      if (content) draft.content = content;
+      draft.updatedAt = new Date().toISOString();
+
+      await saveContentDraftsAsync(drafts);
+
+      // Audit Log
+      recordAuditLog({
+        action: `Published Blog to Live Website: ${blogPayload.title}`,
+        category: 'content',
+        targetType: 'blog',
+        targetId: draft.id,
+        targetTitle: blogPayload.title,
+        user: 'Vedant Tiwari',
+        userEmail: 'vedant@vedantverse.in',
+        userRole: 'Owner',
+        details: `Published directly to live website at /blog/${blogSlug} with dedicated 16:9 cover image.`
+      });
+
+      return NextResponse.json({
+        success: true,
+        message: 'Blog published successfully to live website!',
+        publishedUrl: `/blog/${blogSlug}`,
+        coverUrl,
+        blog: blogPayload,
+        draft
+      });
     }
 
     // Create New Draft
@@ -161,6 +307,7 @@ export async function POST(req: NextRequest) {
     if (faq) drafts[index].faq = faq;
     if (internalLinks) drafts[index].internalLinks = internalLinks;
     if (body.status) drafts[index].status = body.status;
+    if (body.coverImage) drafts[index].coverImage = body.coverImage;
     drafts[index].updatedAt = new Date().toISOString();
 
     await saveContentDraftsAsync(drafts);

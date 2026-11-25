@@ -38,7 +38,7 @@ export interface BlogPost {
   difficulty?: 'Beginner' | 'Intermediate' | 'Advanced';
 }
 
-const ALL_BLOGS: BlogPost[] = [
+const STATIC_BLOGS: BlogPost[] = [
   googlePmax as BlogPost,
   googleVerification as BlogPost,
   b2bLogistics as BlogPost,
@@ -51,20 +51,35 @@ const ALL_BLOGS: BlogPost[] = [
   searchAds2026 as BlogPost,
 ];
 
+export { STATIC_BLOGS };
+
+/**
+ * Returns static blogs with appropriate cover images. Safe for both client and server components.
+ */
 export function getAllBlogs(): BlogPost[] {
-  return ALL_BLOGS.map((blog) => ({ ...blog, coverImage: '' })).sort(
-    (a, b) => new Date(b.publishDate).getTime() - new Date(a.publishDate).getTime()
-  );
+  return STATIC_BLOGS.map((blog) => ({
+    ...blog,
+    coverImage: blog.coverImage || `/covers/${blog.slug}.svg`,
+  })).sort((a, b) => new Date(b.publishDate).getTime() - new Date(a.publishDate).getTime());
 }
 
 export function getBlogBySlug(slug: string): BlogPost | null {
-  const blog = ALL_BLOGS.find((b) => b.slug === slug);
+  const all = getAllBlogs();
+  const blog = all.find((b) => b.slug === slug);
   if (!blog) return null;
-  return { ...blog, coverImage: '' };
+  return {
+    ...blog,
+    coverImage: blog.coverImage || `/covers/${blog.slug}.svg`,
+  };
 }
 
 export function getFeaturedBlog(): BlogPost | null {
-  const featured = ALL_BLOGS.find((blog) => blog.featured) || ALL_BLOGS[0] || null;
+  const all = getAllBlogs();
+  const featured = all.find((blog) => blog.featured) || all[0] || null;
   if (!featured) return null;
-  return { ...featured, coverImage: '' };
+  return {
+    ...featured,
+    coverImage: featured.coverImage || `/covers/${featured.slug}.svg`,
+  };
 }
+

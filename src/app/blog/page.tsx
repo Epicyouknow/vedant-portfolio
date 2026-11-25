@@ -1,6 +1,6 @@
 import React from 'react';
 import { Metadata } from 'next';
-import { getAllBlogs, getFeaturedBlog } from '../../data/blogs';
+import { getServerBlogs, getServerFeaturedBlog } from '../../lib/serverBlogs';
 import BlogLandingClient from './BlogLandingClient';
 
 export const dynamic = 'force-dynamic';
@@ -12,8 +12,8 @@ export const metadata: Metadata = {
 };
 
 export default function BlogLandingPage() {
-  const blogs = getAllBlogs();
-  const featured = getFeaturedBlog();
+  const blogs = getServerBlogs();
+  const featured = getServerFeaturedBlog();
 
   return (
     <BlogLandingClient

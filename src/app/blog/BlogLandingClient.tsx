@@ -107,10 +107,22 @@ export default function BlogLandingClient({
             <Link
               key={blog.slug}
               href={`/blog/${blog.slug}`}
-              className="surface-card rounded-2xl p-7 flex flex-col justify-between shadow-xs hover:border-[var(--border-strong)] transition-all duration-300 group cursor-pointer"
+              className="surface-card rounded-2xl p-6 sm:p-7 flex flex-col justify-between shadow-xs hover:border-[var(--border-strong)] transition-all duration-300 group cursor-pointer"
             >
               <div>
-                <div className="flex items-center justify-between text-[10px] font-mono font-bold tracking-wider uppercase mb-4">
+                {/* 16:9 Editorial Cover Thumbnail */}
+                {blog.coverImage && (
+                  <div className="w-full aspect-[16/9] rounded-xl overflow-hidden mb-5 border border-[var(--border-subtle)] bg-[var(--surface-2)] relative">
+                    <img
+                      src={blog.coverImage}
+                      alt={blog.title}
+                      className="w-full h-full object-cover group-hover:scale-103 transition-transform duration-300"
+                      loading="lazy"
+                    />
+                  </div>
+                )}
+
+                <div className="flex items-center justify-between text-[10px] font-mono font-bold tracking-wider uppercase mb-3">
                   <span className="text-[var(--accent-red)]">{blog.category}</span>
                   <span className="text-[var(--text-muted)]">{blog.readingTime}</span>
                 </div>

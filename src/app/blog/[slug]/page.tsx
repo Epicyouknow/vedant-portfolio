@@ -1,7 +1,8 @@
 import React from 'react';
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import { getAllBlogs, getBlogBySlug, BlogPost } from '../../../data/blogs';
+import { BlogPost } from '../../../data/blogs';
+import { getServerBlogs, getServerBlogBySlug } from '../../../lib/serverBlogs';
 import ArticleViewClient from './ArticleViewClient';
 
 interface PageProps {
@@ -10,7 +11,7 @@ interface PageProps {
 
 // Generate static params for Next.js build optimization (ISR/SSG)
 export async function generateStaticParams() {
-  const blogs = getAllBlogs();
+  const blogs = getServerBlogs();
   return blogs.map((blog) => ({
     slug: blog.slug,
   }));
@@ -19,7 +20,7 @@ export async function generateStaticParams() {
 // Dynamic SEO metadata generation
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params;
-  const blog = getBlogBySlug(slug);
+  const blog = getServerBlogBySlug(slug);
 
   if (!blog) {
     return {
@@ -51,8 +52,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
 export default async function ArticlePage({ params }: PageProps) {
   const { slug } = await params;
-  const blog = getBlogBySlug(slug);
-  const allBlogs = getAllBlogs();
+  const blog = getServerBlogBySlug(slug);
+  const allBlogs = getServerBlogs();
 
   if (!blog) {
     notFound();
