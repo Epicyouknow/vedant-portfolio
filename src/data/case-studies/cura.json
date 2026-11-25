@@ -1,0 +1,243 @@
+{
+  "id": "cura",
+  "slug": "cura",
+  "name": "Cura",
+  "subtitle": "AI-Powered Travel-Tech Platform (India & US)",
+  "website": "https://joincura.club/",
+  "industry": "Travel-Tech & Consumer AI",
+  "category": "services",
+  "campaign": "AI Travel-Tech Sign-Ups & High-Intent Acquisition",
+  "objective": "Website Registrations & App Store Clicks",
+  "platforms": [
+    "Meta Ads",
+    "Instagram Reels",
+    "Conversion API (CAPI)",
+    "Funnel Analytics"
+  ],
+  "roleScope": [
+    "Meta Paid Media Buying",
+    "Creative Daily Testing Loop",
+    "UGC Reel Video Directing",
+    "City-Level Audience Segmentation (BLR-HYD vs MUM-DEL)",
+    "Ad Set Trimming & Budget Reallocation",
+    "Server-Side CAPI & Funnel Drop-off Optimization"
+  ],
+  "challenge": "Cura launched its customer acquisition campaign on October 28, 2026. Initial aggregate metrics hovered at an expensive ₹278 Cost Per Result (CPR) with low conversion velocity (3.9 daily signups) due to underperforming broad US ad sets, fatigued static creatives, and ad spend cannibalization across weak variants.",
+  "approach": [
+    "Campaign Launch Diagnostics: Analyzed first 7 days of campaign delivery across India and US ad sets to pinpoint budget bleeding.",
+    "Aggressive Ad Set Trimming: Paused the underperforming US ad set (which burned ₹1,587 CPR) and underperforming static ads (10TABS_STATIC_1X1, DUBAI_SINGAPORE_STATIC).",
+    "Capital Consolidation: Shifted 100% of the active budget into the highest-performing geographic cohorts: Bangalore-Hyderabad tech early adopters (IN_AS02: ₹133.92 CPR) and Mumbai-Delhi luxury leisure planners (IN_AS01: ₹208.67 CPR).",
+    "Daily Creative Iteration Loop: Deployed high-converting UGC reels and engineer walkthroughs (CURA_IN_CONCERT_TRIP_UGC_REEL_V1, CURA_IN_ENGINEER_EXPLAINS_REEL_V2, and CURA_IN_AD03_ITALY_7DAYS_REEL_V1).",
+    "Dual Funnel Optimization: Balanced website signups (CURA_M1_IN_C01_SIGNUP_WEB) with direct app store acquisition (CURA_IN_C02_APPCLICK_ANDROID and C03_APPCLICK_IOS)."
+  ],
+  "result": "Drove a massive 185% surge in daily results (from 3.9 to 11.0 daily verified registrations) while slashing Cost Per Result by 46% (from ₹278 down to ₹149 blended, with winning ad sets hitting ₹108.77 CPR). Generated 143+ verified conversions across web and app with ₹13.4L+ in initiated checkout pipeline value.",
+  "logo": "/clients/Cura logo.jpg",
+  "status": "PUBLISHED",
+  "verificationStatus": "VERIFIED",
+  "featured": true,
+  "strategies": [
+    {
+      "id": "strat-1",
+      "title": "01 AD SET PRUNING & CAPITAL REALLOCATION",
+      "description": "Identified high CPR drag in the US prospecting ad set (burning ₹1,587 per signup). Paused it immediately and reallocated 100% of the active budget to high-velocity domestic corridors (Bengaluru, Hyderabad, Mumbai, Delhi).",
+      "platform": "Meta Ads Manager",
+      "sortOrder": 1
+    },
+    {
+      "id": "strat-2",
+      "title": "02 DAILY CREATIVE TESTING & UGC REEL VELOCITY",
+      "description": "Implemented a rapid daily creative iteration system testing relatable concert trips, engineer walkthroughs, and destination budget itineraries against static banners. UGC Reels out-converted static by 3.2x.",
+      "platform": "Instagram Reels",
+      "sortOrder": 2
+    },
+    {
+      "id": "strat-3",
+      "title": "03 CITY-LEVEL SEGMENTATION & INTENT HOOKS",
+      "description": "Split audiences into tech-driven efficiency planners (Bengaluru & Hyderabad at ₹133.92 CPR) vs curated international luxury vacationers (Mumbai & Delhi at ₹208.67 CPR) with localized route messaging.",
+      "platform": "Meta Custom Audiences",
+      "sortOrder": 3
+    },
+    {
+      "id": "strat-4",
+      "title": "04 SERVER-SIDE CAPI & DUAL-FUNNEL CONVERSION",
+      "description": "Integrated Meta Conversion API with 7-day click, 1-day view attribution. Deduplicated web signups and scaled app store acquisition channels in tandem to feed Meta's machine learning algorithm.",
+      "platform": "Meta CAPI & GTM",
+      "sortOrder": 4
+    }
+  ],
+  "snapshots": [
+    {
+      "id": "cura-reel-1",
+      "platform": "Meta Ads",
+      "campaignName": "Winner: Concert Trip UGC Reel (CURA_IN_CONCERT_TRIP_UGC_REEL_V1)",
+      "objective": "Website Registrations & App Store Clicks",
+      "dateRange": "Oct 25 – Nov 25, 2026",
+      "image": "/CLIENT ADS ASSETS/Cura/Concert Cura reel.mp4",
+      "caption": "Top Volume Creative: 32 Website Registrations (₹132.22 CPR) + 24 App Store Clicks (₹125.12 CPR). 26,631 Impressions, 1.88% Link CTR. Rated Above Average across Quality, Engagement, and Conversion Rankings.",
+      "note": "Authentic UGC concert-trip narrative hooked high-intent millennial and Gen-Z travelers planning weekend festival getaways."
+    },
+    {
+      "id": "cura-reel-2",
+      "platform": "Meta Ads",
+      "campaignName": "Breakout: Engineer Explains Cura Itinerary Engine (CURA_IN_ENGINEER_EXPLAINS_REEL_V2)",
+      "objective": "Website Registrations & Initiated Checkouts",
+      "dateRange": "Oct 25 – Nov 25, 2026",
+      "image": "/CLIENT ADS ASSETS/Cura/powerful video reel.mp4",
+      "caption": "Breakout Efficiency: ₹108.77 Cost Per Registration! Generated 27 Registrations and 15 Initiated Checkouts with ₹8,27,276 in conversion value. 3.65% Total CTR with Above Average Quality & Conversion.",
+      "note": "Product-first demonstration showing the exact step-by-step itinerary creation UI resolved trust barriers and drove peak conversion value."
+    },
+    {
+      "id": "cura-reel-3",
+      "platform": "Meta Ads",
+      "campaignName": "HNW Performer: 7 Days in Italy Curated Route (CURA_IN_AD03_ITALY_7DAYS_REEL_V1)",
+      "objective": "Website Registrations (Mumbai-Delhi HNW)",
+      "dateRange": "Oct 25 – Nov 25, 2026",
+      "image": "/CLIENT ADS ASSETS/Cura/reel insta.mp4",
+      "caption": "Luxury & Long-Haul Performer: 15 Registrations (₹151.53 CPR), ₹30,107 conversion value, 8,089 Impressions. Above Average Quality & Conversion Rate.",
+      "note": "Specific aspirational route targeting international travelers planning European vacations with transparent day-by-day budget estimates."
+    },
+    {
+      "id": "cura-reel-4",
+      "platform": "Meta Ads",
+      "campaignName": "Contrast Angle: Life With vs Without Cura (CURA_IN_WITH_WITHOUT_UGC_REEL_V1)",
+      "objective": "Pain-Point Contrast Hook",
+      "dateRange": "Oct 25 – Nov 25, 2026",
+      "image": "/CLIENT ADS ASSETS/Cura/Life with Cura.mp4",
+      "caption": "Pain-Point Visualizer: 10 Registrations (₹199.88 CPR). Visually contrasted managing 10 open browser tabs vs having one cohesive, shareable Cura itinerary.",
+      "note": "Direct pain-point creative targeting tab-overload fatigue among independent trip planners."
+    }
+  ],
+  "metrics": {
+    "spend": 26855,
+    "impressions": 118957,
+    "reach": 70980,
+    "clicks": 2150,
+    "ctr": 2.15,
+    "cpc": 12.49,
+    "leads": 143,
+    "qualifiedLeads": 116,
+    "cpl": 149,
+    "conversionRate": 6.65
+  },
+  "beforeAfterComparisons": [
+    {
+      "metricName": "Daily Results (Conversions)",
+      "beforeValue": 3.9,
+      "afterValue": 11.0,
+      "unit": " /day",
+      "lowerIsBetter": false
+    },
+    {
+      "metricName": "Cost Per Result (CPR)",
+      "beforeValue": 278,
+      "afterValue": 149,
+      "unit": "₹",
+      "lowerIsBetter": true
+    },
+    {
+      "metricName": "Bengaluru-Hyderabad Ad Set CPR",
+      "beforeValue": 278,
+      "afterValue": 133.92,
+      "unit": "₹",
+      "lowerIsBetter": true
+    },
+    {
+      "metricName": "Top Creative (Engineer Explains) CPR",
+      "beforeValue": 278,
+      "afterValue": 108.77,
+      "unit": "₹",
+      "lowerIsBetter": true
+    },
+    {
+      "metricName": "Initiated Checkout Pipeline",
+      "beforeValue": 120000,
+      "afterValue": 1340190,
+      "unit": "₹",
+      "lowerIsBetter": false
+    }
+  ],
+  "mediaSplit": [
+    {
+      "channel": "Meta Ads (Instagram Reels)",
+      "percentage": 68,
+      "spendShare": "₹18,260"
+    },
+    {
+      "channel": "Meta Feed & Stories (Static 1x1)",
+      "percentage": 18,
+      "spendShare": "₹4,832"
+    },
+    {
+      "channel": "App Store Direct Click Campaigns",
+      "percentage": 14,
+      "spendShare": "₹3,763"
+    }
+  ],
+  "breakdown": [
+    {
+      "segment": "IN_AS02: Bengaluru & Hyderabad (25-45 Pros)",
+      "conversations": 71,
+      "spend": 9508.62,
+      "costPerResult": 133.92,
+      "format": "Video"
+    },
+    {
+      "segment": "IN_AS01: Mumbai & Delhi (30-55 Pros)",
+      "conversations": 42,
+      "spend": 8764.16,
+      "costPerResult": 208.67,
+      "format": "Video"
+    },
+    {
+      "segment": "IN_AS04 & AS06: AppStore Clicks (Android/iOS)",
+      "conversations": 27,
+      "spend": 3818.32,
+      "costPerResult": 141.42,
+      "format": "Video"
+    },
+    {
+      "segment": "US_AS03: NYC-LA-CHI (Paused Weak Cohort)",
+      "conversations": 3,
+      "spend": 4763.97,
+      "costPerResult": 1587.99,
+      "format": "Video"
+    }
+  ],
+  "timeline": [
+    {
+      "step": "Phase 1",
+      "title": "Campaign Launch & Baseline Diagnostics (28th Oct)",
+      "description": "Launched initial campaign across India (BLR, HYD, MUM, DEL) and US (NYC, LA, CHI). Initial baseline recorded 3.9 daily results at an expensive ₹278 CPR."
+    },
+    {
+      "step": "Phase 2",
+      "title": "Ad Set Pruning & Budget Reallocation (1st Nov)",
+      "description": "Identified US ad set dragging metrics at ₹1,587 CPR and static ads yielding low engagement. Paused weak variants immediately and shifted capital into India top performers."
+    },
+    {
+      "step": "Phase 3",
+      "title": "Daily UGC & Reel Creative Rotation (5th Nov)",
+      "description": "Deployed authentic concert trips, engineer walkthroughs, and 7-day Italy itineraries. High-converting video reels reduced cost per click by 42%."
+    },
+    {
+      "step": "Phase 4",
+      "title": "Peak Scale & +185% Result Surge (15th Nov)",
+      "description": "Daily results surged by 185% to 11.0 results/day. Blended CPR dropped 46% to ₹149. Winning reel (Engineer Explains) hit ₹108 CPR with ₹8.27L+ in checkout value."
+    }
+  ],
+  "keyLearnings": [
+    "UGC & Engineer Walkthroughs Outperform Static Ads: Authentic Reels drove over 80% of all registrations at 40% lower CPR compared to static 1x1 image ads.",
+    "City Cohort Specialization: Tech early adopters in Bengaluru and Hyderabad convert at ₹133 CPR for AI trip tools, while Mumbai and Delhi require luxury/international destination proof (₹208 CPR).",
+    "Rapid Kill-Criteria for Bleeding Audiences: Pausing the US ad set saved ₹4,700+ that was re-invested to capture 35+ incremental Indian signups.",
+    "Full-Funnel Value Velocity: Beyond registrations, winning creatives drove 34 checkouts with over ₹13.4L in initiated checkout transaction value."
+  ],
+  "provenance": {
+    "source": "Meta Ads Manager Active Diagnostic Export (Report Period: Oct 25, 2026 – Nov 25, 2026)",
+    "reportingPeriod": "Oct 25, 2026 – Nov 25, 2026",
+    "lastUpdated": "2026-11-25",
+    "verifiedBy": "Vedant Tiwari (Meta Certified Media Buyer)",
+    "isVerified": true
+  },
+  "createdAt": "2026-10-25T00:00:00.000Z",
+  "updatedAt": "2026-11-25T18:00:00.000Z"
+}

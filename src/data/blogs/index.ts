@@ -1,6 +1,7 @@
 import appUserAcquisition from './app-user-acquisition-cpi-optimization-jiohotstar.json';
 import b2bLogistics from './b2b-logistics-cpl-reduction-search-intent.json';
 import creativeTesting from './creative-testing-framework-20.json';
+import curaScaling from './how-we-scaled-cura-meta-ads-cost-per-result.json';
 import d2cShopify from './d2c-shopify-capi-meta-pixel-tracking.json';
 import ga4Tracking from './ga4-gtm-tracking-guide.json';
 import googleVerification from './google-ads-account-suspension-advertiser-verification-guide.json';
@@ -9,8 +10,10 @@ import metaAttribution from './meta-ads-attribution-2025.json';
 import metaAdvantage from './meta-advantage-plus-explained.json';
 import pmaxEcommerce from './performance-max-ecommerce-strategy.json';
 import realEstateLeads from './real-estate-demand-gen-high-net-worth-buyer-leads.json';
+import scaleLeadsFramework from './how-to-scale-leads-slash-cost-per-result-framework.json';
 import searchAds2026 from './search-ads-in-2026.json';
 import seasonalCourier from './seasonal-festive-courier-ad-creative-matrix.json';
+import travelTechMarketing from './travel-tech-performance-marketing-ai-itinerary-apps.json';
 
 export interface Author {
   name: string;
@@ -42,6 +45,9 @@ export interface BlogPost {
 }
 
 const STATIC_BLOGS: BlogPost[] = [
+  curaScaling as BlogPost,
+  travelTechMarketing as BlogPost,
+  scaleLeadsFramework as BlogPost,
   ga4Tracking as BlogPost,
   metaAttribution as BlogPost,
   pmaxEcommerce as BlogPost,

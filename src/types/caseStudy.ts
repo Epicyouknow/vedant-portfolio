@@ -144,12 +144,14 @@ export function getClientDefaultMetrics(id: string): {
   switch (id) {
     case 'cura':
       return {
-        metrics: { spend: 92400, clicks: 14850, ctr: 4.85, cpc: 6.22, leads: 462, cpl: 200, conversionRate: 7.8 },
+        metrics: { spend: 26855, impressions: 118957, reach: 70980, clicks: 2150, ctr: 2.15, cpc: 12.49, leads: 143, qualifiedLeads: 116, cpl: 149, conversionRate: 6.65 },
         beforeAfter: [
-          { metricName: 'Cost Per Website Sign-Up (CPL)', beforeValue: 380, afterValue: 200, unit: '₹', lowerIsBetter: true },
-          { metricName: 'Advisor Interaction Rate', beforeValue: 2.8, afterValue: 7.8, unit: '%', lowerIsBetter: false },
+          { metricName: 'Daily Results (Conversions)', beforeValue: 3.9, afterValue: 11.0, unit: ' /day', lowerIsBetter: false },
+          { metricName: 'Cost Per Result (CPR)', beforeValue: 278, afterValue: 149, unit: '₹', lowerIsBetter: true },
+          { metricName: 'Bengaluru-Hyderabad Ad Set CPR', beforeValue: 278, afterValue: 133.92, unit: '₹', lowerIsBetter: true },
+          { metricName: 'Top Creative (Engineer Explains) CPR', beforeValue: 278, afterValue: 108.77, unit: '₹', lowerIsBetter: true },
         ],
-        provenanceSource: 'Meta Ads Manager & Funnel Analytics Report',
+        provenanceSource: 'Meta Ads Manager Active Diagnostic Export (Oct 25 – Nov 25, 2026)',
       };
     case 'hfs-mumineen':
       return {

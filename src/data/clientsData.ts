@@ -34,7 +34,7 @@ export const CLIENTS_DATA: ClientData[] = [
       'Funnel drop-off analysis to improve website sign-up conversion efficiency',
       'Continuous CPL & conversion review for real-time creative and bid optimization'
     ],
-    result: 'Scaled qualified website sign-ups and advisor interaction volume while maintaining optimal acquisition costs across India and US target markets.',
+    result: 'Surged daily conversions by 185% (from 3.9 to 11.0/day) and reduced Cost Per Result by 46% (from ₹278 to ₹149) with top-performing Reels hitting ₹108.77 CPR across Bengaluru, Hyderabad, Mumbai, and Delhi.',
     logo: '/clients/Cura logo.jpg'
   },
   {

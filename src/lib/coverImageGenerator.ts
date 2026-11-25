@@ -47,9 +47,18 @@ function splitTitleToLines(title: string, maxCharsPerLine = 34): string[] {
  * Detects visual archetype based on topic keywords and slug to generate
  * dedicated, highly tailored technical diagrams matching the VedantVerse theme.
  */
-function detectArchetype(text: string): 'logistics' | 'meta' | 'google' | 'tracking' | 'compliance' | 'app' | 'realestate' | 'search-ai' | 'seasonal' | 'general' {
+function detectArchetype(text: string): 'cura' | 'travel-tech' | 'growth-framework' | 'logistics' | 'meta' | 'google' | 'tracking' | 'compliance' | 'app' | 'realestate' | 'search-ai' | 'seasonal' | 'general' {
   const lower = text.toLowerCase();
   
+  if (lower.includes('cura') || lower.includes('scaled-cura')) {
+    return 'cura';
+  }
+  if (lower.includes('travel-tech') || lower.includes('ai itinerary')) {
+    return 'travel-tech';
+  }
+  if (lower.includes('scale-leads') || lower.includes('slash cost per result') || lower.includes('diagnostic scaling') || lower.includes('3x lead')) {
+    return 'growth-framework';
+  }
   if (lower.includes('suspension') || lower.includes('compliance') || lower.includes('verification disruption')) {
     return 'compliance';
   }
@@ -109,7 +118,169 @@ export function generateCoverSvg(params: CoverGeneratorParams): string {
   // Archetype-specific graphic schematic (Right Column, 16:9 layout)
   let graphicSvg = '';
 
-  if (archetype === 'logistics') {
+  if (archetype === 'cura') {
+    // CURA Brand Specific Case Study Scaling Telemetry
+    graphicSvg = `
+      <g transform="translate(680, 110)">
+        <rect width="470" height="455" rx="20" fill="${cardBg}" stroke="${cardBorder}" stroke-width="1.5" />
+        <rect x="0" y="0" width="470" height="48" rx="20" fill="${isCream ? '#EFEBE4' : '#232220'}" />
+        <circle cx="28" cy="24" r="5" fill="${accentRed}" />
+        <circle cx="44" cy="24" r="5" fill="#EAB308" />
+        <circle cx="60" cy="24" r="5" fill="${accentEmerald}" />
+        <text x="80" y="29" fill="${textMuted}" font-family="monospace" font-size="11" font-weight="700" letter-spacing="1">CURA CAMPAIGN SCALING &amp; DIAGNOSTICS</text>
+        
+        <g transform="translate(30, 75)">
+          <text x="0" y="0" fill="${textPrimary}" font-family="sans-serif" font-size="12" font-weight="700">Verified Campaign Turnaround Telemetry</text>
+          
+          <g transform="translate(0, 18)">
+            <rect x="0" y="0" width="125" height="90" rx="10" fill="${isCream ? '#F7F5F0' : '#141413'}" stroke="${cardBorder}" />
+            <text x="14" y="24" fill="${accentEmerald}" font-family="monospace" font-size="9" font-weight="700">DAILY RESULTS</text>
+            <text x="14" y="46" fill="${textPrimary}" font-family="sans-serif" font-size="14" font-weight="800">11.0 /day</text>
+            <text x="14" y="66" fill="${accentEmerald}" font-family="monospace" font-size="10" font-weight="700">+185% Surge</text>
+
+            <rect x="142" y="0" width="125" height="90" rx="10" fill="${isCream ? '#F7F5F0' : '#141413'}" stroke="${accentRed}" stroke-width="1.5" />
+            <text x="156" y="24" fill="${accentRed}" font-family="monospace" font-size="9" font-weight="700">COST / RESULT</text>
+            <text x="156" y="46" fill="${textPrimary}" font-family="sans-serif" font-size="14" font-weight="800">₹149 CPR</text>
+            <text x="156" y="66" fill="${accentEmerald}" font-family="monospace" font-size="10" font-weight="700">-46% Dropped</text>
+
+            <rect x="284" y="0" width="125" height="90" rx="10" fill="${isCream ? '#F7F5F0' : '#141413'}" stroke="${cardBorder}" />
+            <text x="298" y="24" fill="${textMuted}" font-family="monospace" font-size="9" font-weight="700">TOP CREATIVE</text>
+            <text x="298" y="46" fill="${textPrimary}" font-family="sans-serif" font-size="14" font-weight="800">₹108.77</text>
+            <text x="298" y="66" fill="${accentEmerald}" font-family="monospace" font-size="10">Engineer Reel</text>
+          </g>
+        </g>
+
+        <g transform="translate(30, 220)">
+          <rect x="0" y="0" width="410" height="135" rx="12" fill="${isCream ? '#F7F5F0' : '#141413'}" stroke="${cardBorder}" />
+          <text x="20" y="28" fill="${textPrimary}" font-family="sans-serif" font-size="12" font-weight="700">City Segment Cohort &amp; Value Velocity</text>
+          
+          <g transform="translate(20, 48)">
+            <text x="0" y="0" fill="${textMuted}" font-family="monospace" font-size="10">BLR &amp; HYD Tech Pros Ad Set Efficiency</text>
+            <text x="370" y="0" fill="${accentEmerald}" font-family="monospace" font-size="10" font-weight="700" text-anchor="end">₹133.92 CPR (71 Signups)</text>
+            <rect x="0" y="8" width="370" height="6" rx="3" fill="${isCream ? '#E5E0D6' : '#2A2927'}" />
+            <rect x="0" y="8" width="345" height="6" rx="3" fill="${accentEmerald}" />
+
+            <text x="0" y="36" fill="${textMuted}" font-family="monospace" font-size="10">Initiated Checkout Transaction Value</text>
+            <text x="370" y="36" fill="${accentRed}" font-family="monospace" font-size="10" font-weight="700" text-anchor="end">₹13,40,190 Verified</text>
+            <rect x="0" y="44" width="370" height="6" rx="3" fill="${isCream ? '#E5E0D6' : '#2A2927'}" />
+            <rect x="0" y="44" width="365" height="6" rx="3" fill="${accentRed}" />
+          </g>
+        </g>
+
+        <g transform="translate(30, 395)">
+          <text x="0" y="18" fill="${textMuted}" font-family="monospace" font-size="10">Meta Marketing API v21.0 · CAPI Server-to-Server Ready</text>
+        </g>
+      </g>
+    `;
+  } else if (archetype === 'travel-tech') {
+    // Travel-Tech Industry Dual-Funnel Architecture
+    graphicSvg = `
+      <g transform="translate(680, 110)">
+        <rect width="470" height="455" rx="20" fill="${cardBg}" stroke="${cardBorder}" stroke-width="1.5" />
+        <rect x="0" y="0" width="470" height="48" rx="20" fill="${isCream ? '#EFEBE4' : '#232220'}" />
+        <circle cx="28" cy="24" r="5" fill="${accentRed}" />
+        <circle cx="44" cy="24" r="5" fill="#EAB308" />
+        <circle cx="60" cy="24" r="5" fill="${accentEmerald}" />
+        <text x="80" y="29" fill="${textMuted}" font-family="monospace" font-size="11" font-weight="700" letter-spacing="1">TRAVEL-TECH DUAL-FUNNEL ARCHITECTURE</text>
+        
+        <g transform="translate(30, 75)">
+          <text x="0" y="0" fill="${textPrimary}" font-family="sans-serif" font-size="12" font-weight="700">Acquisition Channels &amp; Unit Economics</text>
+          
+          <g transform="translate(0, 18)">
+            <rect x="0" y="0" width="125" height="90" rx="10" fill="${isCream ? '#F7F5F0' : '#141413'}" stroke="${cardBorder}" />
+            <text x="14" y="24" fill="${textMuted}" font-family="monospace" font-size="9" font-weight="700">WEB FUNNEL</text>
+            <text x="14" y="46" fill="${textPrimary}" font-family="sans-serif" font-size="14" font-weight="800">₹132 CPR</text>
+            <text x="14" y="66" fill="${accentEmerald}" font-family="monospace" font-size="10">Rich Canvas</text>
+
+            <rect x="142" y="0" width="125" height="90" rx="10" fill="${isCream ? '#F7F5F0' : '#141413'}" stroke="${accentRed}" stroke-width="1.5" />
+            <text x="156" y="24" fill="${accentRed}" font-family="monospace" font-size="9" font-weight="700">APP STORE</text>
+            <text x="156" y="46" fill="${textPrimary}" font-family="sans-serif" font-size="14" font-weight="800">₹125 CPR</text>
+            <text x="156" y="66" fill="${accentEmerald}" font-family="monospace" font-size="10">Push Retain</text>
+
+            <rect x="284" y="0" width="125" height="90" rx="10" fill="${isCream ? '#F7F5F0' : '#141413'}" stroke="${cardBorder}" />
+            <text x="298" y="24" fill="${textMuted}" font-family="monospace" font-size="9" font-weight="700">CLICK-THROUGH</text>
+            <text x="298" y="46" fill="${textPrimary}" font-family="sans-serif" font-size="14" font-weight="800">3.65%</text>
+            <text x="298" y="66" fill="${accentEmerald}" font-family="monospace" font-size="10">Peak CTR</text>
+          </g>
+        </g>
+
+        <g transform="translate(30, 220)">
+          <rect x="0" y="0" width="410" height="135" rx="12" fill="${isCream ? '#F7F5F0' : '#141413'}" stroke="${cardBorder}" />
+          <text x="20" y="28" fill="${textPrimary}" font-family="sans-serif" font-size="12" font-weight="700">City-Tier Response &amp; Contrast Hook VTR</text>
+          
+          <g transform="translate(20, 48)">
+            <text x="0" y="0" fill="${textMuted}" font-family="monospace" font-size="10">Tech Early Adopter Market Share (BLR-HYD)</text>
+            <text x="370" y="0" fill="${accentEmerald}" font-family="monospace" font-size="10" font-weight="700" text-anchor="end">61.2% Share</text>
+            <rect x="0" y="8" width="370" height="6" rx="3" fill="${isCream ? '#E5E0D6' : '#2A2927'}" />
+            <rect x="0" y="8" width="320" height="6" rx="3" fill="${accentEmerald}" />
+
+            <text x="0" y="36" fill="${textMuted}" font-family="monospace" font-size="10">Pain-Point Video Retention (3-Sec Hook Rate)</text>
+            <text x="370" y="36" fill="${accentRed}" font-family="monospace" font-size="10" font-weight="700" text-anchor="end">84.2% VTR</text>
+            <rect x="0" y="44" width="370" height="6" rx="3" fill="${isCream ? '#E5E0D6' : '#2A2927'}" />
+            <rect x="0" y="44" width="350" height="6" rx="3" fill="${accentRed}" />
+          </g>
+        </g>
+
+        <g transform="translate(30, 395)">
+          <text x="0" y="18" fill="${textMuted}" font-family="monospace" font-size="10">Travel-Tech Consumer Scaling · Meta Advantage+ Ready</text>
+        </g>
+      </g>
+    `;
+  } else if (archetype === 'growth-framework') {
+    // Generic Growth Framework CPR Reduction Engine
+    graphicSvg = `
+      <g transform="translate(680, 110)">
+        <rect width="470" height="455" rx="20" fill="${cardBg}" stroke="${cardBorder}" stroke-width="1.5" />
+        <rect x="0" y="0" width="470" height="48" rx="20" fill="${isCream ? '#EFEBE4' : '#232220'}" />
+        <circle cx="28" cy="24" r="5" fill="${accentRed}" />
+        <circle cx="44" cy="24" r="5" fill="#EAB308" />
+        <circle cx="60" cy="24" r="5" fill="${accentEmerald}" />
+        <text x="80" y="29" fill="${textMuted}" font-family="monospace" font-size="11" font-weight="700" letter-spacing="1">DIAGNOSTIC SCALING &amp; CPR REDUCTION</text>
+        
+        <g transform="translate(30, 75)">
+          <text x="0" y="0" fill="${textPrimary}" font-family="sans-serif" font-size="12" font-weight="700">The 4-Pillar Capital Allocation Engine</text>
+          
+          <g transform="translate(0, 18)">
+            <rect x="0" y="0" width="125" height="90" rx="10" fill="${isCream ? '#F7F5F0' : '#141413'}" stroke="${cardBorder}" />
+            <text x="14" y="24" fill="${accentRed}" font-family="monospace" font-size="9" font-weight="700">KILL CRITERIA</text>
+            <text x="14" y="46" fill="${textPrimary}" font-family="sans-serif" font-size="13" font-weight="800">&gt;2.5x Median</text>
+            <text x="14" y="66" fill="${textMuted}" font-family="monospace" font-size="10">48h Pruning</text>
+
+            <rect x="142" y="0" width="125" height="90" rx="10" fill="${isCream ? '#F7F5F0' : '#141413'}" stroke="${accentEmerald}" stroke-width="1.5" />
+            <text x="156" y="24" fill="${accentEmerald}" font-family="monospace" font-size="9" font-weight="700">MIGRATION</text>
+            <text x="156" y="46" fill="${textPrimary}" font-family="sans-serif" font-size="13" font-weight="800">80/20 Rule</text>
+            <text x="156" y="66" fill="${accentEmerald}" font-family="monospace" font-size="10">Consolidate</text>
+
+            <rect x="284" y="0" width="125" height="90" rx="10" fill="${isCream ? '#F7F5F0' : '#141413'}" stroke="${cardBorder}" />
+            <text x="298" y="24" fill="${textMuted}" font-family="monospace" font-size="9" font-weight="700">REEL MATRIX</text>
+            <text x="298" y="46" fill="${textPrimary}" font-family="sans-serif" font-size="13" font-weight="800">3x3 Cadence</text>
+            <text x="298" y="66" fill="${accentEmerald}" font-family="monospace" font-size="10">Daily Tests</text>
+          </g>
+        </g>
+
+        <g transform="translate(30, 220)">
+          <rect x="0" y="0" width="410" height="135" rx="12" fill="${isCream ? '#F7F5F0' : '#141413'}" stroke="${cardBorder}" />
+          <text x="20" y="28" fill="${textPrimary}" font-family="sans-serif" font-size="12" font-weight="700">Conversion Velocity &amp; Cost Compression</text>
+          
+          <g transform="translate(20, 48)">
+            <text x="0" y="0" fill="${textMuted}" font-family="monospace" font-size="10">Verified Volume Acceleration Lift</text>
+            <text x="370" y="0" fill="${accentEmerald}" font-family="monospace" font-size="10" font-weight="700" text-anchor="end">+185% Surge</text>
+            <rect x="0" y="8" width="370" height="6" rx="3" fill="${isCream ? '#E5E0D6' : '#2A2927'}" />
+            <rect x="0" y="8" width="350" height="6" rx="3" fill="${accentEmerald}" />
+
+            <text x="0" y="36" fill="${textMuted}" font-family="monospace" font-size="10">Cost Per Result Compression</text>
+            <text x="370" y="36" fill="${accentRed}" font-family="monospace" font-size="10" font-weight="700" text-anchor="end">-46% Dropped</text>
+            <rect x="0" y="44" width="370" height="6" rx="3" fill="${isCream ? '#E5E0D6' : '#2A2927'}" />
+            <rect x="0" y="44" width="330" height="6" rx="3" fill="${accentRed}" />
+          </g>
+        </g>
+
+        <g transform="translate(30, 395)">
+          <text x="0" y="18" fill="${textMuted}" font-family="monospace" font-size="10">Empirical Performance Architecture · Conversion Telemetry</text>
+        </g>
+      </g>
+    `;
+  } else if (archetype === 'logistics') {
     // Technical B2B Logistics Route & Telemetry Grid
     graphicSvg = `
       <g transform="translate(680, 110)">
