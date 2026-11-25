@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" width="1200" height="675">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700;800;900&amp;family=Inter:wght@400;600;700;800&amp;display=swap');
+      text { font-family: 'DM Sans', 'Inter', -apple-system, sans-serif; }
+    </style>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#121211" />
+      <stop offset="100%" stop-color="#0B0B0A" />
+    </linearGradient>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(255,255,255,0.035)" stroke-width="1" />
+    </pattern>
+  </defs>
+
+  <!-- Background Base -->
+  <rect width="1200" height="675" fill="url(#bgGrad)" />
+  <rect width="1200" height="675" fill="url(#grid)" />
+
+  <!-- Accent Edge Glow -->
+  <circle cx="1100" cy="80" r="320" fill="#ED463B" opacity="0.08" />
+  <circle cx="100" cy="600" r="280" fill="#10B981" opacity="0.06" />
+
+  <!-- LEFT COLUMN: Brand, Category, Title & Author Metadata -->
+  <g transform="translate(70, 75)">
+    <!-- Brand Monogram & Label -->
+    <g>
+      <rect width="36" height="36" rx="10" fill="#191919" />
+      <text x="18" y="24" fill="#FFFFFF" font-size="16" font-weight="900" text-anchor="middle">V</text>
+      <text x="48" y="23" fill="#F5F2EC" font-size="14" font-weight="800" letter-spacing="-0.3">VedantVerse</text>
+      <text x="145" y="23" fill="#8C887F" font-size="12" font-weight="500">· Growth Studio</text>
+    </g>
+
+    <!-- Category Pill -->
+    <g transform="translate(0, 70)">
+      <rect width="273" height="26" rx="13" fill="#1C1B19" stroke="#ED463B" stroke-width="1.2" />
+      <circle cx="14" cy="13" r="3.5" fill="#ED463B" />
+      <text x="24" y="17" fill="#ED463B" font-family="monospace" font-size="10.5" font-weight="800" letter-spacing="1">B2B LOGISTICS &amp; FREIGHT</text>
+    </g>
+
+    <!-- Main Editorial Title -->
+    <g transform="translate(0, 150)">
+      
+        <text x="0" y="0" fill="#F5F2EC" font-size="34" font-weight="800" letter-spacing="-0.8">
+          B2B Freight &amp; Logistics Paid
+        </text>
+      
+        <text x="0" y="48" fill="#F5F2EC" font-size="34" font-weight="800" letter-spacing="-0.8">
+          Ads: How to Reduce Cost Per Lead
+        </text>
+      
+        <text x="0" y="96" fill="#F5F2EC" font-size="34" font-weight="800" letter-spacing="-0.8">
+          (CPL) by 45% Using High-Intent
+        </text>
+      
+    </g>
+
+    <!-- Subtitle / Meta Description Gist -->
+    <g transform="translate(0, 309)">
+      <text x="0" y="0" fill="#8C887F" font-size="15" font-weight="500" letter-spacing="-0.2">
+        Authoritative media planning architecture &amp; empirical conversion benchmarks.
+      </text>
+    </g>
+
+    <!-- Author & Reading Metadata Box -->
+    <g transform="translate(0, 445)">
+      <line x1="0" y1="0" x2="520" y2="0" stroke="#2A2927" stroke-width="1" />
+      
+      <!-- Author Pill -->
+      <g transform="translate(0, 20)">
+        <circle cx="18" cy="18" r="18" fill="#2A2927" />
+        <text x="18" y="23" fill="#F5F2EC" font-size="12" font-weight="800" text-anchor="middle">VT</text>
+        
+        <text x="46" y="15" fill="#F5F2EC" font-size="13" font-weight="700">Vedant Tiwari</text>
+        <text x="46" y="29" fill="#8C887F" font-size="11" font-weight="500">Senior Performance Marketing Executive</text>
+
+        <!-- Right Side Badge -->
+        <rect x="400" y="6" width="115" height="24" rx="6" fill="#1A1918" stroke="#2A2927" />
+        <text x="457" y="22" fill="#8C887F" font-family="monospace" font-size="10.5" font-weight="700" text-anchor="middle">16:9 HD HERO</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- RIGHT COLUMN: Technical Archetype Schematic -->
+  
+      <g transform="translate(680, 110)">
+        <rect width="470" height="455" rx="20" fill="#1A1918" stroke="#2A2927" stroke-width="1.5" />
+        <rect x="0" y="0" width="470" height="48" rx="20" fill="#232220" />
+        <circle cx="28" cy="24" r="5" fill="#ED463B" />
+        <circle cx="44" cy="24" r="5" fill="#EAB308" />
+        <circle cx="60" cy="24" r="5" fill="#10B981" />
+        <text x="80" y="29" fill="#8C887F" font-family="monospace" font-size="11" font-weight="700" letter-spacing="1">FREIGHT PIPELINE &amp; CPL TELEMETRY</text>
+        <rect x="365" y="14" width="85" height="20" rx="10" fill="#121211" />
+        <text x="407" y="28" fill="#10B981" font-family="monospace" font-size="10" font-weight="700" text-anchor="middle">ACTIVE 99.4%</text>
+
+        <!-- Route Nodes & Freight Network -->
+        <g transform="translate(30, 75)">
+          <rect x="0" y="0" width="115" height="75" rx="12" fill="#141413" stroke="#2A2927" />
+          <text x="14" y="24" fill="#8C887F" font-family="sans-serif" font-size="10" font-weight="700">TIER-1 HUBS</text>
+          <text x="14" y="48" fill="#F5F2EC" font-family="sans-serif" font-size="18" font-weight="800">14 Cities</text>
+          <text x="14" y="64" fill="#10B981" font-family="monospace" font-size="9" font-weight="600">Verified Routes</text>
+
+          <path d="M 115 37 L 145 37" stroke="#ED463B" stroke-width="2" stroke-dasharray="4 4" />
+
+          <rect x="145" y="0" width="120" height="75" rx="12" fill="#141413" stroke="#2A2927" />
+          <text x="160" y="24" fill="#8C887F" font-family="sans-serif" font-size="10" font-weight="700">SQL GATEWAY</text>
+          <text x="160" y="48" fill="#F5F2EC" font-family="sans-serif" font-size="18" font-weight="800">42.8%</text>
+          <text x="160" y="64" fill="#10B981" font-family="monospace" font-size="9" font-weight="600">+14% vs Index</text>
+
+          <path d="M 265 37 L 295 37" stroke="#ED463B" stroke-width="2" stroke-dasharray="4 4" />
+
+          <rect x="295" y="0" width="115" height="75" rx="12" fill="#141413" stroke="#ED463B" stroke-width="1.5" />
+          <text x="310" y="24" fill="#ED463B" font-family="sans-serif" font-size="10" font-weight="700">AVG CPL</text>
+          <text x="310" y="48" fill="#F5F2EC" font-family="sans-serif" font-size="18" font-weight="800">₹248</text>
+          <text x="310" y="64" fill="#10B981" font-family="monospace" font-size="9" font-weight="600">-38% Ad Spend</text>
+        </g>
+
+        <!-- Dynamic Chart Bars -->
+        <g transform="translate(30, 185)">
+          <text x="0" y="0" fill="#F5F2EC" font-family="sans-serif" font-size="12" font-weight="700">Qualified Freight Pipeline Volume</text>
+          <text x="410" y="0" fill="#8C887F" font-family="monospace" font-size="10" text-anchor="end">Monthly Run-Rate</text>
+          
+          <g transform="translate(0, 18)">
+            <line x1="0" y1="120" x2="410" y2="120" stroke="#2A2927" stroke-width="1" />
+            <line x1="0" y1="60" x2="410" y2="60" stroke="#2A2927" stroke-dasharray="2 4" stroke-width="0.8" />
+
+            <rect x="20" y="70" width="40" height="50" rx="4" fill="#33302B" />
+            <rect x="85" y="55" width="40" height="65" rx="4" fill="#33302B" />
+            <rect x="150" y="40" width="40" height="80" rx="4" fill="#33302B" />
+            <rect x="215" y="30" width="40" height="90" rx="4" fill="#33302B" />
+            <rect x="280" y="18" width="40" height="102" rx="4" fill="#ED463B" />
+            <rect x="345" y="8" width="40" height="112" rx="4" fill="#10B981" />
+
+            <text x="40" y="135" fill="#8C887F" font-family="monospace" font-size="9" text-anchor="middle">W1</text>
+            <text x="105" y="135" fill="#8C887F" font-family="monospace" font-size="9" text-anchor="middle">W2</text>
+            <text x="170" y="135" fill="#8C887F" font-family="monospace" font-size="9" text-anchor="middle">W3</text>
+            <text x="235" y="135" fill="#8C887F" font-family="monospace" font-size="9" text-anchor="middle">W4</text>
+            <text x="300" y="135" fill="#F5F2EC" font-family="monospace" font-size="9" font-weight="700" text-anchor="middle">SCALE</text>
+            <text x="365" y="135" fill="#10B981" font-family="monospace" font-size="9" font-weight="700" text-anchor="middle">PEAK</text>
+          </g>
+        </g>
+
+        <!-- Bottom Status Bar -->
+        <g transform="translate(30, 395)">
+          <rect x="0" y="0" width="410" height="34" rx="8" fill="#141413" />
+          <circle cx="16" cy="17" r="4" fill="#10B981" />
+          <text x="28" y="21" fill="#F5F2EC" font-family="monospace" font-size="10" font-weight="600">Enterprise CRM Webhook Active (HubSpot / Salesforce)</text>
+          <text x="395" y="21" fill="#8C887F" font-family="monospace" font-size="10" text-anchor="end">&lt;60s</text>
+        </g>
+      </g>
+    
+</svg>

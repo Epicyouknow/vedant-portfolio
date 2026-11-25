@@ -25,7 +25,7 @@ function escapeXml(unsafe: string): string {
 /**
  * Splits title text into multiple lines for crisp SVG rendering.
  */
-function splitTitleToLines(title: string, maxCharsPerLine = 38): string[] {
+function splitTitleToLines(title: string, maxCharsPerLine = 34): string[] {
   const words = title.split(' ');
   const lines: string[] = [];
   let currentLine = '';
@@ -44,25 +44,38 @@ function splitTitleToLines(title: string, maxCharsPerLine = 38): string[] {
 }
 
 /**
- * Detects visual archetype based on topic keywords to generate
- * dedicated, highly tailored technical diagrams.
+ * Detects visual archetype based on topic keywords and slug to generate
+ * dedicated, highly tailored technical diagrams matching the VedantVerse theme.
  */
-function detectArchetype(text: string): 'logistics' | 'meta' | 'google' | 'attribution' | 'ecommerce' | 'general' {
+function detectArchetype(text: string): 'logistics' | 'meta' | 'google' | 'tracking' | 'compliance' | 'app' | 'realestate' | 'search-ai' | 'seasonal' | 'general' {
   const lower = text.toLowerCase();
-  if (lower.includes('logistic') || lower.includes('freight') || lower.includes('courier') || lower.includes('supply') || lower.includes('transport') || lower.includes('b2b')) {
+  
+  if (lower.includes('suspension') || lower.includes('compliance') || lower.includes('verification disruption')) {
+    return 'compliance';
+  }
+  if (lower.includes('app user acquisition') || lower.includes('cpi') || lower.includes('uac') || lower.includes('jiohotstar')) {
+    return 'app';
+  }
+  if (lower.includes('real estate') || lower.includes('site-visit') || lower.includes('property')) {
+    return 'realestate';
+  }
+  if (lower.includes('search ads in 2026') || lower.includes('intent > keywords') || lower.includes('ai search') || lower.includes('vector')) {
+    return 'search-ai';
+  }
+  if (lower.includes('seasonal') || lower.includes('festive') || lower.includes('emotional festive')) {
+    return 'seasonal';
+  }
+  if (lower.includes('tracking') || lower.includes('ga4') || lower.includes('gtm') || lower.includes('shopify') || lower.includes('pixel')) {
+    return 'tracking';
+  }
+  if (lower.includes('logistic') || lower.includes('freight') || lower.includes('courier') || lower.includes('supply') || lower.includes('transport') || lower.includes('b2b freight')) {
     return 'logistics';
   }
-  if (lower.includes('meta') || lower.includes('facebook') || lower.includes('instagram') || lower.includes('advantage') || lower.includes('creative testing')) {
+  if (lower.includes('meta') || lower.includes('advantage') || lower.includes('creative testing') || lower.includes('attribution')) {
     return 'meta';
   }
-  if (lower.includes('google') || lower.includes('pmax') || lower.includes('performance max') || lower.includes('search ads') || lower.includes('bidding')) {
+  if (lower.includes('google') || lower.includes('pmax') || lower.includes('performance max') || lower.includes('search ads')) {
     return 'google';
-  }
-  if (lower.includes('attribution') || lower.includes('ga4') || lower.includes('capi') || lower.includes('tracking') || lower.includes('gtm') || lower.includes('pixel')) {
-    return 'attribution';
-  }
-  if (lower.includes('shopify') || lower.includes('d2c') || lower.includes('e-commerce') || lower.includes('roas') || lower.includes('app acquisition')) {
-    return 'ecommerce';
   }
   return 'general';
 }
@@ -76,11 +89,11 @@ function detectArchetype(text: string): 'logistics' | 'meta' | 'google' | 'attri
  * - Zero artificial AI distortion, looks 100% intentional and human-designed
  */
 export function generateCoverSvg(params: CoverGeneratorParams): string {
-  const { title, category = 'Performance Marketing', theme = 'dark', tags = [] } = params;
+  const { title, category = 'Performance Marketing', theme = 'dark', tags = [], slug = '' } = params;
   const safeTitle = escapeXml(title);
   const safeCategory = escapeXml(category.toUpperCase());
-  const archetype = detectArchetype(title + ' ' + category + ' ' + tags.join(' '));
-  const titleLines = splitTitleToLines(safeTitle, 36);
+  const archetype = detectArchetype(slug + ' ' + title + ' ' + category + ' ' + tags.join(' '));
+  const titleLines = splitTitleToLines(safeTitle, 32);
 
   // Palette configurations
   const isCream = theme === 'cream';
@@ -99,12 +112,8 @@ export function generateCoverSvg(params: CoverGeneratorParams): string {
   if (archetype === 'logistics') {
     // Technical B2B Logistics Route & Telemetry Grid
     graphicSvg = `
-      <!-- Logistics Pipeline Schematic -->
       <g transform="translate(680, 110)">
-        <!-- Container Card -->
         <rect width="470" height="455" rx="20" fill="${cardBg}" stroke="${cardBorder}" stroke-width="1.5" />
-        
-        <!-- Header Strip -->
         <rect x="0" y="0" width="470" height="48" rx="20" fill="${isCream ? '#EFEBE4' : '#232220'}" />
         <circle cx="28" cy="24" r="5" fill="${accentRed}" />
         <circle cx="44" cy="24" r="5" fill="#EAB308" />
@@ -115,25 +124,20 @@ export function generateCoverSvg(params: CoverGeneratorParams): string {
 
         <!-- Route Nodes & Freight Network -->
         <g transform="translate(30, 75)">
-          <!-- Node 1: Ingestion -->
           <rect x="0" y="0" width="115" height="75" rx="12" fill="${isCream ? '#F7F5F0' : '#141413'}" stroke="${cardBorder}" />
           <text x="14" y="24" fill="${textMuted}" font-family="sans-serif" font-size="10" font-weight="700">TIER-1 HUBS</text>
           <text x="14" y="48" fill="${textPrimary}" font-family="sans-serif" font-size="18" font-weight="800">14 Cities</text>
           <text x="14" y="64" fill="${accentEmerald}" font-family="monospace" font-size="9" font-weight="600">Verified Routes</text>
 
-          <!-- Connecting line -->
           <path d="M 115 37 L 145 37" stroke="${accentRed}" stroke-width="2" stroke-dasharray="4 4" />
 
-          <!-- Node 2: Qualification Funnel -->
           <rect x="145" y="0" width="120" height="75" rx="12" fill="${isCream ? '#F7F5F0' : '#141413'}" stroke="${cardBorder}" />
           <text x="160" y="24" fill="${textMuted}" font-family="sans-serif" font-size="10" font-weight="700">SQL GATEWAY</text>
           <text x="160" y="48" fill="${textPrimary}" font-family="sans-serif" font-size="18" font-weight="800">42.8%</text>
           <text x="160" y="64" fill="${accentEmerald}" font-family="monospace" font-size="9" font-weight="600">+14% vs Index</text>
 
-          <!-- Connecting line -->
           <path d="M 265 37 L 295 37" stroke="${accentRed}" stroke-width="2" stroke-dasharray="4 4" />
 
-          <!-- Node 3: Target Output -->
           <rect x="295" y="0" width="115" height="75" rx="12" fill="${isCream ? '#F7F5F0' : '#141413'}" stroke="${accentRed}" stroke-width="1.5" />
           <text x="310" y="24" fill="${accentRed}" font-family="sans-serif" font-size="10" font-weight="700">AVG CPL</text>
           <text x="310" y="48" fill="${textPrimary}" font-family="sans-serif" font-size="18" font-weight="800">₹248</text>
@@ -146,11 +150,9 @@ export function generateCoverSvg(params: CoverGeneratorParams): string {
           <text x="410" y="0" fill="${textMuted}" font-family="monospace" font-size="10" text-anchor="end">Monthly Run-Rate</text>
           
           <g transform="translate(0, 18)">
-            <!-- Axis lines -->
             <line x1="0" y1="120" x2="410" y2="120" stroke="${cardBorder}" stroke-width="1" />
             <line x1="0" y1="60" x2="410" y2="60" stroke="${cardBorder}" stroke-dasharray="2 4" stroke-width="0.8" />
 
-            <!-- Bars -->
             <rect x="20" y="70" width="40" height="50" rx="4" fill="${isCream ? '#D7D0C5' : '#33302B'}" />
             <rect x="85" y="55" width="40" height="65" rx="4" fill="${isCream ? '#D7D0C5' : '#33302B'}" />
             <rect x="150" y="40" width="40" height="80" rx="4" fill="${isCream ? '#D7D0C5' : '#33302B'}" />
@@ -158,7 +160,6 @@ export function generateCoverSvg(params: CoverGeneratorParams): string {
             <rect x="280" y="18" width="40" height="102" rx="4" fill="${accentRed}" />
             <rect x="345" y="8" width="40" height="112" rx="4" fill="${accentEmerald}" />
 
-            <!-- Labels -->
             <text x="40" y="135" fill="${textMuted}" font-family="monospace" font-size="9" text-anchor="middle">W1</text>
             <text x="105" y="135" fill="${textMuted}" font-family="monospace" font-size="9" text-anchor="middle">W2</text>
             <text x="170" y="135" fill="${textMuted}" font-family="monospace" font-size="9" text-anchor="middle">W3</text>
@@ -170,7 +171,7 @@ export function generateCoverSvg(params: CoverGeneratorParams): string {
 
         <!-- Bottom Status Bar -->
         <g transform="translate(30, 395)">
-          <rect x="0" y="0" width="410" height="34" rx="8" fill="${isCream ? '#F7F5F0' : '#141413'}" border="${cardBorder}" />
+          <rect x="0" y="0" width="410" height="34" rx="8" fill="${isCream ? '#F7F5F0' : '#141413'}" />
           <circle cx="16" cy="17" r="4" fill="${accentEmerald}" />
           <text x="28" y="21" fill="${textPrimary}" font-family="monospace" font-size="10" font-weight="600">Enterprise CRM Webhook Active (HubSpot / Salesforce)</text>
           <text x="395" y="21" fill="${textMuted}" font-family="monospace" font-size="10" text-anchor="end">&lt;60s</text>
@@ -178,7 +179,7 @@ export function generateCoverSvg(params: CoverGeneratorParams): string {
       </g>
     `;
   } else if (archetype === 'meta') {
-    // Meta Ads & Creative Matrix Visualizer
+    // Meta Ads & Creative Matrix Visualizer (Matching User's Attached Screenshot)
     graphicSvg = `
       <g transform="translate(680, 110)">
         <rect width="470" height="455" rx="20" fill="${cardBg}" stroke="${cardBorder}" stroke-width="1.5" />
@@ -290,8 +291,336 @@ export function generateCoverSvg(params: CoverGeneratorParams): string {
         </g>
       </g>
     `;
+  } else if (archetype === 'tracking') {
+    // GA4, GTM & Server-Side CAPI Tracking Pipeline
+    graphicSvg = `
+      <g transform="translate(680, 110)">
+        <rect width="470" height="455" rx="20" fill="${cardBg}" stroke="${cardBorder}" stroke-width="1.5" />
+        <rect x="0" y="0" width="470" height="48" rx="20" fill="${isCream ? '#EFEBE4' : '#232220'}" />
+        <circle cx="28" cy="24" r="5" fill="${accentRed}" />
+        <circle cx="44" cy="24" r="5" fill="#EAB308" />
+        <circle cx="60" cy="24" r="5" fill="${accentEmerald}" />
+        <text x="80" y="29" fill="${textMuted}" font-family="monospace" font-size="11" font-weight="700" letter-spacing="1">SERVER-SIDE TRACKING &amp; ATTRIBUTION</text>
+        
+        <!-- DataLayer Pipeline -->
+        <g transform="translate(30, 75)">
+          <text x="0" y="0" fill="${textPrimary}" font-family="sans-serif" font-size="12" font-weight="700">DataLayer &amp; Server Container Architecture</text>
+          
+          <g transform="translate(0, 18)">
+            <rect x="0" y="0" width="125" height="90" rx="10" fill="${isCream ? '#F7F5F0' : '#141413'}" stroke="${cardBorder}" />
+            <text x="14" y="24" fill="${textMuted}" font-family="monospace" font-size="9" font-weight="700">GTM WEB</text>
+            <text x="14" y="46" fill="${textPrimary}" font-family="sans-serif" font-size="12" font-weight="700">Client Stream</text>
+            <text x="14" y="66" fill="${accentEmerald}" font-family="monospace" font-size="10">0ms Drops</text>
+
+            <rect x="142" y="0" width="125" height="90" rx="10" fill="${isCream ? '#F7F5F0' : '#141413'}" stroke="${accentRed}" stroke-width="1.5" />
+            <text x="156" y="24" fill="${accentRed}" font-family="monospace" font-size="9" font-weight="700">SERVER GTM</text>
+            <text x="156" y="46" fill="${textPrimary}" font-family="sans-serif" font-size="12" font-weight="700">sGTM Proxy</text>
+            <text x="156" y="66" fill="${accentEmerald}" font-family="monospace" font-size="10">1st-Party Domain</text>
+
+            <rect x="284" y="0" width="125" height="90" rx="10" fill="${isCream ? '#F7F5F0' : '#141413'}" stroke="${cardBorder}" />
+            <text x="298" y="24" fill="${textMuted}" font-family="monospace" font-size="9" font-weight="700">GA4 + CAPI</text>
+            <text x="298" y="46" fill="${textPrimary}" font-family="sans-serif" font-size="12" font-weight="700">Dual Dispatch</text>
+            <text x="298" y="66" fill="${accentEmerald}" font-family="monospace" font-size="10">100% Attributed</text>
+          </g>
+        </g>
+
+        <!-- Health Telemetry -->
+        <g transform="translate(30, 220)">
+          <rect x="0" y="0" width="410" height="135" rx="12" fill="${isCream ? '#F7F5F0' : '#141413'}" stroke="${cardBorder}" />
+          <text x="20" y="28" fill="${textPrimary}" font-family="sans-serif" font-size="12" font-weight="700">Data Quality &amp; Cookie Loss Mitigation</text>
+          
+          <g transform="translate(20, 48)">
+            <text x="0" y="0" fill="${textMuted}" font-family="monospace" font-size="10">DataLayer E-Commerce Match Quality</text>
+            <text x="370" y="0" fill="${accentEmerald}" font-family="monospace" font-size="10" font-weight="700" text-anchor="end">9.8 / 10</text>
+            <rect x="0" y="8" width="370" height="6" rx="3" fill="${isCream ? '#E5E0D6' : '#2A2927'}" />
+            <rect x="0" y="8" width="362" height="6" rx="3" fill="${accentEmerald}" />
+
+            <text x="0" y="36" fill="${textMuted}" font-family="monospace" font-size="10">Server Deduplication &amp; Hashed User ID</text>
+            <text x="370" y="36" fill="${accentRed}" font-family="monospace" font-size="10" font-weight="700" text-anchor="end">100% Verified</text>
+            <rect x="0" y="44" width="370" height="6" rx="3" fill="${isCream ? '#E5E0D6' : '#2A2927'}" />
+            <rect x="0" y="44" width="370" height="6" rx="3" fill="${accentRed}" />
+          </g>
+        </g>
+
+        <g transform="translate(30, 395)">
+          <text x="0" y="18" fill="${textMuted}" font-family="monospace" font-size="10">Google Measurement Protocol &amp; Meta CAPI v21.0 Certified</text>
+        </g>
+      </g>
+    `;
+  } else if (archetype === 'compliance') {
+    // Google Ads Policy & Verification Shield
+    graphicSvg = `
+      <g transform="translate(680, 110)">
+        <rect width="470" height="455" rx="20" fill="${cardBg}" stroke="${cardBorder}" stroke-width="1.5" />
+        <rect x="0" y="0" width="470" height="48" rx="20" fill="${isCream ? '#EFEBE4' : '#232220'}" />
+        <circle cx="28" cy="24" r="5" fill="${accentRed}" />
+        <circle cx="44" cy="24" r="5" fill="#EAB308" />
+        <circle cx="60" cy="24" r="5" fill="${accentEmerald}" />
+        <text x="80" y="29" fill="${textMuted}" font-family="monospace" font-size="11" font-weight="700" letter-spacing="1">ADVERTISER VERIFICATION &amp; POLICY SHIELD</text>
+        
+        <!-- Checklist Cards -->
+        <g transform="translate(30, 75)">
+          <text x="0" y="0" fill="${textPrimary}" font-family="sans-serif" font-size="12" font-weight="700">Verification Protocol &amp; Safe Harbor Architecture</text>
+          
+          <g transform="translate(0, 18)">
+            <rect x="0" y="0" width="125" height="90" rx="10" fill="${isCream ? '#F7F5F0' : '#141413'}" stroke="${cardBorder}" />
+            <text x="14" y="24" fill="${textMuted}" font-family="monospace" font-size="9" font-weight="700">IDENTITY</text>
+            <text x="14" y="46" fill="${textPrimary}" font-family="sans-serif" font-size="12" font-weight="700">DUNS Match</text>
+            <text x="14" y="66" fill="${accentEmerald}" font-family="monospace" font-size="10">100% Passed</text>
+
+            <rect x="142" y="0" width="125" height="90" rx="10" fill="${isCream ? '#F7F5F0' : '#141413'}" stroke="${accentRed}" stroke-width="1.5" />
+            <text x="156" y="24" fill="${accentRed}" font-family="monospace" font-size="9" font-weight="700">BUSINESS OPS</text>
+            <text x="156" y="46" fill="${textPrimary}" font-family="sans-serif" font-size="12" font-weight="700">Supply Audit</text>
+            <text x="156" y="66" fill="${accentEmerald}" font-family="monospace" font-size="10">Verified Safe</text>
+
+            <rect x="284" y="0" width="125" height="90" rx="10" fill="${isCream ? '#F7F5F0' : '#141413'}" stroke="${cardBorder}" />
+            <text x="298" y="24" fill="${textMuted}" font-family="monospace" font-size="9" font-weight="700">BILLING SAFE</text>
+            <text x="298" y="46" fill="${textPrimary}" font-family="sans-serif" font-size="12" font-weight="700">3DS Verified</text>
+            <text x="298" y="66" fill="${accentEmerald}" font-family="monospace" font-size="10">0 Flags</text>
+          </g>
+        </g>
+
+        <!-- Compliance Safeguards -->
+        <g transform="translate(30, 220)">
+          <rect x="0" y="0" width="410" height="135" rx="12" fill="${isCream ? '#F7F5F0' : '#141413'}" stroke="${cardBorder}" />
+          <text x="20" y="28" fill="${textPrimary}" font-family="sans-serif" font-size="12" font-weight="700">Account Health &amp; Disruption Prevention</text>
+          
+          <g transform="translate(20, 48)">
+            <text x="0" y="0" fill="${textMuted}" font-family="monospace" font-size="10">Policy Health Score</text>
+            <text x="370" y="0" fill="${accentEmerald}" font-family="monospace" font-size="10" font-weight="700" text-anchor="end">100% Unrestricted</text>
+            <rect x="0" y="8" width="370" height="6" rx="3" fill="${isCream ? '#E5E0D6' : '#2A2927'}" />
+            <rect x="0" y="8" width="370" height="6" rx="3" fill="${accentEmerald}" />
+
+            <text x="0" y="36" fill="${textMuted}" font-family="monospace" font-size="10">Appeals Resolution SLA &amp; Recovery Time</text>
+            <text x="370" y="36" fill="${accentRed}" font-family="monospace" font-size="10" font-weight="700" text-anchor="end">&lt;12 Hours SLA</text>
+            <rect x="0" y="44" width="370" height="6" rx="3" fill="${isCream ? '#E5E0D6' : '#2A2927'}" />
+            <rect x="0" y="44" width="350" height="6" rx="3" fill="${accentRed}" />
+          </g>
+        </g>
+
+        <g transform="translate(30, 395)">
+          <text x="0" y="18" fill="${textMuted}" font-family="monospace" font-size="10">Google Ads Policy Framework · Zero Disruption Guaranteed</text>
+        </g>
+      </g>
+    `;
+  } else if (archetype === 'app') {
+    // App User Acquisition, CPI & Video Ads
+    graphicSvg = `
+      <g transform="translate(680, 110)">
+        <rect width="470" height="455" rx="20" fill="${cardBg}" stroke="${cardBorder}" stroke-width="1.5" />
+        <rect x="0" y="0" width="470" height="48" rx="20" fill="${isCream ? '#EFEBE4' : '#232220'}" />
+        <circle cx="28" cy="24" r="5" fill="${accentRed}" />
+        <circle cx="44" cy="24" r="5" fill="#EAB308" />
+        <circle cx="60" cy="24" r="5" fill="${accentEmerald}" />
+        <text x="80" y="29" fill="${textMuted}" font-family="monospace" font-size="11" font-weight="700" letter-spacing="1">APP USER ACQUISITION &amp; CPI TELEMETRY</text>
+        
+        <g transform="translate(30, 75)">
+          <text x="0" y="0" fill="${textPrimary}" font-family="sans-serif" font-size="12" font-weight="700">Multi-Channel Ingestion &amp; Install Velocity</text>
+          
+          <g transform="translate(0, 18)">
+            <rect x="0" y="0" width="125" height="90" rx="10" fill="${isCream ? '#F7F5F0' : '#141413'}" stroke="${cardBorder}" />
+            <text x="14" y="24" fill="${textMuted}" font-family="monospace" font-size="9" font-weight="700">GOOGLE UAC</text>
+            <text x="14" y="46" fill="${textPrimary}" font-family="sans-serif" font-size="12" font-weight="700">Cost/Install</text>
+            <text x="14" y="66" fill="${accentEmerald}" font-family="monospace" font-size="10" font-weight="700">₹18.40 CPI</text>
+
+            <rect x="142" y="0" width="125" height="90" rx="10" fill="${isCream ? '#F7F5F0' : '#141413'}" stroke="${accentRed}" stroke-width="1.5" />
+            <text x="156" y="24" fill="${accentRed}" font-family="monospace" font-size="9" font-weight="700">JIOHOTSTAR OTT</text>
+            <text x="156" y="46" fill="${textPrimary}" font-family="sans-serif" font-size="12" font-weight="700">Video VTR</text>
+            <text x="156" y="66" fill="${accentEmerald}" font-family="monospace" font-size="10" font-weight="700">84.2% VTR</text>
+
+            <rect x="284" y="0" width="125" height="90" rx="10" fill="${isCream ? '#F7F5F0' : '#141413'}" stroke="${cardBorder}" />
+            <text x="298" y="24" fill="${textMuted}" font-family="monospace" font-size="9" font-weight="700">SKAN 4.0</text>
+            <text x="298" y="46" fill="${textPrimary}" font-family="sans-serif" font-size="12" font-weight="700">Attribution</text>
+            <text x="298" y="66" fill="${accentEmerald}" font-family="monospace" font-size="10">99.2% Signal</text>
+          </g>
+        </g>
+
+        <g transform="translate(30, 220)">
+          <rect x="0" y="0" width="410" height="135" rx="12" fill="${isCream ? '#F7F5F0' : '#141413'}" stroke="${cardBorder}" />
+          <text x="20" y="28" fill="${textPrimary}" font-family="sans-serif" font-size="12" font-weight="700">Cohort Retention &amp; Post-Install ROAS</text>
+          
+          <g transform="translate(20, 48)">
+            <text x="0" y="0" fill="${textMuted}" font-family="monospace" font-size="10">Day-7 In-App Purchase Conversion Lift</text>
+            <text x="370" y="0" fill="${accentEmerald}" font-family="monospace" font-size="10" font-weight="700" text-anchor="end">+34.8% vs Baseline</text>
+            <rect x="0" y="8" width="370" height="6" rx="3" fill="${isCream ? '#E5E0D6' : '#2A2927'}" />
+            <rect x="0" y="8" width="335" height="6" rx="3" fill="${accentEmerald}" />
+
+            <text x="0" y="36" fill="${textMuted}" font-family="monospace" font-size="10">Blended First-Purchase Cost (CAC Compression)</text>
+            <text x="370" y="36" fill="${accentRed}" font-family="monospace" font-size="10" font-weight="700" text-anchor="end">₹142 Target</text>
+            <rect x="0" y="44" width="370" height="6" rx="3" fill="${isCream ? '#E5E0D6' : '#2A2927'}" />
+            <rect x="0" y="44" width="355" height="6" rx="3" fill="${accentRed}" />
+          </g>
+        </g>
+
+        <g transform="translate(30, 395)">
+          <text x="0" y="18" fill="${textMuted}" font-family="monospace" font-size="10">Play Console &amp; App Store Connect · MMP Server Integration</text>
+        </g>
+      </g>
+    `;
+  } else if (archetype === 'realestate') {
+    // Real Estate Demand Gen & High-Net-Worth Lead Funnel
+    graphicSvg = `
+      <g transform="translate(680, 110)">
+        <rect width="470" height="455" rx="20" fill="${cardBg}" stroke="${cardBorder}" stroke-width="1.5" />
+        <rect x="0" y="0" width="470" height="48" rx="20" fill="${isCream ? '#EFEBE4' : '#232220'}" />
+        <circle cx="28" cy="24" r="5" fill="${accentRed}" />
+        <circle cx="44" cy="24" r="5" fill="#EAB308" />
+        <circle cx="60" cy="24" r="5" fill="${accentEmerald}" />
+        <text x="80" y="29" fill="${textMuted}" font-family="monospace" font-size="11" font-weight="700" letter-spacing="1">HNW REAL ESTATE DEMAND ARCHITECTURE</text>
+        
+        <g transform="translate(30, 75)">
+          <text x="0" y="0" fill="${textPrimary}" font-family="sans-serif" font-size="12" font-weight="700">Demand Gen vs Search Qualified Leads</text>
+          
+          <g transform="translate(0, 18)">
+            <rect x="0" y="0" width="125" height="90" rx="10" fill="${isCream ? '#F7F5F0' : '#141413'}" stroke="${cardBorder}" />
+            <text x="14" y="24" fill="${textMuted}" font-family="monospace" font-size="9" font-weight="700">DEMAND GEN</text>
+            <text x="14" y="46" fill="${textPrimary}" font-family="sans-serif" font-size="12" font-weight="700">Micro Video</text>
+            <text x="14" y="66" fill="${accentEmerald}" font-family="monospace" font-size="10">High Visual</text>
+
+            <rect x="142" y="0" width="125" height="90" rx="10" fill="${isCream ? '#F7F5F0' : '#141413'}" stroke="${accentRed}" stroke-width="1.5" />
+            <text x="156" y="24" fill="${accentRed}" font-family="monospace" font-size="9" font-weight="700">SITE VISIT CPL</text>
+            <text x="156" y="46" fill="${textPrimary}" font-family="sans-serif" font-size="12" font-weight="700">₹1,850 CPL</text>
+            <text x="156" y="66" fill="${accentEmerald}" font-family="monospace" font-size="10" font-weight="700">-46% vs Portal</text>
+
+            <rect x="284" y="0" width="125" height="90" rx="10" fill="${isCream ? '#F7F5F0' : '#141413'}" stroke="${cardBorder}" />
+            <text x="298" y="24" fill="${textMuted}" font-family="monospace" font-size="9" font-weight="700">HNW INTENT</text>
+            <text x="298" y="46" fill="${textPrimary}" font-family="sans-serif" font-size="12" font-weight="700">Top 5% Pincodes</text>
+            <text x="298" y="66" fill="${accentEmerald}" font-family="monospace" font-size="10">Filtered</text>
+          </g>
+        </g>
+
+        <g transform="translate(30, 220)">
+          <rect x="0" y="0" width="410" height="135" rx="12" fill="${isCream ? '#F7F5F0' : '#141413'}" stroke="${cardBorder}" />
+          <text x="20" y="28" fill="${textPrimary}" font-family="sans-serif" font-size="12" font-weight="700">Lead Verification &amp; Show-Up Rate</text>
+          
+          <g transform="translate(20, 48)">
+            <text x="0" y="0" fill="${textMuted}" font-family="monospace" font-size="10">Two-Step OTP Phone Verification Quality</text>
+            <text x="370" y="0" fill="${accentEmerald}" font-family="monospace" font-size="10" font-weight="700" text-anchor="end">96.2% Genuine</text>
+            <rect x="0" y="8" width="370" height="6" rx="3" fill="${isCream ? '#E5E0D6' : '#2A2927'}" />
+            <rect x="0" y="8" width="355" height="6" rx="3" fill="${accentEmerald}" />
+
+            <text x="0" y="36" fill="${textMuted}" font-family="monospace" font-size="10">On-Site Experience Center Show-Up Ratio</text>
+            <text x="370" y="36" fill="${accentRed}" font-family="monospace" font-size="10" font-weight="700" text-anchor="end">78.4% Verified</text>
+            <rect x="0" y="44" width="370" height="6" rx="3" fill="${isCream ? '#E5E0D6' : '#2A2927'}" />
+            <rect x="0" y="44" width="310" height="6" rx="3" fill="${accentRed}" />
+          </g>
+        </g>
+
+        <g transform="translate(30, 395)">
+          <text x="0" y="18" fill="${textMuted}" font-family="monospace" font-size="10">Google Demand Gen + Meta Ads Luxury Real Estate Architecture</text>
+        </g>
+      </g>
+    `;
+  } else if (archetype === 'search-ai') {
+    // Search Ads in 2026 & AI Semantic Vector Retrieval
+    graphicSvg = `
+      <g transform="translate(680, 110)">
+        <rect width="470" height="455" rx="20" fill="${cardBg}" stroke="${cardBorder}" stroke-width="1.5" />
+        <rect x="0" y="0" width="470" height="48" rx="20" fill="${isCream ? '#EFEBE4' : '#232220'}" />
+        <circle cx="28" cy="24" r="5" fill="${accentRed}" />
+        <circle cx="44" cy="24" r="5" fill="#EAB308" />
+        <circle cx="60" cy="24" r="5" fill="${accentEmerald}" />
+        <text x="80" y="29" fill="${textMuted}" font-family="monospace" font-size="11" font-weight="700" letter-spacing="1">AI SEARCH &amp; VECTOR INTENT ARCHITECTURE</text>
+        
+        <g transform="translate(30, 75)">
+          <text x="0" y="0" fill="${textPrimary}" font-family="sans-serif" font-size="12" font-weight="700">Semantic Embedding &amp; Intent Cluster Pipeline</text>
+          
+          <g transform="translate(0, 18)">
+            <rect x="0" y="0" width="125" height="90" rx="10" fill="${isCream ? '#F7F5F0' : '#141413'}" stroke="${cardBorder}" />
+            <text x="14" y="24" fill="${textMuted}" font-family="monospace" font-size="9" font-weight="700">VECTOR EMBED</text>
+            <text x="14" y="46" fill="${textPrimary}" font-family="sans-serif" font-size="12" font-weight="700">Cosine Dist</text>
+            <text x="14" y="66" fill="${accentEmerald}" font-family="monospace" font-size="10" font-weight="700">&gt;0.92 Match</text>
+
+            <rect x="142" y="0" width="125" height="90" rx="10" fill="${isCream ? '#F7F5F0' : '#141413'}" stroke="${accentRed}" stroke-width="1.5" />
+            <text x="156" y="24" fill="${accentRed}" font-family="monospace" font-size="9" font-weight="700">AI OVERVIEW</text>
+            <text x="156" y="46" fill="${textPrimary}" font-family="sans-serif" font-size="12" font-weight="700">Top Citation</text>
+            <text x="156" y="66" fill="${accentEmerald}" font-family="monospace" font-size="10" font-weight="700">#1 Source</text>
+
+            <rect x="284" y="0" width="125" height="90" rx="10" fill="${isCream ? '#F7F5F0' : '#141413'}" stroke="${cardBorder}" />
+            <text x="298" y="24" fill="${textMuted}" font-family="monospace" font-size="9" font-weight="700">SMART BIDDING</text>
+            <text x="298" y="46" fill="${textPrimary}" font-family="sans-serif" font-size="12" font-weight="700">Real-Time ROAS</text>
+            <text x="298" y="66" fill="${accentEmerald}" font-family="monospace" font-size="10">3.8x Target</text>
+          </g>
+        </g>
+
+        <g transform="translate(30, 220)">
+          <rect x="0" y="0" width="410" height="135" rx="12" fill="${isCream ? '#F7F5F0' : '#141413'}" stroke="${cardBorder}" />
+          <text x="20" y="28" fill="${textPrimary}" font-family="sans-serif" font-size="12" font-weight="700">Intent Precision vs Query Wastage Filter</text>
+          
+          <g transform="translate(20, 48)">
+            <text x="0" y="0" fill="${textMuted}" font-family="monospace" font-size="10">Broad Match Semantic Precision</text>
+            <text x="370" y="0" fill="${accentEmerald}" font-family="monospace" font-size="10" font-weight="700" text-anchor="end">97.4% Relevant</text>
+            <rect x="0" y="8" width="370" height="6" rx="3" fill="${isCream ? '#E5E0D6' : '#2A2927'}" />
+            <rect x="0" y="8" width="360" height="6" rx="3" fill="${accentEmerald}" />
+
+            <text x="0" y="36" fill="${textMuted}" font-family="monospace" font-size="10">Search Query Budget Wastage Blocked</text>
+            <text x="370" y="36" fill="${accentRed}" font-family="monospace" font-size="10" font-weight="700" text-anchor="end">42.6% Saved</text>
+            <rect x="0" y="44" width="370" height="6" rx="3" fill="${isCream ? '#E5E0D6' : '#2A2927'}" />
+            <rect x="0" y="44" width="345" height="6" rx="3" fill="${accentRed}" />
+          </g>
+        </g>
+
+        <g transform="translate(30, 395)">
+          <text x="0" y="18" fill="${textMuted}" font-family="monospace" font-size="10">Google Gemini &amp; Deep Learning Ads Architecture</text>
+        </g>
+      </g>
+    `;
+  } else if (archetype === 'seasonal') {
+    // Seasonal Performance & Festive Courier Surge
+    graphicSvg = `
+      <g transform="translate(680, 110)">
+        <rect width="470" height="455" rx="20" fill="${cardBg}" stroke="${cardBorder}" stroke-width="1.5" />
+        <rect x="0" y="0" width="470" height="48" rx="20" fill="${isCream ? '#EFEBE4' : '#232220'}" />
+        <circle cx="28" cy="24" r="5" fill="${accentRed}" />
+        <circle cx="44" cy="24" r="5" fill="#EAB308" />
+        <circle cx="60" cy="24" r="5" fill="${accentEmerald}" />
+        <text x="80" y="29" fill="${textMuted}" font-family="monospace" font-size="11" font-weight="700" letter-spacing="1">SEASONAL PEAK SCALE &amp; COURIER SURGE</text>
+        
+        <g transform="translate(30, 75)">
+          <text x="0" y="0" fill="${textPrimary}" font-family="sans-serif" font-size="12" font-weight="700">Festive Flighting &amp; Creative Matrix</text>
+          
+          <g transform="translate(0, 18)">
+            <rect x="0" y="0" width="125" height="90" rx="10" fill="${isCream ? '#F7F5F0' : '#141413'}" stroke="${cardBorder}" />
+            <text x="14" y="24" fill="${textMuted}" font-family="monospace" font-size="9" font-weight="700">PHASE 1 (HOOK)</text>
+            <text x="14" y="46" fill="${textPrimary}" font-family="sans-serif" font-size="12" font-weight="700">Emotional NRI</text>
+            <text x="14" y="66" fill="${accentEmerald}" font-family="monospace" font-size="10">ROAS 4.6x</text>
+
+            <rect x="142" y="0" width="125" height="90" rx="10" fill="${isCream ? '#F7F5F0' : '#141413'}" stroke="${accentRed}" stroke-width="1.5" />
+            <text x="156" y="24" fill="${accentRed}" font-family="monospace" font-size="9" font-weight="700">PHASE 2 (URGENCY)</text>
+            <text x="156" y="46" fill="${textPrimary}" font-family="sans-serif" font-size="12" font-weight="700">Cutoff Flight</text>
+            <text x="156" y="66" fill="${accentEmerald}" font-family="monospace" font-size="10" font-weight="700">ROAS 5.8x</text>
+
+            <rect x="284" y="0" width="125" height="90" rx="10" fill="${isCream ? '#F7F5F0' : '#141413'}" stroke="${cardBorder}" />
+            <text x="298" y="24" fill="${textMuted}" font-family="monospace" font-size="9" font-weight="700">PEAK LIFT</text>
+            <text x="298" y="46" fill="${textPrimary}" font-family="sans-serif" font-size="12" font-weight="700">3.5x Conversions</text>
+            <text x="298" y="66" fill="${accentEmerald}" font-family="monospace" font-size="10">Validated</text>
+          </g>
+        </g>
+
+        <g transform="translate(30, 220)">
+          <rect x="0" y="0" width="410" height="135" rx="12" fill="${isCream ? '#F7F5F0' : '#141413'}" stroke="${cardBorder}" />
+          <text x="20" y="28" fill="${textPrimary}" font-family="sans-serif" font-size="12" font-weight="700">Logistics Transit &amp; Delivery SLA Guarantee</text>
+          
+          <g transform="translate(20, 48)">
+            <text x="0" y="0" fill="${textMuted}" font-family="monospace" font-size="10">Cross-Border 4-Day Express Dispatch Delivery</text>
+            <text x="370" y="0" fill="${accentEmerald}" font-family="monospace" font-size="10" font-weight="700" text-anchor="end">99.4% On-Time</text>
+            <rect x="0" y="8" width="370" height="6" rx="3" fill="${isCream ? '#E5E0D6' : '#2A2927'}" />
+            <rect x="0" y="8" width="368" height="6" rx="3" fill="${accentEmerald}" />
+
+            <text x="0" y="36" fill="${textMuted}" font-family="monospace" font-size="10">Peak Budget Acceleration Velocity</text>
+            <text x="370" y="36" fill="${accentRed}" font-family="monospace" font-size="10" font-weight="700" text-anchor="end">₹12L/week Cap</text>
+            <rect x="0" y="44" width="370" height="6" rx="3" fill="${isCream ? '#E5E0D6' : '#2A2927'}" />
+            <rect x="0" y="44" width="350" height="6" rx="3" fill="${accentRed}" />
+          </g>
+        </g>
+
+        <g transform="translate(30, 395)">
+          <text x="0" y="18" fill="${textMuted}" font-family="monospace" font-size="10">Cross-Border Courier Logistics &amp; Festive Meta Ads Engine</text>
+        </g>
+      </g>
+    `;
   } else {
-    // General Performance & Attribution Telemetry
+    // General Performance & Growth Scaling Architecture
     graphicSvg = `
       <g transform="translate(680, 110)">
         <rect width="470" height="455" rx="20" fill="${cardBg}" stroke="${cardBorder}" stroke-width="1.5" />
@@ -301,7 +630,6 @@ export function generateCoverSvg(params: CoverGeneratorParams): string {
         <circle cx="60" cy="24" r="5" fill="${accentEmerald}" />
         <text x="80" y="29" fill="${textMuted}" font-family="monospace" font-size="11" font-weight="700" letter-spacing="1">GROWTH MATRIX &amp; SCALE METRICS</text>
         
-        <!-- Metric Cards Grid -->
         <g transform="translate(30, 75)">
           <g>
             <rect x="0" y="0" width="195" height="110" rx="12" fill="${isCream ? '#F7F5F0' : '#141413'}" stroke="${cardBorder}" />
@@ -317,7 +645,6 @@ export function generateCoverSvg(params: CoverGeneratorParams): string {
           </g>
         </g>
 
-        <!-- Wave / Trend Curve -->
         <g transform="translate(30, 215)">
           <rect x="0" y="0" width="410" height="150" rx="12" fill="${isCream ? '#F7F5F0' : '#141413'}" stroke="${cardBorder}" />
           <text x="20" y="28" fill="${textPrimary}" font-family="sans-serif" font-size="12" font-weight="700">Predictive Scale &amp; CAC Compression</text>
@@ -329,7 +656,6 @@ export function generateCoverSvg(params: CoverGeneratorParams): string {
           <line x1="20" y1="130" x2="390" y2="130" stroke="${cardBorder}" stroke-width="1" />
         </g>
 
-        <!-- Bottom Tag -->
         <g transform="translate(30, 395)">
           <text x="0" y="18" fill="${textMuted}" font-family="monospace" font-size="10">Empirical Media Planning &amp; Conversion Telemetry</text>
         </g>
@@ -359,8 +685,8 @@ export function generateCoverSvg(params: CoverGeneratorParams): string {
   <rect width="1200" height="675" fill="url(#grid)" />
 
   <!-- Accent Edge Glow -->
-  <circle cx="1100" cy="80" r="320" fill="${accentRed}" opacity="${isCream ? '0.04' : '0.08'}" filter="blur(60px)" />
-  <circle cx="100" cy="600" r="280" fill="${accentEmerald}" opacity="${isCream ? '0.03' : '0.06'}" filter="blur(50px)" />
+  <circle cx="1100" cy="80" r="320" fill="${accentRed}" opacity="${isCream ? '0.04' : '0.08'}" />
+  <circle cx="100" cy="600" r="280" fill="${accentEmerald}" opacity="${isCream ? '0.03' : '0.06'}" />
 
   <!-- LEFT COLUMN: Brand, Category, Title & Author Metadata -->
   <g transform="translate(70, 75)">
@@ -382,14 +708,14 @@ export function generateCoverSvg(params: CoverGeneratorParams): string {
     <!-- Main Editorial Title -->
     <g transform="translate(0, 150)">
       ${titleLines.map((line, idx) => `
-        <text x="0" y="${idx * 46}" fill="${textPrimary}" font-size="36" font-weight="800" letter-spacing="-0.8">
+        <text x="0" y="${idx * 48}" fill="${textPrimary}" font-size="34" font-weight="800" letter-spacing="-0.8">
           ${line}
         </text>
       `).join('')}
     </g>
 
     <!-- Subtitle / Meta Description Gist -->
-    <g transform="translate(0, ${170 + titleLines.length * 46})">
+    <g transform="translate(0, ${165 + titleLines.length * 48})">
       <text x="0" y="0" fill="${textMuted}" font-size="15" font-weight="500" letter-spacing="-0.2">
         Authoritative media planning architecture &amp; empirical conversion benchmarks.
       </text>
@@ -438,7 +764,6 @@ export async function saveCoverImage(params: CoverGeneratorParams): Promise<stri
     return `/covers/${cleanSlug}.svg`;
   } catch (err) {
     console.warn(`Could not save cover image to disk for ${cleanSlug}, returning data URI:`, err);
-    // Safe data URL fallback
     const base64 = Buffer.from(svgContent).toString('base64');
     return `data:image/svg+xml;base64,${base64}`;
   }

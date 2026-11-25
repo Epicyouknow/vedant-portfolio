@@ -111,16 +111,14 @@ export default function BlogLandingClient({
             >
               <div>
                 {/* 16:9 Editorial Cover Thumbnail */}
-                {blog.coverImage && (
-                  <div className="w-full aspect-[16/9] rounded-xl overflow-hidden mb-5 border border-[var(--border-subtle)] bg-[var(--surface-2)] relative">
-                    <img
-                      src={blog.coverImage}
-                      alt={blog.title}
-                      className="w-full h-full object-cover group-hover:scale-103 transition-transform duration-300"
-                      loading="lazy"
-                    />
-                  </div>
-                )}
+                <div className="w-full aspect-[16/9] rounded-xl overflow-hidden mb-5 border border-[var(--border-subtle)] bg-[#121211] relative">
+                  <img
+                    src={blog.coverImage || `/covers/${blog.slug}.svg`}
+                    alt={blog.title}
+                    className="w-full h-full object-cover group-hover:scale-103 transition-transform duration-300"
+                    loading="lazy"
+                  />
+                </div>
 
                 <div className="flex items-center justify-between text-[10px] font-mono font-bold tracking-wider uppercase mb-3">
                   <span className="text-[var(--accent-red)]">{blog.category}</span>

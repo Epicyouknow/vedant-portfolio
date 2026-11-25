@@ -2,9 +2,12 @@ import appUserAcquisition from './app-user-acquisition-cpi-optimization-jiohotst
 import b2bLogistics from './b2b-logistics-cpl-reduction-search-intent.json';
 import creativeTesting from './creative-testing-framework-20.json';
 import d2cShopify from './d2c-shopify-capi-meta-pixel-tracking.json';
+import ga4Tracking from './ga4-gtm-tracking-guide.json';
 import googleVerification from './google-ads-account-suspension-advertiser-verification-guide.json';
 import googlePmax from './google-ads-performance-max-guide.json';
+import metaAttribution from './meta-ads-attribution-2025.json';
 import metaAdvantage from './meta-advantage-plus-explained.json';
+import pmaxEcommerce from './performance-max-ecommerce-strategy.json';
 import realEstateLeads from './real-estate-demand-gen-high-net-worth-buyer-leads.json';
 import searchAds2026 from './search-ads-in-2026.json';
 import seasonalCourier from './seasonal-festive-courier-ad-creative-matrix.json';
@@ -39,16 +42,19 @@ export interface BlogPost {
 }
 
 const STATIC_BLOGS: BlogPost[] = [
-  googlePmax as BlogPost,
+  ga4Tracking as BlogPost,
+  metaAttribution as BlogPost,
+  pmaxEcommerce as BlogPost,
   googleVerification as BlogPost,
   b2bLogistics as BlogPost,
   d2cShopify as BlogPost,
   realEstateLeads as BlogPost,
   appUserAcquisition as BlogPost,
   seasonalCourier as BlogPost,
+  googlePmax as BlogPost,
+  searchAds2026 as BlogPost,
   metaAdvantage as BlogPost,
   creativeTesting as BlogPost,
-  searchAds2026 as BlogPost,
 ];
 
 export { STATIC_BLOGS };

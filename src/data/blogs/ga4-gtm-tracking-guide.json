@@ -1,7 +1,7 @@
 {
   "title": "GA4 + GTM Setup Guide for Performance Marketers",
   "slug": "ga4-gtm-tracking-guide",
-  "coverImage": "",
+  "coverImage": "/covers/ga4-gtm-tracking-guide.svg",
   "seoMeta": {
     "title": "GA4 + GTM Setup Guide for Performance Marketers | VedantVerse",
     "description": "Zero-fluff guide to configuring GA4 and GTM for e-commerce and lead gen tracking. Master DataLayer setup, deduplication, and Consent Mode v2.",

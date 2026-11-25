@@ -173,16 +173,14 @@ export default function ArticleViewClient({ blog, allBlogs }: { blog: BlogPost; 
         </header>
 
         {/* Dedicated 16:9 Editorial Cover Hero Graphic */}
-        {blog.coverImage && (
-          <div className="mb-12 rounded-2xl overflow-hidden border border-[var(--border-subtle)] shadow-sm bg-[var(--surface-2)] aspect-[16/9] relative">
-            <img
-              src={blog.coverImage}
-              alt={blog.title}
-              className="w-full h-full object-cover"
-              loading="eager"
-            />
-          </div>
-        )}
+        <div className="mb-12 rounded-2xl overflow-hidden border border-[var(--border-subtle)] shadow-sm bg-[#121211] aspect-[16/9] relative">
+          <img
+            src={blog.coverImage || `/covers/${blog.slug}.svg`}
+            alt={blog.title}
+            className="w-full h-full object-cover"
+            loading="eager"
+          />
+        </div>
 
         {/* Article Body Content */}
         <article className="mb-20">
