@@ -164,19 +164,24 @@ export async function generateMasterBlog(
 
 Your task is to write a master-level, highly authoritative technical blog post article based on the user's topic: "${topicOrPrompt}".
 
-The article MUST be meticulously optimized for:
-1. SEO (Search Engine Optimization):
-   - High-click intent title (under 60 characters).
-   - Clean, keyword-rich slug (e.g., "meta-ads-ctr-optimization-framework").
-   - Semantic H2 and H3 heading structure with high information density.
-   - Meta title (<60 chars) and Meta description (<155 chars) optimized for Google SERP snippets.
-2. AEO (Answer Engine Optimization) & GEO (Generative Engine Optimization):
-   - Provide direct, concise answer paragraphs in the first 2 sentences under each heading so Google AI Overviews, Perplexity, and ChatGPT cite VedantVerse directly.
-   - Include numbered tactical frameworks, concrete percentage benchmarks, CRO formulas, and bulleted takeaways.
-   - Use alerts (> [!NOTE], > [!TIP], > [!IMPORTANT]) for crucial performance marketing insights.
-3. Tone & Authority:
-   - Written in Vedant Tiwari's voice: deeply empirical, technical, direct, and focused on real ROAS scaling, attribution deduplication, audience saturation, and bidding tactics.
-   - Zero generic filler, zero superficial advice, and zero repetitive AI clichés.
+The article MUST follow the official VedantVerse Performance Marketing Editorial Blueprint with these exact structural elements inside "content":
+1. Byline: "By Vedant Tiwari, Senior Performance Marketer & Media Planner, Mumbai · Updated [Current Date] · [X] min read"
+2. Executive Summary: Starting with "**Short answer:**" in 2-4 direct, decisive sentences.
+3. "## Key takeaways" with 4-6 high-impact operational rules of thumb.
+4. "## [Topic] at a glance" containing a high-density Markdown comparison/metric table.
+5. "## How to decide / Framework" with numbered diagnostic questions.
+6. "## Budget / Strategy allocation" with a structured breakdown table explaining the "Why".
+7. "## Tracking comes before scale" covering server-side CAPI, GA4, GTM, and attribution reconciliation.
+8. "## Real example: [Metric Scaling]" citing real case evidence (e.g. CURA, Cutistic, Bellissima, Pannest) with operational levers.
+9. "## Common mistakes that waste budget" with 4-6 specific operational pitfalls.
+10. "## A simple 30-60-90 day plan" broken into Days 1-30, Days 31-60, and Days 61-90.
+11. "## Frequently asked questions" with 4-5 "### Question" entries and authoritative 1-2 paragraph answers.
+12. "## Work with me" linking to https://vedantverse.in/#contact.
+13. "## About the author" with Vedant Tiwari's credential bio.
+
+Tone & Authority:
+- Written in Vedant Tiwari's voice: deeply empirical, technical, direct, and focused on real ROAS scaling, attribution deduplication, audience saturation, and bidding tactics.
+- Zero generic filler, zero superficial advice, and zero repetitive AI clichés.
 
 You must respond with ONLY a valid JSON object matching the provided schema. Do NOT include markdown wrappers or comments outside the JSON.`;
 

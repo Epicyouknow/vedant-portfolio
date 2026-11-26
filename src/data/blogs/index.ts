@@ -6,6 +6,7 @@ import d2cShopify from './d2c-shopify-capi-meta-pixel-tracking.json';
 import ga4Tracking from './ga4-gtm-tracking-guide.json';
 import googleVerification from './google-ads-account-suspension-advertiser-verification-guide.json';
 import googlePmax from './google-ads-performance-max-guide.json';
+import metaAdsVsGoogleAds from './meta-ads-vs-google-ads-d2c-india.json';
 import metaAttribution from './meta-ads-attribution-2025.json';
 import metaAdvantage from './meta-advantage-plus-explained.json';
 import pmaxEcommerce from './performance-max-ecommerce-strategy.json';
@@ -45,6 +46,7 @@ export interface BlogPost {
 }
 
 const STATIC_BLOGS: BlogPost[] = [
+  metaAdsVsGoogleAds as BlogPost,
   curaScaling as BlogPost,
   travelTechMarketing as BlogPost,
   scaleLeadsFramework as BlogPost,
