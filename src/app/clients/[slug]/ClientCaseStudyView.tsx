@@ -588,6 +588,11 @@ export default function ClientCaseStudyView({ study, otherStudies }: ClientCaseS
                             playsInline
                             autoPlay
                             loop
+                            preload="metadata"
+                            onLoadedMetadata={(e) => {
+                              e.currentTarget.muted = true;
+                              e.currentTarget.play().catch(() => {});
+                            }}
                           />
                           <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
                             <div className="w-11 h-11 rounded-full bg-black/60 backdrop-blur-md border border-white/20 flex items-center justify-center text-white shadow-lg group-hover:scale-110 group-hover:bg-[var(--accent-red)] transition-all">
@@ -939,9 +944,12 @@ export default function ClientCaseStudyView({ study, otherStudies }: ClientCaseS
               >
                 {study.snapshots[lightboxIndex].image.toLowerCase().endsWith('.mp4') ? (
                   <video 
+                    key={study.snapshots[lightboxIndex].image}
                     src={getSafeMediaUrl(study.snapshots[lightboxIndex].image)} 
                     controls 
                     autoPlay 
+                    playsInline
+                    preload="auto"
                     className="max-w-full max-h-[72vh] object-contain rounded-2xl mx-auto" 
                   />
                 ) : (
