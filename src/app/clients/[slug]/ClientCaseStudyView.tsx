@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ClientCaseStudy, calculatePercentageChange } from '../../../types/caseStudy';
@@ -39,6 +39,80 @@ import ContactAndFooter from '../../../components/ContactAndFooter';
 function getSafeMediaUrl(url: string) {
   if (!url) return '';
   return url.includes('%20') ? url : encodeURI(url);
+}
+
+function SnapshotVideoPreview({ src, className }: { src: string; className?: string }) {
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+    video.muted = true;
+    video.defaultMuted = true;
+    const play = () => {
+      video.play().catch(() => {});
+    };
+    play();
+    video.addEventListener('loadeddata', play);
+    return () => {
+      video.removeEventListener('loadeddata', play);
+    };
+  }, [src]);
+
+  return (
+    <video
+      ref={videoRef}
+      src={src}
+      className={className}
+      muted
+      playsInline
+      autoPlay
+      loop
+      preload="auto"
+      onLoadedMetadata={(e) => {
+        e.currentTarget.muted = true;
+        e.currentTarget.play().catch(() => {});
+      }}
+    />
+  );
+}
+
+function SnapshotVideoLightbox({ src }: { src: string }) {
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    // Unmute with sound on large view when user opens creative
+    video.muted = false;
+    video.defaultMuted = false;
+    video.volume = 1;
+    video.currentTime = 0;
+
+    const playPromise = video.play();
+    if (playPromise !== undefined) {
+      playPromise.catch(() => {
+        // Fallback: If browser autoplay policy strictly blocks unmuted audio without a second tap,
+        // fall back to muted so video is never frozen, allowing user to unmute via native controls.
+        video.muted = true;
+        video.play().catch(() => {});
+      });
+    }
+  }, [src]);
+
+  return (
+    <video
+      ref={videoRef}
+      key={src}
+      src={src}
+      controls
+      autoPlay
+      playsInline
+      preload="auto"
+      className="max-w-full max-h-[72vh] object-contain rounded-2xl mx-auto shadow-2xl"
+    />
+  );
 }
 
 interface ClientCaseStudyViewProps {
@@ -581,18 +655,9 @@ export default function ClientCaseStudyView({ study, otherStudies }: ClientCaseS
                     <div className="relative aspect-video bg-black overflow-hidden border-b border-[var(--border-subtle)]">
                       {snap.image.toLowerCase().endsWith('.mp4') ? (
                         <>
-                          <video 
+                          <SnapshotVideoPreview 
                             src={getSafeMediaUrl(snap.image)} 
                             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                            muted
-                            playsInline
-                            autoPlay
-                            loop
-                            preload="metadata"
-                            onLoadedMetadata={(e) => {
-                              e.currentTarget.muted = true;
-                              e.currentTarget.play().catch(() => {});
-                            }}
                           />
                           <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
                             <div className="w-11 h-11 rounded-full bg-black/60 backdrop-blur-md border border-white/20 flex items-center justify-center text-white shadow-lg group-hover:scale-110 group-hover:bg-[var(--accent-red)] transition-all">
@@ -943,14 +1008,8 @@ export default function ClientCaseStudyView({ study, otherStudies }: ClientCaseS
                 }}
               >
                 {study.snapshots[lightboxIndex].image.toLowerCase().endsWith('.mp4') ? (
-                  <video 
-                    key={study.snapshots[lightboxIndex].image}
+                  <SnapshotVideoLightbox 
                     src={getSafeMediaUrl(study.snapshots[lightboxIndex].image)} 
-                    controls 
-                    autoPlay 
-                    playsInline
-                    preload="auto"
-                    className="max-w-full max-h-[72vh] object-contain rounded-2xl mx-auto" 
                   />
                 ) : (
                   <img 
